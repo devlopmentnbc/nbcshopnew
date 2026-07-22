@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'Unimart - eCommerce Bootstrap5 Template')</title>
+    <title>@yield('title', "Nature's Beauty Creations")</title>
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Unimart is a modern eCommerce Bootstrap 5 template built for high conversion and SEO. Try it today!">
+    <meta name="description" content="Shop authentic herbal beauty and personal care products from Nature's Beauty Creations.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nbc.css') }}?v={{ filemtime(public_path('assets/css/nbc.css')) }}">
 </head>
 
 
@@ -53,24 +54,21 @@
                                 <div class="swiper-wrapper w-100">
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                            <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                            <p class="rbt-fancy-text rbt-text-color-white">Authentic NBC products delivered islandwide.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                            <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                            <p class="rbt-fancy-text rbt-text-color-white">Herbal beauty inspired by nature since 1984.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                            <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                            <p class="rbt-fancy-text rbt-text-color-white">Discover special online offers from NBC.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -112,7 +110,7 @@
                         <div class="header-info">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations">
                                 </a>
                             </div>
                         </div>
@@ -1794,7 +1792,7 @@
         </div>
     </div>
 </div>
-      
+
     <!-- Start Search Dropdown  -->
 <div class="rbt-search-dropdown rbt-search-dropdown-activation">
     <div class="wrapper">
@@ -2311,7 +2309,7 @@
                     <div class="header-info d-xl-block d-none">
                         <div class="logo rbt-logo-height-sm">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
                             </a>
                         </div>
                     </div>
@@ -2330,7 +2328,7 @@
             <div class="header-info d-xl-none d-block">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
                     </a>
                 </div>
             </div>
@@ -4178,6 +4176,8 @@
 
 @yield('content')
 
+<x-nbc-footer />
+
 <footer class="rbt-footer rbt-footer-style-seven rbt-bg-color-white position-relative overflow-hidden pb--112 pb_sm--44">
     <div class="rbt-footer-top pt--48">
         <div class="container">
@@ -4366,6 +4366,7 @@
                         </ul>
                     </div>
                 </div>
+<!-- Shipping System
                 <div class="col-xxl-4 col-lg-4 col-md-6 col-12 mt--24">
                     <div class="footer-widget d-flex flex-column align-items-start rbt-gap--8 justify-content-lg-end">
                         <h3 class="ft-title mb--0">Shipping System:</h3>
@@ -4378,6 +4379,7 @@
                         </ul>
                     </div>
                 </div>
+            -->
                 <div class="col-xxl-4 col-lg-4 col-md-6 col-12 mt--24">
                     <div class="footer-widget d-flex flex-column align-items-start rbt-gap--8 justify-content-lg-end">
                         <h3 class="ft-title mb--0">Payment System:</h3>
@@ -4421,15 +4423,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Start WaterMark -->
-            <div class="row mt--12">
-                <div class="col-12">
-                    <div class="rbt-watermark-text rbt-watermark-color-var-1">
-                        <span>Follow@Unimart</span>
-                    </div>
-                </div>
-            </div>
-            <!-- End WaterMark -->
         </div>
     </div>
     <!-- End Copyright Area  -->
@@ -4460,7 +4453,7 @@
                         <div class="rbt-login-form-top">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
                                 </a>
                             </div>
                             <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signinModalLabel">Sign In To Proceed</h3>
@@ -4670,7 +4663,7 @@
                         <div class="rbt-login-form-top">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
                                 </a>
                             </div>
                             <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signupModalLabel">Create an Account</h3>
