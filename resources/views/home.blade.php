@@ -3242,6 +3242,8 @@
                                         <ul class="rbt-product-nav-grp">
                                             <li><a href="#" class="rbt-product-nav active">Best Sellers</a></li>
                                             <li><a href="#" class="rbt-product-nav">New Arrivals</a></li>
+                                        </ul>
+                                        <ul class="rbt-product-nav-grp">
                                             <li><a href="{{ route('shop') }}" class="rbt-product-nav">View All</a></li>
                                         </ul>
                                         <span class="rbt-bg-highlight"></span>
@@ -3866,8 +3868,8 @@
     <!-- End Component Area -->
 
     <!-- Start Component Area -->
-    <div class="rbt-component-area rbt-counterdown-area rbt-bg-color-white rbt-section-gapTop">
-        <div class="container">
+    <div class="rbt-component-area rbt-counterdown-area rbt-bg-color-white rbt-section-gapTop nbc-promotion-section">
+        <div class="rbt-fullwidth-wrapper">
 
             <div
                 class="rbt-counterdown-section rbt-counterdown-section-style-two rbt-scroll-trigger zoom_in animation-order-1 rbt-bg-color-gray-100">
