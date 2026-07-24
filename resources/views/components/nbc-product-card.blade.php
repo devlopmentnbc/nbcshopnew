@@ -44,10 +44,6 @@
                     <i class="fa-regular fa-cart-shopping"></i> Add To Cart
                 </a>
                 <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                    <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare"
-                        data-tooltip-position="top" type="button" aria-label="Compare {{ $product['name'] }}">
-                        <i class="fa-regular fa-scale-balanced"></i>
-                    </button>
                     <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View"
                         data-tooltip-position="top" type="button" data-bs-toggle="modal"
                         data-bs-target="#quickviewModal" aria-label="Quick view {{ $product['name'] }}">
