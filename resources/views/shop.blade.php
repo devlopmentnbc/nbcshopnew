@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Shop - eCommerce Bootstrap5 Template')
+@section('title', "Shop | Nature's Beauty Creations")
+
+@push('page-styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/shop-page.css') }}">
+@endpush
 
 @section('content')
 </div>
@@ -14,14 +18,14 @@
                 <div class="content">
                     <div class="logo">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Unimart Logo Images">
+                            <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations">
                         </a>
                     </div>
                     <div class="rbt-btn-close">
                         <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
-                <p class="description">Unimart is a E-commerce Template. Worldwide electronics store since 1978.</p>
+                <p class="description">Discover authentic NBC skincare, haircare, body care and personal care products.</p>
                 <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
                     <input type="text" placeholder="Search for products">
                     <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -970,7 +974,7 @@
                         <div class="rbt-categories-sidebar-top-content mb--24">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Unimart Logo">
+                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations">
                                 </a>
                             </div>
                             <button class="rbt-sidebar-close-btn">
@@ -3197,6 +3201,7 @@
 </div>
 
 
+    {{--
     <!-- Start Component Area -->
     <div class="rbt-component-area rbt-page-banner-content">
         <div class="container">
@@ -3357,6 +3362,7 @@
         </div>
     </div>
     <!-- End Component Area -->
+    --}}
 
     <div class="rbt-component-area ptb--32 ptb_sm--12 ptb_md--20">
         <div class="container">
@@ -3387,37 +3393,42 @@
             <!-- Start Widget Area  -->
             <div class="rbt-single-widget rbt-widget-categories">
                 <div class="rbt-single-widget-inner">
-                    <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
-                        <a data-bs-toggle="collapse" href="#rbt-collapse-3" role="button" aria-expanded="false" aria-controls="rbt-collapse-3">
-                            Categories
-                            <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
-                        </a>
-                    </h2>
-                    <div class="collapse show" id="rbt-collapse-3">
-                        <ul class="rbt-sidebar-list-wrapper rbt-categories-list-check">
-                            <li class="rbt-check-group">
-                                <input id="cat-list-1" type="checkbox" name="cat-list-1">
-                                <label for="cat-list-1">Accessories <span class="rbt-lable count">(96)</span></label>
+                    <div class="shop-filter-card">
+                        <div class="shop-filter-card-head">
+                            <div>
+                                <p class="shop-filter-eyebrow mb--4">REFINE YOUR SEARCH</p>
+                                <h3 class="shop-filter-title mb--0">Categories</h3>
+                            </div>
+                            <button class="shop-filter-reset" type="button">Reset</button>
+                        </div>
+                        <ul class="shop-filter-category-list">
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">All products</span>
+                                <button class="shop-filter-plus" type="button" aria-label="All products">+</button>
                             </li>
-                            <li class="rbt-check-group">
-                                <input id="cat-list-2" type="checkbox" name="cat-list-2">
-                                <label for="cat-list-2">Best seller <span class="rbt-lable count">(12)</span></label>
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">Baby Care</span>
+                                <button class="shop-filter-plus" type="button" aria-label="Baby Care">+</button>
                             </li>
-                            <li class="rbt-check-group">
-                                <input id="cat-list-3" type="checkbox" name="cat-list-3">
-                                <label for="cat-list-3">Computers & Tablets <span class="rbt-lable count">(67)</span></label>
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">Bath & Body</span>
+                                <button class="shop-filter-plus" type="button" aria-label="Bath & Body">+</button>
                             </li>
-                            <li class="rbt-check-group">
-                                <input id="cat-list-4" type="checkbox" name="cat-list-4">
-                                <label for="cat-list-4">Home Audio & Theatre<span class="rbt-lable count">(30)</span></label>
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">Bundles</span>
+                                <button class="shop-filter-plus" type="button" aria-label="Bundles">+</button>
                             </li>
-                            <li class="rbt-check-group">
-                                <input id="cat-list-5" type="checkbox" name="cat-list-5">
-                                <label for="cat-list-5">Home Theatre Accessories <span class="rbt-lable count">(89)</span></label>
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">Fragrances</span>
+                                <button class="shop-filter-plus" type="button" aria-label="Fragrances">+</button>
                             </li>
-                            <li class="rbt-check-group">
-                                <input id="cat-list-6" type="checkbox" name="cat-list-6">
-                                <label for="cat-list-6">Media Streamers<span class="rbt-lable count">(37)</span></label>
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">Hair care</span>
+                                <button class="shop-filter-plus" type="button" aria-label="Hair care">+</button>
+                            </li>
+                            <li class="shop-filter-category-item">
+                                <span class="shop-filter-category-name">Skin Care</span>
+                                <button class="shop-filter-plus" type="button" aria-label="Skin Care">+</button>
                             </li>
                         </ul>
                     </div>
@@ -3485,55 +3496,6 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- End Widget Area  -->
-
-            <!-- Start Widget Area  -->
-            <div class="rbt-single-widget rbt-widget-categories">
-                <div class="rbt-single-widget-inner">
-                    <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
-                        <a data-bs-toggle="collapse" href="#rbt-collapse-7" role="button" aria-expanded="false" aria-controls="rbt-collapse-7">
-                            Filter by price
-                            <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
-                        </a>
-                    </h2>
-                    <div class="collapse show" id="rbt-collapse-7">
-                        <ul class="rbt-sidebar-list-wrapper rbt-categories-list-check">
-                            <li class="rbt-check-group">
-                                <input id="rbt-cat-list-fil-1" type="checkbox" name="rbt-cat-list-fil-1">
-                                <label for="rbt-cat-list-fil-1">Under $25 <span class="rbt-lable count">(9)</span></label>
-                            </li>
-                            <li class="rbt-check-group">
-                                <input id="rbt-cat-list-fil-2" type="checkbox" name="rbt-cat-list-fil-2">
-                                <label for="rbt-cat-list-fil-2">$25 to $50 <span class="rbt-lable count">(12)</span></label>
-                            </li>
-                            <li class="rbt-check-group">
-                                <input id="rbt-cat-list-fil-3" type="checkbox" name="rbt-cat-list-fil-3">
-                                <label for="rbt-cat-list-fil-3">$50 to $100 <span class="rbt-lable count">(67)</span></label>
-                            </li>
-                            <li class="rbt-check-group">
-                                <input id="rbt-cat-list-fil-4" type="checkbox" name="rbt-cat-list-fil-4">
-                                <label for="rbt-cat-list-fil-4">$100 to $200<span class="rbt-lable count">(30)</span></label>
-                            </li>
-                            <li class="rbt-check-group">
-                                <input id="rbt-cat-list-fil-5" type="checkbox" name="rbt-cat-list-fil-5">
-                                <label for="rbt-cat-list-fil-5">$200 & Above<span class="rbt-lable count">(89)</span></label>
-                            </li>
-                        </ul>
-                        <div class="rbt-price-range-slider">
-                            <div id="rbt-slider-range" class="rbt-range-bar"></div>
-
-                            <p class="rbt-range-value">
-                                <input type="text" id="amount" readonly="">
-                            </p>
-                        </div>
-                        <div class="rbt-price-input-grp">
-                            <input type="number" min="0" placeholder="$ Min">
-                            <input type="number" min="0" placeholder="$ Max">
-                            <a href="#" class="rbt-btn">$Go</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -3672,7 +3634,7 @@
                 <div class="rbt-single-widget-inner">
                     <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
                         <a data-bs-toggle="collapse" href="#rbt-collapse-9" role="button" aria-expanded="false" aria-controls="rbt-collapse-9">
-                            Brand
+                            SHOP BY BRAND
                             <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
                         </a>
                     </h2>
@@ -3681,61 +3643,31 @@
                             <li class="rbt-check-group">
                                 <input id="rbt-cat-list-brand-radio-1" type="radio" name="rbt-cat-list-brand-radio">
                                 <label for="rbt-cat-list-brand-radio-1">
-                                    <span class="rbt-lable-content">
-                                        <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-01.webp') }}" alt="Catagory Image"></span>
-                                        <span class="rbt-lable-text">Acme</span>
-                                    </span>
-                                    <span class="rbt-lable-count">(96)</span>
+                                    <span class="rbt-lable-text">All brands</span>
                                 </label>
                             </li>
                             <li class="rbt-check-group">
                                 <input id="rbt-cat-list-brand-radio-2" type="radio" name="rbt-cat-list-brand-radio">
                                 <label for="rbt-cat-list-brand-radio-2">
-                                    <span class="rbt-lable-content">
-                                        <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-02.webp') }}" alt="Catagory Image"></span>
-                                        <span class="rbt-lable-text">Aurarts</span>
-                                    </span>
-                                    <span class="rbt-lable-count">(12)</span>
+                                    <span class="rbt-lable-text">Champion</span>
                                 </label>
                             </li>
                             <li class="rbt-check-group">
                                 <input id="rbt-cat-list-brand-radio-3" type="radio" name="rbt-cat-list-brand-radio">
                                 <label for="rbt-cat-list-brand-radio-3">
-                                    <span class="rbt-lable-content">
-                                        <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-03.webp') }}" alt="Catagory Image"></span>
-                                        <span class="rbt-lable-text">Hamofy</span>
-                                    </span>
-                                    <span class="rbt-lable-count">(67)</span>
+                                    <span class="rbt-lable-text">Misumi</span>
                                 </label>
                             </li>
                             <li class="rbt-check-group">
                                 <input id="rbt-cat-list-brand-radio-4" type="radio" name="rbt-cat-list-brand-radio">
                                 <label for="rbt-cat-list-brand-radio-4">
-                                    <span class="rbt-lable-content">
-                                        <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-04.webp') }}" alt="Catagory Image"></span>
-                                        <span class="rbt-lable-text">Starwalks</span>
-                                    </span>
-                                    <span class="rbt-lable-count">(30)</span>
+                                    <span class="rbt-lable-text">Nature's Secret Classic</span>
                                 </label>
                             </li>
                             <li class="rbt-check-group">
                                 <input id="rbt-cat-list-brand-radio-5" type="radio" name="rbt-cat-list-brand-radio">
                                 <label for="rbt-cat-list-brand-radio-5">
-                                    <span class="rbt-lable-content">
-                                        <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-05.webp') }}" alt="Catagory Image"></span>
-                                        <span class="rbt-lable-text">Massive</span>
-                                    </span>
-                                    <span class="rbt-lable-count">(89)</span>
-                                </label>
-                            </li>
-                            <li class="rbt-check-group">
-                                <input id="rbt-cat-list-brand-radio-6" type="radio" name="rbt-cat-list-brand-radio">
-                                <label for="rbt-cat-list-brand-radio-6">
-                                    <span class="rbt-lable-content">
-                                        <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-06.webp') }}" alt="Catagory Image"></span>
-                                        <span class="rbt-lable-text">Superga</span>
-                                    </span>
-                                    <span class="rbt-lable-count">(60)</span>
+                                    <span class="rbt-lable-text">Panda Baby</span>
                                 </label>
                             </li>
                         </ul>
@@ -3744,6 +3676,34 @@
             </div>
             <!-- End Widget Area  -->
 
+            <!-- Start Widget Area  -->
+            <div class="rbt-single-widget rbt-widget-categories">
+                <div class="rbt-single-widget-inner">
+                    <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
+                        <a data-bs-toggle="collapse" href="#rbt-collapse-7" role="button" aria-expanded="false" aria-controls="rbt-collapse-7">
+                            By price
+                            <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
+                        </a>
+                    </h2>
+                    <div class="collapse show" id="rbt-collapse-7">
+                        <div class="rbt-price-range-slider">
+                            <div id="rbt-slider-range" class="rbt-range-bar"></div>
+
+                            <p class="rbt-range-value">
+                                <input type="text" id="amount" readonly="">
+                            </p>
+                        </div>
+                        <div class="rbt-price-input-grp">
+                            <input type="number" min="0" placeholder="$ Min">
+                            <input type="number" min="0" placeholder="$ Max">
+                            <a href="#" class="rbt-btn">$Go</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Widget Area  -->
+
+            {{--
             <!-- Start Widget Area  -->
             <div class="rbt-single-widget rbt-widget-categories">
                 <div class="rbt-single-widget-inner">
@@ -3765,11 +3725,7 @@
                 </div>
             </div>
             <!-- End Widget Area  -->
-        </div>
-    </div>
-    <div class="rbt-sidebar-widget-wrapper">
-        <div class="rbt-sidebar-widget-img">
-            <a href="#"><img src="{{ asset('assets/images/sidebar/sidebar-banner-one.webp') }}" alt="Sidebar Banner"></a>
+            --}}
         </div>
     </div>
 </aside>
@@ -3792,6 +3748,7 @@
                 </div>
             </div>
         </div>
+        {{--
         <div class="rbt-shop-tools-wrapper rbt-shop-tools-wrapper-var-one mt--20 mt_sm--12">
             <div class="rbt-shop-tool-content rbt-shop-view-var-wrapper sm_w-100 md_w-100">
                 <p class="rbt-shop-tools-title h6">Showing 1–20 of 45 results </p>
@@ -3848,6 +3805,7 @@
             </div>
 
         </div>
+        --}}
         <div class="rbt-shop-tools-wrapper mt--20 d-none d-lg-block">
             <div class="rbt-shop-tool-content rbt-shop-filter-tag-wrapper">
                 <div class="rbt-shop-filter-tag-list rbt-tag-list rbt-tag-list-sm rbt-tag-list-bg-var-one rbt-tag-list-rounded rbt-tag-cancel-var">
@@ -3890,37 +3848,42 @@
                     <!-- Start Widget Area  -->
                     <div class="rbt-single-widget rbt-widget-categories">
                         <div class="rbt-single-widget-inner">
-                            <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
-                                <a data-bs-toggle="collapse" href="#rbt-collapse-3" role="button" aria-expanded="false" aria-controls="rbt-collapse-3">
-                                    Categories
-                                    <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
-                                </a>
-                            </h2>
-                            <div class="collapse show" id="rbt-collapse-3">
-                                <ul class="rbt-sidebar-list-wrapper rbt-categories-list-check">
-                                    <li class="rbt-check-group">
-                                        <input id="cat-list-1" type="checkbox" name="cat-list-1">
-                                        <label for="cat-list-1">Accessories <span class="rbt-lable count">(96)</span></label>
+                            <div class="shop-filter-card">
+                                <div class="shop-filter-card-head">
+                                    <div>
+                                        <p class="shop-filter-eyebrow mb--4">REFINE YOUR SEARCH</p>
+                                        <h3 class="shop-filter-title mb--0">Categories</h3>
+                                    </div>
+                                    <button class="shop-filter-reset" type="button">Reset</button>
+                                </div>
+                                <ul class="shop-filter-category-list">
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">All products</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="All products">+</button>
                                     </li>
-                                    <li class="rbt-check-group">
-                                        <input id="cat-list-2" type="checkbox" name="cat-list-2">
-                                        <label for="cat-list-2">Best seller <span class="rbt-lable count">(12)</span></label>
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">Baby Care</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="Baby Care">+</button>
                                     </li>
-                                    <li class="rbt-check-group">
-                                        <input id="cat-list-3" type="checkbox" name="cat-list-3">
-                                        <label for="cat-list-3">Computers & Tablets <span class="rbt-lable count">(67)</span></label>
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">Bath & Body</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="Bath & Body">+</button>
                                     </li>
-                                    <li class="rbt-check-group">
-                                        <input id="cat-list-4" type="checkbox" name="cat-list-4">
-                                        <label for="cat-list-4">Home Audio & Theatre<span class="rbt-lable count">(30)</span></label>
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">Bundles</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="Bundles">+</button>
                                     </li>
-                                    <li class="rbt-check-group">
-                                        <input id="cat-list-5" type="checkbox" name="cat-list-5">
-                                        <label for="cat-list-5">Home Theatre Accessories <span class="rbt-lable count">(89)</span></label>
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">Fragrances</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="Fragrances">+</button>
                                     </li>
-                                    <li class="rbt-check-group">
-                                        <input id="cat-list-6" type="checkbox" name="cat-list-6">
-                                        <label for="cat-list-6">Media Streamers<span class="rbt-lable count">(37)</span></label>
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">Hair care</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="Hair care">+</button>
+                                    </li>
+                                    <li class="shop-filter-category-item">
+                                        <span class="shop-filter-category-name">Skin Care</span>
+                                        <button class="shop-filter-plus" type="button" aria-label="Skin Care">+</button>
                                     </li>
                                 </ul>
                             </div>
@@ -4061,67 +4024,18 @@
                                             <p class="rbt-rating-text">& Up</p>
                                         </div>
                                     </li>
-                                </ul>
-                            </div>
-                        </div>
+                        </ul>
                     </div>
-                    <!-- End Widget Area  -->
+                </div>
+            </div>
+            <!-- End Widget Area  -->
 
-                    <!-- Start Widget Area  -->
-                    <div class="rbt-single-widget rbt-widget-categories">
-                        <div class="rbt-single-widget-inner">
-                            <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
-                                <a data-bs-toggle="collapse" href="#rbt-collapse-7" role="button" aria-expanded="false" aria-controls="rbt-collapse-7">
-                                    Filter by price
-                                    <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
-                                </a>
-                            </h2>
-                            <div class="collapse show" id="rbt-collapse-7">
-                                <ul class="rbt-sidebar-list-wrapper rbt-categories-list-check">
-                                    <li class="rbt-check-group">
-                                        <input id="rbt-cat-list-fil-1" type="checkbox" name="rbt-cat-list-fil-1">
-                                        <label for="rbt-cat-list-fil-1">Under $25 <span class="rbt-lable count">(9)</span></label>
-                                    </li>
-                                    <li class="rbt-check-group">
-                                        <input id="rbt-cat-list-fil-2" type="checkbox" name="rbt-cat-list-fil-2">
-                                        <label for="rbt-cat-list-fil-2">$25 to $50 <span class="rbt-lable count">(12)</span></label>
-                                    </li>
-                                    <li class="rbt-check-group">
-                                        <input id="rbt-cat-list-fil-3" type="checkbox" name="rbt-cat-list-fil-3">
-                                        <label for="rbt-cat-list-fil-3">$50 to $100 <span class="rbt-lable count">(67)</span></label>
-                                    </li>
-                                    <li class="rbt-check-group">
-                                        <input id="rbt-cat-list-fil-4" type="checkbox" name="rbt-cat-list-fil-4">
-                                        <label for="rbt-cat-list-fil-4">$100 to $200<span class="rbt-lable count">(30)</span></label>
-                                    </li>
-                                    <li class="rbt-check-group">
-                                        <input id="rbt-cat-list-fil-5" type="checkbox" name="rbt-cat-list-fil-5">
-                                        <label for="rbt-cat-list-fil-5">$200 & Above<span class="rbt-lable count">(89)</span></label>
-                                    </li>
-                                </ul>
-                                <div class="rbt-price-range-slider">
-                                    <div id="rbt-slider-range" class="rbt-range-bar"></div>
-
-                                    <p class="rbt-range-value">
-                                        <input type="text" id="amount" readonly="">
-                                    </p>
-                                </div>
-                                <div class="rbt-price-input-grp">
-                                    <input type="number" min="0" placeholder="$ Min">
-                                    <input type="number" min="0" placeholder="$ Max">
-                                    <a href="#" class="rbt-btn">$Go</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Widget Area  -->
-
-                    <!-- Start Widget Area  -->
-                    <div class="rbt-single-widget rbt-widget-categories">
-                        <div class="rbt-single-widget-inner">
-                            <h2 class="rbt-widget-title rbt-widget-title-without-border pb--0 h4">
-                                <a data-bs-toggle="collapse" href="#rbt-collapse-8" role="button" aria-expanded="false" aria-controls="rbt-collapse-8">
-                                    Filter by color
+            <!-- Start Widget Area  -->
+            <div class="rbt-single-widget rbt-widget-categories">
+                <div class="rbt-single-widget-inner">
+                    <h2 class="rbt-widget-title rbt-widget-title-without-border pb--0 h4">
+                        <a data-bs-toggle="collapse" href="#rbt-collapse-8" role="button" aria-expanded="false" aria-controls="rbt-collapse-8">
+                            Filter by color
                                     <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
                                 </a>
                             </h2>
@@ -4219,13 +4133,14 @@
                     </div>
                     <!-- End Widget Area  -->
 
+                    --}}
 
                     <!-- Start Widget Area  -->
                     <div class="rbt-single-widget rbt-widget-categories">
                         <div class="rbt-single-widget-inner">
                             <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
                                 <a data-bs-toggle="collapse" href="#rbt-collapse-9" role="button" aria-expanded="false" aria-controls="rbt-collapse-9">
-                                    Brand
+                                    SHOP BY BRAND
                                     <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
                                 </a>
                             </h2>
@@ -4234,61 +4149,31 @@
                                     <li class="rbt-check-group">
                                         <input id="rbt-cat-list-brand-radio-1" type="radio" name="rbt-cat-list-brand-radio">
                                         <label for="rbt-cat-list-brand-radio-1">
-                                            <span class="rbt-lable-content">
-                                                <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-01.webp') }}" alt="Catagory Image"></span>
-                                                <span class="rbt-lable-text">Acme</span>
-                                            </span>
-                                            <span class="rbt-lable-count">(96)</span>
+                                            <span class="rbt-lable-text">All brands</span>
                                         </label>
                                     </li>
                                     <li class="rbt-check-group">
                                         <input id="rbt-cat-list-brand-radio-2" type="radio" name="rbt-cat-list-brand-radio">
                                         <label for="rbt-cat-list-brand-radio-2">
-                                            <span class="rbt-lable-content">
-                                                <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-02.webp') }}" alt="Catagory Image"></span>
-                                                <span class="rbt-lable-text">Aurarts</span>
-                                            </span>
-                                            <span class="rbt-lable-count">(12)</span>
+                                            <span class="rbt-lable-text">Champion</span>
                                         </label>
                                     </li>
                                     <li class="rbt-check-group">
                                         <input id="rbt-cat-list-brand-radio-3" type="radio" name="rbt-cat-list-brand-radio">
                                         <label for="rbt-cat-list-brand-radio-3">
-                                            <span class="rbt-lable-content">
-                                                <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-03.webp') }}" alt="Catagory Image"></span>
-                                                <span class="rbt-lable-text">Hamofy</span>
-                                            </span>
-                                            <span class="rbt-lable-count">(67)</span>
+                                            <span class="rbt-lable-text">Misumi</span>
                                         </label>
                                     </li>
                                     <li class="rbt-check-group">
                                         <input id="rbt-cat-list-brand-radio-4" type="radio" name="rbt-cat-list-brand-radio">
                                         <label for="rbt-cat-list-brand-radio-4">
-                                            <span class="rbt-lable-content">
-                                                <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-04.webp') }}" alt="Catagory Image"></span>
-                                                <span class="rbt-lable-text">Starwalks</span>
-                                            </span>
-                                            <span class="rbt-lable-count">(30)</span>
+                                            <span class="rbt-lable-text">Nature's Secret Classic</span>
                                         </label>
                                     </li>
                                     <li class="rbt-check-group">
                                         <input id="rbt-cat-list-brand-radio-5" type="radio" name="rbt-cat-list-brand-radio">
                                         <label for="rbt-cat-list-brand-radio-5">
-                                            <span class="rbt-lable-content">
-                                                <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-05.webp') }}" alt="Catagory Image"></span>
-                                                <span class="rbt-lable-text">Massive</span>
-                                            </span>
-                                            <span class="rbt-lable-count">(89)</span>
-                                        </label>
-                                    </li>
-                                    <li class="rbt-check-group">
-                                        <input id="rbt-cat-list-brand-radio-6" type="radio" name="rbt-cat-list-brand-radio">
-                                        <label for="rbt-cat-list-brand-radio-6">
-                                            <span class="rbt-lable-content">
-                                                <span class="rbt-lable-img"><img src="{{ asset('assets/images/sidebar/catagory-brand/catagory-brand-img-06.webp') }}" alt="Catagory Image"></span>
-                                                <span class="rbt-lable-text">Superga</span>
-                                            </span>
-                                            <span class="rbt-lable-count">(60)</span>
+                                            <span class="rbt-lable-text">Panda Baby</span>
                                         </label>
                                     </li>
                                 </ul>
@@ -4297,6 +4182,34 @@
                     </div>
                     <!-- End Widget Area  -->
 
+                    <!-- Start Widget Area  -->
+                    <div class="rbt-single-widget rbt-widget-categories">
+                        <div class="rbt-single-widget-inner">
+                            <h2 class="rbt-widget-title rbt-widget-title-without-border h4">
+                                <a data-bs-toggle="collapse" href="#rbt-collapse-7" role="button" aria-expanded="false" aria-controls="rbt-collapse-7">
+                                    By price
+                                    <span class="icon"><i class="fa-regular fa-chevron-down"></i></span>
+                                </a>
+                            </h2>
+                            <div class="collapse show" id="rbt-collapse-7">
+                                <div class="rbt-price-range-slider">
+                                    <div id="rbt-slider-range" class="rbt-range-bar"></div>
+
+                                    <p class="rbt-range-value">
+                                        <input type="text" id="amount" readonly="">
+                                    </p>
+                                </div>
+                                <div class="rbt-price-input-grp">
+                                    <input type="number" min="0" placeholder="$ Min">
+                                    <input type="number" min="0" placeholder="$ Max">
+                                    <a href="#" class="rbt-btn">$Go</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Widget Area  -->
+
+                    {{--
                     <!-- Start Widget Area  -->
                     <div class="rbt-single-widget rbt-widget-categories">
                         <div class="rbt-single-widget-inner">
@@ -4318,6 +4231,7 @@
                         </div>
                     </div>
                     <!-- End Widget Area  -->
+                    --}}
                 </div>
             </div>
 
@@ -4334,8 +4248,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-2">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/Anti Dandruff.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/anti dandruff 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-green border-rounded">NEW</div>
@@ -4371,8 +4285,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
                         Gadgets</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Ultra-Thin Modern Tech Quiet Noise
-                            Cancelling Laptop</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Anti-Dandruff Godapara Shampoo</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -4415,7 +4328,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -4473,8 +4385,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-3">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-03-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-03-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/cucumber facial wash.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/cucumber facial wash 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-discount-badge right--corner-style tooltips" data-tooltip="👁️ 16 People are Watching This Item" data-tooltip-position="bottom">
                         <span><i class="fa-regular fa-eye"></i>16</span>
@@ -4508,8 +4420,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Watch &
                         Music</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cubitt Smart Watch CTS Waterproof
-                            Fitness Tracker Watch PRO</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cucumber Facial Wash</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -4530,7 +4441,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <button class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon" type="button" data-bs-toggle="modal" data-bs-target="#popup-cartModal"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</button>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -4588,8 +4498,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-1">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-12-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-12-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/Hair oil 1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/Hair oil 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
@@ -4626,8 +4536,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Photography &
                         Outdoor</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Keurig Polaroid 4K Waterproof Smart
-                            Action Camera</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Herbal hair and satin Oil Touch</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -4650,7 +4559,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -4708,8 +4616,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-4">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-11-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-11-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/shampoo honey.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/shampoo honey 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
@@ -4742,8 +4650,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Camera &
                         Photo</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Apple IPhone 16 PRO max 6200U with
-                            12GB RAM Phone</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Panda Baby Shampoo-Bees Honey</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -4787,7 +4694,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -4845,8 +4751,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-2">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-05-a-2.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-05-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/carrot face wash 1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/carrot facewash 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-green border-rounded">NEW</div>
@@ -4882,8 +4788,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
                         Gadgets</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Logitech Precision 9 Button
-                            Ergonomic Diital Wireless Mouse</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Carrot Soft Facial Wash</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -4926,7 +4831,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -4984,8 +4888,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-1">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/pepermint fce wash 1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/pepermint fce wash 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
@@ -5022,8 +4926,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Photography &
                         Outdoor</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Keurig Polaroid 4K Waterproof Smart
-                            Action Camera</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Peppermint Facial Wash</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -5046,7 +4949,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -5104,8 +5006,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-3">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-09-a-3.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-09-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/papaya face wash 1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/papaya facewash 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-discount-badge right--corner-style tooltips" data-tooltip="👁️ 16 People are Watching This Item" data-tooltip-position="bottom">
                         <span><i class="fa-regular fa-eye"></i>16</span>
@@ -5139,8 +5041,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Watch &
                         Music</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cubitt Smart Watch CTS Waterproof
-                            Fitness Tracker Watch PRO</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Papaya Soft Facial Wash</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -5161,7 +5062,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <button class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon" type="button" data-bs-toggle="modal" data-bs-target="#popup-cartModal"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</button>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -5219,8 +5119,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-2">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-13-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-13-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/brightening facial wash -orange 1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/brightening facial wash -orange 2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-green border-rounded">NEW</div>
@@ -5256,8 +5156,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
                         Gadgets</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cubitt Smart Wireless Apple 16 PRO
-                            Charging Case Set</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Brightening Facial Wash with Vitamin C & Licorice</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -5300,7 +5199,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -5358,8 +5256,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-4">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-06-a-3.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-06-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/vitamin c -1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/vitamin c -2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
@@ -5392,8 +5290,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Camera &
                         Photo</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Full Amoled HD Streaming Webcam
-                            with Mic Pink webcam</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Vitamin C Skin Radiance Serum With Ascorbyl Glucoside & Hyaluronic Acid</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -5437,7 +5334,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -5495,8 +5391,8 @@
             <div class="inner rbt-scroll-trigger fade_in animation-order-2">
                 <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
                     <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1-hover.webp') }}" alt="Card Image">
+                        <img class="rbt-prd-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/nicinamide-1.png') }}" alt="Card Image">
+                        <img class="rbt-hover-img" src="{{ asset('admin-assets/images/nbcimages/Brand Pics 2/nicinamide-2.png') }}" alt="Card Image">
                     </a>
                     <div class="rbt-badge-wrapper rbt-content-top-left">
                         <div class="rbt-product-badge rbt-product-badge-bg-green border-rounded">NEW</div>
@@ -5532,8 +5428,7 @@
                 <div class="rbt-card-body">
                     <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
                         Gadgets</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Ultra-Thin Modern Tech Quiet Noise
-                            Cancelling Laptop</a></h2>
+                    <h2 class="rbt-card-title"><a href="product-single-default.html">Niacinamide Ultra Glow Serum</a></h2>
                     <div class="rbt-card-rating">
                         <ul class="rbt-rating-icon-list">
                             <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -5576,7 +5471,6 @@
                     </div>
                     <div class="prd-btn-grp">
                         <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
                     </div>
                 </div>
             </div>
@@ -5628,1027 +5522,6 @@
     </div>
     <!-- End Single Card  -->
 
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-3">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-03-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-03-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-discount-badge right--corner-style tooltips" data-tooltip="👁️ 16 People are Watching This Item" data-tooltip-position="bottom">
-                        <span><i class="fa-regular fa-eye"></i>16</span>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Watch &
-                        Music</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cubitt Smart Watch CTS Waterproof
-                            Fitness Tracker Watch PRO</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                            Free shipping
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <span class="price-text">$35.98 - $134.98</span>
-                        <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">4
-                            in Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <button class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon" type="button" data-bs-toggle="modal" data-bs-target="#popup-cartModal"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</button>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-1">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-12-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-12-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-badge-wrapper rbt-content-top-left">
-                        <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
-                    </div>
-                    <div class="rbt-discount-badge right--corner-style tooltips" data-tooltip="👁️ 16 People are Watching This Item" data-tooltip-position="bottom">
-                        <span><i class="fa-regular fa-eye"></i>16</span>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Photography &
-                        Outdoor</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Keurig Polaroid 4K Waterproof Smart
-                            Action Camera</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                            Free shipping
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$139.49</span>
-                        <span class="rbt-offer-badge">-30%</span>
-                        <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">12
-                            in Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-4">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-11-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-11-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-badge-wrapper rbt-content-top-left">
-                        <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Camera &
-                        Photo</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Apple IPhone 16 PRO max 6200U with
-                            12GB RAM Phone</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-bag-shopping"></i></span>
-                                        90+ Sold Recently
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                                        Free shipping
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-rotate-left"></i></span>
-                                        7 Days Return Plicy
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                <i class="fa-regular fa-chevron-up"></i>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-next">
-                                <i class="fa-regular fa-chevron-down"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$189.59</span>
-                        <div class="rbt-badge rbt-badge-bg-danger rbt-badge-border rbt-badge-small rbt-badge-rounded rbt-shiny">
-                            🔥 Limited Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-2">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-05-a-2.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-05-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-badge-wrapper rbt-content-top-left">
-                        <div class="rbt-product-badge rbt-product-badge-bg-green border-rounded">NEW</div>
-                        <div class="rbt-product-badge rbt-product-badge-bg-secondary-gradient border-rounded">Best
-                            Seller</div>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
-                        Gadgets</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Logitech Precision 9 Button
-                            Ergonomic Diital Wireless Mouse</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-bag-shopping"></i></span>
-                                        90+ Sold Recently
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                                        Free shipping
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-rotate-left"></i></span>
-                                        7 Days Return Plicy
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                <i class="fa-regular fa-chevron-up"></i>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-next">
-                                <i class="fa-regular fa-chevron-down"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <span class="price-text">$50.59 - $155.99</span>
-                        <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
-                            in Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-1">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-badge-wrapper rbt-content-top-left">
-                        <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
-                    </div>
-                    <div class="rbt-discount-badge right--corner-style tooltips" data-tooltip="👁️ 16 People are Watching This Item" data-tooltip-position="bottom">
-                        <span><i class="fa-regular fa-eye"></i>16</span>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Photography &
-                        Outdoor</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Keurig Polaroid 4K Waterproof Smart
-                            Action Camera</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                            Free shipping
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$189.79</span>
-                        <span class="rbt-offer-badge">-30%</span>
-                        <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">12
-                            in Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-3">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-09-a-3.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-09-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-discount-badge right--corner-style tooltips" data-tooltip="👁️ 16 People are Watching This Item" data-tooltip-position="bottom">
-                        <span><i class="fa-regular fa-eye"></i>16</span>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Watch &
-                        Music</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cubitt Smart Watch CTS Waterproof
-                            Fitness Tracker Watch PRO</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                            Free shipping
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <span class="price-text">$99.98</span>
-                        <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">4
-                            in Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <button class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon" type="button" data-bs-toggle="modal" data-bs-target="#popup-cartModal"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</button>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-2">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-13-a-1.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-13-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-badge-wrapper rbt-content-top-left">
-                        <div class="rbt-product-badge rbt-product-badge-bg-green border-rounded">NEW</div>
-                        <div class="rbt-product-badge rbt-product-badge-bg-secondary-gradient border-rounded">Best
-                            Seller</div>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
-                        Gadgets</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Cubitt Smart Wireless Apple 16 PRO
-                            Charging Case Set</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-bag-shopping"></i></span>
-                                        90+ Sold Recently
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                                        Free shipping
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-rotate-left"></i></span>
-                                        7 Days Return Plicy
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                <i class="fa-regular fa-chevron-up"></i>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-next">
-                                <i class="fa-regular fa-chevron-down"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <span class="price-text">$46.00 - $189.98</span>
-                        <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
-                            in Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
-
-    <!-- Start Single Card  -->
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt--24">
-        <div class="rbt-card rbt-product-card has-hover-box-shadow">
-            <div class="inner rbt-scroll-trigger fade_in animation-order-4">
-                <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                    <a href="product-single-default.html">
-                        <img class="rbt-prd-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-06-a-3.webp') }}" alt="Card Image">
-                        <img class="rbt-hover-img" src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-06-a-1-hover.webp') }}" alt="Card Image">
-                    </a>
-                    <div class="rbt-badge-wrapper rbt-content-top-left">
-                        <div class="rbt-product-badge rbt-product-badge-bg-secondary border-rounded">Sale</div>
-                    </div>
-                    <div class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                        <button class="rbt-search-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal" data-tooltip="Quick View" data-tooltip-position="left"><i class="fa-regular fa-magnifying-glass-plus"></i></button>
-                        <button class="rbt-wishlisted-btn rbt-quick-btn tooltips" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-wrap rbt-content-bottom-center rbt-countdown-one bg-variation-black cd-border-style bg-variation-black cd-border-style">
-                        <div class="countdown" data-date="2025-01-01">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rbt-card-body">
-                    <a href="shop-by-categories.html" class="rbt-card-subtitle rbt-card-catagories-text">Camera &
-                        Photo</a>
-                    <h2 class="rbt-card-title"><a href="product-single-default.html">Full Amoled HD Streaming Webcam
-                            with Mic Pink webcam</a></h2>
-                    <div class="rbt-card-rating">
-                        <ul class="rbt-rating-icon-list">
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        </ul>
-                        <p class="rating-digit">(46)</p>
-                        <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-bag-shopping"></i></span>
-                                        90+ Sold Recently
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-truck"></i></span>
-                                        Free shipping
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="rbt-text-group"> <span class="icon mr--4"><i class="fa-solid fa-rotate-left"></i></span>
-                                        7 Days Return Plicy
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                <i class="fa-regular fa-chevron-up"></i>
-                            </div>
-                            <div class="rbt-verticle-arrow rbt-arrow-next">
-                                <i class="fa-regular fa-chevron-down"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$139.49</span>
-                        <div class="rbt-badge rbt-badge-bg-danger rbt-badge-border rbt-badge-small rbt-badge-rounded rbt-shiny">
-                            🔥 Limited Stock</div>
-                    </div>
-                    <div class="prd-btn-grp">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation" href="#"><i class="fa-regular fa-file-plus-minus"></i>Add To Compare</a>
-                    </div>
-                </div>
-            </div>
-            <div class="prd-details-area rbt-has-show-more">
-                <div class="wrapper rbt-has-show-more-inner-content">
-                    <ul class="product-details-list">
-                        <li>
-                            <span class="rbt-bold--text">Brand :</span>
-                            <span class="text">Sony Corporation Ltd</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Resolution :</span>
-                            <span class="text">3840×2160</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Release years :</span>
-                            <span class="text"> Jan 2022</span>
-                        </li>
-                        <li>
-                            <span class="rbt-bold--text">Motherboard :</span>
-                            <span class="text"> Samsung</span>
-                            <span class="text d-block"> ATX, ITX, microATX, Mini-ITX</span>
-                        </li>
-                    </ul>
-                    <ul class="product-details-list shipment-details-list">
-                        <li>
-                            <span class="icon"><i class="fa-sharp fa-regular fa-truck"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Ships :</span>
-                                <span class="text">2–3 weeks Free Shipping</span>
-                                <br>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Get delivery dates</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="icon"><i class="fa-regular fa-bag-shopping"></i></span>
-                            <div class="right-content">
-                                <span class="rbt-bold--text">Pickup :</span>
-                                <a href="#" class="shipment-quick-link rbt-btn-link">Check Availability</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rbt-show-more-btn-area">
-                    <button class="rbt-show-more-btn">Show More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Single Card  -->
 </div>
 <!-- End Card Area -->
                     <div class="row mt--40 mt_sm--16">
