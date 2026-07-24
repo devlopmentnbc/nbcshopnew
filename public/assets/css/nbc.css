@@ -300,6 +300,22 @@
     height: 310px;
     object-fit: contain;
 }
+.nbc-product-section .mobile-horizontal-scroll-section {
+    display: flex;
+    justify-content: center;
+    overflow: visible;
+}
+.nbc-product-section .rbt-product-nav-section {
+    flex-wrap: nowrap;
+    overflow: visible;
+    width: max-content;
+}
+.nbc-product-section .rbt-nav-effect-activation .rbt-product-nav-grp {
+    overflow: visible;
+}
+.nbc-product-section .rbt-product-nav-grp {
+    flex-shrink: 0;
+}
 .nbc-brand-section .brand-image img {
     max-height: 55px;
     object-fit: contain;
@@ -350,6 +366,26 @@
     }
     .nbc-product-section .rbt-prd-img {
         height: 220px;
+    }
+    .nbc-product-section .rbt-product-nav-grp {
+        gap: 8px;
+        padding: 6px 8px;
+    }
+    .nbc-product-section .rbt-product-nav-grp li .rbt-product-nav {
+        font-size: 13px;
+        line-height: 1.6;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 374px) {
+    .nbc-product-section .rbt-product-nav-grp {
+        gap: 4px;
+        padding: 5px 6px;
+    }
+    .nbc-product-section .rbt-product-nav-grp li .rbt-product-nav {
+        font-size: 12px;
+        padding: 4px 6px;
     }
 }
 
@@ -435,6 +471,7 @@
 .nbc-footer__socials a {
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
     display: flex;
     height: 42px;
     justify-content: center;
