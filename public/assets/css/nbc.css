@@ -30,9 +30,21 @@
 
 }
 
+/* Avoid Chrome horizontal overflow from hidden full-screen UniMart overlays. */
+.rbt-preloader,
+.close_side_menu,
+.common-close_search_dropdown,
+.rbt-ms-dismiss-outsider {
+    left: 0;
+    max-width: none;
+    right: 0;
+    width: auto;
+}
+
 .rbt-header-campaign {
     background-color: #0c302c !important;
     background-image: none !important;
+    overflow: hidden;
 }
 .rbt-header-wrapper,
 .rbt-header-wrapper .rbt-wrapper-middle,
