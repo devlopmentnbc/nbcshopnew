@@ -3241,6 +3241,7 @@
                                         <ul class="rbt-product-nav-grp">
                                             <li><a href="#" class="rbt-product-nav active">Best Sellers</a></li>
                                             <li><a href="#" class="rbt-product-nav">New Arrivals</a></li>
+                                            <li><a href="{{ route('shop') }}" class="rbt-product-nav">View All</a></li>
                                         </ul>
                                         <span class="rbt-bg-highlight"></span>
                                     </div>
