@@ -4035,145 +4035,96 @@
 
 
 
-    <!-- Start Component Area -->
-    <div class="rbt-component-area rbt-instapost-area rbt-bg-color-white rbt-section-gap2Bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div
-                        class="rbt-component-section-title rbt-gap--4 mb--40 p-0 border-0 text-center align-items-center">
-                        <span
-                            class="rbt-card-subtitle b1 rbt-text-color-heading mt--0 rbt-scroll-trigger fade_in animation-order-1">View
-                            & Follow</span>
-                        <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2">Follow NBC <span
-                                class="rbt-bold--text">@instagram</span></h2>
+    @php
+        $saleProducts = [
+            [
+                'name' => 'Niacinamide Face Serum',
+                'brand' => "Nature's Secret",
+                'brand_slug' => 'natures-secret',
+                'image' => 'assets/images/nbc/Niacinamide.png',
+                'original_price' => 'Rs. 2,750.00',
+                'sale_price' => 'Rs. 2,450.00',
+                'discount' => 11,
+                'reviews' => 25,
+            ],
+            [
+                'name' => 'Sakura Body Wash',
+                'brand' => 'Misumi',
+                'brand_slug' => 'misumi',
+                'image' => 'assets/images/nbc/Misumi/Sakura Body Wash.png',
+                'original_price' => 'Rs. 1,290.00',
+                'sale_price' => 'Rs. 990.00',
+                'discount' => 23,
+                'reviews' => 18,
+            ],
+            [
+                'name' => 'Perfume Shampoo',
+                'brand' => "Nature's Secret",
+                'brand_slug' => 'natures-secret',
+                'image' => "assets/images/nbc/Nature's Secret/Perfume-Shampoo.png",
+                'original_price' => 'Rs. 1,450.00',
+                'sale_price' => 'Rs. 1,190.00',
+                'discount' => 18,
+                'reviews' => 21,
+            ],
+            [
+                'name' => 'Champion Herbal Fresh Soap',
+                'brand' => 'Champion',
+                'brand_slug' => 'champion',
+                'image' => 'assets/images/nbc/Champion/Herbal Fresh Soap.png',
+                'original_price' => 'Rs. 320.00',
+                'sale_price' => 'Rs. 275.00',
+                'discount' => 14,
+                'reviews' => 32,
+            ],
+        ];
+    @endphp
+
+    <!-- Start On Sale Products Area -->
+    <div class="rbt-component-area rbt-products-area nbc-product-section nbc-sale-section rbt-section-gap2Bottom">
+        <div class="rbt-fullwidth-wrapper">
+            <div class="rbt-gray-contain-box rbt-gray-contain-box-style-one rbt-bg-color-gray-light pt--80 pb--80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="rbt-component-section-title rbt-gap--4 text-center border-0 p-0 align-items-center">
+                                <span class="rbt-card-subtitle b1 rbt-text-color-heading mt--0 rbt-scroll-trigger fade_in animation-order-1">
+                                    Limited-time savings
+                                </span>
+                                <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2">
+                                    <span class="rbt-bold--text">Shop products </span>on sale
+                                </h2>
+
+                                <div class="mobile-horizontal-scroll-section">
+                                    <div class="rbt-product-nav-section rbt-nav-effect-activation mt--12 rbt-scroll-trigger fade_in animation-order-2 justify-content-center">
+                                        <ul class="rbt-product-nav-grp">
+                                            <li><a href="#on-sale-products" class="rbt-product-nav active">On Sale</a></li>
+                                        </ul>
+                                        <ul class="rbt-product-nav-grp">
+                                            <li>
+                                                <a href="{{ route('shop', ['filter' => 'on-sale']) }}"
+                                                    class="rbt-product-nav" aria-label="View all products currently on sale">
+                                                    View All
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <span class="rbt-bg-highlight"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="on-sale-products" class="row row--12 mt_dec--24">
+                        @foreach ($saleProducts as $index => $product)
+                            <x-nbc-product-card :product="$product" :animation-order="($index % 4) + 1" />
+                        @endforeach
                     </div>
                 </div>
             </div>
-
-            <!-- Start Instagram Posts Area -->
-            <div class="row row--12 mt_dec--16 justify-content-center">
-                <div class="col-lg-2 col-md-4 col-sm-4 col-4 mt--16 d-flex justify-content-center">
-                    <div
-                        class="rbt-instapost text-center rbt-instapost-style-one rbt-scroll-trigger fade_in animation-order-1">
-                        <div class="inner" data-bs-toggle="modal" data-bs-target="#instaModal">
-                            <a href="#!" class="instapost-img">
-                                <img class="rbt-scroll-trigger zoom_in animation-order-1"
-                                    src="{{ asset('assets/images/insta-posts/insta-post-cb-hfour-01.webp') }}"
-                                    alt="Ecommerce Brand Images">
-                            </a>
-                            <div class="instapost-content">
-                                <span class="insta-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </span>
-                                <a href="#!" class="rbt-btn-link">View Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-4 col-4 mt--16 d-flex justify-content-center">
-                    <div
-                        class="rbt-instapost text-center rbt-instapost-style-one rbt-scroll-trigger fade_in animation-order-2">
-                        <div class="inner" data-bs-toggle="modal" data-bs-target="#instaModal">
-                            <a href="#!" class="instapost-img">
-                                <img class="rbt-scroll-trigger zoom_in animation-order-2"
-                                    src="{{ asset('assets/images/insta-posts/insta-post-cb-hfour-02.webp') }}"
-                                    alt="Ecommerce Brand Images">
-                            </a>
-                            <div class="instapost-content">
-                                <span class="insta-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </span>
-                                <a href="#!" class="rbt-btn-link">View Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-4 col-4 mt--16 d-flex justify-content-center">
-                    <div
-                        class="rbt-instapost text-center rbt-instapost-style-one rbt-scroll-trigger fade_in animation-order-3">
-                        <div class="inner" data-bs-toggle="modal" data-bs-target="#instaModal">
-                            <a href="#!" class="instapost-img">
-                                <img class="rbt-scroll-trigger zoom_in animation-order-3"
-                                    src="{{ asset('assets/images/insta-posts/insta-post-cb-hfour-03.webp') }}"
-                                    alt="Ecommerce Brand Images">
-                            </a>
-                            <div class="instapost-content">
-                                <span class="insta-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </span>
-                                <a href="#!" class="rbt-btn-link">View Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-4 col-4 mt--16 d-flex justify-content-center">
-                    <div
-                        class="rbt-instapost text-center rbt-instapost-style-one rbt-scroll-trigger fade_in animation-order-4">
-                        <div class="inner" data-bs-toggle="modal" data-bs-target="#instaModal">
-                            <a href="#!" class="instapost-img">
-                                <img class="rbt-scroll-trigger zoom_in animation-order-4"
-                                    src="{{ asset('assets/images/insta-posts/insta-post-cb-hfour-04.webp') }}"
-                                    alt="Ecommerce Brand Images">
-                            </a>
-                            <div class="instapost-content">
-                                <span class="insta-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </span>
-                                <a href="#!" class="rbt-btn-link">View Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-4 col-4 mt--16 d-flex justify-content-center">
-                    <div
-                        class="rbt-instapost text-center rbt-instapost-style-one rbt-scroll-trigger fade_in animation-order-5">
-                        <div class="inner" data-bs-toggle="modal" data-bs-target="#instaModal">
-                            <a href="#!" class="instapost-img">
-                                <img class="rbt-scroll-trigger zoom_in animation-order-5"
-                                    src="{{ asset('assets/images/insta-posts/insta-post-b-05.webp') }}"
-                                    alt="Ecommerce Brand Images">
-                            </a>
-                            <div class="instapost-content">
-                                <span class="insta-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </span>
-                                <a href="#!" class="rbt-btn-link">View Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-4 col-4 mt--16 d-flex justify-content-center">
-                    <div
-                        class="rbt-instapost text-center rbt-instapost-style-one rbt-scroll-trigger fade_in animation-order-1">
-                        <div class="inner" data-bs-toggle="modal" data-bs-target="#instaModal">
-                            <a href="#!" class="instapost-img">
-                                <img class="rbt-scroll-trigger zoom_in animation-order-6"
-                                    src="{{ asset('assets/images/insta-posts/insta-post-cb-hfour-05.webp') }}"
-                                    alt="Ecommerce Brand Images">
-                            </a>
-                            <div class="instapost-content">
-                                <span class="insta-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </span>
-                                <a href="#!" class="rbt-btn-link">View Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- End Instagram Posts Area -->
-
         </div>
-
     </div>
-    <!-- End Component Area -->
+    <!-- End On Sale Products Area -->
 
 
 
