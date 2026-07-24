@@ -259,6 +259,7 @@
     background: linear-gradient(135deg, #032517, #001c10 65%, #062815);
     color: rgba(255, 255, 255, 0.78);
     font-size: 14px;
+    overflow: hidden;
     position: relative;
 }
 .nbc-footer::before,
