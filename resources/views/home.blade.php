@@ -2984,7 +2984,7 @@
 
     <!-- Start Component Area -->
     <div class="rbt-component-area rbt-catagories-area rbt-bg-color-white rbt-section-gap nbc-category-section">
-        <div class="container">
+        <div class="rbt-fullwidth-wrapper">
             <div class="row">
                 <div
                     class="col-lg-12 d-flex justify-content-between flex-row align-items-end mb--40 flex-wrap rbt-gap--16">

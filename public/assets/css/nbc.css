@@ -203,7 +203,7 @@
 .nbc-category-section .rbt-image-portion {
     background: #f4f8ee;
 }
-.nbc-category-section .container {
+.nbc-category-section .rbt-fullwidth-wrapper {
     position: relative;
 }
 .nbc-category-section .rbt-image-portion img {
