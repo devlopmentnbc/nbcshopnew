@@ -120,6 +120,29 @@
     background-color: #0c302c !important;
 }
 
+.nbc-home-sections {
+    display: flex;
+    flex-direction: column;
+}
+.nbc-home-sections > .nbc-home-hero {
+    order: 1;
+}
+.nbc-home-sections > .nbc-brand-section {
+    order: 2;
+}
+.nbc-home-sections > .nbc-category-section {
+    order: 3;
+}
+.nbc-home-sections > .nbc-product-section:not(.nbc-sale-section) {
+    order: 4;
+}
+.nbc-home-sections > .rbt-counterdown-area {
+    order: 5;
+}
+.nbc-home-sections > .nbc-sale-section {
+    order: 6;
+}
+
 .nbc-home-hero .nbc-hero-wrapper {
     margin-left: 0 !important;
     margin-right: 0 !important;

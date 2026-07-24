@@ -2927,6 +2927,7 @@
 
 
 
+    <div class="nbc-home-sections">
     <!-- Start Component Area -->
     <div class="rbt-component-area rbt-products-banner-area rbt-bg-color-white nbc-home-hero">
         <div class="wrapper nbc-hero-wrapper">
@@ -4122,6 +4123,7 @@
         </div>
     </div>
     <!-- End On Sale Products Area -->
+    </div>
 
 
 
