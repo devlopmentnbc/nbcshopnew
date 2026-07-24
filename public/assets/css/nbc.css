@@ -149,7 +149,8 @@
     width: 100%;
 }
 .nbc-promotion-section .rbt-counterdown-section > .row {
-    min-height: 420px;
+    height: 360px;
+    min-height: 0;
 }
 .nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child > div,
 .nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child img {
@@ -160,7 +161,8 @@
     width: 100%;
 }
 .nbc-promotion-section .rbt-counterdown-content {
-    padding: 56px 64px !important;
+    height: 100%;
+    padding: 32px 48px !important;
 }
 
 .nbc-home-hero .nbc-hero-wrapper {
@@ -302,15 +304,25 @@
     max-height: 55px;
     object-fit: contain;
 }
+@media (max-width: 1199px) {
+    .nbc-promotion-section .rbt-counterdown-section > .row {
+        height: auto;
+    }
+    .nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child img {
+        height: 300px;
+    }
+    .nbc-promotion-section .rbt-counterdown-content {
+        height: auto;
+        padding: 32px !important;
+    }
+}
+
 @media (max-width: 767px) {
     .nbc-promotion-section {
         padding-bottom: 40px;
     }
-    .nbc-promotion-section .rbt-counterdown-section > .row {
-        min-height: 0;
-    }
     .nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child img {
-        height: 260px;
+        height: 220px;
     }
     .nbc-promotion-section .rbt-counterdown-content {
         padding: 32px 24px !important;
