@@ -148,6 +148,20 @@
 .nbc-promotion-section .rbt-counterdown-section {
     width: 100%;
 }
+.nbc-promotion-section .rbt-counterdown-section > .row {
+    min-height: 420px;
+}
+.nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child > div,
+.nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child img {
+    height: 100%;
+}
+.nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child img {
+    object-fit: cover;
+    width: 100%;
+}
+.nbc-promotion-section .rbt-counterdown-content {
+    padding: 56px 64px !important;
+}
 
 .nbc-home-hero .nbc-hero-wrapper {
     margin-left: 0 !important;
@@ -204,6 +218,7 @@
     background: #f4f8ee;
 }
 .nbc-category-section .rbt-fullwidth-wrapper {
+    overflow: hidden;
     position: relative;
 }
 .nbc-category-section .rbt-image-portion img {
@@ -213,8 +228,8 @@
 }
 .nbc-category-track {
     display: block;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     overflow: hidden;
     width: 100%;
 }
@@ -229,10 +244,10 @@
     display: flex;
     gap: 10px;
     justify-content: space-between;
-    left: -14px;
+    left: 8px;
     pointer-events: none;
     position: absolute;
-    right: -14px;
+    right: 8px;
     top: 58%;
     transform: translateY(-50%);
     z-index: 5;
@@ -271,6 +286,15 @@
 @media (max-width: 767px) {
     .nbc-promotion-section {
         padding-bottom: 40px;
+    }
+    .nbc-promotion-section .rbt-counterdown-section > .row {
+        min-height: 0;
+    }
+    .nbc-promotion-section .rbt-counterdown-section .col-xl-6:first-child img {
+        height: 260px;
+    }
+    .nbc-promotion-section .rbt-counterdown-content {
+        padding: 32px 24px !important;
     }
     .nbc-home-hero .rbt-product-banner {
         min-height: 520px;
