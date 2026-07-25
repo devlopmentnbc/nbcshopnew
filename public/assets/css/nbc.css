@@ -744,8 +744,7 @@
         box-shadow: 0 8px 24px rgba(12, 48, 44, 0.05);
         transform: none;
     }
-    .nbc-product-section .rbt-product-card:active .rbt-card-img img,
-    .nbc-product-section .rbt-product-card:focus-within .rbt-card-img img {
+    .nbc-product-section .rbt-product-card:hover .rbt-card-img img {
         transform: scale(1.07);
     }
 }
