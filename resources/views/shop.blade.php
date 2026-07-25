@@ -18,14 +18,14 @@
                 <div class="content">
                     <div class="logo">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations">
+                            <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                         </a>
                     </div>
                     <div class="rbt-btn-close">
                         <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
-                <p class="description">Discover authentic NBC skincare, haircare, body care and personal care products.</p>
+                <p class="description">Discover authentic NBC beauty and personal-care products inspired by nature.</p>
                 <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
                     <input type="text" placeholder="Search for products">
                     <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -974,7 +974,7 @@
                         <div class="rbt-categories-sidebar-top-content mb--24">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo">
                                 </a>
                             </div>
                             <button class="rbt-sidebar-close-btn">

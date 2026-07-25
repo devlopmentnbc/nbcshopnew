@@ -111,7 +111,7 @@
                         <div class="header-info">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                                 </a>
                             </div>
                         </div>
@@ -1764,13 +1764,6 @@
                             </a>
                         </li>
 
-                        <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 tooltips tooltip-distance-lg  d-none d-lg-flex" data-tooltip="Compare" data-tooltip-position="bottom">
-                            <a class="rbt-round-btn has-rbt-md-fsize" href="#" data-bs-toggle="modal" data-bs-target="#compareviewModal">
-                                <i class="fa-regular fa-code-compare"></i>
-                                <div class="access-box-count">6</div>
-                            </a>
-                        </li>
-
                         <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 rbt-wishlist d-none d-lg-flex tooltips tooltip-distance-lg" data-tooltip="Wishlist" data-tooltip-position="bottom">
                             <a class="rbt-round-btn has-rbt-md-fsize" href="wishlist.html">
                                 <i class="fa-regular fa-heart"></i>
@@ -2310,7 +2303,7 @@
                     <div class="header-info d-xl-block d-none">
                         <div class="logo rbt-logo-height-sm">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
+                                <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                             </a>
                         </div>
                     </div>
@@ -2329,7 +2322,7 @@
             <div class="header-info d-xl-none d-block">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
+                        <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                     </a>
                 </div>
             </div>
@@ -3720,14 +3713,6 @@
                         </a>
                     </li>
 
-                    <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 tooltips tooltip-distance-lg  d-none d-lg-flex" data-tooltip="Compare" data-tooltip-position="bottom">
-                        <a class="rbt-round-btn has-rbt-md-fsize" href="#" data-bs-toggle="modal" data-bs-target="#compareviewModal">
-                            <i class="fa-regular fa-code-compare"></i>
-                            <div class="access-box-count">6</div>
-                        </a>
-                    </li>
-
-
                     <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-5 rbt-wishlist d-none d-lg-flex tooltips tooltip-distance-lg" data-tooltip="Wishlist" data-tooltip-position="bottom">
                         <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal" data-bs-target="#wishlistModal">
                             <i class="fa-regular fa-heart"></i>
@@ -4409,7 +4394,7 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-12 col-12 mt--24">
                     <div class="logo mx-auto mx-xl-0">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Unimart Logo">
+                            <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo">
                         </a>
                     </div>
                 </div>
@@ -4454,7 +4439,7 @@
                         <div class="rbt-login-form-top">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                                 </a>
                             </div>
                             <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signinModalLabel">Sign In To Proceed</h3>
@@ -4664,7 +4649,7 @@
                         <div class="rbt-login-form-top">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                                 </a>
                             </div>
                             <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signupModalLabel">Create an Account</h3>
