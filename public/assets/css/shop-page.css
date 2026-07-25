@@ -4,6 +4,45 @@
     padding-top: 0;
 }
 
+/* Keep every product card in the shop grid uniform. */
+.rbt-shop-filter-area .row.row--12 > [class*="col-"] {
+    display: flex;
+}
+
+.rbt-shop-filter-area .row.row--12 > [class*="col-"] > .rbt-product-card {
+    width: 100%;
+    height: 100%;
+}
+
+.rbt-shop-filter-area .rbt-product-card:not(.rbt-list-view-variation) .inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.rbt-shop-filter-area .rbt-product-card:not(.rbt-list-view-variation) .rbt-card-img {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+}
+
+.rbt-shop-filter-area .rbt-product-card:not(.rbt-list-view-variation) .rbt-card-img > a,
+.rbt-shop-filter-area .rbt-product-card:not(.rbt-list-view-variation) .rbt-card-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.rbt-shop-filter-area .rbt-product-card:not(.rbt-list-view-variation) .rbt-card-img img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.rbt-shop-filter-area .rbt-product-card:not(.rbt-list-view-variation) .rbt-card-body {
+    flex: 1;
+}
+
 .rbt-shop-filter-area .rbt-sidebar {
     position: sticky;
     top: 24px;
