@@ -730,6 +730,11 @@
         padding: 14px 12px !important;
         transform: none !important;
     }
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2 .rbt-card-top-content {
+        align-content: start;
+        align-self: start;
+        gap: 6px;
+    }
     .nbc-product-section .rbt-product-card.rbt-product-card-style-2:hover .rbt-card-body,
     .nbc-product-section .rbt-product-card.rbt-product-card-style-2:focus-within .rbt-card-body {
         transform: none !important;
