@@ -175,7 +175,7 @@
                                                             </lineargradient>
                                                         </defs>
                                                     </svg>
-                                                    <p><strong>Free Express Shipping</strong> on orders $200!</p>
+                                                    <p><strong>Free Express Shipping</strong> on orders Rs. 200!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +250,7 @@
                                                             </lineargradient>
                                                         </defs>
                                                     </svg>
-                                                    <p><strong>Free Express Shipping</strong> on orders $200!</p>
+                                                    <p><strong>Free Express Shipping</strong> on orders Rs. 200!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -326,7 +326,7 @@
                                                             </lineargradient>
                                                         </defs>
                                                     </svg>
-                                                    <p><strong>Free Express Shipping</strong> on orders $200!</p>
+                                                    <p><strong>Free Express Shipping</strong> on orders Rs. 200!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1264,8 +1264,8 @@
                                                             <p class="rbt-card-title"><a href="product-single-default.html">Adidas Ultraboost
                                                                     Cream Color Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -1307,8 +1307,8 @@
                                                             <p class="rbt-card-title"><a href="product-single-default.html">Adidas Ultraboost
                                                                     light Pink Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$292.00</del>
-                                                                <span class="price-text">$177.90</span>
+                                                                <del class="price-text">Rs. 292.00</del>
+                                                                <span class="price-text">Rs. 177.90</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -1350,8 +1350,8 @@
                                                             <p class="rbt-card-title"><a href="product-single-default.html">Adidas Ultraboost
                                                                     Light Green Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -1966,8 +1966,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                         <span class="rbt-offer-badge">-30%</span>
                                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
                                             12
@@ -2041,8 +2041,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                     </div>
                                     <div class="rbt-prd-qty-area">
                                         <p class="prd-qty-txt">Only <strong>97</strong> pc left</p>
@@ -2134,8 +2134,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                         <span class="rbt-offer-badge">-30%</span>
                                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
                                             12
@@ -2209,8 +2209,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                     </div>
                                     <div class="rbt-prd-qty-area">
                                         <p class="prd-qty-txt">Only <strong>97</strong> pc left</p>
@@ -2250,7 +2250,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
                                             <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                                -under Rs. 100.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -2258,7 +2258,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
                                             <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                                -under Rs. 100.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -2266,7 +2266,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
                                             <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                                -under Rs. 100.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -3218,8 +3218,8 @@
                                                                     Ultraboost
                                                                     Cream Color Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -3263,8 +3263,8 @@
                                                                     Ultraboost
                                                                     light Pink Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$292.00</del>
-                                                                <span class="price-text">$177.90</span>
+                                                                <del class="price-text">Rs. 292.00</del>
+                                                                <span class="price-text">Rs. 177.90</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -3308,8 +3308,8 @@
                                                                     Ultraboost
                                                                     Light Green Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -3743,7 +3743,7 @@
                                 <span class="access-box-count rbt-shiny">3</span>
                             </span>
                             <div class="content ml--4">
-                                <span class="title-text">$2390</span>
+                                <span class="title-text">Rs. 2390</span>
                             </div>
                         </a>
                     </li>
@@ -3917,8 +3917,8 @@
                                             </div>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                             <span class="rbt-offer-badge">-30%</span>
                                         </div>
                                         <div class="prd-btn-grp">
@@ -3979,8 +3979,8 @@
                                             <p class="rating-digit">(10)</p>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                         </div>
                                         <div class="prd-btn-grp">
                                             <button class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</button>
@@ -4058,8 +4058,8 @@
                                             </div>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                             <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
                                                 12 in
                                                 Stock</div>
@@ -4124,8 +4124,8 @@
                                             <p class="rating-digit">(25)</p>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                         </div>
                                         <div class="prd-btn-grp">
                                             <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
@@ -5875,14 +5875,6 @@
                     </li>
 
 
-
-                    <li class="rbt-access-box">
-                        <a href="compare.html" class="rbt-round-btn has-rbt-md-fsize">
-                            <i class="fa-regular fa-code-compare"></i>
-                            <div class="access-box-count">4</div>
-                            <span class="rbt-toolbar-label"> Compare</span>
-                        </a>
-                    </li>
 
                     <li class="rbt-access-box">
                         <a href="#!" class="rbt-round-btn has-rbt-md-fsize" data-bs-toggle="modal" data-bs-target="#signinModal">
