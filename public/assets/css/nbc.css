@@ -724,9 +724,10 @@
         transform: none;
     }
     .nbc-product-section .rbt-product-card.rbt-product-card-style-2 .rbt-card-body {
-        grid-template-rows: 1fr auto;
+        gap: 8px;
+        grid-template-rows: auto auto;
         margin-bottom: 0 !important;
-        min-height: 210px;
+        min-height: 170px;
         padding: 14px 12px !important;
         transform: none !important;
     }
