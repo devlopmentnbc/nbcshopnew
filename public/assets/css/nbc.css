@@ -654,6 +654,7 @@
     border-radius: 16px !important;
     box-shadow: 0 8px 24px rgba(12, 48, 44, 0.05);
     overflow: hidden;
+    position: relative;
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 .nbc-product-section .rbt-product-card:hover {
@@ -673,16 +674,93 @@
 .nbc-product-section .rbt-product-switch-area,
 .nbc-product-section .rbt-card-subtitle,
 .nbc-product-section .rbt-quick-btn-grp,
-.nbc-product-section .pricing-part del,
 .nbc-product-section .rbt-card-rating .rating-digit {
     display: none !important;
 }
 .nbc-product-section .rbt-badge-wrapper {
-    display: block !important;
+    align-items: flex-start;
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    left: 8px;
+    top: 8px;
+}
+.nbc-product-section .rbt-badge-wrapper .rbt-product-badge,
+.nbc-product-section:not(.nbc-sale-section) .rbt-card-img::before,
+.nbc-product-section:not(.nbc-sale-section) .rbt-card-img:not(:has(.rbt-badge-wrapper))::after {
+    border-radius: 4px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 5px 7px;
+    text-transform: uppercase;
+    width: max-content;
+}
+.nbc-product-section:not(.nbc-sale-section) .rbt-card-img::before {
+    background: #ff7a1a;
+    content: "Best Seller";
+    left: 8px;
+    position: absolute;
+    top: 35px;
+    z-index: 4;
+}
+.nbc-product-section:not(.nbc-sale-section) .rbt-card-img:not(:has(.rbt-badge-wrapper))::after {
+    background: #31c96b;
+    content: "New";
+    left: 8px;
+    position: absolute;
+    top: 8px;
+    z-index: 4;
 }
 .nbc-product-section .pricing-part .rbt-offer-badge {
     align-items: center;
+    background: var(--primary-color);
+    border-radius: 0 0 0 10px;
+    color: var(--white-color);
     display: inline-flex !important;
+    font-size: 10px;
+    font-weight: 700;
+    height: 27px;
+    justify-content: center;
+    padding: 4px 7px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 5;
+}
+.nbc-product-section .rbt-wishlisted-btn {
+    display: none !important;
+}
+.nbc-product-section .pricing-part {
+    align-items: baseline;
+    display: grid;
+    gap: 4px 6px;
+    grid-template-columns: max-content max-content;
+}
+.nbc-product-section .pricing-part del {
+    color: var(--text-color);
+    display: inline !important;
+    font-size: 11px;
+    font-weight: 500;
+}
+.nbc-product-section .pricing-part > .price-text:not(del) {
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 700;
+}
+.nbc-product-section .pricing-part::after {
+    border: 1px solid var(--accent-color);
+    border-radius: 999px;
+    color: #4d8e13;
+    content: "IN STOCK";
+    font-size: 9px;
+    font-weight: 700;
+    grid-column: 1 / -1;
+    justify-self: start;
+    line-height: 1;
+    padding: 3px 7px;
+    text-transform: uppercase;
 }
 .nbc-product-section .rbt-card-body {
     display: grid;
@@ -732,7 +810,7 @@
         gap: 8px;
         grid-template-rows: auto auto;
         margin-bottom: 0 !important;
-        min-height: 170px;
+        min-height: 190px;
         padding: 14px 12px !important;
         transform: none !important;
     }
@@ -757,6 +835,15 @@
     }
     .nbc-product-section .rbt-product-card:hover .rbt-card-img img {
         transform: scale(1.07);
+    }
+    .nbc-product-section .pricing-part {
+        gap: 3px 4px;
+    }
+    .nbc-product-section .pricing-part del {
+        font-size: 9px;
+    }
+    .nbc-product-section .pricing-part > .price-text:not(del) {
+        font-size: 11px;
     }
 }
 
