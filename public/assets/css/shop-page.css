@@ -359,11 +359,15 @@
 }
 
 .rbt-shop-filter-area .rbt-product-card .rbt-card-subtitle,
+.rbt-shop-filter-area .rbt-product-card .rbt-badge-wrapper,
+.rbt-shop-filter-area .rbt-product-card .rbt-discount-badge,
 .rbt-shop-filter-area .rbt-product-card .rbt-quick-btn-grp,
 .rbt-shop-filter-area .rbt-product-card .rbt-countdown-wrap,
 .rbt-shop-filter-area .rbt-product-card .rbt-text-swiper-container,
 .rbt-shop-filter-area .rbt-product-card .rbt-text-group,
 .rbt-shop-filter-area .rbt-product-card .pricing-part del,
+.rbt-shop-filter-area .rbt-product-card .pricing-part .rbt-offer-badge,
+.rbt-shop-filter-area .rbt-product-card .pricing-part .rbt-badge,
 .rbt-shop-filter-area .rbt-product-card .prd-details-area {
     display: none !important;
 }

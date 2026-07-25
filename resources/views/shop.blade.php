@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Shop | Nature's Beauty Creations")
+@section('title', 'Shop - eCommerce Bootstrap5 Template')
 
 @push('page-styles')
     <link rel="stylesheet" href="{{ asset('assets/css/shop-page.css') }}">
@@ -25,7 +25,7 @@
                         <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
-                <p class="description">Discover authentic NBC beauty and personal-care products inspired by nature.</p>
+                <p class="description">Unimart is a E-commerce Template. Worldwide electronics store since 1978.</p>
                 <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
                     <input type="text" placeholder="Search for products">
                     <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -263,8 +263,8 @@
                         </div>
                         <div class="pricing-action d-flex flex-column align-items-center rbt-gap--8">
                             <div class="rbt-pricing-part d-flex">
-                                <span class="rbt-price-text offer-price">Rs. 189.00</span>
-                                <del class="rbt-dis-price-text">Rs. 295.00</del>
+                                <span class="rbt-price-text offer-price">$189.00</span>
+                                <del class="rbt-dis-price-text">$295.00</del>
                             </div>
                             <a class="rbt-btn rbt-btn-sm rbt-btn-black" href="product-single-default.html">View
                                 Details</a>
@@ -2054,7 +2054,7 @@
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">JBL PartyBox 100W Speaker</a>
                             </h3>
-                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
+                            <span class="quantity">1x <span class="price">$359.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2078,7 +2078,7 @@
                         </div>
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">Apple Watch Ultra 2</a></h3>
-                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
+                            <span class="quantity">1x <span class="price">$359.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2104,7 +2104,7 @@
                             <h3 class="title h6"><a href="product-single-default.html">PlayStation Wireless
                                     Headphone</a>
                             </h3>
-                            <span class="quantity">1x <span class="price">Rs. 759.00</span></span>
+                            <span class="quantity">1x <span class="price">$759.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2129,7 +2129,7 @@
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">Awei CL-115M USB 2.4A Cable </a>
                             </h3>
-                            <span class="quantity">1x <span class="price">Rs. 459.00</span></span>
+                            <span class="quantity">1x <span class="price">$459.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2154,7 +2154,7 @@
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">MaxGreen 45W Power Adapter</a>
                             </h3>
-                            <span class="quantity">1x <span class="price">Rs. 999.00</span></span>
+                            <span class="quantity">1x <span class="price">$999.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2178,7 +2178,7 @@
                         </div>
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">Havit PB90 Power Bank </a></h3>
-                            <span class="quantity">1x <span class="price">Rs. 288.00</span></span>
+                            <span class="quantity">1x <span class="price">$288.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2227,7 +2227,7 @@
                                             <h3 class="title h6"><a href="product-single-default.html">Keurig K-Duo 4K
                                                     Waterproof Action
                                                     Video Camera </a></h3>
-                                            <span class="quantity"><span class="price">Rs. 345.00</span></span>
+                                            <span class="quantity"><span class="price">$345.00</span></span>
                                         </div>
                                         <a href="#!" class="add-itembtn tooltips" data-bs-toggle="modal" data-bs-target="#addedcartModal" data-tooltip="Add to Cart"><i class="fa-regular fa-cart-plus"></i></a>
                                     </div>
@@ -2244,7 +2244,7 @@
                                             <h3 class="title h6"><a href="product-single-default.html">Full Amoled HD
                                                     Streaming Webcam</a>
                                             </h3>
-                                            <span class="quantity"><span class="price">Rs. 189.00</span></span>
+                                            <span class="quantity"><span class="price">$189.00</span></span>
                                         </div>
                                         <a href="#!" class="add-itembtn tooltips" data-bs-toggle="modal" data-bs-target="#addedcartModal" data-tooltip="Add to Cart"><i class="fa-regular fa-cart-plus"></i></a>
                                     </div>
@@ -2260,19 +2260,19 @@
             <hr class="mb--0 mt--16">
             <div class="rbt-cart-subttotal">
                 <p>Subtotal (2 items)</p>
-                <p class="price">Rs. 758.00</p>
+                <p class="price">$758.00</p>
             </div>
             <div class="rbt-cart-subttotal">
                 <p>Shipping</p>
-                <p class="price">Rs. 10.00</p>
+                <p class="price">$10.00</p>
             </div>
             <hr class="mb--0">
             <div class="rbt-cart-subttotal">
                 <p class="subtotal"><strong>Total</strong></p>
-                <p class="price">Rs. 768.00</p>
+                <p class="price">$768.00</p>
             </div>
             <div class="offer-progress-area">
-                <p class="offer-text">Add <strong>Rs. 248.00</strong> More To Get <strong>Free Shipping</strong></p>
+                <p class="offer-text">Add <strong>$248.00</strong> More To Get <strong>Free Shipping</strong></p>
                 <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                     <div class="progress-bar w-75"></div>
                 </div>
@@ -2367,10 +2367,10 @@
                         </div>
                         <div class="coupon-details">
                             <h2 class="rbt-coupon-info-title b1">UP TO 30% OFF</h2>
-                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over Rs. 9.90</p>
+                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over $9.90</p>
                             <ul class="rbt-coupon-info-list mt--12">
                                 <li><span>12/18/2023 14:00 ~ 12/25/2023 14:00</span></li>
-                                <li><span>The minimum spend for this coupon <strong>Rs. 200.00</strong></span></li>
+                                <li><span>The minimum spend for this coupon <strong>$200.00</strong></span></li>
                             </ul>
                         </div>
                         <button class="copy-icon rbt-round-btn rbt-bg-primary rbt-copy-btn" data-tooltip="Copy">
@@ -2385,10 +2385,10 @@
                         </div>
                         <div class="coupon-details">
                             <h2 class="rbt-coupon-info-title b1">UP TO 30% OFF</h2>
-                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over Rs. 9.90</p>
+                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over $9.90</p>
                             <ul class="rbt-coupon-info-list mt--12">
                                 <li><span>12/18/2023 14:00 ~ 12/25/2023 14:00</span></li>
-                                <li><span>The minimum spend for this coupon <strong>Rs. 200.00</strong></span></li>
+                                <li><span>The minimum spend for this coupon <strong>$200.00</strong></span></li>
                             </ul>
                         </div>
                         <button class="copy-icon rbt-round-btn rbt-bg-primary rbt-copy-btn" data-tooltip="Copy">
@@ -2839,8 +2839,8 @@
                                                     Studio Pro Wireless Earbuds – Black</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 255.34</del>
-                                                <span class="price-text">Rs. 69.78</span>
+                                                <del class="price-text">$255.34</del>
+                                                <span class="price-text">$69.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -2868,8 +2868,8 @@
                                                     12.9-inch iPad Pro Wi-Fi 512GB Gray Space</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 56.00</del>
-                                                <span class="price-text">Rs. 26.00</span>
+                                                <del class="price-text">$56.00</del>
+                                                <span class="price-text">$26.00</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -2898,8 +2898,8 @@
                                                     Handheld Smartphone Gimbal</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 116.34</del>
-                                                <span class="price-text">Rs. 69.78</span>
+                                                <del class="price-text">$116.34</del>
+                                                <span class="price-text">$69.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -2927,8 +2927,8 @@
                                                     Ultra 2 – Titanium Case</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 96.34</del>
-                                                <span class="price-text">Rs. 59.78</span>
+                                                <del class="price-text">$96.34</del>
+                                                <span class="price-text">$59.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -2955,8 +2955,8 @@
                                                     MacBook Pro 16-inch – M2 Chip</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 116.34</del>
-                                                <span class="price-text">Rs. 69.78</span>
+                                                <del class="price-text">$116.34</del>
+                                                <span class="price-text">$69.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -2985,8 +2985,8 @@
                                                     Air 10.9-inch – Wi-Fi 256GB</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 219.34</del>
-                                                <span class="price-text">Rs. 99.78</span>
+                                                <del class="price-text">$219.34</del>
+                                                <span class="price-text">$99.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3013,8 +3013,8 @@
                                                     Studio Pro Wireless Earbuds – Black</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 255.34</del>
-                                                <span class="price-text">Rs. 69.78</span>
+                                                <del class="price-text">$255.34</del>
+                                                <span class="price-text">$69.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3042,8 +3042,8 @@
                                                     12.9-inch iPad Pro Wi-Fi 512GB Gray Space</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 56.00</del>
-                                                <span class="price-text">Rs. 26.00</span>
+                                                <del class="price-text">$56.00</del>
+                                                <span class="price-text">$26.00</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3072,8 +3072,8 @@
                                                     Handheld Smartphone Gimbal</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 116.34</del>
-                                                <span class="price-text">Rs. 69.78</span>
+                                                <del class="price-text">$116.34</del>
+                                                <span class="price-text">$69.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3101,8 +3101,8 @@
                                                     Ultra 2 – Titanium Case</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 96.34</del>
-                                                <span class="price-text">Rs. 59.78</span>
+                                                <del class="price-text">$96.34</del>
+                                                <span class="price-text">$59.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3129,8 +3129,8 @@
                                                     MacBook Pro 16-inch – M2 Chip</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 116.34</del>
-                                                <span class="price-text">Rs. 69.78</span>
+                                                <del class="price-text">$116.34</del>
+                                                <span class="price-text">$69.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3159,8 +3159,8 @@
                                                     Air 10.9-inch – Wi-Fi 256GB</a></h3>
 
                                             <div class="pricing-part">
-                                                <del class="price-text">Rs. 219.34</del>
-                                                <span class="price-text">Rs. 99.78</span>
+                                                <del class="price-text">$219.34</del>
+                                                <span class="price-text">$99.78</span>
                                             </div>
                                         </div>
                                         <div class="rbt-card-img rbt-bg-color-default rbt-curved-style-box">
@@ -3216,8 +3216,8 @@
                     </div>
                     <div class="pricing-action d-flex align-items-center rbt-gap--8">
                         <div class="rbt-pricing-part d-flex">
-                            <span class="rbt-price-text offer-price">Rs. 189.00</span>
-                            <del class="rbt-dis-price-text">Rs. 295.00</del>
+                            <span class="rbt-price-text offer-price">$189.00</span>
+                            <del class="rbt-dis-price-text">$295.00</del>
                         </div>
                         <a class="rbt-btn rbt-btn-sm rbt-btn-black" href="product-single-default.html">View Details</a>
                     </div>
@@ -4322,7 +4322,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">Rs. 23.00 - Rs. 134.98</span>
+                        <span class="price-text">$23.00 - $134.98</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -4435,7 +4435,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">Rs. 99.98 - Rs. 384.98</span>
+                        <span class="price-text">$99.98 - $384.98</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">4
                             in Stock</div>
                     </div>
@@ -4551,8 +4551,8 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">Rs. 295.00</del>
-                        <span class="price-text">Rs. 139.49</span>
+                        <del class="price-text">$295.00</del>
+                        <span class="price-text">$139.49</span>
                         <span class="rbt-offer-badge">-30%</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">12
                             in Stock</div>
@@ -4687,8 +4687,8 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">Rs. 295.00</del>
-                        <span class="price-text">Rs. 189.59</span>
+                        <del class="price-text">$295.00</del>
+                        <span class="price-text">$189.59</span>
                         <div class="rbt-badge rbt-badge-bg-danger rbt-badge-border rbt-badge-small rbt-badge-rounded rbt-shiny">
                             🔥 Limited Stock</div>
                     </div>
@@ -4825,7 +4825,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">Rs. 50.59 - Rs. 155.99</span>
+                        <span class="price-text">$50.59 - $155.99</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -4941,8 +4941,8 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">Rs. 295.00</del>
-                        <span class="price-text">Rs. 189.79</span>
+                        <del class="price-text">$295.00</del>
+                        <span class="price-text">$189.79</span>
                         <span class="rbt-offer-badge">-30%</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">12
                             in Stock</div>
@@ -5056,7 +5056,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">Rs. 99.98 - Rs. 384.98</span>
+                        <span class="price-text">$99.98 - $384.98</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">4
                             in Stock</div>
                     </div>
@@ -5193,7 +5193,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">Rs. 46.00 - Rs. 189.98</span>
+                        <span class="price-text">$46.00 - $189.98</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -5327,8 +5327,8 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">Rs. 295.00</del>
-                        <span class="price-text">Rs. 139.49</span>
+                        <del class="price-text">$295.00</del>
+                        <span class="price-text">$139.49</span>
                         <div class="rbt-badge rbt-badge-bg-danger rbt-badge-border rbt-badge-small rbt-badge-rounded rbt-shiny">
                             🔥 Limited Stock</div>
                     </div>
@@ -5465,7 +5465,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">Rs. 23.00 - Rs. 134.98</span>
+                        <span class="price-text">$23.00 - $134.98</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -5756,8 +5756,8 @@
                                 </p>
                                 <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                                     <div class="pricing-part mt--0">
-                                        <del class="price-text">Rs. 295.00</del>
-                                        <span class="price-text">Rs. 179.98</span>
+                                        <del class="price-text">$295.00</del>
+                                        <span class="price-text">$179.98</span>
                                         <span class="rbt-offer-badge">-30%</span>
                                     </div>
                                     <div class="prd-info-section">
@@ -6210,8 +6210,8 @@
                                                     </p>
                                                     <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                                                         <div class="pricing-part mt--0">
-                                                            <del class="price-text">Rs. 295.00</del>
-                                                            <span class="price-text">Rs. 179.98</span>
+                                                            <del class="price-text">$295.00</del>
+                                                            <span class="price-text">$179.98</span>
                                                             <span class="rbt-offer-badge">-30%</span>
                                                         </div>
                                                         <div class="prd-info-section has-left-separator">
@@ -6512,8 +6512,8 @@
                                                     </p>
                                                     <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                                                         <div class="pricing-part mt--0">
-                                                            <del class="price-text">Rs. 295.00</del>
-                                                            <span class="price-text">Rs. 179.98</span>
+                                                            <del class="price-text">$295.00</del>
+                                                            <span class="price-text">$179.98</span>
                                                             <span class="rbt-offer-badge">-30%</span>
                                                         </div>
                                                         <div class="prd-info-section has-left-separator">
@@ -6735,7 +6735,7 @@
                                         </div>
                                         <div class="product-content">
                                             <h3 class="title h6"><a href="#">Apple 12inch iPad </a></h3>
-                                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
+                                            <span class="quantity">1x <span class="price">$359.00</span></span>
                                             <div class="bottom-part">
                                                 <div class="rbt-qty-area">
                                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -6758,7 +6758,7 @@
                                         </div>
                                         <div class="product-content">
                                             <h3 class="title h6"><a href="#">Apple Watch 8 Pro </a></h3>
-                                            <span class="quantity">1x <span class="price">Rs. 288.00</span></span>
+                                            <span class="quantity">1x <span class="price">$288.00</span></span>
                                             <div class="bottom-part">
                                                 <div class="rbt-qty-area">
                                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -6796,19 +6796,19 @@
                             <hr class="mb--0 mt--16">
                             <div class="rbt-cart-subttotal">
                                 <p>Subtotal (2 items)</p>
-                                <p class="price">Rs. 758.00</p>
+                                <p class="price">$758.00</p>
                             </div>
                             <div class="rbt-cart-subttotal">
                                 <p>Shipping</p>
-                                <p class="price">Rs. 10.00</p>
+                                <p class="price">$10.00</p>
                             </div>
                             <hr class="mb--0">
                             <div class="rbt-cart-subttotal">
                                 <p class="subtotal"><strong>Total</strong></p>
-                                <p class="price">Rs. 768.00</p>
+                                <p class="price">$768.00</p>
                             </div>
                             <div class="offer-progress-area">
-                                <p class="offer-text">Add <strong>Rs. 248.00</strong> More To Get <strong>Free
+                                <p class="offer-text">Add <strong>$248.00</strong> More To Get <strong>Free
                                         Shipping</strong></p>
                                 <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar w-75"></div>
@@ -6905,10 +6905,10 @@
                         </div>
                         <div class="coupon-details">
                             <h2 class="rbt-coupon-info-title b1">UP TO 30% OFF</h2>
-                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over Rs. 9.90</p>
+                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over $9.90</p>
                             <ul class="rbt-coupon-info-list mt--12">
                                 <li><span>12/18/2023 14:00 ~ 12/25/2023 14:00</span></li>
-                                <li><span>The minimum spend for this coupon <strong>Rs. 200.00</strong></span></li>
+                                <li><span>The minimum spend for this coupon <strong>$200.00</strong></span></li>
                             </ul>
                         </div>
                         <button class="copy-icon rbt-round-btn rbt-bg-primary rbt-copy-btn" data-tooltip="Copy">
@@ -6923,10 +6923,10 @@
                         </div>
                         <div class="coupon-details">
                             <h2 class="rbt-coupon-info-title b1">UP TO 30% OFF</h2>
-                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over Rs. 9.90</p>
+                            <p class="rbt-coupon-info-sub-title b3 mt--4">For orders over $9.90</p>
                             <ul class="rbt-coupon-info-list mt--12">
                                 <li><span>12/18/2023 14:00 ~ 12/25/2023 14:00</span></li>
-                                <li><span>The minimum spend for this coupon <strong>Rs. 200.00</strong></span></li>
+                                <li><span>The minimum spend for this coupon <strong>$200.00</strong></span></li>
                             </ul>
                         </div>
                         <button class="copy-icon rbt-round-btn rbt-bg-primary rbt-copy-btn" data-tooltip="Copy">
@@ -7153,7 +7153,7 @@
                                                 </a>
                                             </div>
                                             <div class="rbt-product-price-text rbt-text-color-primary">
-                                                <span>Rs. 159.00</span>
+                                                <span>$159.00</span>
                                             </div>
                                             <span class="rbt-product-id"><span class="rbt-text-semi-bold">SKU:</span>
                                                 #180036458</span>
@@ -7189,7 +7189,7 @@
                                                 </a>
                                             </div>
                                             <div class="rbt-product-price-text rbt-text-color-primary">
-                                                <span>Rs. 209.00</span>
+                                                <span>$209.00</span>
                                             </div>
                                             <span class="rbt-product-id"><span class="rbt-text-semi-bold">SKU:</span>
                                                 #180036565</span>
@@ -7248,7 +7248,7 @@
                                         Studio 3 Bluetooth Speaker</a>
                             </p></div>
                             <div class="pricing-part mt--0">
-                                <span class="price-text">Rs. 179.98</span>
+                                <span class="price-text">$179.98</span>
                             </div>
                         </div>
                     </div>
@@ -7257,7 +7257,7 @@
                             <p class="cart-quantity-text b1 rbt-text-color-heading mb--0">There are <span class="number">2</span> items in your cart</p>
                             <div class="pricing-part justify-content-center align-items-center">
                                 <p class="b3 rbt-text-color-heading rbt-text-medium mb--0">Total: </p>
-                                <span class="price-text rbt-text-color-primary h4 mb--0">Rs. 179.98</span>
+                                <span class="price-text rbt-text-color-primary h4 mb--0">$179.98</span>
                             </div>
                             <a class="rbt-btn rbt-btn-sm d-block mt--16" href="#">Checkout</a>
                             <a class="rbt-btn rbt-btn-sm d-block rbt-btn-naked b3 text-decoration-underline mt--8 rbt-text-semi-bold" href="cart.html">View My Cart</a>
@@ -7283,7 +7283,7 @@
                                                 Galaxy Buds 2 Pro Earbuds</a>
                                         </p>
                                         <div class="pricing-part mt--0">
-                                            <span class="price-text">Rs. 428.75</span>
+                                            <span class="price-text">$428.75</span>
                                         </div>
                                     </div>
                                 </div>
@@ -7301,7 +7301,7 @@
                                         <p class="rbt-card-title mt--0 b4"><a href="product-single-default.html">Nespresso Vertuo Plus Coffee
                                                 Machine</a></p>
                                         <div class="pricing-part mt--0">
-                                            <span class="price-text">Rs. 228.98</span>
+                                            <span class="price-text">$228.98</span>
                                         </div>
                                     </div>
                                 </div>
@@ -7318,7 +7318,7 @@
                                         <p class="rbt-card-title mt--0 b4"><a href="product-single-default.html">Fitbit
                                                 Sense 2 Advanced Smartwatch</a></p>
                                         <div class="pricing-part mt--0">
-                                            <span class="price-text">Rs. 128.90</span>
+                                            <span class="price-text">$128.90</span>
                                         </div>
                                     </div>
                                 </div>
@@ -7555,22 +7555,22 @@
             <td class="rbt-product-feature-name">Price</td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">Rs. 179.98</span>
+                    <span class="rbt-product-price">$179.98</span>
                 </div>
             </td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">Rs. 179.98</span>
+                    <span class="rbt-product-price">$179.98</span>
                 </div>
             </td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">Rs. 179.98</span>
+                    <span class="rbt-product-price">$179.98</span>
                 </div>
             </td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">Rs. 179.98</span>
+                    <span class="rbt-product-price">$179.98</span>
                 </div>
             </td>
         </tr>
@@ -7813,8 +7813,8 @@
                                     <p class="rbt-card-title h6" id="quickviewEditCartModalLabel"><a href="#">2021
                                             Apple 12.9-inch iPad Pro Wi-Fi 512GB Gray Space</a></p>
                                     <div class="pricing-part mb--12 mt--0">
-                                        <del class="price-text">Rs. 295.00</del>
-                                        <span class="price-text">Rs. 179.98</span>
+                                        <del class="price-text">$295.00</del>
+                                        <span class="price-text">$179.98</span>
                                     </div>
                                     <div class="rbt-qty-area rbt-qty-sm">
                                         <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
