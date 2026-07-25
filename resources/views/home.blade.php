@@ -3946,7 +3946,7 @@
 
                     <!-- Start Brands Area -->
                     <div class="row row--12 mt_dec--60">
-                        <div class="col-lg-1-5 col-lg-4 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-1">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-1">
@@ -3961,7 +3961,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-1-5 col-lg-4 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-2">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-2">
@@ -3976,7 +3976,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-1-5 col-lg-4 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-3">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-3">
@@ -3991,7 +3991,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-1-5 col-lg-4 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-4">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-4">
@@ -4006,7 +4006,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-1-5 col-lg-4 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-5">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-1">
@@ -4021,6 +4021,53 @@
                             </div>
                         </div>
 
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                            <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-6">
+                                <div class="inner">
+                                    <div class="brand-image rbt-scroll-trigger zoom_in animation-order-2">
+                                        <img src="{{ asset('assets/images/nbc/Chandi Panda/chandi-panda-logo.png') }}"
+                                            alt="Chandi Panda">
+                                    </div>
+                                    <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
+                                        href="{{ route('shop', ['brand' => 'chandi-panda']) }}">
+                                        <span class="btn-text">See Products</span>
+                                        <span class="btn-icon"><i class="fa-solid fa-arrow-up-right ml--4"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                            <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-7">
+                                <div class="inner">
+                                    <div class="brand-image rbt-scroll-trigger zoom_in animation-order-3">
+                                        <img src="{{ asset('assets/images/nbc/Elithe/elithe-logo.png') }}"
+                                            alt="Elithé">
+                                    </div>
+                                    <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
+                                        href="{{ route('shop', ['brand' => 'elithe']) }}">
+                                        <span class="btn-text">See Products</span>
+                                        <span class="btn-icon"><i class="fa-solid fa-arrow-up-right ml--4"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                            <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-8">
+                                <div class="inner">
+                                    <div class="brand-image rbt-scroll-trigger zoom_in animation-order-4">
+                                        <img src="{{ asset('assets/images/nbc/Mydoc/mydoc-logo.png') }}"
+                                            alt="Mydoc">
+                                    </div>
+                                    <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
+                                        href="{{ route('shop', ['brand' => 'mydoc']) }}">
+                                        <span class="btn-text">See Products</span>
+                                        <span class="btn-icon"><i class="fa-solid fa-arrow-up-right ml--4"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- End Brands Area -->
