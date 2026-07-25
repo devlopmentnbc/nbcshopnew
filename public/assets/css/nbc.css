@@ -718,6 +718,38 @@
     color: var(--white-color);
 }
 
+@media (max-width: 767px) {
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2 {
+        min-height: 0;
+        transform: none;
+    }
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2 .rbt-card-body {
+        grid-template-rows: 1fr auto;
+        margin-bottom: 0 !important;
+        min-height: 210px;
+        padding: 14px 12px !important;
+        transform: none !important;
+    }
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2:hover .rbt-card-body,
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2:focus-within .rbt-card-body {
+        transform: none !important;
+    }
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2 .rbt-card-footer,
+    .nbc-product-section .rbt-product-card.rbt-product-card-style-2 .rbt-cart-sidenav-activation {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+    .nbc-product-section .rbt-product-card:hover {
+        box-shadow: 0 8px 24px rgba(12, 48, 44, 0.05);
+        transform: none;
+    }
+    .nbc-product-section .rbt-product-card:active .rbt-card-img img,
+    .nbc-product-section .rbt-product-card:focus-within .rbt-card-img img {
+        transform: scale(1.07);
+    }
+}
+
 /* Compare is intentionally unavailable throughout the NBC storefront. */
 .rbt-compare-btn,
 .rbt-compare-btn-activation,
