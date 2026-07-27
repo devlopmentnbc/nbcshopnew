@@ -41,6 +41,62 @@
     width: auto;
 }
 
+.rbt-preloader.nbc-preloader {
+    align-items: center;
+    background: var(--primary-color);
+    bottom: 0;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: auto;
+    z-index: 99999;
+}
+
+.nbc-loading-container,
+.nbc-loading-ring {
+    border-radius: 50%;
+    height: 100px;
+    position: relative;
+    width: 100px;
+}
+
+.nbc-loading-container {
+    margin: 40px auto;
+}
+
+.nbc-loading-ring {
+    animation: nbc-rotate-loading 1.5s linear infinite;
+    border: 1px solid transparent;
+    border-color: transparent var(--white-color);
+    transform-origin: 50% 50%;
+}
+
+.nbc-loading-icon {
+    left: 50%;
+    max-width: 66px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nbc-loading-icon img {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+@keyframes nbc-rotate-loading {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .rbt-header-campaign {
     background-color: #0c302c !important;
     background-image: none !important;
