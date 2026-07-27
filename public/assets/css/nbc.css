@@ -750,9 +750,7 @@
 .nbc-product-section .rbt-card-body {
     display: grid;
     gap: 10px;
-    margin-bottom: 0 !important;
     padding: 16px !important;
-    transform: none !important;
 }
 .nbc-product-section .rbt-card-top-content {
     display: grid;
