@@ -324,7 +324,13 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.nbc-brand-grid::-webkit-scrollbar {
+    display: none;
+    height: 0;
+    width: 0;
 }
 .nbc-brand-grid .nbc-brand-item {
     flex: 0 0 12.5%;
@@ -340,21 +346,33 @@
 .nbc-brand-grid .brand-image + .rbt-btn {
     margin-top: 8px;
 }
-.nbc-brand-grid .rbt-btn {
+.nbc-brand-grid .rbt-brand.style-three .rbt-btn.rbt-btn-sm {
     font-size: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
+    max-width: 100%;
+    min-width: 0;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
     white-space: nowrap;
 }
 @media (max-width: 991px) {
     .nbc-brand-grid {
+        column-gap: 14px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0 12px 8px;
         scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
     }
     .nbc-brand-grid .nbc-brand-item {
-        flex-basis: 118px;
-        max-width: 118px;
+        flex-basis: 150px;
+        max-width: 150px;
+        padding-left: 0;
+        padding-right: 0;
         scroll-snap-align: start;
+    }
+    .nbc-brand-grid .rbt-brand,
+    .nbc-brand-grid .rbt-brand .inner {
+        width: 100%;
     }
 }
 @media (max-width: 1199px) {

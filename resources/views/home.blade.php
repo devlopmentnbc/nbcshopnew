@@ -4101,7 +4101,9 @@
                 }
 
                 const firstBrand = brandCarousel.querySelector('.nbc-brand-item');
-                const step = firstBrand ? firstBrand.getBoundingClientRect().width : 118;
+                const carouselStyles = window.getComputedStyle(brandCarousel);
+                const carouselGap = parseFloat(carouselStyles.columnGap) || 0;
+                const step = firstBrand ? firstBrand.getBoundingClientRect().width + carouselGap : 164;
                 const end = brandCarousel.scrollWidth - brandCarousel.clientWidth;
 
                 if (brandCarousel.scrollLeft >= end - step / 2) {
