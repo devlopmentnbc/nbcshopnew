@@ -4079,6 +4079,61 @@
     </div>
     <!-- End Component Area -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const brandCarousel = document.querySelector('.nbc-brand-grid');
+            const responsiveBrands = window.matchMedia('(max-width: 991px)');
+            let brandTimer = null;
+            let resumeTimer = null;
+
+            if (!brandCarousel) {
+                return;
+            }
+
+            const stopBrandCarousel = function () {
+                window.clearInterval(brandTimer);
+                brandTimer = null;
+            };
+
+            const advanceBrandCarousel = function () {
+                if (!responsiveBrands.matches) {
+                    return;
+                }
+
+                const firstBrand = brandCarousel.querySelector('.nbc-brand-item');
+                const step = firstBrand ? firstBrand.getBoundingClientRect().width : 118;
+                const end = brandCarousel.scrollWidth - brandCarousel.clientWidth;
+
+                if (brandCarousel.scrollLeft >= end - step / 2) {
+                    brandCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    brandCarousel.scrollBy({ left: step, behavior: 'smooth' });
+                }
+            };
+
+            const startBrandCarousel = function () {
+                stopBrandCarousel();
+                if (responsiveBrands.matches) {
+                    brandTimer = window.setInterval(advanceBrandCarousel, 3200);
+                }
+            };
+
+            const pauseThenResume = function () {
+                stopBrandCarousel();
+                window.clearTimeout(resumeTimer);
+                resumeTimer = window.setTimeout(startBrandCarousel, 4000);
+            };
+
+            brandCarousel.addEventListener('pointerenter', stopBrandCarousel);
+            brandCarousel.addEventListener('pointerleave', startBrandCarousel);
+            brandCarousel.addEventListener('touchstart', stopBrandCarousel, { passive: true });
+            brandCarousel.addEventListener('touchend', pauseThenResume, { passive: true });
+            window.addEventListener('resize', startBrandCarousel);
+
+            startBrandCarousel();
+        });
+    </script>
+
 
 
 

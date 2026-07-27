@@ -337,6 +337,9 @@
     max-width: 92px;
     width: auto;
 }
+.nbc-brand-grid .brand-image + .rbt-btn {
+    margin-top: 8px;
+}
 .nbc-brand-grid .rbt-btn {
     font-size: 10px;
     padding-left: 8px;
@@ -344,9 +347,14 @@
     white-space: nowrap;
 }
 @media (max-width: 991px) {
+    .nbc-brand-grid {
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
     .nbc-brand-grid .nbc-brand-item {
         flex-basis: 118px;
         max-width: 118px;
+        scroll-snap-align: start;
     }
 }
 @media (max-width: 1199px) {
