@@ -320,6 +320,35 @@
     max-height: 55px;
     object-fit: contain;
 }
+.nbc-brand-grid {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+.nbc-brand-grid .nbc-brand-item {
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.nbc-brand-grid .brand-image img {
+    max-height: 46px;
+    max-width: 92px;
+    width: auto;
+}
+.nbc-brand-grid .rbt-btn {
+    font-size: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    white-space: nowrap;
+}
+@media (max-width: 991px) {
+    .nbc-brand-grid .nbc-brand-item {
+        flex-basis: 118px;
+        max-width: 118px;
+    }
+}
 @media (max-width: 1199px) {
     .nbc-promotion-section .rbt-counterdown-section > .row {
         height: auto;

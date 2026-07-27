@@ -3945,8 +3945,8 @@
                     </div>
 
                     <!-- Start Brands Area -->
-                    <div class="row row--12 mt_dec--60">
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                    <div class="row row--12 mt_dec--60 nbc-brand-grid">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-1">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-1">
@@ -3961,7 +3961,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-2">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-2">
@@ -3976,7 +3976,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-3">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-3">
@@ -3991,7 +3991,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-4">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-4">
@@ -4006,7 +4006,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-5">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-1">
@@ -4021,7 +4021,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-6">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-2">
@@ -4037,7 +4037,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-7">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-3">
@@ -4053,7 +4053,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mt--60">
+                        <div class="nbc-brand-item mt--60">
                             <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-8">
                                 <div class="inner">
                                     <div class="brand-image rbt-scroll-trigger zoom_in animation-order-4">
