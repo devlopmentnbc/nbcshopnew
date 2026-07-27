@@ -6,9 +6,9 @@
     <meta name="description" content="Unimart-inspired Tailwind admin dashboard HTML template.">
     <meta name="theme-color" content="#215ada">
     <meta name="color-scheme" content="light dark">
-    <link rel="icon" type="image/png" href="{{ asset('admin-assets/images/favicon.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('admin-assets/images/favicon.png') }}">
-    
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
+
     <title>Sign In | Unimart Admin</title>
     <script>
       try {
@@ -216,7 +216,7 @@
         <form method="POST" action="{{route('admin.login.submit') }}" class="w-full max-w-[440px] rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
           @csrf
           <a href="{{route('home') }}" class="inline-flex items-center" aria-label="Unimart dashboard">
-            <img src="{{asset('assets/images/logo/logo.webp') }}" alt="Unimart" class="h-9 w-auto">
+            <img src="{{asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart" class="h-9 w-auto">
           </a>
           <div class="mt-8">
             <p class="mb-1 text-[13px] font-semibold uppercase text-brand-600">Admin Portal</p>

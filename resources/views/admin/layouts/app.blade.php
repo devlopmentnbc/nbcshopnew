@@ -6,8 +6,8 @@
     <meta name="description" content="Unimart-inspired Tailwind admin dashboard HTML template.">
     <meta name="theme-color" content="#215ada">
     <meta name="color-scheme" content="light dark">
-    <link rel="icon" type="image/png" href="{{ asset('admin-assets/images/favicon.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('admin-assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
     <link rel="preload" as="image" href="{{ asset('admin-assets/images/banner/main-banner-01-1280.webp') }}" imagesrcset="assets/images/banner/main-banner-01-640.webp 640w, assets/images/banner/main-banner-01-1280.webp 1280w, assets/images/banner/main-banner-01.webp 1856w" imagesizes="(min-width: 1024px) calc(100vw - 326px), calc(100vw - 32px)" fetchpriority="high">
     <title>@yield('title', 'Admin Dashboard - Unimart')</title>
     <script>
@@ -202,7 +202,7 @@
     <a href="{{ route('admin.dashboard') }}" class="ws-switch flex flex-1 items-center gap-2 rounded-base px-2 py-1.5" aria-label="Unimart dashboard">
       <img src="{{ asset('admin-assets/images/logo/logo.webp') }}" alt="Unimart" width="142" height="32" decoding="async" class="logo-full h-8 w-auto dark:hidden max-w-[300px]">
       <img src="{{ asset('admin-assets/images/logo/logo-blackbg.webp') }}" alt="Unimart" width="142" height="32" loading="lazy" decoding="async" class="logo-full hidden h-8 w-auto dark:block">
-      <img src="{{ asset('admin-assets/images/favicon.png') }}" alt="Unimart" width="36" height="36" loading="lazy" decoding="async" class="logo-mark hidden h-9 w-9 shrink-0 rounded-lg object-contain">
+      <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart" width="36" height="36" loading="lazy" decoding="async" class="logo-mark hidden h-9 w-9 shrink-0 rounded-lg object-contain">
     </a>
 
     <button type="button" data-sidebar-collapse="" class="hidden h-9 w-9 shrink-0 items-center justify-center rounded-base text-ink-400 transition-colors hover:bg-surface-muted hover:text-ink-700 lg:inline-flex" aria-label="Collapse sidebar">
@@ -487,12 +487,12 @@
         <button type="button" data-sidebar-toggle="" class="mr-3 inline-flex h-10 w-10 items-center justify-center rounded-base border border-surface-line text-ink-700 hover:bg-surface-muted lg:hidden" aria-controls="admin-sidebar" aria-expanded="false" aria-label="Open sidebar">
           <i data-lucide="menu" class="h-5 w-5"></i>
         </button>
-      
+
         <a href="{{ route('admin.dashboard') }}" class="absolute left-1/2 -translate-x-1/2 lg:hidden" aria-label="Unimart dashboard">
           <img src="{{ asset('admin-assets/images/logo/logo.webp') }}" alt="Unimart" width="142" height="32" decoding="async" class="h-7 w-auto dark:hidden">
           <img src="{{ asset('admin-assets/images/logo/logo-blackbg.webp') }}" alt="Unimart" width="142" height="32" loading="lazy" decoding="async" class="hidden h-7 w-auto dark:block">
         </a>
-      
+
         <form class="hidden w-full max-w-[520px] items-center lg:flex" role="search">
           <label for="global-search" class="sr-only">Search dashboard</label>
           <input id="global-search" type="search" placeholder="Search Unimart .." class="h-10 flex-1 rounded-l-card border border-r-0 border-surface-line bg-surface-body px-5 text-[15px] text-ink-700 placeholder:text-ink-400 focus:border-brand-600">
@@ -500,17 +500,17 @@
             <i data-lucide="search" class="h-5 w-5"></i>
           </button>
         </form>
-      
+
         <div class="ml-auto flex items-center gap-2 sm:gap-4">
           <a href="notifications.html" class="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-ink-700 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card" aria-label="Notifications, 4 unread">
             <i data-lucide="bell" class="h-5 w-5"></i>
             <span class="absolute right-1 top-1 grid h-5 min-w-5 place-items-center rounded-full bg-danger-500 px-1 text-[11px] font-semibold leading-none text-white">4</span>
           </a>
-      
+
           <button type="button" data-theme-toggle="" class="hidden h-10 w-10 items-center justify-center rounded-full text-ink-700 hover:bg-surface-muted sm:inline-flex" aria-label="Toggle quiet mode" aria-pressed="false">
             <i data-lucide="moon" class="h-5 w-5"></i>
           </button>
-      
+
           <div class="relative">
             <button type="button" data-menu-toggle="topbar-user" class="flex items-center gap-3 rounded-card px-2 py-1.5 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card" aria-controls="topbar-user-menu" aria-expanded="false" aria-haspopup="menu" aria-label="Emay Walter Admin - open account menu">
               <img class="h-10 w-10 rounded-full border border-surface-line object-cover" src="{{ asset('admin-assets/avatars/admin-avatar.svg') }}" alt="Emay Walter">
@@ -519,7 +519,7 @@
                 <span class="flex items-center gap-1 text-[13px] text-ink-500">Admin <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i></span>
               </span>
             </button>
-      
+
             <div id="topbar-user-menu" data-menu="topbar-user" class="absolute right-0 top-full z-50 mt-2 hidden w-64 rounded-card border border-surface-line bg-surface-card p-1.5 shadow-lift" role="menu">
               <div class="flex items-center gap-3 border-b border-surface-line px-2 pb-3 pt-2">
                 <img src="{{ asset('admin-assets/avatars/admin-avatar.svg') }}" alt="Emay Walter" class="h-9 w-9 rounded-full object-cover">
@@ -544,7 +544,7 @@
         </div>
       </header>
 
-      
+
 
 @yield('content')
 
@@ -557,7 +557,7 @@
 
     <div data-modal="add-product" class="fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="add-product-title">
       <div data-modal-backdrop="" class="absolute inset-0 bg-ink-900/50 opacity-0 transition-opacity duration-300"></div>
-    
+
       <div data-modal-panel="" class="relative w-full max-w-lg scale-95 rounded-card bg-surface-card opacity-0 shadow-lift transition-all duration-300">
         <div class="flex items-center justify-between border-b border-surface-line px-6 py-4">
           <div class="flex items-center gap-3">
@@ -573,7 +573,7 @@
             <i data-lucide="x" class="h-4 w-4"></i>
           </button>
         </div>
-    
+
         <form class="grid gap-4 px-6 py-5 sm:grid-cols-2" data-add-product-form="">
           <label class="block sm:col-span-2">
             <span class="text-[13px] font-semibold text-ink-700">Product name</span>
@@ -605,7 +605,7 @@
             </select>
           </label>
         </form>
-    
+
         <div class="flex items-center justify-end gap-2 border-t border-surface-line px-6 py-4">
           <button type="button" data-modal-close="" class="h-11 rounded-base border border-surface-line px-4 text-[14px] font-semibold text-ink-700 transition-colors hover:bg-surface-muted">
             Cancel
