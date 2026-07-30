@@ -36,6 +36,27 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <style>
+        .rbt-cart-side-menu .checkout-btn .rbt-btn,
+        .rbt-modal-cart .checkout-btn .rbt-btn {
+            background-color: #113a32 !important;
+            border-color: #113a32 !important;
+            color: #ffffff !important;
+        }
+
+        .rbt-cart-side-menu .checkout-btn .rbt-btn:hover,
+        .rbt-modal-cart .checkout-btn .rbt-btn:hover {
+            background-color: #113a32!important;
+            border-color: #113a32 !important;
+        }
+
+        .rbt-cart-side-menu .price,
+        .rbt-modal-cart .price,
+        .rbt-cart-side-menu .share-btn,
+        .rbt-modal-cart .share-btn {
+            color: #113a32 !important;
+        }
+    </style>
     @stack('page-styles')
 </head>
 

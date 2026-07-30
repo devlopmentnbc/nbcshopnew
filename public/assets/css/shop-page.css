@@ -262,8 +262,8 @@
 }
 
 .rbt-shop-filter-area .rbt-price-input-grp {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     padding: 16px 22px 0;
 }
@@ -278,14 +278,6 @@
     background: #fff;
     color: #12261f;
     font-weight: 700;
-}
-
-.rbt-shop-filter-area .rbt-price-input-grp .rbt-btn {
-    min-height: 52px;
-    border-radius: 16px;
-    background: #103a32;
-    color: #fff;
-    font-weight: 800;
 }
 
 .rbt-shop-filter-area .rbt-product-card .rbt-card-title a,
