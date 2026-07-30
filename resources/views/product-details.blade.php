@@ -21,7 +21,7 @@
                         <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
-                <p class="description">Unimart is a E-commerce Template. Worldwide electronics store since 1978.</p>
+                <p class="description">Authentic herbal beauty, skin care and personal care products from Nature's Beauty Creations.</p>
                 <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
                     <input type="text" placeholder="Search for products">
                     <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -38,7 +38,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="rbt-tab-mobilemenu-2" data-bs-toggle="tab" data-bs-target="#rbt-tab-pane-mobilemenu-2" type="button" role="tab" aria-controls="rbt-tab-pane-mobilemenu-2" aria-selected="false">
                             <i class="fa-sharp fa-regular fa-layer-group"></i>
-                            Catagories
+                            Categories
                         </button>
                     </li>
                 </ul>
@@ -938,7 +938,7 @@
         </div>
     </div>
 </div>
-<!-- Start Side Nav -->
+    <!-- Start Side Nav -->
 <div class="rbt-offcanvas-cat-side-menu rbt-category-sidemenu ">
     <div class="inner-wrapper">
         <div class="rbt-categories-sidebar d-flex">

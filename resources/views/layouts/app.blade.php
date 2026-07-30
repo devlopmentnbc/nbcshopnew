@@ -5617,7 +5617,6 @@
                 </div>
             </div>
 
-
             <!-- Start Search Dropdown  -->
             <div class="rbt-search-dropdown rbt-common-search-dropdown-activation">
                 <div class="wrapper">
@@ -6457,9 +6456,6 @@
         <!-- End Copyright Area  -->
 
     </footer>
-
-
-
     <!-- Start Sign In Modal Area  -->
     <div class="rbt-default-modal modal fade has-rbt-top-folder-shape" id="signinModal" tabindex="-1"
         role="dialog" aria-modal="true" aria-labelledby="signinModalLabel" aria-hidden="true">

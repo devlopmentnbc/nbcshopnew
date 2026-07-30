@@ -18,7 +18,7 @@
                             </a>
                         </div>
                         <div class="rbt-btn-close">
-                            <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmar k"></i></button>
+                            <button class="close-button rbt-round-btn" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>
                     <p class="description">Authentic herbal beauty, skin care and personal care products from Nature's
@@ -44,7 +44,7 @@
                                 data-bs-target="#rbt-tab-pane-mobilemenu-2" type="button" role="tab"
                                 aria-controls="rbt-tab-pane-mobilemenu-2" aria-selected="false">
                                 <i class="fa-sharp fa-regular fa-layer-group"></i>
-                                Catagories
+                                Categories
                             </button>
                         </li>
                     </ul>

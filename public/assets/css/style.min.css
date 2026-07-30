@@ -22635,12 +22635,6 @@ header .rbt-round-btn:hover::after {
     }
 }
 
-@media only screen and (max-width: 479px) {
-    .rbt-header .rbt-quick-access > li.rbt-access-box .rbt-round-btn {
-        background: var(--color-gray-200) !important;
-    }
-}
-
 .rbt-transparent-header .rbt-header-top {
     border-color: #525260;
 }
