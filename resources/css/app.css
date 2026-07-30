@@ -9,3 +9,38 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+:root {
+    --primary-green: #113a32;
+}
+
+/* Cart primary green styling */
+.rbt-minicart-bottom .checkout-btn .rbt-btn {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #ffffff;
+}
+
+.rbt-minicart-bottom .checkout-btn .rbt-btn:hover {
+    background-color: #113a32;
+    border-color: #113a32;
+}
+
+.rbt-cart-side-menu,
+.rbt-modal-cart {
+    color: var(--primary-green);
+}
+
+.rbt-cart-side-menu a,
+.rbt-modal-cart a,
+.rbt-cart-subttotal .price,
+.rbt-minicart-bottom .share-btn,
+.rbt-cart-side-menu .edit-btn,
+.rbt-modal-cart .edit-btn {
+    color: var(--primary-green);
+}
+
+.rbt-cart-side-menu button,
+.rbt-modal-cart button {
+    color: var(--primary-green);
+}

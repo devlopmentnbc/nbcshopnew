@@ -59709,7 +59709,7 @@ form .rbt-input-field {
     text-align: center;
     line-height: 46px;
     font-size: 20px;
-    color: var(--color-primary);
+    color: #198754;
     left: 0;
     top: 0;
     height: 46px;
@@ -59722,7 +59722,7 @@ form .rbt-input-field {
 }
 
 .rbt-progress-parent:hover::after {
-    color: var(--color-primary);
+    color: #198754;
 }
 
 .rbt-progress-parent::before {
@@ -59753,7 +59753,7 @@ form .rbt-input-field {
 }
 
 .rbt-progress-parent svg.rbt-back-circle path {
-    stroke: var(--color-primary);
+    stroke: #198754;
     stroke-width: 4;
     box-sizing: border-box;
     -webkit-transition: all 0.2s linear;
