@@ -63,6 +63,7 @@
             'sanitizers' => 'Sanitizers',
         ],
     ];
+
 @endphp
 
 <ul class="mainmenu has-nav-bg-shape-hover nbc-mainmenu">

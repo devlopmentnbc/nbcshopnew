@@ -15165,7 +15165,9 @@ textarea:-ms-input-placeholder {
         rgba(255, 255, 255, 0.9) 0,
         rgba(255, 255, 255, 0.5) 100%
     );
+    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
+
     color: var(--color-gray-300);
 }
 
@@ -15174,6 +15176,7 @@ textarea:-ms-input-placeholder {
 .rbt-round-btn.bg-light-one:hover {
     background: var(--color-black);
     color: var(--color-white);
+    -webkit-backdrop-filter: unset;
     backdrop-filter: unset;
 }
 
@@ -16833,6 +16836,7 @@ hr {
 
 .rbt-qty-area input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
     border: 0;
 }
 
@@ -17889,6 +17893,7 @@ hr.rbt-separator.has-opacity {
     transition: var(--transition);
     cursor: pointer;
     position: relative;
+    -webkit-user-select: none;
     user-select: none;
     display: block;
     top: 7px;
@@ -20604,6 +20609,7 @@ label.rbt-img.selected::after {
     transition:
         clip-path 0.6s var(--transition),
         background-color 0.6s var(--transition) !important;
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid var(--color-border);
 }
@@ -23500,9 +23506,9 @@ header .rbt-round-btn:hover::after {
 }
 
 .rbt-header .logo a img {
-    max-height: 32px;
+    max-height: 40px;
     object-fit: cover;
-    max-width: 220px;
+    max-width: 200px;
 }
 
 @media only screen and (max-width: 575px) {
@@ -23556,6 +23562,7 @@ header .rbt-round-btn:hover::after {
     right: 0;
     width: auto;
     background: 0 0;
+    -webkit-backdrop-filter: inherit;
     backdrop-filter: inherit;
     box-shadow: none;
 }
@@ -23762,6 +23769,7 @@ header .rbt-round-btn:hover::after {
 
 .rbt-header-transparent-dark {
     background: var(--color-black-opacity);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
 
@@ -25085,6 +25093,7 @@ header .rbt-round-btn:hover::after {
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4.666px 17.498px 2.916px rgba(0, 0, 0, 0.05);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     padding: 32px 4px;
     padding-bottom: 32px;
@@ -25098,6 +25107,7 @@ header .rbt-round-btn:hover::after {
         padding: 0;
         border: 0;
         box-shadow: none;
+        -webkit-backdrop-filter: unset;
         backdrop-filter: unset;
         background: 0 0;
     }
@@ -25247,6 +25257,7 @@ header .rbt-round-btn:hover::after {
 .demo-single:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
 }
 
@@ -25306,6 +25317,7 @@ header .rbt-round-btn:hover::after {
 .popup-mobile-menu .demo-single:hover {
     transform: translateY(-5px);
     box-shadow: unset;
+    -webkit-backdrop-filter: unset;
     backdrop-filter: unset;
 }
 
@@ -26259,6 +26271,7 @@ header .rbt-round-btn:hover::after {
     opacity: 0;
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     transition: var(--transition);
     cursor: url(../images/cursor-x.webp), pointer;
@@ -27244,6 +27257,7 @@ header .rbt-round-btn:hover::after {
     img {
     height: 100%;
     width: 100%;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -30133,6 +30147,7 @@ button.animated-icon-btn.round-sm::after {
 
 .rbt-prd-feature-card.rbt-curved-style-box {
     -webkit-mask-size: cover;
+    mask-size: cover;
     -webkit-mask-image: url(../images/system/product-single/prd-single-01-bg-shape-01.svg);
     mask-image: url(../images/system/product-single/prd-single-01-bg-shape-01.svg);
     background-image: url(../images/system/product-single/prd-single-01-bg-shape-01.svg);
@@ -30424,8 +30439,11 @@ button.animated-icon-btn.round-sm::after {
     position: relative;
     z-index: 1;
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: contain;
+    mask-size: contain;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     border: 0;
     display: block;
 }
@@ -30464,8 +30482,11 @@ button.animated-icon-btn.round-sm::after {
     position: relative;
     z-index: 1;
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: contain;
+    mask-size: contain;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     border: 0;
 }
 
@@ -31994,6 +32015,7 @@ button.animated-icon-btn.round-sm::after {
     line-height: 0.7;
     z-index: -1;
     white-space: nowrap;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -32005,8 +32027,8 @@ button.animated-icon-btn.round-sm::after {
     .rbt-title
     .rbt-overlay-text.overlay-text-color-var-2 {
     background: linear-gradient(180deg, #d8e8ff 0, #eff1f4 100%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -32014,8 +32036,8 @@ button.animated-icon-btn.round-sm::after {
     .rbt-title
     .rbt-overlay-text.overlay-text-color-var-3 {
     background: linear-gradient(180deg, #fff 0, rgba(255, 255, 255, 0) 100%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0.1;
 }
@@ -32154,6 +32176,7 @@ button.animated-icon-btn.round-sm::after {
     font-size: 280px;
     line-height: 1;
     font-weight: 700;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -32181,8 +32204,8 @@ button.animated-icon-btn.round-sm::after {
         rgba(33, 90, 218, 0.3) 0,
         rgba(239, 241, 244, 0.3) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -32192,8 +32215,8 @@ button.animated-icon-btn.round-sm::after {
         rgba(33, 90, 218, 0.3) 0,
         rgba(239, 241, 244, 0.3) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -33307,8 +33330,8 @@ button.animated-icon-btn.round-sm::after {
 }
 
 .rbt-cat-box.rbt-cat-box-8.rbt-curved-style-box {
-    mask-image: url(../images/system/catagory-8-curved-top-mask.webp);
     -webkit-mask-image: url(../images/system/catagory-8-curved-top-mask.webp);
+    mask-image: url(../images/system/catagory-8-curved-top-mask.webp);
     background-image: url(../images/system/catagory-8-curved-top-mask.webp);
 }
 
@@ -33380,6 +33403,7 @@ button.animated-icon-btn.round-sm::after {
 .rbt-cat-box.rbt-cat-box-8.rbt-cat-box-8-var-three .rbt-btn {
     display: block;
     text-align: center;
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
 }
 
@@ -34583,8 +34607,11 @@ button.animated-icon-btn.round-sm::after {
     mask-image: url(../images/countdown/cd-bg-black-01.webp);
     background-color: var(--color-black);
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34597,8 +34624,11 @@ button.animated-icon-btn.round-sm::after {
     mask-image: url(../images/countdown/cd-bg-primary-01.webp);
     background-color: var(--color-primary);
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34618,8 +34648,11 @@ button.animated-icon-btn.round-sm::after {
     mask-image: url(../images/countdown/cd-bg-green-01.webp);
     background-color: var(--color-success);
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34639,8 +34672,11 @@ button.animated-icon-btn.round-sm::after {
     mask-image: url(../images/countdown/cd-bg-primary-01.webp);
     background-color: var(--color-secondary);
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34660,8 +34696,11 @@ button.animated-icon-btn.round-sm::after {
     mask-image: url(../images/countdown/cd-bg-white-01.webp);
     background-color: var(--color-white);
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34700,8 +34739,11 @@ button.animated-icon-btn.round-sm::after {
     mask-image: url(../images/countdown/cd-bg-purple-01.svg);
     background-color: var(--color-white);
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -38013,6 +38055,7 @@ button.animated-icon-btn.round-sm::after {
         rgba(255, 255, 255, 0.9) 0,
         rgba(255, 255, 255, 0.5) 100%
     );
+    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
     padding: 24px;
     padding-bottom: 28px;
@@ -39825,6 +39868,7 @@ button.animated-icon-btn.round-sm::after {
     border-radius: 16px;
     border: 2px solid var(--color-gray-200);
     background: var(--gradient-white-b);
+    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
     width: 488px;
     margin-left: 48px;
@@ -41397,6 +41441,7 @@ body.modal-open .side-menu {
 .rbt-team-modal {
     z-index: 9999;
     padding: 60px 30px !important;
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     background: rgba(0, 0, 0, 0.5);
     cursor: url(../images/cursor-x.webp), pointer;
@@ -44043,6 +44088,7 @@ body::before {
     background: rgba(0, 0, 0, 0.5);
     z-index: 99;
     transition: var(--transition);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     opacity: 0;
     visibility: hidden;
@@ -44061,6 +44107,7 @@ body::before {
     opacity: 0;
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     transition: var(--transition);
     cursor: url(../images/cursor-x.webp), pointer;
@@ -48221,15 +48268,15 @@ body::before {
 
 .rbt-text-gradient-golden {
     background: linear-gradient(90deg, #b37e12 0, #efce6a 49.95%, #cd9d34 100%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .rbt-text-gradient-secondary {
     background: linear-gradient(90deg, #fe3d06 0, #f1a800 100%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -49078,6 +49125,7 @@ img.mfp-img {
 
 .mfp-bg {
     background: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     opacity: 1;
 }
@@ -49372,8 +49420,11 @@ img.mfp-img {
 
 .rbt-curved-style-box {
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-image: url(../images/system/banner-mask-right-top-cut.webp);
     background-size: cover;
     background-position: center;
@@ -50131,6 +50182,7 @@ img.mfp-img {
     top: 0;
     cursor: ew-resize;
     -webkit-appearance: none;
+    appearance: none;
     background: 0 0;
     opacity: 0;
 }
@@ -50189,8 +50241,8 @@ img.mfp-img {
     height: 48px;
     width: 48px;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     border-radius: var(--radius-full);
     text-align: center;
     color: var(--color-white);
@@ -50201,8 +50253,8 @@ img.mfp-img {
     border-radius: 16px;
     padding: 6px 12px;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     font-size: var(--font-size-b4);
     line-height: var(--line-height-b4);
     position: absolute;
@@ -51706,6 +51758,7 @@ img.mfp-img {
     border-radius: 8px;
     border: 1px solid #fff;
     background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
     z-index: 2;
     width: calc(100% - 32px);
@@ -53452,6 +53505,7 @@ img.mfp-img {
     .rbt-qty-area
     input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .rbt-minicart-wrapper .product-content .bottom-part .edit-btn {
@@ -56261,6 +56315,7 @@ img.mfp-img {
 
 .fancybox__backdrop {
     background: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
 
@@ -56339,8 +56394,8 @@ img.mfp-img {
     only screen and (min-width: 768px) and (max-width: 991px) {
     .rbt-blog-post-banner.rbt-curved-style-box {
         background-image: unset;
-        mask-image: unset;
         -webkit-mask-image: unset;
+        mask-image: unset;
         border-radius: var(--radius-big);
     }
 }
@@ -56427,8 +56482,8 @@ img.mfp-img {
 
 .rbt-blog-banner-thumbnail .rbt-curved-style-box {
     background-image: url(../images/system/blog-page-banner-slider-image-bg-mask.webp);
-    mask-image: url(../images/system/blog-page-banner-slider-image-bg-mask.webp);
     -webkit-mask-image: url(../images/system/blog-page-banner-slider-image-bg-mask.webp);
+    mask-image: url(../images/system/blog-page-banner-slider-image-bg-mask.webp);
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -59415,8 +59470,8 @@ form .rbt-input-field {
         #e9e9e9 0,
         rgba(233, 233, 233, 0.1) 100%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 1;
 }
@@ -59630,6 +59685,7 @@ form .rbt-input-field {
     transform: translateY(15px);
     -webkit-transition: all 0.2s linear;
     transition: all 0.2s linear;
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
     background: rgba(255, 255, 255, 0.4);
 }
@@ -59921,6 +59977,7 @@ form .rbt-input-field {
     line-height: 0.7;
     z-index: -1;
     white-space: nowrap;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -59932,8 +59989,8 @@ form .rbt-input-field {
     .rbt-title
     .rbt-overlay-text.overlay-text-color-var-2 {
     background: linear-gradient(180deg, #d8e8ff 0, #eff1f4 100%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -59941,8 +59998,8 @@ form .rbt-input-field {
     .rbt-title
     .rbt-overlay-text.overlay-text-color-var-3 {
     background: linear-gradient(180deg, #fff 0, rgba(255, 255, 255, 0) 100%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0.1;
 }
@@ -60009,6 +60066,7 @@ form .rbt-input-field {
     font-size: 280px;
     line-height: 1;
     font-weight: 700;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -60036,8 +60094,8 @@ form .rbt-input-field {
         rgba(33, 90, 218, 0.3) 0,
         rgba(239, 241, 244, 0.3) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60047,8 +60105,8 @@ form .rbt-input-field {
         rgba(33, 90, 218, 0.3) 0,
         rgba(239, 241, 244, 0.3) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60073,8 +60131,8 @@ form .rbt-input-field {
         rgba(33, 90, 218, 0.6) 0,
         rgba(0, 0, 0, 0.6) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60084,15 +60142,15 @@ form .rbt-input-field {
         rgba(33, 90, 218, 0.6) 0,
         rgba(0, 0, 0, 0.6) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .rbt-splash-gradient-text {
     background: linear-gradient(to left, #4be53e, #302aef);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60268,6 +60326,7 @@ form .rbt-input-field {
     font-size: 40px;
     color: #e53e3e;
     background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     position: absolute;
     top: 36%;
@@ -60683,8 +60742,8 @@ form .rbt-input-field {
     .rbt-content
     .rbt-title {
     background: linear-gradient(87deg, #000 0.54%, #0039ba 61.46%, #215ada 87%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60712,8 +60771,8 @@ form .rbt-input-field {
         #009d50 73.49%,
         #00ff82 85.25%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60776,8 +60835,8 @@ form .rbt-input-field {
         #ea1802 73.49%,
         #fca211 85.25%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -60927,6 +60986,7 @@ form .rbt-input-field {
     display: inline-block;
     left: 0;
     top: 0;
+    -webkit-user-select: none;
     user-select: none;
     pointer-events: auto;
     transition: none;
@@ -61068,6 +61128,7 @@ form .rbt-input-field {
 
 .rbt-feature-card.rbt-feature-card-1 .rbt-card-img img {
     pointer-events: none;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -61181,8 +61242,8 @@ form .rbt-input-field {
         #009d50 73.49%,
         #00d16a 85.25%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -61427,8 +61488,8 @@ form .rbt-input-field {
         rgba(33, 90, 218, 0.3) 0,
         rgba(239, 241, 244, 0.3) 87.5%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -61888,6 +61949,7 @@ form .rbt-input-field {
     border: 2px solid #fff;
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 30px 15px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     padding: 4px;
     top: 27%;
@@ -61918,6 +61980,7 @@ form .rbt-input-field {
     .rbt-demo-wrapper .demo-single {
         padding: 32px 8px 0;
         border: 4px solid #fff;
+        -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15.6px);
         background: rgba(255, 255, 255, 0.22);
     }
@@ -63424,6 +63487,7 @@ form .rbt-input-field {
     border-radius: var(--radius-12);
     box-shadow: var(--shadow-1);
     max-width: 452px;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -63462,8 +63526,8 @@ form .rbt-input-field {
         rgba(33, 90, 218, 0.15) 6.68%,
         rgba(255, 255, 255, 0.06) 87.13%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     position: absolute;
     top: -60px;
@@ -63715,6 +63779,7 @@ form .rbt-input-field {
     width: 208px;
     height: 250px;
     background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border-radius: var(--radius-md);
     display: flex;
@@ -63765,6 +63830,7 @@ form .rbt-input-field {
     height: fit-content;
     border-radius: var(--radius);
     background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     display: flex;
     flex-direction: column;
@@ -64645,6 +64711,7 @@ form .rbt-input-field {
 
 .rbt-splash-component-slider-active .rbt-component-card {
     max-width: 450px;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -65637,13 +65704,14 @@ form .rbt-input-field {
 
 .rbt-ele-builder-card .rbt-card-content .overlay-text {
     background: linear-gradient(180deg, #d8e8ff 0, rgba(239, 241, 244, 0) 80%);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: var(--f-bold);
     position: absolute;
     line-height: 1;
     z-index: -1;
+    -webkit-user-select: none;
     user-select: none;
     font-size: 72px;
     top: -24px;
@@ -65713,6 +65781,7 @@ form .rbt-input-field {
     color: var(--color-white);
     padding: 8px 20px;
     border-radius: var(--radius);
+    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
 }
 
@@ -65725,6 +65794,7 @@ form .rbt-input-field {
     width: 100%;
     background: rgba(0, 0, 0, 0.1);
     border-radius: var(--radius-10);
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     z-index: 1;
 }
@@ -66151,8 +66221,8 @@ form .rbt-input-field {
         rgba(255, 255, 255, 0.12) 0,
         rgba(255, 255, 255, 0) 100%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 172px;
     font-weight: var(--f-bold);
@@ -66160,6 +66230,7 @@ form .rbt-input-field {
     top: 20%;
     left: 50%;
     transform: translateX(-50%);
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -66467,6 +66538,7 @@ form .rbt-input-field {
 @media only screen and (max-width: 767px) {
     .hamberger-button.rbt-splash-hamberger {
         background: rgba(149, 143, 149, 0.18);
+        -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
         border-radius: 4px;
     }
@@ -66924,8 +66996,11 @@ form .rbt-input-field {
 
 .rbt-feature-navigation-card .rbt-shape {
     -webkit-mask-position: 0 0;
+    mask-position: 0 0;
     -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-image: url(../images/splash/feature/feature-card-shape.png);
     background-size: cover;
     background-position: center;
@@ -66933,6 +67008,7 @@ form .rbt-input-field {
     -webkit-mask-image: url(../images/splash/feature/feature-card-shape.png);
     mask-image: url(../images/splash/feature/feature-card-shape.png);
     opacity: 0.7;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     height: 120px;
     width: calc(100% + 1px);
