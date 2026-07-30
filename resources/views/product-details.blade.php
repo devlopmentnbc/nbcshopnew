@@ -14,7 +14,7 @@
                 <div class="content">
                     <div class="logo">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart Logo Images">
+                            <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="NBC Logo Images">
                         </a>
                     </div>
                     <div class="rbt-btn-close">
@@ -949,7 +949,7 @@
                         <div class="rbt-categories-sidebar-top-content mb--24">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart Logo">
+                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="NBC Logo">
                                 </a>
                             </div>
                             <button class="rbt-sidebar-close-btn">

@@ -405,6 +405,30 @@
     width: 100%;
 }
 
+/* Hover reveals the cart action on laptops; smaller layouts keep it visible. */
+@media (max-width: 1199px) {
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-card-body {
+        margin-bottom: 0 !important;
+        transform: none !important;
+    }
+
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2:hover .rbt-card-body,
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2:focus-within .rbt-card-body {
+        transform: none !important;
+    }
+
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-card-footer,
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-cart-sidenav-activation {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2:hover .rbt-card-img img {
+        transform: none;
+    }
+}
+
 .rbt-shop-filter-area .rbt-shop-filter-tag-list a i {
     color: #113a32;
     transition: color 0.2s ease;

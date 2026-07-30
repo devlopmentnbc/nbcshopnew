@@ -19,7 +19,7 @@
     <link rel="preload" href="{{ asset('assets/fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
 
     <!-- CSS
 	============================================ -->
@@ -122,8 +122,9 @@
                             </a>
 
                             <!-- Start Update Cart Dropdown  -->
-<div class="rbt-update-category-dropdown">
-    <div class="inner">
+<div class="rbt-update-category-dropdown nbc-category-menu">
+    <x-nbc-category-menu />
+    <div class="inner nbc-category-menu__legacy">
         <ul class="rbt-dropdown-parent-wrapper">
             <li class="dropdown-parent-list">
                 <a href="shop-by-categories.html">
@@ -388,9 +389,10 @@
                 <div class="rbt-header-content">
                     <div class="header-info d-none d-xl-block ">
                         <nav class="rbt-mainmenu-nav">
-    <ul class="mainmenu has-nav-bg-shape-hover">
+    <x-nbc-main-menu />
+    <ul class="mainmenu has-nav-bg-shape-hover nbc-mainmenu__legacy">
         <li class="with-rbt-megamenu has-menu-child-item position-static rbt-initial-odo-count">
-            <a href="#!">Demos <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!">Brands <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
 <div class="rbt-megamenu rbt-prsentation-megamenu rbt-width-fullscreen">
     <div class="rbt-megamenu-wrapper">
@@ -588,7 +590,7 @@
         </li>
 
         <li class="with-rbt-megamenu has-menu-child-item position-static">
-            <a href="#!">Shop <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!">Skin Care <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
 <div class="rbt-megamenu rbt-megamenu-4">
     <div class="rbt-megamenu-wrapper p--0">
@@ -1380,7 +1382,7 @@
         </li>
 
         <li class="with-rbt-megamenu has-menu-child-item position-static">
-            <a href="#!">Pages <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!">Bath & Body <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
 <div class="rbt-megamenu rbt-width-fullscreen mega-has-bg-img mega-bg-one p-0 ">
     <!-- Start Mega Menu  -->
@@ -1516,7 +1518,7 @@
         </li>
 
         <li class="with-rbt-megamenu has-menu-child-item position-static">
-            <a href="#!">Elements <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!">Hair Care <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
 <div class="rbt-megamenu container pl_sm--0 pl_md--0 pl_lg--0">
     <div class="rbt-megamenu-wrapper">
@@ -1623,7 +1625,7 @@
         </li>
 
         <li class="with-rbt-megamenu has-menu-child-item position-static">
-            <a href="#!">Core Features <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!">Baby Care <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
 <div class="rbt-megamenu p-0 container">
     <!-- Start Mega Menu  -->
@@ -1720,7 +1722,7 @@
         </li>
 
         <li class="has-dropdown position-relative">
-            <a href="#!">More <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!"> <i class="fa-regular fa-chevron-down"></i></a>
             <ul class="submenu">
                 <li><a href="docs/index.htm">Documentation</a></li>
                 <li><a href="https://www.youtube.com/@rainbow-themes/videos">Video Tutorials</a></li>
@@ -2330,9 +2332,10 @@
             <div class="rbt-header-content d-none d-xl-block">
                 <div class="header-info">
                     <nav class="rbt-mainmenu-nav">
-    <ul class="mainmenu mainmenu has-nav-bg-shape-hover">
+    <x-nbc-main-menu />
+    <ul class="mainmenu mainmenu has-nav-bg-shape-hover nbc-mainmenu__legacy">
         <li class="with-rbt-megamenu has-menu-child-item position-static rbt-initial-odo-count">
-            <a href="#!">Demos <i class="fa-regular fa-chevron-down"></i></a>
+            <a href="#!">BRANDS <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
 <div class="rbt-megamenu rbt-prsentation-megamenu rbt-width-fullscreen">
     <div class="rbt-megamenu-wrapper">
@@ -5095,7 +5098,7 @@
                                                 </div>
                                             </div>
                                             <!-- Single Demo -->
-                                            <div class="rbt-meso-item transition fashion">
+                                            <div class="rbt-meso-item transition fashion"> 
                                                 <div class="demo-single rbt-scroll-trigger zoom_in animation-order-10">
                                                     <div class="inner">
                                                         <div class="thumbnail">
