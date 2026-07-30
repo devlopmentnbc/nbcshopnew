@@ -33,7 +33,7 @@
     </div>
 </div>
 <!-- End Preloader Area -->
- 
+
 <!-- Mobile Menu Section -->
 <div class="popup-mobile-menu">
     <div class="inner-wrapper">
@@ -42,7 +42,7 @@
                 <div class="content">
                     <div class="logo">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Unimart Logo Images">
+                            <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart Logo Images">
                         </a>
                     </div>
                     <div class="rbt-btn-close">
@@ -287,8 +287,8 @@
                         </div>
                         <div class="pricing-action d-flex flex-column align-items-center rbt-gap--8">
                             <div class="rbt-pricing-part d-flex">
-                                <span class="rbt-price-text offer-price">$189.00</span>
-                                <del class="rbt-dis-price-text">$295.00</del>
+                                <span class="rbt-price-text offer-price">Rs. 189.00</span>
+                                <del class="rbt-dis-price-text">Rs. 295.00</del>
                             </div>
                             <a class="rbt-btn rbt-btn-sm rbt-btn-black" href="product-single-default.html">View
                                 Details</a>
@@ -534,7 +534,7 @@
 </div>
 <!-- End Mega Menu  -->
         </li>
-        
+
         <li class="with-rbt-megamenu has-menu-child-item position-static">
             <a href="#!">Elements <i class="fa-regular fa-chevron-down"></i></a>
             <!-- Start Mega Menu  -->
@@ -738,7 +738,7 @@
 </div>
 <!-- End Mega Menu  -->
         </li>
-        
+
         <li class="has-dropdown position-relative">
             <a href="#!">More <i class="fa-regular fa-chevron-down"></i></a>
             <ul class="submenu">
@@ -964,27 +964,6 @@
                 </div>
             </div>
         </div>
-        <div class="mobile-menu-bottom">
-            <div class="social-share-wrapper">
-                <span class="rbt-short-title d-block">Find With Us</span>
-                <ul class="rbt-social-icon-list mt--12">
-                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-telegram"></i></a></li>
-                </ul>
-            </div>
-            <ul class="navbar-top-left rbt-information-list justify-content-center">
-                <li>
-                    <a href="/cdn-cgi/l/email-protection#39515c555556795c41585449555c175a5654"><i class="fa-light fa-envelope"></i><span class="__cf_email__" data-cfemail="b9dcc1d8d4c9d5dcf9ded4d8d0d597dad6d4">[email&#160;protected]</span></a>
-                </li>
-                <li>
-                    <a href="tel:+302555-0107"><i class="fa-regular fa-phone"></i>(302) 555-0107</a>
-                </li>
-            </ul>
-        </div>
     </div>
 </div>
 <!-- Start Side Nav -->
@@ -998,7 +977,7 @@
                         <div class="rbt-categories-sidebar-top-content mb--24">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Unimart Logo">
+                                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart Logo">
                                 </a>
                             </div>
                             <button class="rbt-sidebar-close-btn">
@@ -2078,7 +2057,7 @@
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">JBL PartyBox 100W Speaker</a>
                             </h3>
-                            <span class="quantity">1x <span class="price">$359.00</span></span>
+                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2102,7 +2081,7 @@
                         </div>
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">Apple Watch Ultra 2</a></h3>
-                            <span class="quantity">1x <span class="price">$359.00</span></span>
+                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2128,7 +2107,7 @@
                             <h3 class="title h6"><a href="product-single-default.html">PlayStation Wireless
                                     Headphone</a>
                             </h3>
-                            <span class="quantity">1x <span class="price">$759.00</span></span>
+                            <span class="quantity">1x <span class="price">Rs. 759.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2153,7 +2132,7 @@
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">Awei CL-115M USB 2.4A Cable </a>
                             </h3>
-                            <span class="quantity">1x <span class="price">$459.00</span></span>
+                            <span class="quantity">1x <span class="price">Rs. 459.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2178,7 +2157,7 @@
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">MaxGreen 45W Power Adapter</a>
                             </h3>
-                            <span class="quantity">1x <span class="price">$999.00</span></span>
+                            <span class="quantity">1x <span class="price">Rs. 999.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2202,7 +2181,7 @@
                         </div>
                         <div class="product-content">
                             <h3 class="title h6"><a href="product-single-default.html">Havit PB90 Power Bank </a></h3>
-                            <span class="quantity">1x <span class="price">$288.00</span></span>
+                            <span class="quantity">1x <span class="price">Rs. 288.00</span></span>
                             <div class="bottom-part">
                                 <div class="rbt-qty-area">
                                     <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -2251,7 +2230,7 @@
                                             <h3 class="title h6"><a href="product-single-default.html">Keurig K-Duo 4K
                                                     Waterproof Action
                                                     Video Camera </a></h3>
-                                            <span class="quantity"><span class="price">$345.00</span></span>
+                                            <span class="quantity"><span class="price">Rs. 345.00</span></span>
                                         </div>
                                         <a href="#!" class="add-itembtn tooltips" data-bs-toggle="modal" data-bs-target="#addedcartModal" data-tooltip="Add to Cart"><i class="fa-regular fa-cart-plus"></i></a>
                                     </div>
@@ -2268,7 +2247,7 @@
                                             <h3 class="title h6"><a href="product-single-default.html">Full Amoled HD
                                                     Streaming Webcam</a>
                                             </h3>
-                                            <span class="quantity"><span class="price">$189.00</span></span>
+                                            <span class="quantity"><span class="price">Rs. 189.00</span></span>
                                         </div>
                                         <a href="#!" class="add-itembtn tooltips" data-bs-toggle="modal" data-bs-target="#addedcartModal" data-tooltip="Add to Cart"><i class="fa-regular fa-cart-plus"></i></a>
                                     </div>
@@ -2284,19 +2263,19 @@
             <hr class="mb--0 mt--16">
             <div class="rbt-cart-subttotal">
                 <p>Subtotal (2 items)</p>
-                <p class="price">$758.00</p>
+                <p class="price">Rs. 758.00</p>
             </div>
             <div class="rbt-cart-subttotal">
                 <p>Shipping</p>
-                <p class="price">$10.00</p>
+                <p class="price">Rs. 10.00</p>
             </div>
             <hr class="mb--0">
             <div class="rbt-cart-subttotal">
                 <p class="subtotal"><strong>Total</strong></p>
-                <p class="price">$768.00</p>
+                <p class="price">Rs. 768.00</p>
             </div>
             <div class="offer-progress-area">
-                <p class="offer-text">Add <strong>$248.00</strong> More To Get <strong>Free Shipping</strong></p>
+                <p class="offer-text">Add <strong>Rs. 248.00</strong> More To Get <strong>Free Shipping</strong></p>
                 <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                     <div class="progress-bar w-75"></div>
                 </div>
@@ -2674,8 +2653,8 @@
                                                     </p>
                                                     <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                                                         <div class="pricing-part mt--0">
-                                                            <del class="price-text">$295.00</del>
-                                                            <span class="price-text">$179.98</span>
+                                                            <del class="price-text">Rs. 295.00</del>
+                                                            <span class="price-text">Rs. 179.98</span>
                                                             <span class="rbt-offer-badge">-30%</span>
                                                         </div>
                                                         <div class="prd-info-section has-left-separator">
@@ -2976,8 +2955,8 @@
                                                     </p>
                                                     <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                                                         <div class="pricing-part mt--0">
-                                                            <del class="price-text">$295.00</del>
-                                                            <span class="price-text">$179.98</span>
+                                                            <del class="price-text">Rs. 295.00</del>
+                                                            <span class="price-text">Rs. 179.98</span>
                                                             <span class="rbt-offer-badge">-30%</span>
                                                         </div>
                                                         <div class="prd-info-section has-left-separator">
@@ -3258,8 +3237,8 @@
                                     <p class="rbt-card-title h6" id="quickviewEditCartModalLabel"><a href="#">2021
                                             Apple 12.9-inch iPad Pro Wi-Fi 512GB Gray Space</a></p>
                                     <div class="pricing-part mb--12 mt--0">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                     </div>
                                     <div class="rbt-qty-area rbt-qty-sm">
                                         <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
@@ -3384,7 +3363,7 @@
                                                 </a>
                                             </div>
                                             <div class="rbt-product-price-text rbt-text-color-primary">
-                                                <span>$159.00</span>
+                                                <span>Rs. 159.00</span>
                                             </div>
                                             <span class="rbt-product-id"><span class="rbt-text-semi-bold">SKU:</span>
                                                 #180036458</span>
@@ -3420,7 +3399,7 @@
                                                 </a>
                                             </div>
                                             <div class="rbt-product-price-text rbt-text-color-primary">
-                                                <span>$209.00</span>
+                                                <span>Rs. 209.00</span>
                                             </div>
                                             <span class="rbt-product-id"><span class="rbt-text-semi-bold">SKU:</span>
                                                 #180036565</span>
@@ -3673,22 +3652,22 @@
             <td class="rbt-product-feature-name">Price</td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">$149.79</span>
+                    <span class="rbt-product-price">Rs. 149.79</span>
                 </div>
             </td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">$155.98</span>
+                    <span class="rbt-product-price">Rs. 155.98</span>
                 </div>
             </td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">$233.44</span>
+                    <span class="rbt-product-price">Rs. 233.44</span>
                 </div>
             </td>
             <td>
                 <div class="rbt-compare-values">
-                    <span class="rbt-product-price">$159.99</span>
+                    <span class="rbt-product-price">Rs. 159.99</span>
                 </div>
             </td>
         </tr>

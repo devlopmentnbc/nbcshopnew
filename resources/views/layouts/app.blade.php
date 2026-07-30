@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'Unimart - eCommerce Bootstrap5 Template')</title>
+    <title>@yield('title', "Nature's Beauty Creations")</title>
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Unimart is a modern eCommerce Bootstrap 5 template built for high conversion and SEO. Try it today!">
+    <meta name="description" content="Shop authentic herbal beauty and personal care products from Nature's Beauty Creations.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nbc.css') }}?v={{ filemtime(public_path('assets/css/nbc.css')) }}">
+    @stack('page-styles')
 </head>
 
 
@@ -53,24 +55,21 @@
                                 <div class="swiper-wrapper w-100">
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                            <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                            <p class="rbt-fancy-text rbt-text-color-white">Authentic NBC products delivered islandwide.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                            <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                            <p class="rbt-fancy-text rbt-text-color-white">Herbal beauty inspired by nature since 1984.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                            <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                            <p class="rbt-fancy-text rbt-text-color-white">Discover special online offers from NBC.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -112,7 +111,7 @@
                         <div class="header-info">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                                 </a>
                             </div>
                         </div>
@@ -176,7 +175,7 @@
                                                             </lineargradient>
                                                         </defs>
                                                     </svg>
-                                                    <p><strong>Free Express Shipping</strong> on orders $200!</p>
+                                                    <p><strong>Free Express Shipping</strong> on orders Rs. 200!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,7 +250,7 @@
                                                             </lineargradient>
                                                         </defs>
                                                     </svg>
-                                                    <p><strong>Free Express Shipping</strong> on orders $200!</p>
+                                                    <p><strong>Free Express Shipping</strong> on orders Rs. 200!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,7 +326,7 @@
                                                             </lineargradient>
                                                         </defs>
                                                     </svg>
-                                                    <p><strong>Free Express Shipping</strong> on orders $200!</p>
+                                                    <p><strong>Free Express Shipping</strong> on orders Rs. 200!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1265,8 +1264,8 @@
                                                             <p class="rbt-card-title"><a href="product-single-default.html">Adidas Ultraboost
                                                                     Cream Color Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -1308,8 +1307,8 @@
                                                             <p class="rbt-card-title"><a href="product-single-default.html">Adidas Ultraboost
                                                                     light Pink Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$292.00</del>
-                                                                <span class="price-text">$177.90</span>
+                                                                <del class="price-text">Rs. 292.00</del>
+                                                                <span class="price-text">Rs. 177.90</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -1351,8 +1350,8 @@
                                                             <p class="rbt-card-title"><a href="product-single-default.html">Adidas Ultraboost
                                                                     Light Green Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -1765,13 +1764,6 @@
                             </a>
                         </li>
 
-                        <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 tooltips tooltip-distance-lg  d-none d-lg-flex" data-tooltip="Compare" data-tooltip-position="bottom">
-                            <a class="rbt-round-btn has-rbt-md-fsize" href="#" data-bs-toggle="modal" data-bs-target="#compareviewModal">
-                                <i class="fa-regular fa-code-compare"></i>
-                                <div class="access-box-count">6</div>
-                            </a>
-                        </li>
-
                         <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 rbt-wishlist d-none d-lg-flex tooltips tooltip-distance-lg" data-tooltip="Wishlist" data-tooltip-position="bottom">
                             <a class="rbt-round-btn has-rbt-md-fsize" href="wishlist.html">
                                 <i class="fa-regular fa-heart"></i>
@@ -1794,7 +1786,7 @@
         </div>
     </div>
 </div>
-      
+
     <!-- Start Search Dropdown  -->
 <div class="rbt-search-dropdown rbt-search-dropdown-activation">
     <div class="wrapper">
@@ -1967,8 +1959,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                         <span class="rbt-offer-badge">-30%</span>
                                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
                                             12
@@ -2042,8 +2034,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                     </div>
                                     <div class="rbt-prd-qty-area">
                                         <p class="prd-qty-txt">Only <strong>97</strong> pc left</p>
@@ -2135,8 +2127,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                         <span class="rbt-offer-badge">-30%</span>
                                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
                                             12
@@ -2210,8 +2202,8 @@
                                         </div>
                                     </div>
                                     <div class="pricing-part">
-                                        <del class="price-text">$295.00</del>
-                                        <span class="price-text">$179.98</span>
+                                        <del class="price-text">Rs. 295.00</del>
+                                        <span class="price-text">Rs. 179.98</span>
                                     </div>
                                     <div class="rbt-prd-qty-area">
                                         <p class="prd-qty-txt">Only <strong>97</strong> pc left</p>
@@ -2251,7 +2243,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
                                             <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                                -under Rs. 100.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -2259,7 +2251,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
                                             <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                                -under Rs. 100.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -2267,7 +2259,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
                                             <p class="rbt-fancy-text rbt-text-color-white">Top products. Better prices
-                                                -under $100.
+                                                -under Rs. 100.
                                                 <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop Now</a>
                                             </p>
                                         </div>
@@ -2311,7 +2303,7 @@
                     <div class="header-info d-xl-block d-none">
                         <div class="logo rbt-logo-height-sm">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                             </a>
                         </div>
                     </div>
@@ -2330,7 +2322,7 @@
             <div class="header-info d-xl-none d-block">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                        <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                     </a>
                 </div>
             </div>
@@ -3219,8 +3211,8 @@
                                                                     Ultraboost
                                                                     Cream Color Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -3264,8 +3256,8 @@
                                                                     Ultraboost
                                                                     light Pink Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$292.00</del>
-                                                                <span class="price-text">$177.90</span>
+                                                                <del class="price-text">Rs. 292.00</del>
+                                                                <span class="price-text">Rs. 177.90</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -3309,8 +3301,8 @@
                                                                     Ultraboost
                                                                     Light Green Shoe</a></p>
                                                             <div class="pricing-part">
-                                                                <del class="price-text">$298.00</del>
-                                                                <span class="price-text">$189.98</span>
+                                                                <del class="price-text">Rs. 298.00</del>
+                                                                <span class="price-text">Rs. 189.98</span>
                                                                 <span class="rbt-offer-badge">-30%</span>
                                                             </div>
                                                         </div>
@@ -3721,14 +3713,6 @@
                         </a>
                     </li>
 
-                    <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 tooltips tooltip-distance-lg  d-none d-lg-flex" data-tooltip="Compare" data-tooltip-position="bottom">
-                        <a class="rbt-round-btn has-rbt-md-fsize" href="#" data-bs-toggle="modal" data-bs-target="#compareviewModal">
-                            <i class="fa-regular fa-code-compare"></i>
-                            <div class="access-box-count">6</div>
-                        </a>
-                    </li>
-
-
                     <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-5 rbt-wishlist d-none d-lg-flex tooltips tooltip-distance-lg" data-tooltip="Wishlist" data-tooltip-position="bottom">
                         <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal" data-bs-target="#wishlistModal">
                             <i class="fa-regular fa-heart"></i>
@@ -3744,7 +3728,7 @@
                                 <span class="access-box-count rbt-shiny">3</span>
                             </span>
                             <div class="content ml--4">
-                                <span class="title-text">$2390</span>
+                                <span class="title-text">Rs. 2390</span>
                             </div>
                         </a>
                     </li>
@@ -3918,8 +3902,8 @@
                                             </div>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                             <span class="rbt-offer-badge">-30%</span>
                                         </div>
                                         <div class="prd-btn-grp">
@@ -3980,8 +3964,8 @@
                                             <p class="rating-digit">(10)</p>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                         </div>
                                         <div class="prd-btn-grp">
                                             <button class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</button>
@@ -4059,8 +4043,8 @@
                                             </div>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                             <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
                                                 12 in
                                                 Stock</div>
@@ -4125,8 +4109,8 @@
                                             <p class="rating-digit">(25)</p>
                                         </div>
                                         <div class="pricing-part">
-                                            <del class="price-text">$295.00</del>
-                                            <span class="price-text">$179.98</span>
+                                            <del class="price-text">Rs. 295.00</del>
+                                            <span class="price-text">Rs. 179.98</span>
                                         </div>
                                         <div class="prd-btn-grp">
                                             <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
@@ -4150,33 +4134,18 @@
 </header>
 
 
-<div class="rbt-preloader">
-    <div class="rbt-preloader-inner">
-        <svg class="rbt-preloader-cart" role="img" aria-label="Shopping cart line animation" viewbox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
-                <g class="rbt-preloader-cart-track" stroke="hsla(0,10%,10%,0.1)">
-                    <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80"></polyline>
-                    <circle cx="43" cy="111" r="13"></circle>
-                    <circle cx="102" cy="111" r="13"></circle>
-                </g>
-                <g class="rbt-preloader-cart-lines" stroke="currentColor">
-                    <polyline class="rbt-preloader-cart-top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338"></polyline>
-                    <g class="rbt-preloader-cart-wheel1" transform="rotate(-90,43,111)">
-                        <circle class="rbt-preloader-cart-wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68"></circle>
-                    </g>
-                    <g class="rbt-preloader-cart-wheel2" transform="rotate(90,102,111)">
-                        <circle class="rbt-preloader-cart-wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68"></circle>
-                    </g>
-                </g>
-            </g>
-        </svg>
-        <div class="preloader-text">
-            <p class="preloader-msg">Gearing up something amazing for you…</p>
-            <p class="preloader-msg preloader-msg--last">Still waiting? Magic takes a moment! ✨</p>
+<div class="rbt-preloader nbc-preloader" role="status" aria-label="Loading Nature's Beauty Creations">
+    <div class="nbc-loading-container">
+        <div class="nbc-loading-ring"></div>
+        <div class="nbc-loading-icon">
+            <img src="{{ asset('assets/images/nbc/loader1.svg') }}" alt="">
         </div>
     </div>
+</div>
 
 @yield('content')
+
+<x-nbc-footer />
 
 <footer class="rbt-footer rbt-footer-style-seven rbt-bg-color-white position-relative overflow-hidden pb--112 pb_sm--44">
     <div class="rbt-footer-top pt--48">
@@ -4366,6 +4335,7 @@
                         </ul>
                     </div>
                 </div>
+<!-- Shipping System
                 <div class="col-xxl-4 col-lg-4 col-md-6 col-12 mt--24">
                     <div class="footer-widget d-flex flex-column align-items-start rbt-gap--8 justify-content-lg-end">
                         <h3 class="ft-title mb--0">Shipping System:</h3>
@@ -4378,6 +4348,7 @@
                         </ul>
                     </div>
                 </div>
+            -->
                 <div class="col-xxl-4 col-lg-4 col-md-6 col-12 mt--24">
                     <div class="footer-widget d-flex flex-column align-items-start rbt-gap--8 justify-content-lg-end">
                         <h3 class="ft-title mb--0">Payment System:</h3>
@@ -4406,7 +4377,7 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-12 col-12 mt--24">
                     <div class="logo mx-auto mx-xl-0">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Unimart Logo">
+                            <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo">
                         </a>
                     </div>
                 </div>
@@ -4421,15 +4392,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Start WaterMark -->
-            <div class="row mt--12">
-                <div class="col-12">
-                    <div class="rbt-watermark-text rbt-watermark-color-var-1">
-                        <span>Follow@Unimart</span>
-                    </div>
-                </div>
-            </div>
-            <!-- End WaterMark -->
         </div>
     </div>
     <!-- End Copyright Area  -->
@@ -4460,7 +4422,7 @@
                         <div class="rbt-login-form-top">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                                 </a>
                             </div>
                             <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signinModalLabel">Sign In To Proceed</h3>
@@ -4670,7 +4632,7 @@
                         <div class="rbt-login-form-top">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('assets/images/logo/logo.webp') }}" alt="Ecommerce Logo Images">
+                                    <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}" alt="NBC Logo Images">
                                 </a>
                             </div>
                             <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signupModalLabel">Create an Account</h3>
@@ -5881,14 +5843,6 @@
                     </li>
 
 
-
-                    <li class="rbt-access-box">
-                        <a href="compare.html" class="rbt-round-btn has-rbt-md-fsize">
-                            <i class="fa-regular fa-code-compare"></i>
-                            <div class="access-box-count">4</div>
-                            <span class="rbt-toolbar-label"> Compare</span>
-                        </a>
-                    </li>
 
                     <li class="rbt-access-box">
                         <a href="#!" class="rbt-round-btn has-rbt-md-fsize" data-bs-toggle="modal" data-bs-target="#signinModal">
