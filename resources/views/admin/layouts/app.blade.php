@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -241,9 +241,8 @@
       <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="products" href="products.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Products</a>
-            <a data-nav="add-product" href="add-product.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Product</a>
-            <a data-nav="edit-product" href="edit-product.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Edit Product</a>
+            <a data-nav="products" href="{{ route('admin.products.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Product List</a>
+            <a data-nav="add-product" href="{{ route('admin.products.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Product</a>
           </div>
         </div>
       </div>
@@ -259,9 +258,10 @@
       <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="categories" href="categories.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Category List</a>
-            <a data-nav="add-category" href="add-category.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Category</a>
-            <a data-nav="edit-category" href="edit-category.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Edit Category</a>
+            <a data-nav="categories" href="{{ route('admin.categories.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Category List</a>
+            <a data-nav="add-category" href="{{ route('admin.categories.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Category</a>
+            <a data-nav="sub-categories" href="{{ route('admin.sub-categories.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Sub Category List</a>
+            <a data-nav="add-sub-category" href="{{ route('admin.sub-categories.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add Sub Category</a>
           </div>
         </div>
       </div>
@@ -277,9 +277,8 @@
       <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="brands" href="brands.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Brand List</a>
-            <a data-nav="add-brand" href="add-brand.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Brand</a>
-            <a data-nav="edit-brand" href="edit-brand.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Edit Brand</a>
+            <a data-nav="brands" href="{{ route('admin.brands.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Brand List</a>
+            <a data-nav="add-brand" href="{{ route('admin.brands.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Brand</a>
           </div>
         </div>
       </div>
@@ -295,8 +294,8 @@
       <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="attributes" href="attributes.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Attributes</a>
-            <a data-nav="add-attribute" href="add-attribute.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add Attributes</a>
+            <a data-nav="attributes" href="{{ route('admin.attributes.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Attribute List</a>
+            <a data-nav="add-attribute" href="{{ route('admin.attributes.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add Attributes</a>
           </div>
         </div>
       </div>
