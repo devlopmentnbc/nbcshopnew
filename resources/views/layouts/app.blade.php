@@ -48,7 +48,7 @@
     <link rel="stylesheet"
         href="{{ asset('assets/css/nbc.css') }}?v={{ filemtime(public_path('assets/css/nbc.css')) }}">
     <style>
-         .rbt-cart-side-menu .checkout-btn .rbt-btn,
+        .rbt-cart-side-menu .checkout-btn .rbt-btn,
         .rbt-modal-cart .checkout-btn .rbt-btn {
             background-color: #113a32 !important;
             border-color: #113a32 !important;
@@ -57,7 +57,7 @@
 
         .rbt-cart-side-menu .checkout-btn .rbt-btn:hover,
         .rbt-modal-cart .checkout-btn .rbt-btn:hover {
-            background-color: #113a32!important;
+            background-color: #113a32 !important;
             border-color: #113a32 !important;
         }
 
@@ -5728,469 +5728,6 @@
                                 </div>
                             </div>
 
-                            <div class="rbt-separator-mid ptb--24">
-                                <hr class="rbt-separator m-0">
-                            </div>
-
-                            <!-- Start Card Area -->
-                            <div class="row row--0">
-                                <div class="col-lg-12">
-                                    <div class="border-0 p-0 text-left title-sm-fsize">
-                                        <h2 class="title"><span class="rbt-bold--text">Trending Products</span>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row row--12 m--0 mt_dec--24">
-
-                                <!-- Start Single Card  -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card">
-                                        <div class="inner rbt-scroll-trigger fade_in animation-order-1">
-                                            <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                                                <a href="product-single-default.html">
-                                                    <img class="rbt-prd-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-01-a-1.webp') }}"
-                                                        alt="Card Image">
-                                                    <img class="rbt-hover-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-01-a-1-hover.webp') }}"
-                                                        alt="Card Image">
-                                                </a>
-                                                <div
-                                                    class="rbt-product-badge rbt-product-badge-bg-danger border-rounded rbt-content-top-left">
-                                                    Hot</div>
-                                                <div
-                                                    class="rbt-product-badge rbt-product-badge-bg-secondary-gradient border-rounded rbt-content-top-left">
-                                                    Best Seller</div>
-                                                <div
-                                                    class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                                                    <button class="rbt-search-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#quickviewModal" data-tooltip="Quick View"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-magnifying-glass-plus"></i></button>
-                                                    <button class="rbt-wishlisted-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#wishlistModal"
-                                                        data-tooltip="Add to wishlist"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-heart"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="rbt-card-body">
-                                                <div class="rbt-color-select-area">
-                                                    <ul class="rbt-switcher-color-list product-switcher-activation">
-                                                        <li class="active"><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#2B2B2B"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-01-a-1.webp') }}"
-                                                                data-tooltip="Black" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips "
-                                                                data-switcher-color="#a09fa4"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-01-a-2.webp') }}"
-                                                                data-tooltip="Red" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#cc999d"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-01-a-3.webp') }}"
-                                                                data-tooltip="Pink" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                    </ul>
-                                                    <a class="prd-link-text" href="product-single-default.html">+12
-                                                        More
-                                                        Items</a>
-                                                </div>
-                                                <a href="shop-by-categories.html"
-                                                    class="rbt-card-subtitle rbt-card-catagories-text">Headphones &
-                                                    Music</a>
-                                                <h2 class="rbt-card-title h6"><a
-                                                        href="product-single-default.html">Samsung
-                                                        Quiet
-                                                        Comfort Noise Cancelling
-                                                        Earbuds - Black</a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                                                        <div class="swiper-wrapper">
-                                                            <div class="swiper-slide">
-                                                                <div class="rbt-text-group"> <span
-                                                                        class="icon mr--4"><i
-                                                                            class="fa-solid fa-bag-shopping"></i></span>
-                                                                    90+ Sold Recently
-                                                                </div>
-                                                            </div>
-                                                            <div class="swiper-slide">
-                                                                <div class="rbt-text-group"> <span
-                                                                        class="icon mr--4"><i
-                                                                            class="fa-solid fa-truck"></i></span>
-                                                                    Free shipping
-                                                                </div>
-                                                            </div>
-                                                            <div class="swiper-slide">
-                                                                <div class="rbt-text-group"> <span
-                                                                        class="icon mr--4"><i
-                                                                            class="fa-solid fa-rotate-left"></i></span>
-                                                                    7 Days Return Plicy
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                                            <i class="fa-regular fa-chevron-up"></i>
-                                                        </div>
-                                                        <div class="rbt-verticle-arrow rbt-arrow-next">
-                                                            <i class="fa-regular fa-chevron-down"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 295.00</del>
-                                                    <span class="price-text">Rs. 179.98</span>
-                                                    <span class="rbt-offer-badge">-30%</span>
-                                                </div>
-                                                <div class="prd-btn-grp">
-                                                    <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation"
-                                                        href="#"><i class="fa-regular fa-cart-shopping"></i>
-                                                        Add To Cart</a>
-                                                    <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation rbt-compare-bottom-sidenav-activation"
-                                                        href="#"><i
-                                                            class="fa-regular fa-file-plus-minus"></i>Add To
-                                                        Compare</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Card  -->
-
-                                <!-- Start Single Card  -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card">
-                                        <div class="inner rbt-scroll-trigger fade_in animation-order-2">
-                                            <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                                                <a href="product-single-default.html">
-                                                    <img class="rbt-prd-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-04-a-1.webp') }}"
-                                                        alt="Card Image">
-                                                    <img class="rbt-hover-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-04-a-1-hover.webp') }}"
-                                                        alt="Card Image">
-                                                </a>
-                                                <div
-                                                    class="rbt-product-badge rbt-product-badge-bg-secondary-gradient border-rounded rbt-content-top-left">
-                                                    Best Seller</div>
-                                                <div
-                                                    class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                                                    <button class="rbt-search-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#quickviewModal" data-tooltip="Quick View"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-magnifying-glass-plus"></i></button>
-                                                    <button class="rbt-wishlisted-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#wishlistModal"
-                                                        data-tooltip="Add to wishlist"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-heart"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="rbt-card-body">
-                                                <div class="rbt-color-select-area">
-                                                    <ul class="rbt-switcher-color-list product-switcher-activation">
-                                                        <li class="active"><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#bdb6d6"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-04-a-1.webp') }}"
-                                                                data-tooltip="Purple" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips "
-                                                                data-switcher-color="#486788"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-04-a-2.webp') }}"
-                                                                data-tooltip="Blue" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#1a1a1a"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-04-a-3.webp') }}"
-                                                                data-tooltip="Black" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                    </ul>
-                                                    <a class="prd-link-text" href="product-single-default.html">+12
-                                                        More
-                                                        Items</a>
-                                                </div>
-                                                <a href="shop-by-categories.html"
-                                                    class="rbt-card-subtitle rbt-card-catagories-text">Headphones &
-                                                    Music</a>
-                                                <h2 class="rbt-card-title h6"><a
-                                                        href="product-single-default.html">Keurig K-Duo
-                                                        Bose Noise Cancelling
-                                                        Headphones 700 </a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(10)</p>
-                                                </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 295.00</del>
-                                                    <span class="price-text">Rs. 179.98</span>
-                                                </div>
-                                                <div class="prd-btn-grp">
-                                                    <button
-                                                        class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation"><i
-                                                            class="fa-regular fa-cart-shopping"></i> Add To
-                                                        Cart</button>
-                                                    <button
-                                                        class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#addedcomparisonModal"><i
-                                                            class="fa-regular fa-file-plus-minus"></i>Add To
-                                                        Compare</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Card  -->
-
-                                <!-- Start Single Card  -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card">
-                                        <div class="inner rbt-scroll-trigger fade_in animation-order-4">
-                                            <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                                                <a href="product-single-default.html">
-                                                    <img class="rbt-prd-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1.webp') }}"
-                                                        alt="Card Image">
-                                                    <img class="rbt-hover-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1-hover.webp') }}"
-                                                        alt="Card Image">
-                                                </a>
-                                                <div
-                                                    class="rbt-product-badge rbt-product-badge-bg-green border-rounded rbt-content-top-left">
-                                                    New</div>
-                                                <div
-                                                    class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                                                    <button class="rbt-search-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#quickviewModal" data-tooltip="Quick View"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-magnifying-glass-plus"></i></button>
-                                                    <button class="rbt-wishlisted-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#wishlistModal"
-                                                        data-tooltip="Add to wishlist"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-heart"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="rbt-card-body">
-                                                <div class="rbt-color-select-area">
-                                                    <ul class="rbt-switcher-color-list product-switcher-activation">
-                                                        <li class="active"><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#202020"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1.webp') }}"
-                                                                data-tooltip="Black" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips "
-                                                                data-switcher-color="#9e9e9e"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-2.webp') }}"
-                                                                data-tooltip="Gray" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#171717"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-3.webp') }}"
-                                                                data-tooltip="Light Black"
-                                                                data-tooltip-position="top" href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                    </ul>
-                                                    <a class="prd-link-text" href="product-single-default.html">+12
-                                                        More
-                                                        Items</a>
-                                                </div>
-                                                <a href="shop-by-categories.html"
-                                                    class="rbt-card-subtitle rbt-card-catagories-text">Electronics &
-                                                    Camera</a>
-                                                <h2 class="rbt-card-title h6"><a
-                                                        href="product-single-default.html">GoPro HERO
-                                                        11
-                                                        4K Action Camera with SD
-                                                        Card</a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                                                        <div class="swiper-wrapper">
-                                                            <div class="swiper-slide">
-                                                                <div class="rbt-text-group"> <span
-                                                                        class="icon mr--4"><i
-                                                                            class="fa-solid fa-bag-shopping"></i></span>
-                                                                    90+ Sold Recently
-                                                                </div>
-                                                            </div>
-                                                            <div class="swiper-slide">
-                                                                <div class="rbt-text-group"> <span
-                                                                        class="icon mr--4"><i
-                                                                            class="fa-solid fa-truck"></i></span>
-                                                                    Free shipping
-                                                                </div>
-                                                            </div>
-                                                            <div class="swiper-slide">
-                                                                <div class="rbt-text-group"> <span
-                                                                        class="icon mr--4"><i
-                                                                            class="fa-solid fa-rotate-left"></i></span>
-                                                                    7 Days Return Plicy
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                                            <i class="fa-regular fa-chevron-up"></i>
-                                                        </div>
-                                                        <div class="rbt-verticle-arrow rbt-arrow-next">
-                                                            <i class="fa-regular fa-chevron-down"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 295.00</del>
-                                                    <span class="price-text">Rs. 179.98</span>
-                                                    <div
-                                                        class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">
-                                                        12 in
-                                                        Stock</div>
-                                                </div>
-                                                <div class="prd-btn-grp">
-                                                    <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation"
-                                                        href="#"><i class="fa-regular fa-cart-shopping"></i>
-                                                        Add To Cart</a>
-                                                    <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation"
-                                                        href="#"><i
-                                                            class="fa-regular fa-file-plus-minus"></i>Add To
-                                                        Compare</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Card  -->
-
-                                <!-- Start Single Card  -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card">
-                                        <div class="inner rbt-scroll-trigger fade_in animation-order-4">
-                                            <div class="rbt-card-img rbt-has-hover-img rbt-bg-color-default">
-                                                <a href="product-single-default.html">
-                                                    <img class="rbt-prd-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-07-a-1.webp') }}"
-                                                        alt="Card Image">
-                                                    <img class="rbt-hover-img"
-                                                        src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-07-a-1-hover.webp') }}"
-                                                        alt="Card Image">
-                                                </a>
-                                                <div
-                                                    class="rbt-product-badge rbt-product-badge-bg-yellow border-rounded rbt-content-top-left">
-                                                    Trending
-                                                </div>
-                                                <div
-                                                    class="rbt-quick-btn-grp has-mixup-midlayer bottom-right--position">
-                                                    <button class="rbt-search-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#quickviewModal" data-tooltip="Quick View"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-magnifying-glass-plus"></i></button>
-                                                    <button class="rbt-wishlisted-btn rbt-quick-btn tooltips"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#wishlistModal"
-                                                        data-tooltip="Add to wishlist"
-                                                        data-tooltip-position="left"><i
-                                                            class="fa-regular fa-heart"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="rbt-card-body">
-                                                <div class="rbt-color-select-area">
-                                                    <ul class="rbt-switcher-color-list product-switcher-activation">
-                                                        <li class="active"><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#afb1b3"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-07-a-1.webp') }}"
-                                                                data-tooltip="Gray" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips "
-                                                                data-switcher-color="#7796b9"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-07-a-2.webp') }}"
-                                                                data-tooltip="Sky Blue" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                        <li><a class="rbt-switcher--color tooltips"
-                                                                data-switcher-color="#b84a5f"
-                                                                data-src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-07-a-3.webp') }}"
-                                                                data-tooltip="Pink Red" data-tooltip-position="top"
-                                                                href="#">
-                                                                <div class="rbt-color-circle"></div>
-                                                            </a></li>
-                                                    </ul>
-                                                    <a class="prd-link-text" href="product-single-default.html">+12
-                                                        More
-                                                        Items</a>
-                                                </div>
-                                                <a href="shop-by-categories.html"
-                                                    class="rbt-card-subtitle rbt-card-catagories-text">Tablets &
-                                                    Accessories</a>
-                                                <h2 class="rbt-card-title h6"><a
-                                                        href="product-single-default.html">Samsung
-                                                        Galaxy
-                                                        N-569 Tab S7 with
-                                                        Stylish – 8GB/128GB</a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(25)</p>
-                                                </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 295.00</del>
-                                                    <span class="price-text">Rs. 179.98</span>
-                                                </div>
-                                                <div class="prd-btn-grp">
-                                                    <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block has-left-icon rbt-cart-sidenav-activation"
-                                                        href="#"><i class="fa-regular fa-cart-shopping"></i>
-                                                        Add To Cart</a>
-                                                    <a class="rbt-btn rbt-btn-border rbt-btn-sm rbt-square-btn d-block rbt-btn-transparent has-left-icon rbt-compare-btn-activation"
-                                                        href="#"><i
-                                                            class="fa-regular fa-file-plus-minus"></i>Add To
-                                                        Compare</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Card  -->
-
-                            </div>
-                            <!-- End Card Area -->
                         </div>
                     </div>
 
@@ -6200,6 +5737,7 @@
         </div>
     </header>
 
+    <x-nbc-mobile-menu />
 
     <div class="rbt-preloader nbc-preloader" role="status" aria-label="Loading Nature's Beauty Creations">
         <div class="nbc-loading-container">
@@ -6210,7 +5748,9 @@
         </div>
     </div>
 
-    @yield('content')
+    <main class="nbc-page-content">
+        @yield('content')
+    </main>
 
     <x-nbc-footer />
 
@@ -6478,8 +6018,8 @@
 
     </footer>
     <!-- Start Sign In Modal Area  -->
-    <div class="rbt-default-modal modal fade has-rbt-top-folder-shape" id="signinModal" tabindex="-1"
-        role="dialog" aria-modal="true" aria-labelledby="signinModalLabel" aria-hidden="true">
+    <div class="rbt-default-modal modal fade has-rbt-top-folder-shape nbc-auth-popup" id="signinModal"
+        tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="signinModalLabel" aria-hidden="true">
         <div class="modal-dialog rbt-register-form-modal modal-dialog-centered">
             <div class="modal-content">
 
@@ -6501,73 +6041,59 @@
                 <div class="rbt-top-folder-shape-wrapper">
                     <div class="rbt-login-form rbt-bg-color-white rbt-content-trs-portion">
                         <div class="rbt-login-form-inner">
-                            <div class="rbt-login-form-top">
-                                <div class="logo">
-                                    <a href="{{ route('home') }}">
-                                        <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}"
-                                            alt="NBC Logo Images">
-                                    </a>
-                                </div>
-                                <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signinModalLabel">Sign In To
-                                    Proceed</h3>
-                                <div class="rbt-tab rbt-round-shape-tab">
+                            <div class="rbt-login-form-top nbc-auth-modal">
+                                <span class="nbc-auth-modal__eyebrow">Welcome Back</span>
+                                <h3 class="rbt-title rbt-text-bold" id="signinModalLabel">Login to your account</h3>
 
-                                    <!-- Start tabs -->
-                                    <ul class="nav nav-tabs" id="registerFormTab1" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="rbt-form-tab-id-1"
-                                                data-bs-toggle="tab" data-bs-target="#rbt-form-tab-pane-1"
-                                                type="button" role="tab" aria-controls="rbt-form-tab-pane-1"
-                                                aria-selected="true">
-                                                <i class="fa-sharp fa-regular fa-phone"></i>
-                                                Phone Number
-                                            </button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="rbt-form-tab-id-2" data-bs-toggle="tab"
-                                                data-bs-target="#rbt-form-tab-pane-2" type="button"
-                                                role="tab" aria-controls="rbt-form-tab-pane-2"
-                                                aria-selected="false">
-                                                <i class="fa-sharp fa-regular fa-envelope"></i>
-                                                Email
-                                            </button>
-                                        </li>
-                                    </ul>
-                                    <!-- End tabs -->
+                                @if ($errors->login->any())
+                                    <div class="alert alert-danger mb--20" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->login->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-                                    <form>
-                                        <!-- Start tabs content -->
-                                        <div class="tab-content" id="registerFormTab1Content">
-                                            <div class="tab-pane fade show active" id="rbt-form-tab-pane-1"
-                                                role="tabpanel" aria-labelledby="rbt-form-tab-id-1"
-                                                tabindex="0">
-                                                <div class="rbt-input-field-grp">
-                                                    <label class="rbt-field-label" for="modal_signin_number">Your
-                                                        Number<span class="rbt-text-color-danger">*</span></label>
-                                                    <input class="rbt-input-field" placeholder="Number"
-                                                        type="text" id="modal_signin_number">
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="rbt-form-tab-pane-2" role="tabpanel"
-                                                aria-labelledby="rbt-form-tab-id-2" tabindex="0">
-                                                <div class="rbt-input-field-grp">
-                                                    <label class="rbt-field-label" for="modal_signin_email">Your
-                                                        Email<span class="rbt-text-color-danger">*</span></label>
-                                                    <input class="rbt-input-field" placeholder="Email"
-                                                        type="email" id="modal_signin_email">
-                                                </div>
-                                            </div>
+                                <form method="POST" action="{{ route('login.submit') }}">
+                                    @csrf
+                                    <div class="rbt-input-field-grp">
+                                        <label class="rbt-field-label" for="modal_signin_email">Email Address<span
+                                                class="rbt-text-color-danger">*</span></label>
+                                        <div class="nbc-modal-input-wrap">
+                                            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                                            <input class="rbt-input-field" name="email"
+                                                placeholder="your@email.com" type="email"
+                                                id="modal_signin_email" value="{{ old('email') }}"
+                                                autocomplete="email" required>
                                         </div>
-                                        <!-- End tabs content -->
-                                        <button type="submit" class="rbt-btn d-block w-100 mt--24 mb--16">
-                                            Continue
+                                    </div>
+                                    <div class="rbt-input-field-grp mt--20">
+                                        <label class="rbt-field-label" for="modal_signin_password">Password<span
+                                                class="rbt-text-color-danger">*</span></label>
+                                        <div class="nbc-modal-input-wrap">
+                                            <i class="fa-regular fa-lock" aria-hidden="true"></i>
+                                            <input class="rbt-input-field" name="password"
+                                                placeholder="Enter password" type="password"
+                                                id="modal_signin_password" autocomplete="current-password" required>
+                                        </div>
+                                    </div>
+                                    <div class="nbc-modal-login-options">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="1">
+                                            <span>Remember me</span>
+                                        </label>
+                                        <button class="nbc-modal-forgot-link" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#forgotPasswordModal"
+                                            data-bs-dismiss="modal">
+                                            Forgot password?
                                         </button>
-                                        <div class="rbt-check-group">
-                                            <input id="modal_login_checked1" type="checkbox" name="login">
-                                            <label for="modal_login_checked1">Stay Logged In</label>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                    <button type="submit" class="rbt-btn d-block w-100 mt--24">
+                                        <i class="fa-regular fa-arrow-right-to-bracket" aria-hidden="true"></i>
+                                        Sign In
+                                    </button>
+                                </form>
 
                                 <!-- Separator -->
                                 <div class="d-flex align-items-center justify-content-center mb--24 mt--24">
@@ -6577,13 +6103,7 @@
                                 </div>
 
                                 <!-- Start social login button -->
-                                <button type="submit"
-                                    class="rbt-btn rbt-btn-border rbt-social-login-btn d-block w-100 mb--16 rbt-social-login-btn">
-                                    <img class="icon" src="{{ asset('assets/images/icons/fb-icon.webp') }}"
-                                        alt="Icon">
-                                    Continue with Facebook
-                                </button>
-                                <button type="submit"
+                                <button type="button"
                                     class="rbt-btn rbt-btn-border rbt-social-login-btn d-block w-100 rbt-social-login-btn">
                                     <img class="icon" src="{{ asset('assets/images/icons/google-icon.webp') }}"
                                         alt="Icon">
@@ -6592,7 +6112,7 @@
                                 <!-- End social login button -->
 
                                 <div class="rbt-login-system-switch rbt-link-hover">
-                                    Don't have an account?
+                                    New to Nature's Beauty Creations?
                                     <button class="rbt-switch-btn" data-bs-toggle="modal"
                                         data-bs-target="#signupModal" data-bs-dismiss="modal"
                                         aria-label="Close"><span>Create an account</span></button>
@@ -6710,9 +6230,161 @@
         </div>
     </div>
     <!-- End Sign In Modal Area  -->
+
+    <!-- Forgot Password Modal -->
+    <div class="rbt-default-modal has-rbt-top-folder-shape modal fade nbc-auth-popup" id="forgotPasswordModal"
+        tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="forgotPasswordModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog rbt-register-form-modal modal-dialog-centered">
+            <div class="modal-content">
+                <div class="rbt-folder-shape-right-portion">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="85" height="90" viewBox="0 0 85 90"
+                        fill="none" aria-hidden="true">
+                        <path
+                            d="M0 0H11.1844C14.5695 0 17.7971 1.42971 20.0716 3.93671L82.1927 72.4059C83.9992 74.397 84.9999 76.9893 84.9999 79.6778V90H0V0Z"
+                            fill="white" />
+                    </svg>
+                </div>
+                <div class="modal-header">
+                    <button type="button" class="rbt-round-btn rbt-modal-dis-btn" data-bs-dismiss="modal"
+                        aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="rbt-top-folder-shape-wrapper">
+                    <div class="rbt-login-form rbt-bg-color-white rbt-content-trs-portion">
+                        <div class="rbt-login-form-inner">
+                            <div class="rbt-login-form-top nbc-auth-modal">
+                                <span class="nbc-auth-modal__eyebrow">Account Recovery</span>
+                                <h3 class="rbt-title rbt-text-bold" id="forgotPasswordModalLabel">Forgot your
+                                    password?</h3>
+                                <p class="nbc-auth-modal__intro">Enter your account email and we’ll send you a secure
+                                    reset link.</p>
+
+                                @if (session('password_status'))
+                                    <div class="alert alert-success mb--16" role="status">
+                                        {{ session('password_status') }}</div>
+                                @endif
+                                @if ($errors->passwordEmail->any())
+                                    <div class="alert alert-danger mb--16" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->passwordEmail->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form method="POST" action="{{ route('password.email') }}">
+                                    @csrf
+                                    <div class="rbt-input-field-grp">
+                                        <label class="rbt-field-label" for="forgot_email">Email Address<span
+                                                class="rbt-text-color-danger">*</span></label>
+                                        <div class="nbc-modal-input-wrap">
+                                            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                                            <input class="rbt-input-field" id="forgot_email" name="email"
+                                                type="email" value="{{ old('email') }}"
+                                                placeholder="your@email.com" autocomplete="email" required>
+                                        </div>
+                                    </div>
+                                    <button class="rbt-btn d-block w-100 mt--24" type="submit">
+                                        <i class="fa-regular fa-paper-plane" aria-hidden="true"></i>
+                                        Send Reset Link
+                                    </button>
+                                </form>
+                                <div class="rbt-login-system-switch rbt-link-hover">
+                                    Remembered your password?
+                                    <button class="rbt-switch-btn" data-bs-toggle="modal"
+                                        data-bs-target="#signinModal" data-bs-dismiss="modal"><span>Back to
+                                            login</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="rbt-default-modal has-rbt-top-folder-shape modal fade nbc-auth-popup" id="resetPasswordModal"
+        tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="resetPasswordModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog rbt-register-form-modal modal-dialog-centered">
+            <div class="modal-content">
+                <div class="rbt-folder-shape-right-portion">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="85" height="90" viewBox="0 0 85 90"
+                        fill="none" aria-hidden="true">
+                        <path
+                            d="M0 0H11.1844C14.5695 0 17.7971 1.42971 20.0716 3.93671L82.1927 72.4059C83.9992 74.397 84.9999 76.9893 84.9999 79.6778V90H0V0Z"
+                            fill="white" />
+                    </svg>
+                </div>
+                <div class="modal-header">
+                    <button type="button" class="rbt-round-btn rbt-modal-dis-btn" data-bs-dismiss="modal"
+                        aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="rbt-top-folder-shape-wrapper">
+                    <div class="rbt-login-form rbt-bg-color-white rbt-content-trs-portion">
+                        <div class="rbt-login-form-inner">
+                            <div class="rbt-login-form-top nbc-auth-modal">
+                                <span class="nbc-auth-modal__eyebrow">Secure Account</span>
+                                <h3 class="rbt-title rbt-text-bold" id="resetPasswordModalLabel">Create a new
+                                    password</h3>
+
+                                @if ($errors->passwordReset->any())
+                                    <div class="alert alert-danger mb--16" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->passwordReset->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form method="POST" action="{{ route('password.update') }}">
+                                    @csrf
+                                    <input name="token" type="hidden" value="{{ request('reset_token') }}">
+                                    <div class="rbt-input-field-grp">
+                                        <label class="rbt-field-label" for="reset_email">Email Address</label>
+                                        <div class="nbc-modal-input-wrap">
+                                            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                                            <input class="rbt-input-field" id="reset_email" name="email"
+                                                type="email" value="{{ old('email', request('email')) }}"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="rbt-input-field-grp mt--20">
+                                        <label class="rbt-field-label" for="reset_password">New Password</label>
+                                        <div class="nbc-modal-input-wrap">
+                                            <i class="fa-regular fa-lock" aria-hidden="true"></i>
+                                            <input class="rbt-input-field" id="reset_password" name="password"
+                                                type="password" autocomplete="new-password" required>
+                                        </div>
+                                    </div>
+                                    <div class="rbt-input-field-grp mt--20">
+                                        <label class="rbt-field-label" for="reset_password_confirmation">Confirm
+                                            Password</label>
+                                        <div class="nbc-modal-input-wrap">
+                                            <i class="fa-regular fa-shield-check" aria-hidden="true"></i>
+                                            <input class="rbt-input-field" id="reset_password_confirmation"
+                                                name="password_confirmation" type="password"
+                                                autocomplete="new-password" required>
+                                        </div>
+                                    </div>
+                                    <button class="rbt-btn d-block w-100 mt--24" type="submit">
+                                        <i class="fa-regular fa-key" aria-hidden="true"></i>
+                                        Update Password
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Start Sign In Modal Area  -->
-    <div class="rbt-default-modal has-rbt-top-folder-shape modal fade" id="signupModal" tabindex="-1"
-        role="dialog" aria-modal="true" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="rbt-default-modal has-rbt-top-folder-shape modal fade nbc-auth-popup" id="signupModal"
+        tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog rbt-register-form-modal modal-dialog-centered">
             <div class="modal-content">
 
@@ -6737,131 +6409,112 @@
                 <div class="rbt-top-folder-shape-wrapper">
                     <div class="rbt-login-form rbt-bg-color-white rbt-content-trs-portion">
                         <div class="rbt-login-form-inner">
-                            <div class="rbt-login-form-top">
-                                <div class="logo">
-                                    <a href="{{ route('home') }}">
-                                        <img src="{{ asset('assets/images/logo/logo-nbc2.webp') }}"
-                                            alt="NBC Logo Images">
-                                    </a>
-                                </div>
-                                <h3 class="rbt-title rbt-text-bold mb--16 h6" id="signupModalLabel">Create an
-                                    Account</h3>
-                                <p class="description">I want grocery delivery for my:</p>
-                                <ul class="rbt-signup-radio-list">
-                                    <li class="rbt-check-grp ml--0">
-                                        <input id="modal-rbt-signup-radio-1" type="radio"
-                                            name="modal-rbt-signup-radio">
-                                        <label for="modal-rbt-signup-radio-1">
-                                            <span class="rbt-lable-text">Home</span>
-                                        </label>
-                                    </li>
-                                    <li class="rbt-check-grp ml--0">
-                                        <input id="modal-rbt-signup-radio-2" type="radio"
-                                            name="modal-rbt-signup-radio">
-                                        <label for="modal-rbt-signup-radio-2">
-                                            <span class="rbt-lable-text">Office</span>
-                                        </label>
-                                    </li>
-                                    <li class="rbt-check-grp ml--0">
-                                        <input id="modal-rbt-signup-radio-3" type="radio"
-                                            name="modal-rbt-signup-radio">
-                                        <label for="modal-rbt-signup-radio-3">
-                                            <span class="rbt-lable-text">Business</span>
-                                        </label>
-                                    </li>
-                                    <li class="rbt-check-grp ml--0">
-                                        <input id="modal-rbt-signup-radio-4" type="radio"
-                                            name="modal-rbt-signup-radio">
-                                        <label for="modal-rbt-signup-radio-4">
-                                            <span class="rbt-lable-text">Others</span>
-                                        </label>
-                                    </li>
-                                </ul>
-                                <div class="rbt-tab rbt-round-shape-tab">
+                            <div class="rbt-login-form-top nbc-auth-modal">
+                                <span class="nbc-auth-modal__eyebrow">New Customer</span>
+                                <h3 class="rbt-title rbt-text-bold" id="signupModalLabel">Register your account</h3>
+                                @if ($errors->register->any())
+                                    <div class="alert alert-danger mb--20" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->register->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-                                    <!-- Start tabs -->
-                                    <ul class="nav nav-tabs" id="modal_signinTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="rbt-form-tab-id-3"
-                                                data-bs-toggle="tab" data-bs-target="#rbt-form-tab-pane-3"
-                                                type="button" role="tab" aria-controls="rbt-form-tab-pane-3"
-                                                aria-selected="true">
-                                                <i class="fa-sharp fa-regular fa-phone"></i>
-                                                Phone Number
-                                            </button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="rbt-form-tab-id-4" data-bs-toggle="tab"
-                                                data-bs-target="#rbt-form-tab-pane-4" type="button"
-                                                role="tab" aria-controls="rbt-form-tab-pane-4"
-                                                aria-selected="false">
-                                                <i class="fa-sharp fa-regular fa-envelope"></i>
-                                                Email
-                                            </button>
-                                        </li>
-                                    </ul>
-                                    <!-- End tabs -->
-
-                                    <!-- Start tabs content -->
-                                    <form>
-                                        <div class="tab-content" id="modal_signinTabContent">
-                                            <div class="tab-pane fade show active" id="rbt-form-tab-pane-3"
-                                                role="tabpanel" aria-labelledby="rbt-form-tab-id-3"
-                                                tabindex="0">
-                                                <div class="rbt-input-field-grp">
-                                                    <label class="rbt-field-label" for="modal_register_number">Your
-                                                        Number<span class="rbt-text-color-danger">*</span></label>
-                                                    <input class="rbt-input-field" placeholder="Number"
-                                                        type="text" id="modal_register_number">
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="rbt-form-tab-pane-4" role="tabpanel"
-                                                aria-labelledby="rbt-form-tab-id-4" tabindex="0">
-                                                <div class="rbt-input-field-grp">
-                                                    <label class="rbt-field-label" for="modal_register_email">Your
-                                                        Email<span class="rbt-text-color-danger">*</span></label>
-                                                    <input class="rbt-input-field" placeholder="Email"
-                                                        type="email" id="modal_register_email">
-                                                </div>
+                                <form method="POST" action="{{ route('register.submit') }}">
+                                    @csrf
+                                    <div class="nbc-modal-form-grid">
+                                        <div class="rbt-input-field-grp">
+                                            <label class="rbt-field-label" for="modal_first_name">First Name<span
+                                                    class="rbt-text-color-danger">*</span></label>
+                                            <div class="nbc-modal-input-wrap">
+                                                <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                                <input class="rbt-input-field" id="modal_first_name"
+                                                    name="first_name" type="text"
+                                                    value="{{ old('first_name') }}" placeholder="First name"
+                                                    required>
                                             </div>
                                         </div>
-                                        <button type="submit" class="rbt-btn d-block w-100 mt--24 mb--16">
-                                            Continue
-                                        </button>
-                                        <div class="rbt-check-group">
-                                            <input id="modal_signup_login_checked2" type="checkbox"
-                                                name="login">
-                                            <label for="modal_signup_login_checked2">Stay Logged In</label>
+                                        <div class="rbt-input-field-grp">
+                                            <label class="rbt-field-label" for="modal_last_name">Last Name<span
+                                                    class="rbt-text-color-danger">*</span></label>
+                                            <div class="nbc-modal-input-wrap">
+                                                <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                                <input class="rbt-input-field" id="modal_last_name"
+                                                    name="last_name" type="text"
+                                                    value="{{ old('last_name') }}" placeholder="Last name"
+                                                    required>
+                                            </div>
                                         </div>
-                                    </form>
-                                    <!-- End tabs content -->
+                                        <div class="rbt-input-field-grp">
+                                            <label class="rbt-field-label" for="modal_register_phone">Phone
+                                                Number<span class="rbt-text-color-danger">*</span></label>
+                                            <div class="nbc-modal-input-wrap">
+                                                <i class="fa-regular fa-phone" aria-hidden="true"></i>
+                                                <input class="rbt-input-field" id="modal_register_phone"
+                                                    name="phone" type="tel" value="{{ old('phone') }}"
+                                                    placeholder="+94 77 123 4567" required>
+                                            </div>
+                                        </div>
+                                        <div class="rbt-input-field-grp">
+                                            <label class="rbt-field-label" for="modal_register_email">Email<span
+                                                    class="rbt-text-color-danger">*</span></label>
+                                            <div class="nbc-modal-input-wrap">
+                                                <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                                                <input class="rbt-input-field" id="modal_register_email"
+                                                    name="email" type="email" value="{{ old('email') }}"
+                                                    placeholder="your@email.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="rbt-input-field-grp">
+                                            <label class="rbt-field-label"
+                                                for="modal_register_password">Password<span
+                                                    class="rbt-text-color-danger">*</span></label>
+                                            <div class="nbc-modal-input-wrap">
+                                                <i class="fa-regular fa-lock" aria-hidden="true"></i>
+                                                <input class="rbt-input-field" id="modal_register_password"
+                                                    name="password" type="password" autocomplete="new-password"
+                                                    placeholder="Minimum 8 characters" required>
+                                            </div>
+                                        </div>
+                                        <div class="rbt-input-field-grp">
+                                            <label class="rbt-field-label"
+                                                for="modal_password_confirmation">Re-Password<span
+                                                    class="rbt-text-color-danger">*</span></label>
+                                            <div class="nbc-modal-input-wrap">
+                                                <i class="fa-regular fa-shield-check" aria-hidden="true"></i>
+                                                <input class="rbt-input-field" id="modal_password_confirmation"
+                                                    name="password_confirmation" type="password"
+                                                    autocomplete="new-password" placeholder="Re-enter password"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                </div>
+                                    <div class="nbc-modal-consents">
+                                        <label>
+                                            <input name="accepts_privacy" type="checkbox" value="1" required>
+                                            <span>I agree to the Copyright, Legal &amp; Privacy Policies</span>
+                                        </label>
+                                        <label>
+                                            <input name="newsletter" type="checkbox" value="1">
+                                            <span>Sign up for our newsletter.</span>
+                                        </label>
+                                        <label>
+                                            <input name="special_offers" type="checkbox" value="1">
+                                            <span>Receive special offers</span>
+                                        </label>
+                                    </div>
 
-                                <!-- Separator -->
-                                <div class="d-flex align-items-center justify-content-center mb--24 mt--24">
-                                    <hr class="rbt-separator rbt-bg-color-gray-light mb--0">
-                                    <span class="pl--8 pr--8 b4 rbt-text-medium">OR</span>
-                                    <hr class="rbt-separator rbt-bg-color-gray-light mb--0">
-                                </div>
-
-                                <!-- Start social login button -->
-                                <button type="submit"
-                                    class="rbt-btn rbt-btn-border rbt-social-login-btn d-block w-100 mb--16 rbt-social-login-btn">
-                                    <img class="icon" src="{{ asset('assets/images/icons/fb-icon.webp') }}"
-                                        alt="Icon">
-                                    Continue with Facebook
-                                </button>
-                                <button type="submit"
-                                    class="rbt-btn rbt-btn-border rbt-social-login-btn d-block w-100 rbt-social-login-btn">
-                                    <img class="icon" src="{{ asset('assets/images/icons/google-icon.webp') }}"
-                                        alt="Icon">
-                                    Continue with Google
-                                </button>
-                                <!-- End social login button -->
+                                    <button type="submit" class="rbt-btn d-block w-100 mt--24">
+                                        <i class="fa-regular fa-user-plus" aria-hidden="true"></i>
+                                        Create Account
+                                    </button>
+                                </form>
 
                                 <div class="rbt-login-system-switch rbt-link-hover">
-                                    Already a customer?
+                                    Already registered?
                                     <button class="rbt-switch-btn" data-bs-toggle="modal"
                                         data-bs-target="#signinModal" data-bs-dismiss="modal"
                                         aria-label="Close"><span>Sign In</span></button>
@@ -8333,6 +7986,29 @@
 
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
+    <script src="{{ asset('assets/js/nbc-cart.js') }}?v={{ filemtime(public_path('assets/js/nbc-cart.js')) }}"></script>
+
+    @php
+        $authModalId = match (true) {
+            $errors->register->any() => 'signupModal',
+            $errors->passwordEmail->any() || session()->has('password_status') => 'forgotPasswordModal',
+            $errors->passwordReset->any() || request()->filled('reset_token') => 'resetPasswordModal',
+            $errors->login->any() => 'signinModal',
+            default => null,
+        };
+    @endphp
+    @if ($authModalId)
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalId = @json($authModalId);
+                const modalElement = document.getElementById(modalId);
+
+                if (modalElement && window.bootstrap) {
+                    bootstrap.Modal.getOrCreateInstance(modalElement).show();
+                }
+            });
+        </script>
+    @endif
 
     <script type="module" src="beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
         integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="

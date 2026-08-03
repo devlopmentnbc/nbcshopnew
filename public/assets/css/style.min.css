@@ -22923,7 +22923,7 @@ header .rbt-round-btn:hover::after {
 }
 
 .rbt-header-campaign {
-    padding: 8px 0;
+    padding: 5px 0;
 }
 
 .rbt-header-campaign.bg-image1 {
@@ -23513,7 +23513,7 @@ header .rbt-round-btn:hover::after {
 }
 
 .rbt-header .logo.rbt-logo-height-sm a img {
-    max-height: 32px;
+    max-height: 52px;
 }
 
 .rbt-header .rbt-header-bg-img {
@@ -25347,12 +25347,6 @@ header .rbt-round-btn:hover::after {
         width: 300px;
         padding: 24px 16px;
     }
-}
-
-.popup-mobile-menu .inner-wrapper .inner-top {
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 24px;
-    margin-bottom: 24px;
 }
 
 @media only screen and (max-width: 767px) {

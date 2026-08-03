@@ -18,15 +18,9 @@
                             </a>
                         </div>
                         <div class="rbt-btn-close">
-                            <button class="close-button rbt-round-btn" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+                            <button class="close-button rbt-round-btn" aria-label="Close menu"><i
+                                    class="fa-solid fa-xmark"></i></button>
                         </div>
-                    </div>
-                    <p class="description">Authentic herbal beauty, skin care and personal care products from Nature's
-                        Beauty Creations.</p>
-                    <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
-                        <input type="text" placeholder="Search for products">
-                        <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
                 <div class="rbt-tab rbt-round-shape-tab">
@@ -54,7 +48,7 @@
                             <nav class="rbt-mainmenu-nav">
                                 <ul class="mainmenu">
                                     <li class="with-rbt-megamenu has-menu-child-item position-static">
-                                        <a href="#!">Home <i class="fa-regular fa-chevron-down"></i></a>
+                                        <a href="#!">Brand <i class="fa-regular fa-chevron-down"></i></a>
                                         <!-- Start Mega Menu  -->
                                         <div class="rbt-megamenu rbt-prsentation-megamenu rbt-width-fullscreen">
                                             <div class="rbt-megamenu-wrapper">
@@ -829,7 +823,7 @@
                                     </li>
 
                                     <li class="with-rbt-megamenu has-menu-child-item position-static">
-                                        <a href="#!">BABY CARE <i class="fa-regular fa-chevron-down"></i></a>
+                                        <a href="#!">Baby Care <i class="fa-regular fa-chevron-down"></i></a>
                                         <!-- Start Mega Menu  -->
                                         <div class="rbt-megamenu p-0 container">
                                             <!-- Start Mega Menu  -->
@@ -2959,13 +2953,6 @@
                             <img src="{{ asset('assets/images/nbc/banner1.jpg') }}" alt="">
                         </div>
                     </div>
-                    <button class="nbc-hero-arrow nbc-hero-arrow--previous" type="button"
-                        aria-label="Previous banner">
-                        <i class="fa-regular fa-chevron-left"></i>
-                    </button>
-                    <button class="nbc-hero-arrow nbc-hero-arrow--next" type="button" aria-label="Next banner">
-                        <i class="fa-regular fa-chevron-right"></i>
-                    </button>
                     <div class="nbc-hero-pagination" aria-label="Choose banner">
                         @foreach ($heroBanners as $index => $banner)
                             <button class="{{ $index === 0 ? 'is-active' : '' }}" type="button"
@@ -4011,12 +3998,7 @@
                                     class="rbt-component-section-title rbt-gap--4 mb--40 p-0 border-0 text-center align-items-center">
                                     <h2 class="rbt-title rbt-scroll-trigger zoom_in animation-order-2"><span
                                             class="rbt-bold--text">Our trusted </span>Brands</h2>
-                                    <a class="rbt-btn-link rbt-text-color-primary d-flex rbt-text-medium rbt-gap--8 mt--8 justify-content-center rbt-scroll-trigger zoom_in animation-order-3"
-                                        href="#">
-                                        <span class="btn-text">View All Brands</span>
-                                        <span class="btn-icon"><i
-                                                class="fa-sharp fa-solid fa-arrow-up-right-from-square"></i></span>
-                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -7333,8 +7315,8 @@
 
                             <div class="rbt-copy-link-part rbt-text-copy-activation mt--24 mt_sm--8 w-100">
                                 <input class="rbt-copy-value-field w-100" type="text"
-                                    value="https://unimart.template/wishlist" readonly="">
-                                <button class="rbt-btn rbt-btn-xs has-left-icon rbt-copy-btn"
+                                    value="https://unimart.template/wishlist" readonly=""> <button
+                                    class="rbt-btn rbt-btn-xs has-left-icon rbt-copy-btn"
                                     data-tooltip="Copy to clipboard">
                                     <i class="fa-regular fa-copy"></i>
                                     <span class="rbt-btn-text">Copy</span>
