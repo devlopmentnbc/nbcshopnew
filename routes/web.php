@@ -27,6 +27,10 @@ Route::get('/product-details', function () {
 // Customer Authentication Routes
 Route::get('/login', [AuthController::class, 'showCustomerLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'customerLogin'])->name('login.submit');
+Route::post('/register', [AuthController::class, 'customerRegister'])->name('register.submit');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin Authentication Routes

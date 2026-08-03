@@ -25,7 +25,7 @@
                         <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
-                <p class="description">Unimart is a E-commerce Template. Worldwide electronics store since 1978.</p>
+                <p class="description">Authentic herbal beauty, skin care and personal care products from Nature's Beauty Creations.</p>
                 <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
                     <input type="text" placeholder="Search for products">
                     <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -42,7 +42,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="rbt-tab-mobilemenu-2" data-bs-toggle="tab" data-bs-target="#rbt-tab-pane-mobilemenu-2" type="button" role="tab" aria-controls="rbt-tab-pane-mobilemenu-2" aria-selected="false">
                             <i class="fa-sharp fa-regular fa-layer-group"></i>
-                            Catagories
+                            Categories
                         </button>
                     </li>
                 </ul>
@@ -963,7 +963,7 @@
         </div>
     </div>
 </div>
-<!-- Start Side Nav -->
+    <!-- Start Side Nav -->
 <div class="rbt-offcanvas-cat-side-menu rbt-category-sidemenu ">
     <div class="inner-wrapper">
         <div class="rbt-categories-sidebar d-flex">
@@ -2024,7 +2024,7 @@
                     <h2 class="title mb--0 h6"><i class="fa-sharp fa-regular fa-cart-shopping mr--12"></i> Your cart
                     </h2>
                 </div>
-                <div class="rbt-quick-info-tag d-flex mt--16 rbt-flash-animation">
+                {{-- <div class="rbt-quick-info-tag d-flex mt--16 rbt-flash-animation">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9706 14.9359C18.8148 18.8649 15.7493 22 11.9891 22C8.12909 22 5 18.5858 5 14.6221C5 14.0924 4.99101 13.0336 5.74352 11.2472C6.19387 10.1781 6.47633 9.50646 6.63574 8.89253C6.72333 8.55511 6.89367 8.01904 7.37926 8.89253C7.66559 9.40757 7.67666 10.1483 7.67666 10.1483C7.67666 10.1483 8.74197 9.28536 9.4611 7.63673C10.5153 5.21985 9.67419 3.77512 9.38675 2.77048C9.28727 2.42294 9.22481 1.79833 9.90721 2.06409C10.6025 2.33495 12.4408 3.69334 13.4017 5.12512C14.7732 7.16855 15.2605 9.128 15.2605 9.128C15.2605 9.128 15.6997 8.55268 15.8553 7.95068C16.0312 7.27089 16.0338 6.59763 16.5988 7.32285C17.1361 8.01253 17.9341 9.3086 18.3833 10.5408C19.1989 12.7784 18.9706 14.9359 18.9706 14.9359Z" fill="url(#paint0_linear_47_2365484)"></path>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 22C9.23852 22 7 19.7944 7 17.0735C7 15.4318 7.67145 14.435 9.0689 13.0833C9.96366 12.2179 10.8011 11.1549 11.157 10.4311C11.2271 10.2886 11.3866 9.54605 12.0014 10.4155C12.3239 10.8714 12.8296 11.6823 13.1538 12.3744C13.7127 13.5676 13.8461 14.7239 13.8461 14.7239C13.8461 14.7239 14.3938 14.4059 14.7692 13.5871C14.8902 13.3232 15.1348 12.3241 15.8186 13.323C16.3204 14.0561 17.0097 15.3741 16.9999 17.0735C16.9999 19.7944 14.7613 22 11.9999 22Z" fill="#FC9502"></path>
@@ -2038,7 +2038,7 @@
                     </svg>
                     <p>Limited Item, <strong>checkout within <span class="rbt-countdown-cart">10m 00s</span></strong>
                     </p>
-                </div>
+                </div> --}}
                 <div class="rbt-btn-close" id="btn_sideNavClose">
                     <button class="minicart-close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                 </div>
@@ -2271,12 +2271,12 @@
                 <p class="subtotal"><strong>Total</strong></p>
                 <p class="price">$768.00</p>
             </div>
-            <div class="offer-progress-area">
+            {{-- <div class="offer-progress-area">
                 <p class="offer-text">Add <strong>$248.00</strong> More To Get <strong>Free Shipping</strong></p>
                 <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                     <div class="progress-bar w-75"></div>
                 </div>
-            </div>
+            </div> --}}
             <div class="rbt-minicart-bottom mt--24">
                 <div class="checkout-btn mt--20">
                     <a class="rbt-btn w-100 text-center" href="#">
@@ -3694,9 +3694,8 @@
                             </p>
                         </div>
                         <div class="rbt-price-input-grp">
-                            <input type="number" min="0" placeholder="$ Min">
-                            <input type="number" min="0" placeholder="$ Max">
-                            <a href="#" class="rbt-btn">$Go</a>
+                            <input type="number" min="0" placeholder="Min">
+                            <input type="number" min="0" placeholder="Max">
                         </div>
                     </div>
                 </div>
@@ -4200,9 +4199,8 @@
                                     </p>
                                 </div>
                                 <div class="rbt-price-input-grp">
-                                    <input type="number" min="0" placeholder="$ Min">
-                                    <input type="number" min="0" placeholder="$ Max">
-                                    <a href="#" class="rbt-btn">$Go</a>
+                                    <input type="number" min="0" placeholder="Min">
+                                    <input type="number" min="0" placeholder="Max">
                                 </div>
                             </div>
                         </div>
@@ -4322,7 +4320,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">$23.00 - $134.98</span>
+                        <span class="price-text">Rs.180.00 - 760.00</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -4435,7 +4433,9 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">$99.98 - $384.98</span>
+                        <span class="price-text">Rs. 240.00 - 750.00
+
+</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">4
                             in Stock</div>
                     </div>
@@ -4551,9 +4551,9 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$139.49</span>
-                        <span class="rbt-offer-badge">-30%</span>
+                        <del class="price-text">Rs.1200.00</del>
+                        <span class="price-text">Rs.1020.00</span>
+                        <span class="rbt-offer-badge">-15%</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">12
                             in Stock</div>
                     </div>
@@ -4688,7 +4688,7 @@
                     </div>
                     <div class="pricing-part">
                         <del class="price-text">$295.00</del>
-                        <span class="price-text">$189.59</span>
+                        <span class="price-text">Rs.190.00 - 540.00</span>
                         <div class="rbt-badge rbt-badge-bg-danger rbt-badge-border rbt-badge-small rbt-badge-rounded rbt-shiny">
                             🔥 Limited Stock</div>
                     </div>
@@ -4825,7 +4825,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">$50.59 - $155.99</span>
+                        <span class="price-text">Rs. 240.00 - 750.00</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -4941,8 +4941,8 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$189.79</span>
+                        <del class="price-text">Rs.295.00</del>
+                        <span class="price-text">Rs. 240.00 - 450.00</span>
                         <span class="rbt-offer-badge">-30%</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">12
                             in Stock</div>
@@ -5056,7 +5056,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">$99.98 - $384.98</span>
+                        <span class="price-text">Rs. 240.00 - 450.00</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">4
                             in Stock</div>
                     </div>
@@ -5193,7 +5193,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">$46.00 - $189.98</span>
+                        <span class="price-text">Rs. 690.00</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -5327,8 +5327,8 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <del class="price-text">$295.00</del>
-                        <span class="price-text">$139.49</span>
+                        <del class="price-text">Rs. 2,950.00</del>
+                        <span class="price-text">Rs. 1,690.00</span>
                         <div class="rbt-badge rbt-badge-bg-danger rbt-badge-border rbt-badge-small rbt-badge-rounded rbt-shiny">
                             🔥 Limited Stock</div>
                     </div>
@@ -5465,7 +5465,7 @@
                         </div>
                     </div>
                     <div class="pricing-part">
-                        <span class="price-text">$23.00 - $134.98</span>
+                        <span class="price-text">Rs. 1,800.00</span>
                         <div class="rbt-badge rbt-badge-bg-green rbt-badge-border rbt-badge-small rbt-badge-rounded">9
                             in Stock</div>
                     </div>
@@ -6709,7 +6709,7 @@
                                 <div class="title-section">
                                     <h3 class="title mb--0 h6" id="popup-cartModalLabel"><i class="fa-sharp fa-regular fa-cart-shopping mr--12"></i> Your cart</h3>
                                 </div>
-                                <div class="rbt-quick-info-tag d-flex mt--16 rbt-flash-animation">
+                                {{-- <div class="rbt-quick-info-tag d-flex mt--16 rbt-flash-animation">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9706 14.9359C18.8148 18.8649 15.7493 22 11.9891 22C8.12909 22 5 18.5858 5 14.6221C5 14.0924 4.99101 13.0336 5.74352 11.2472C6.19387 10.1781 6.47633 9.50646 6.63574 8.89253C6.72333 8.55511 6.89367 8.01904 7.37926 8.89253C7.66559 9.40757 7.67666 10.1483 7.67666 10.1483C7.67666 10.1483 8.74197 9.28536 9.4611 7.63673C10.5153 5.21985 9.67419 3.77512 9.38675 2.77048C9.28727 2.42294 9.22481 1.79833 9.90721 2.06409C10.6025 2.33495 12.4408 3.69334 13.4017 5.12512C14.7732 7.16855 15.2605 9.128 15.2605 9.128C15.2605 9.128 15.6997 8.55268 15.8553 7.95068C16.0312 7.27089 16.0338 6.59763 16.5988 7.32285C17.1361 8.01253 17.9341 9.3086 18.3833 10.5408C19.1989 12.7784 18.9706 14.9359 18.9706 14.9359Z" fill="url(#paint0_linear_47_23655)"></path>
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 22C9.23852 22 7 19.7944 7 17.0735C7 15.4318 7.67145 14.435 9.0689 13.0833C9.96366 12.2179 10.8011 11.1549 11.157 10.4311C11.2271 10.2886 11.3866 9.54605 12.0014 10.4155C12.3239 10.8714 12.8296 11.6823 13.1538 12.3744C13.7127 13.5676 13.8461 14.7239 13.8461 14.7239C13.8461 14.7239 14.3938 14.4059 14.7692 13.5871C14.8902 13.3232 15.1348 12.3241 15.8186 13.323C16.3204 14.0561 17.0097 15.3741 16.9999 17.0735C16.9999 19.7944 14.7613 22 11.9999 22Z" fill="#FC9502"></path>
@@ -6723,7 +6723,7 @@
                                     </svg>
                                     <p>Limited Item, <strong>checkout within <span class="rbt-countdown-cart">10m
                                                 00s</span></strong></p>
-                                </div>
+                                </div> --}}
                             </div>
                             <nav class="side-nav w-100">
                                 <ul class="rbt-minicart-wrapper">
@@ -6807,13 +6807,13 @@
                                 <p class="subtotal"><strong>Total</strong></p>
                                 <p class="price">$768.00</p>
                             </div>
-                            <div class="offer-progress-area">
+                            {{-- <div class="offer-progress-area">
                                 <p class="offer-text">Add <strong>$248.00</strong> More To Get <strong>Free
                                         Shipping</strong></p>
                                 <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar w-75"></div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="rbt-minicart-bottom mt--24">
                                 <div class="checkout-btn mt--20">
                                     <a href="checkout-delivery-step-one.html" class="rbt-btn w-100 text-center">

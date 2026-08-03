@@ -262,8 +262,8 @@
 }
 
 .rbt-shop-filter-area .rbt-price-input-grp {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     padding: 16px 22px 0;
 }
@@ -278,14 +278,6 @@
     background: #fff;
     color: #12261f;
     font-weight: 700;
-}
-
-.rbt-shop-filter-area .rbt-price-input-grp .rbt-btn {
-    min-height: 52px;
-    border-radius: 16px;
-    background: #103a32;
-    color: #fff;
-    font-weight: 800;
 }
 
 .rbt-shop-filter-area .rbt-product-card .rbt-card-title a,
@@ -327,29 +319,10 @@
     color: #fff;
 }
 
-.rbt-header .access-box-count {
-    background: #67af1f !important;
-    color: #fff !important;
-}
-
-.rbt-header .access-box-count.rbt-shiny {
-    background: #67af1f !important;
-    color: #fff !important;
-}
-
 .rbt-shop-filter-area .rbt-single-widget:nth-of-type(2),
 .rbt-shop-filter-area .rbt-single-widget:nth-of-type(3),
 .rbt-shop-filter-area .rbt-single-widget:nth-of-type(4) {
     display: none;
-}
-
-.rbt-header-campaign.rbt-header-top-news.rbt-topbar-bg-img.rbt-topbar-bg-one {
-    background: #113a32 !important;
-    background-image: none !important;
-}
-
-.rbt-header-campaign.rbt-header-top-news .icon-close .rbt-round-btn {
-    color: #fff !important;
 }
 
 @media (max-width: 991px) {

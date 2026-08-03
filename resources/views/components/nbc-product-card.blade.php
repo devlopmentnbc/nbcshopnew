@@ -40,7 +40,12 @@
             </div>
 
             <div class="rbt-card-footer d-flex footer-content-btn">
-                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#">
+                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation nbc-add-to-cart" href="#"
+                    data-product-id="{{ $product['brand_slug'] }}-{{ \Illuminate\Support\Str::slug($product['name']) }}"
+                    data-product-name="{{ $product['name'] }}"
+                    data-product-price="{{ $product['sale_price'] }}"
+                    data-product-image="{{ asset($product['image']) }}"
+                    data-product-url="{{ route('product.details') }}">
                     <i class="fa-regular fa-cart-shopping"></i> Add To Cart
                 </a>
                 <div class="rbt-quick-btn-grp has-mixup-midlayer">
