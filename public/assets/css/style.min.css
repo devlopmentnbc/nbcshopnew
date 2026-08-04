@@ -8128,11 +8128,11 @@ textarea:-ms-input-placeholder {
 }
 
 .mt--12 {
-    margin-top: 12px !important;
+    margin-top: 10px !important;
 }
 
 .mb--12 {
-    margin-bottom: 12px !important;
+    margin-bottom: 10px !important;
 }
 
 .mr--12 {
@@ -59703,7 +59703,7 @@ form .rbt-input-field {
     text-align: center;
     line-height: 46px;
     font-size: 20px;
-    color: #198754;
+    color: var(--primary-color);
     left: 0;
     top: 0;
     height: 46px;
@@ -59716,7 +59716,7 @@ form .rbt-input-field {
 }
 
 .rbt-progress-parent:hover::after {
-    color: #198754;
+    color: var(--secoondary-color);
 }
 
 .rbt-progress-parent::before {
@@ -59746,8 +59746,8 @@ form .rbt-input-field {
     fill: none;
 }
 
-.rbt-progress-parent svg.rbt-back-circle path {
-    stroke: #198754;
+.rbt-progress-parent svg path {
+    stroke: var(--accent-color);
     stroke-width: 4;
     box-sizing: border-box;
     -webkit-transition: all 0.2s linear;

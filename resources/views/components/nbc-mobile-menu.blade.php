@@ -15,19 +15,6 @@
                         </button>
                     </div>
                 </div>
-
-                <p class="description">Authentic herbal beauty, skin care and personal care products from Nature's
-                    Beauty Creations.</p>
-
-                <form class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width"
-                    action="{{ route('shop') }}" method="GET" role="search">
-                    <input type="search" name="search" placeholder="Search for products"
-                        aria-label="Search for products">
-                    <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"
-                        aria-label="Submit search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
             </div>
 
             <div class="rbt-tab rbt-round-shape-tab">

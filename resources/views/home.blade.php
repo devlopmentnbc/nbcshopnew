@@ -1812,7 +1812,9 @@
                                             <h2 class="rbt-sidebar-banner-titile h4">Up to 40% Off <span
                                                     class="rbt-text-regular">On All Brands</span>
                                             </h2>
-                                            <a href="#" class="rbt-btn rbt-btn-sm">Know More</a>
+                                         <!-- Know more button temporarily hidden. 
+                                            <a href="#" class="rbt-btn rbt-btn-sm">Know More</a> -->
+
                                         </div>
                                     </div>
                                     <!-- End banner -->
@@ -3272,21 +3274,30 @@
                     <div class="row row--0 justify-content-end">
                         <div class="col-xl-6 col-md-12 col-12">
                             <div>
-                                <img src="{{ asset('assets/images/nbc/mb_banner1.jpg') }}"
-                                    alt="Ecommerce Product Banner Image">
+                                <img src="{{ $featuredPromotion ? asset($featuredPromotion->image) : asset('assets/images/nbc/mb_banner1.jpg') }}"
+                                    alt="{{ $featuredPromotion?->name ?? 'Nature\'s Beauty Creations promotion' }}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-md-12 col-12">
                             <div class="rbt-counterdown-content rbt-counterdown-content-right-position">
-                                <p class="rbt-subtitle mb--0 rbt-scroll-trigger fade_in animation-order-1">Our Special
-                                    Discount <span class="rbt-color-primary">11th December</span></p>
-                                <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2 rbt-text-regular"><span
-                                        class="rbt-bold--text">Up to 20% Off</span> for Serum Range </h2>
-                                <a class="rbt-btn rbt-scroll-trigger fade_in animation-order-3" href="#">Know
-                                    More</a>
+                                <p class="rbt-subtitle mb--0 rbt-scroll-trigger fade_in animation-order-1">
+                                    {{ $featuredPromotion?->promotion_label ?? 'Our Special Discount' }}
+                                </p>
+                                <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2 rbt-text-regular">
+                                    <span class="rbt-bold--text">{{ $featuredPromotion?->name ?? 'Up to 20% Off' }}</span>
+                                </h2>
+                                @if ($featuredPromotion?->description)
+                                    <p class="rbt-description mt--12 mb--0">{{ $featuredPromotion->description }}</p>
+                                @endif
+                                {{-- Promotion CTA temporarily hidden.
+                                <a class="rbt-btn rbt-scroll-trigger fade_in animation-order-3"
+                                    href="{{ $featuredPromotionUrl }}">{{ $featuredPromotion?->button_text ?? 'Know More' }}</a>
+                                --}}
                                 <div class="rbt-countdown-section d-flex mt--32">
                                     <div class="rbt-countdown-one cd-border-style rbt-countdown-lg bg-variation-black">
-                                        <div class="countdown" data-date="2026-12-30">
+                                        <div class="countdown"
+                                            data-date="{{ $featuredPromotion?->ends_at?->format('Y-m-d') ?? '2026-12-30' }}"
+                                            data-time="{{ $featuredPromotion?->ends_at?->format('H:i') ?? '23:59' }}">
                                             <div class="countdown-container days">
                                                 <span class="countdown-value">87</span>
                                                 <span class="countdown-heading">Days</span>
