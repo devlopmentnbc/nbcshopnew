@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Product Single Default - eCommerce Bootstrap5 Template')
+@section('title', isset($product) ? $product->name . ' - NBC Shop' : 'Product Details - NBC Shop')
 
 @section('content')
 </div>
@@ -1990,281 +1990,7 @@
     </div>
 </div>
 <!-- End Side Nav -->
-<!-- Start Side Nav -->
-<div class="rbt-cart-side-menu rbt-sidebar-cart">
-    <div class="inner-wrapper">
-        <div class="inner-top">
-            <div class="rbt-cart-header">
-                <div class="title-section">
-                    <h2 class="title mb--0 h6"><i class="fa-sharp fa-regular fa-cart-shopping mr--12"></i> Your cart
-                    </h2>
-                </div>
-                {{-- <div class="rbt-quick-info-tag d-flex mt--16 rbt-flash-animation">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9706 14.9359C18.8148 18.8649 15.7493 22 11.9891 22C8.12909 22 5 18.5858 5 14.6221C5 14.0924 4.99101 13.0336 5.74352 11.2472C6.19387 10.1781 6.47633 9.50646 6.63574 8.89253C6.72333 8.55511 6.89367 8.01904 7.37926 8.89253C7.66559 9.40757 7.67666 10.1483 7.67666 10.1483C7.67666 10.1483 8.74197 9.28536 9.4611 7.63673C10.5153 5.21985 9.67419 3.77512 9.38675 2.77048C9.28727 2.42294 9.22481 1.79833 9.90721 2.06409C10.6025 2.33495 12.4408 3.69334 13.4017 5.12512C14.7732 7.16855 15.2605 9.128 15.2605 9.128C15.2605 9.128 15.6997 8.55268 15.8553 7.95068C16.0312 7.27089 16.0338 6.59763 16.5988 7.32285C17.1361 8.01253 17.9341 9.3086 18.3833 10.5408C19.1989 12.7784 18.9706 14.9359 18.9706 14.9359Z" fill="url(#paint0_linear_47_2365484)"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 22C9.23852 22 7 19.7944 7 17.0735C7 15.4318 7.67145 14.435 9.0689 13.0833C9.96366 12.2179 10.8011 11.1549 11.157 10.4311C11.2271 10.2886 11.3866 9.54605 12.0014 10.4155C12.3239 10.8714 12.8296 11.6823 13.1538 12.3744C13.7127 13.5676 13.8461 14.7239 13.8461 14.7239C13.8461 14.7239 14.3938 14.4059 14.7692 13.5871C14.8902 13.3232 15.1348 12.3241 15.8186 13.323C16.3204 14.0561 17.0097 15.3741 16.9999 17.0735C16.9999 19.7944 14.7613 22 11.9999 22Z" fill="#FC9502"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1019 16C12.8497 16 12.8497 17.4475 13.7996 19.3803C14.4321 20.6672 13.486 22 12.1019 22C10.7178 22 10 20.8271 10 19.3803C10 17.9335 11.3541 16 12.1019 16Z" fill="#FCE202"></path>
-                        <defs>
-                            <lineargradient id="paint0_linear_47_2365484" x1="11.9995" y1="22.0148" x2="11.9995" y2="2.01511" gradientunits="userSpaceOnUse">
-                                <stop offset="1" stop-color="#FF4C0D"></stop>
-                                <stop offset="1" stop-color="#FC9502"></stop>
-                            </lineargradient>
-                        </defs>
-                    </svg>
-                    <p>Limited Item, <strong>checkout within <span class="rbt-countdown-cart">10m 00s</span></strong>
-                    </p>
-                </div> --}}
-                <div class="rbt-btn-close" id="btn_sideNavClose">
-                    <button class="minicart-close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            </div>
-            <nav class="side-nav w-100">
-                <ul class="rbt-minicart-wrapper">
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="{{ route('product.details') }}">
-                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1-hover.webp') }}" alt="Product Image">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title h6"><a href="{{ route('product.details') }}">JBL PartyBox 100W Speaker</a>
-                            </h3>
-                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
-                            <div class="bottom-part">
-                                <div class="rbt-qty-area">
-                                    <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="items-qty-input" value="01" min="1">
-                                    <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#quickviewEditCartModal"><i class="fa-regular fa-pen"></i>
-                                    Edit</button>
-                            </div>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="{{ route('product.details') }}">
-                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-04-a-1-hover.webp') }}" alt="Product Image">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title h6"><a href="{{ route('product.details') }}">Apple Watch Ultra 2</a></h3>
-                            <span class="quantity">1x <span class="price">Rs. 359.00</span></span>
-                            <div class="bottom-part">
-                                <div class="rbt-qty-area">
-                                    <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="items-qty-input" value="01" min="1">
-                                    <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#quickviewEditCartModal"><i class="fa-regular fa-pen"></i>
-                                    Edit</button>
-                            </div>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="{{ route('product.details') }}">
-                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-01-a-1-hover.webp') }}" alt="Product Image">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title h6"><a href="{{ route('product.details') }}">PlayStation Wireless
-                                    Headphone</a>
-                            </h3>
-                            <span class="quantity">1x <span class="price">Rs. 759.00</span></span>
-                            <div class="bottom-part">
-                                <div class="rbt-qty-area">
-                                    <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="items-qty-input" value="01" min="1">
-                                    <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#quickviewEditCartModal"><i class="fa-regular fa-pen"></i>
-                                    Edit</button>
-                            </div>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="{{ route('product.details') }}">
-                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-02-a-1-hover.webp') }}" alt="Product Image">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title h6"><a href="{{ route('product.details') }}">Awei CL-115M USB 2.4A Cable </a>
-                            </h3>
-                            <span class="quantity">1x <span class="price">Rs. 459.00</span></span>
-                            <div class="bottom-part">
-                                <div class="rbt-qty-area">
-                                    <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="items-qty-input" value="01" min="1">
-                                    <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#quickviewEditCartModal"><i class="fa-regular fa-pen"></i>
-                                    Edit</button>
-                            </div>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="{{ route('product.details') }}">
-                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-03-a-1-hover.webp') }}" alt="Product Image">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title h6"><a href="{{ route('product.details') }}">MaxGreen 45W Power Adapter</a>
-                            </h3>
-                            <span class="quantity">1x <span class="price">Rs. 999.00</span></span>
-                            <div class="bottom-part">
-                                <div class="rbt-qty-area">
-                                    <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="items-qty-input" value="01" min="1">
-                                    <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#quickviewEditCartModal"><i class="fa-regular fa-pen"></i>
-                                    Edit</button>
-                            </div>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="{{ route('product.details') }}">
-                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-05-a-1-hover.webp') }}" alt="Product Image">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title h6"><a href="{{ route('product.details') }}">Havit PB90 Power Bank </a></h3>
-                            <span class="quantity">1x <span class="price">Rs. 288.00</span></span>
-                            <div class="bottom-part">
-                                <div class="rbt-qty-area">
-                                    <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="items-qty-input" value="01" min="1">
-                                    <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#quickviewEditCartModal"><i class="fa-regular fa-pen"></i>
-                                    Edit</button>
-                            </div>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-                </ul>
-                <div class="minicart-quick-access-area mt--24">
-                    <a href="#" class="single-quick-access rbt-note-btn">
-                        <span class="icon"><i class="fa-regular fa-pen"></i></span>
-                        <span class="text">Note</span>
-                    </a>
-                    <span class="hr-sepator"></span>
-                    <a href="#" class="single-quick-access rbt-shipping-btn">
-                        <span class="icon"><i class="fa-regular fa-truck-fast"></i></span>
-                        <span class="text">Shipping</span>
-                    </a>
-                    <span class="hr-sepator"></span>
-                    <a href="#" class="single-quick-access rbt-coupon-btn">
-                        <span class="icon"><i class="fa-regular fa-ticket"></i></span>
-                        <span class="text">Coupon</span>
-                    </a>
-                </div>
-                <div class="minicart-inc-items-area mt--12">
-                    <h3 class="title h6 positin-top">You May Also Like</h3>
-                    <div class="bottom-area">
-                        <div class="swiper rbt-dot-top-right inc-item-swiper-activation rbt-minicart-wrapper overflow-hidden">
-                            <div class="swiper-wrapper">
-                                <!-- single slide -->
-                                <div class="swiper-slide">
-                                    <div class="minicart-item">
-                                        <div class="thumbnail">
-                                            <a href="{{ route('product.details') }}">
-                                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-08-a-1-hover.webp') }}" alt="Product Image">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <h3 class="title h6"><a href="{{ route('product.details') }}">Keurig K-Duo 4K
-                                                    Waterproof Action
-                                                    Video Camera </a></h3>
-                                            <span class="quantity"><span class="price">Rs. 345.00</span></span>
-                                        </div>
-                                        <a href="#!" class="add-itembtn tooltips" data-bs-toggle="modal" data-bs-target="#addedcartModal" data-tooltip="Add to Cart"><i class="fa-regular fa-cart-plus"></i></a>
-                                    </div>
-                                </div>
-                                <!-- single slide -->
-                                <div class="swiper-slide">
-                                    <div class="minicart-item">
-                                        <div class="thumbnail">
-                                            <a href="{{ route('product.details') }}">
-                                                <img src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-06-a-1-hover.webp') }}" alt="Product Image">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <h3 class="title h6"><a href="{{ route('product.details') }}">Full Amoled HD
-                                                    Streaming Webcam</a>
-                                            </h3>
-                                            <span class="quantity"><span class="price">Rs. 189.00</span></span>
-                                        </div>
-                                        <a href="#!" class="add-itembtn tooltips" data-bs-toggle="modal" data-bs-target="#addedcartModal" data-tooltip="Add to Cart"><i class="fa-regular fa-cart-plus"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-swiper-pagination"></div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div class="rbt-minicart-footer">
-            <hr class="mb--0 mt--16">
-            <div class="rbt-cart-subttotal">
-                <p>Subtotal (2 items)</p>
-                <p class="price">Rs. 758.00</p>
-            </div>
-            <div class="rbt-cart-subttotal">
-                <p>Shipping</p>
-                <p class="price">Rs. 10.00</p>
-            </div>
-            <hr class="mb--0">
-            <div class="rbt-cart-subttotal">
-                <p class="subtotal"><strong>Total</strong></p>
-                <p class="price">Rs. 768.00</p>
-            </div>
-            {{-- <div class="offer-progress-area">
-                <p class="offer-text">Add <strong>Rs. 248.00</strong> More To Get <strong>Free Shipping</strong></p>
-                <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar w-75"></div>
-                </div>
-            </div> --}}
-            <div class="rbt-minicart-bottom mt--24">
-                <div class="checkout-btn mt--20">
-                    <a class="rbt-btn w-100 text-center" href="#">
-                        <span class="btn-text">Checkout</span>
-                    </a>
-                </div>
-                <div class="share-btn-grp rbt-link-hover">
-                    <a href="cart.html" class="share-btn"><i class="fa-regular fa-pen mr--4"></i> View Cart</a>
-                    <button data-bs-toggle="modal" data-bs-target="#socialShareModal" type="button" class="share-btn"><i class="fa-sharp fa-solid fa-link mr--4"></i> Share Cart</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Side Nav Cart is provided globally by layouts/app.blade.php -->
     <a href="#!" class="rbt-close-inner-popup rbt-popup-close-btn"></a>
     <div class="rbt-offcanvas-inner-popup">
     <div class="rbt-offcanvas-inner-popup-card note-popup">
@@ -3268,62 +2994,36 @@
                         <div class="col-lg-1-5 col-lg-2 order-2 order-lg-1">
                             <div class="swiper product-single-slider-two-thumb-activation rbt-arrow-show-dfl rbt-thumb-has-bg-shape-overlay rbt-swiper-right-bottom-one rbt-arrow-between rbt-swiper-arrow-transparent">
                                 <div class="swiper-wrapper rbt-store-thumb-variation-1">
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
-                                        <button class="thumbnail d-block position-relative">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-2">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-04.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-3">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-03.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-4">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-02.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-5">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-01.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-6">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-04.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-7">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-03.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-8">
-                                        <button class="thumbnail d-block">
-                                            <span class="rbt-thumb-img-sm">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-02.webp') }}" alt="Product Images">
-                                            </span>
-                                        </button>
-                                    </div>
+                                    @if(isset($product) && ($product->image || ($product->images && $product->images->count() > 0)))
+                                        @if($product->image)
+                                            <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
+                                                <button class="thumbnail d-block position-relative">
+                                                    <span class="rbt-thumb-img-sm">
+                                                        <img class="w-100" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        @endif
+                                        @if($product->images)
+                                            @foreach($product->images as $index => $gImg)
+                                                <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-{{ $index + 2 }}">
+                                                    <button class="thumbnail d-block position-relative">
+                                                        <span class="rbt-thumb-img-sm">
+                                                            <img class="w-100" src="{{ asset($gImg->image_path) }}" alt="{{ $product->name }}">
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    @else
+                                        <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
+                                            <button class="thumbnail d-block position-relative">
+                                                <span class="rbt-thumb-img-sm">
+                                                    <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product Images">
+                                                </span>
+                                            </button>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="rbt-swiper-arrow rbt-arrow-right">
@@ -3340,67 +3040,41 @@
                                     HOT
                                 </div>
 
-                                <button class="rbt-enlarge-btn position-bottom-right" data-fancybox="product-single-image" data-src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}">
+                                <button class="rbt-enlarge-btn position-bottom-right" data-fancybox="product-single-image" data-src="{{ isset($product) && $product->image ? asset($product->image) : asset('assets/images/product-single/earphone/earphone-05.webp') }}">
                                     <span class="rbt-icon"><i class="fa-regular fa-arrows-maximize"></i></span>
                                     <span class="rbt-enlarge-text">Enlarge View</span>
                                 </button>
                                 <div class="swiper-wrapper rbt-store-thumb-main-1">
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product Images">
+                                    @if(isset($product) && ($product->image || ($product->images && $product->images->count() > 0)))
+                                        @if($product->image)
+                                            <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
+                                                <div class="thumbnail">
+                                                    <div class="rbt-product-single-img">
+                                                        <img class="w-100" data-fancybox="product-single-image" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($product->images)
+                                            @foreach($product->images as $index => $gImg)
+                                                <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-{{ $index + 2 }}">
+                                                    <div class="thumbnail">
+                                                        <div class="rbt-product-single-img">
+                                                            <img class="w-100" data-fancybox="product-single-image" src="{{ asset($gImg->image_path) }}" alt="{{ $product->name }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    @else
+                                        <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
+                                            <div class="thumbnail">
+                                                <div class="rbt-product-single-img">
+                                                    <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product Images">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-2">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-04.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-2">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-03.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-3">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-02.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-4">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-01.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-5">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-04.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-6">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-03.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-7">
-                                        <div class="thumbnail">
-                                            <div class="rbt-product-single-img">
-                                                <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-02.webp') }}" alt="Product Images">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 <div class="rbt-swiper-arrow rbt-arrow-left">
                                     <div class="custom-overflow">
@@ -3420,41 +3094,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 col-lg-12 col-12 mt--16">
+                <div class="col-xl-5 col-lg-12 col-12 mt--16" style="padding-top: 100px !important ; ">
                     <div class="rbt-single-product-content ptb--0 rbt-product-variations" data-variations='{"global":{"types":{"rbt_product_attribute_color":{"type":"color","label":"Color","attributes":[{"color":"#2B2B2B","label":"Black","slug":"black"},{"color":"#cc999d","label":"Pink","slug":"pink"},{"color":"#9C9B9E","label":"Dark","slug":"dark"},{"color":"#F2EDE7","label":"White","slug":"white"},{"color":"#a09fa4","label":"Gray","slug":"gray"}]},"rbt_product_attribute_size":{"type":"dropdown","label":"Size","attributes":[{"label":"Select","slug":""},{"label":"Extra Large","slug":"xl"},{"label":"Large","slug":"lg"},{"label":"Medium","slug":"md"},{"label":"Small","slug":"sm"},{"label":"Extra Small","slug":"xs"}]},"rbt_product_attribute_layout":{"type":"image","label":"Brand","attributes":[{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-1.webp","label":"Go Pro","alt":"Go Pro"},{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp","label":"Watch","alt":"watch"},{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-3.webp","label":"Camera","alt":"Camera"},{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-4.webp","label":"Airpod","alt":"Airpod"}]},"rbt_product_attribute_style":{"type":"button","label":"Style","attributes":[{"label":"Casual","slug":"casual"},{"label":"Formal","slug":"formal"},{"label":"Extrime","slug":"extrime"}]}}},"local":[{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"casual","rbt_product_attribute_size":"xl","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-1.webp"},"price":{"regular":950,"sale":120},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"formal","rbt_product_attribute_size":"xl","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp"},"price":{"regular":950,"sale":120},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"casual","rbt_product_attribute_size":"lg","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp"},"price":{"regular":530,"sale":230},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"casual","rbt_product_attribute_size":"xl","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp"},"price":{"regular":530,"sale":230},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"formal","rbt_product_attribute_size":"sm","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-3.webp"},"price":{"regular":920,"sale":240},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#cc999d","rbt_product_attribute_size":"xl","rbt_product_attribute_style":"formal","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-4.webp"},"price":{"regular":1200,"sale":130},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150}]}'>
-                        <div class="rbt-quick-access-banner rbt-quick-access-banner-sm rbt-bg-color-brand-300 rbt-rounded--8 alert alert-dismissible fade show" role="alert">
-                            <div class="rbt-quick-access-banner-banner-content d-flex align-items-center">
-                                <div class="rbt-icon-img">
-                                    <img src="{{ asset('assets/images/icons/product-single/gift-box-01-sm.svg') }}" alt="Ecommerce Gift Box Icon">
-                                </div>
-                                <p class="rbt-quick-access-banner-title b3 mb-0">
-                                    Register to buy Grocery's at wholesale prices for your shop.
-                                </p>
-                            </div>
-                            <div class="rbt-quick-access-banner-action-btn">
-                                <button class="rbt-btn rbt-btn-xs" data-bs-toggle="modal" data-bs-target="#signinModal">
-                                    <i class="fa-light fa-user mr--4"></i> Register Now
-                                </button>
-                            </div>
-                            <a href="#" class="rbt-cancel-btn" data-bs-dismiss="alert" aria-label="Close">
-                                <i class="fa-solid fa-xmark"></i>
-                            </a>
-                        </div>
-                        <a href="shop-by-category.html" class="rbt-card-subtitle rbt-card-catagories-text mt--16">Headphones</a>
-                        <h2 class="rbt-card-title mt--12">Beats Wireless Earbuds with Charging Case - Bluetooth In-Ear
-                            Headphones
+                      
+                        <a href="{{ route('shop') }}" class="rbt-card-subtitle rbt-card-catagories-text mt--16">{{ isset($product) && $product->category ? $product->category->name : 'Category' }}</a>
+                        <h2 class="rbt-card-title mt--12">{{ isset($product) ? $product->name : 'Product Name' }}
                         </h2>
                         <p class="description-text b2 mt--16">
-                            At vero eos et accusamus et iusto dignissimos ducimus blanditiis <br> praesentium voluptatu
-                            atque...
+                            {{ isset($product) && $product->short_description ? $product->short_description : 'No description available.' }}
                         </p>
                         <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                             <div class="rbt-store-price-1">
                                 <div class="pricing-part mt--0">
-                                    <del class="price-text">Rs. 295.00</del>
-                                    <span class="price-text">Rs. 179.98</span>
-                                    <span class="rbt-offer-badge rbt-offer-badge-md">Save 30%</span>
+                                    <span class="price-text">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
                                 </div>
+                                @if(isset($product))
+                                <div class="pricing-part mt--0">
+                                    <span class="price-text" style="font-size: 14px; color: #666;">{{ $product->priceRangeUsd() }}</span>
+                                </div>
+                                @endif
                             </div>
                             <div class="rbt-quick-access-banner-action-btn d-flex align-items-center">
                                 <button class="rbt-btn rbt-btn-xs rbt-btn-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#findstoreModal">
@@ -3505,11 +3163,12 @@
                             <div class="prd-info-section">
                                 <div class="prd-id-text">
                                     <p class="text-bold">SKU:</p>
-                                    <p> HN-508801</p>
+                                    <p> {{ isset($product) && $product->sku ? $product->sku : 'N/A' }}</p>
                                 </div>
                             </div>
                             <div class="prd-info-section has-left-separator">
-                                <div class="prd-id-text">
+                                <br>
+                                <!-- <div class="prd-id-text">
                                     <p class="text-bold">All Europe</p>
                                     <a href="#" class="rbt-brand-img tooltips" data-tooltip="All Europe Delivary" data-tooltip-position="top"><img src="{{ asset('assets/images/icons/small-brand/sm-brand-b-02.webp') }}" alt="Small icon Brand"></a>
                                 </div>
@@ -3525,9 +3184,9 @@
                                     <p class="text-bold">Brand:</p>
                                     <a href="#" class="rbt-brand-img tooltips" data-tooltip="Product Brand" data-tooltip-position="top"><img src="{{ asset('assets/images/icons/small-brand/sm-brand-b-01.webp') }}" alt="Small icon Brand"></a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="rbt-info-wrapper d-flex mt--24 rbt-gap--12 flex-wrap">
+                        <!-- <div class="rbt-info-wrapper d-flex mt--24 rbt-gap--12 flex-wrap">
                             <div class="prd-info-section">
                                 <a class="rbt-quick-info-tag d-flex align-items-center rbt-gap--8 rbt-flash-animation" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none">
@@ -3552,15 +3211,34 @@
                                     <p><strong>20 people are viewing this</strong></p>
                                 </a>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <!-- Start Dynamic Color Swatches Area -->
-                        <div class="rbt-store-variation-controls"></div>
-                        <div class="rbt-store-reset-variations"></div>
-                        <!-- End Dynamic Color Swatches Area -->
-
-                        <div class="rbt-info-wrapper d-block mt--24">
-                            <div class="rbt-countdown-banner rbt-countdown-banner-sm rbt-countdown-banner-has-bg-01">
+                        <!-- Dynamic Attributes Section -->
+                        @if(isset($product) && $product->attributeValues && $product->attributeValues->count() > 0)
+                            @php
+                                $groupedAttributes = $product->attributeValues->groupBy(function($item) {
+                                    return $item->attribute->name ?? 'Attribute';
+                                });
+                            @endphp
+                            <div class="rbt-product-attributes-wrapper mt--24">
+                                @foreach($groupedAttributes as $attrName => $values)
+                                    <div class="rbt-attribute-group mb--16">
+                                        <label class="rbt-title b2 mb--8 d-block" style="font-weight: 600; color: #222;">{{ $attrName }}:</label>
+                                        <div class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+                                            @foreach($values as $val)
+                                                <div class="rbt-attr-pill px-3 py-2 border rounded d-inline-flex align-items-center" style="border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 8px; font-size: 14px; color: #1e293b; font-weight: 500;">
+                                                    <span>{{ $val->value_name }}</span>
+                                                    @if($val->metric)
+                                                        <span class="ms-1 text-muted" style="font-size: 12px; opacity: 0.8; margin-left: 4px;">({{ $val->metric }})</span>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                            <!-- <div class="rbt-countdown-banner rbt-countdown-banner-sm rbt-countdown-banner-has-bg-01">
                                 <span class="b3 rbt-title">Special Offer :</span>
                                 <div class="rbt-countdown-section">
                                     <div class="rbt-countdown-one bg-variation-white cd-border-style">
@@ -3585,25 +3263,25 @@
                                     </div>
                                 </div>
                                 <span class="rbt-desc b4">Remains until the end of the offer.</span>
-                            </div>
+                            </div> -->
                         </div>
 
-                        <div class="rbt-info-wrapper d-block mt--24">
+                        <!-- <div class="rbt-info-wrapper d-block mt--24">
                             <div class="rbt-prd-qty-area">
-                                <p class="prd-qty-txt"><strong>Only 97 pc left</strong></p>
+                                <p class="prd-qty-txt"><strong>Only {{ isset($product) ? $product->totalStock() : 0 }} pc left</strong></p>
                                 <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar w-50"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="product-btn-grp">
                             <div class="rbt-qty-area">
                                 <button class="qty-item-btn qty-item-btn-decr"><i class="fa-solid fa-minus"></i></button>
-                                <input type="number" class="items-qty-input" value="05" min="01">
+                                <input type="number" class="items-qty-input" value="1" min="1">
                                 <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
                             </div>
-                            <a class="rbt-btn rbt-btn-border has-left-icon d-block text-center" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
+                            <a class="rbt-btn rbt-btn-border has-left-icon d-block text-center btn-add-to-cart" href="#" data-product-id="{{ isset($product) ? $product->id : '' }}"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
                         </div>
                         <div class="prd-btn-grp">
                             <a class="rbt-btn d-block text-center" href="#">Buy Now</a>
@@ -3613,11 +3291,11 @@
                             <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#wishlistModal" type="button"><i class="fa-sharp fa-regular fa-heart"></i>Add To Wishlist</button>
                             <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#socialShareModal" type="button"><i class="fa-sharp fa-regular fa-share-nodes"></i>Share</button>
                         </div>
-                        <hr class="rbt-separator rbt-separator-gray200 mt--24 mb--24">
+                      
 
 
                         <div class="rbt-info-wrapper d-block mt--24">
-                            <div class="rbt-info-box rbt-bg-color-brand-50">
+                            <!-- <div class="rbt-info-box rbt-bg-color-brand-50">
                                 <p class="text-bold rbt-info-title b1">Additional Offers</p>
                                 <div class="rbt-coupon-container">
                                     <div class="swiper rbt-couponSwiper rbt-swiper-scrollbar-bottom">
@@ -3695,9 +3373,9 @@
                                         <div class="rbt-swiper-scrollbar swiper-scrollbar"></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <hr class="rbt-separator rbt-separator-gray200 mt--24 mb--24">
+                        <!-- <hr class="rbt-separator rbt-separator-gray200 mt--24 mb--24">
                         <div class="rbt-info-wrapper d-block mt--24">
                             <div class="rbt-info-box rbt-bg-color-brand-50">
                                 <p class="text-bold rbt-info-title b1">Alternative For This Product</p>
@@ -3848,7 +3526,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <hr class="rbt-separator rbt-separator-gray200 mt--24">
                         <div class="rbt-info-wrapper d-block mt--24">
                             <ul class="product-details-list shipment-details-list">
@@ -3905,8 +3583,8 @@
     <!-- End Component Area -->
 
     <!-- Start Combo Product Area -->
-    <div class="rbt-component-area rbt-section-gap rbt-bg-color-gray-light">
-        <div class="container">
+    <!-- <div class="rbt-component-area rbt-section-gap rbt-bg-color-gray-light"> -->
+        <!-- <div class="container">
             <div class="rbt-combo-prd-box rbt-bg-color-white">
                 <div class="row justify-content-between">
                     <div class="col-lg-2">
@@ -4030,7 +3708,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Combo Product Area -->
 
     <!-- Start Single Product Tab Area -->
@@ -8065,29 +7743,27 @@
             <div class="col-lg-6 col-md-12 mt--12">
                 <div class="rbt-prd-info-section">
                     <div class="rbt-prd-img">
-                        <a href="{{ route('product.details') }}">
-                            <img src="{{ asset('assets/images/product-img/sticky-product-card-img-01.webp') }}" alt="Ecommerce Product Image">
+                        <a href="#">
+                            <img src="{{ isset($product) && $product->image ? asset($product->image) : asset('assets/images/product-img/sticky-product-card-img-01.webp') }}" alt="{{ isset($product) ? $product->name : 'Product Image' }}">
                         </a>
                     </div>
                     <div class="rbt-content">
-                        <h2 class="rbt-title mb--0 rbt-text-bold h6"><a href="{{ route('product.details') }}">2021 Apple
-                                12.9-inch iPad Pro Wi-Fi 512GB Gray Space</a></h2>
-                        <p class="rbt-desc">Accessibility Statement Wi-Fi 512GB Gray Space....</p>
+                        <h2 class="rbt-title mb--0 rbt-text-bold h6"><a href="#">{{ isset($product) ? $product->name : 'Product Name' }}</a></h2>
+                        <p class="rbt-desc">{{ isset($product) && $product->short_description ? Str::limit($product->short_description, 60) : '' }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2 col-md-12 mt--12 mt_sm--16">
                 <div class="rbt-minicart-bottom-section-center justify-content-center d-flex">
                     <div class="pricing-part">
-                        <del class="price-text rbt-text-semi-bold rbt-text-color-gray-400">Rs. 295.00</del>
-                        <span class="price-text rbt-text-bold rbt-text-color-heading">Rs. 179.98</span>
+                        <span class="price-text rbt-text-bold rbt-text-color-heading">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 mt--12 mt_sm--16">
                 <div class="rbt-minicart-bottom-section-right d-flex">
                     <div class="minicart-btn-grp d-flex rbt-gap--16">
-                        <a class="rbt-btn rbt-btn-border rbt-btn-sm d-block has-left-icon" href="#"><i class="fa-regular mr fa-cart-shopping"></i> Add To Cart</a>
+                        <a class="rbt-btn rbt-btn-border rbt-btn-sm d-block has-left-icon btn-add-to-cart" href="#" data-product-id="{{ isset($product) ? $product->id : '' }}"><i class="fa-regular mr fa-cart-shopping"></i> Add To Cart</a>
                         <a class="rbt-btn rbt-btn-sm d-block" href="#">Buy Now</a>
                     </div>
                 </div>
@@ -8095,7 +7771,7 @@
         </div>
     </div>
 </div>
-<!-- End Course Action Bottom  -->
+<!-- End Course Action Bottom  --minicart-quick-access-area mt--24>
     <!-- Start Coupon Collection Modal Area  -->
 <div class="rbt-default-modal modal fade" id="findstoreModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered xl-size">

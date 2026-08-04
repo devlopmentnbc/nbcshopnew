@@ -9,20 +9,75 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\FeaturedProductController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Models\Banner;
+use App\Models\Product;
 
 // Public Front-End Routes
 Route::get('/', function () {
-    return view('home');
+    $banners = Banner::where('status', true)->orderBy('sort_order', 'asc')->latest()->get();
+    $bestSellers = Product::with(['brand', 'category', 'attributeValues'])
+        ->where('status', true)
+        ->where('is_best_seller', true)
+        ->take(6)
+        ->latest()
+        ->get();
+
+    $newArrivals = Product::with(['brand', 'category', 'attributeValues'])
+        ->where('status', true)
+        ->where('is_new_arrival', true)
+        ->take(6)
+        ->latest()
+        ->get();
+
+    return view('home', compact('banners', 'bestSellers', 'newArrivals'));
 })->name('home');
 
 Route::get('/shop', function () {
     return view('shop');
 })->name('shop');
 
-Route::get('/product-details', function () {
-    return view('product-details');
+Route::get('/product-details/{slug?}', function ($slug = null) {
+    $identifier = $slug ?? request()->query('slug') ?? request()->query('id');
+    $product = null;
+
+    if ($identifier) {
+        $product = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images'])
+            ->where(function ($query) use ($identifier) {
+                $query->where('slug', $identifier);
+                if (is_numeric($identifier)) {
+                    $query->orWhere('id', (int) $identifier);
+                }
+            })
+            ->first();
+    }
+
+    if (!$product) {
+        $product = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images'])
+            ->where('status', true)
+            ->latest()
+            ->first();
+    }
+
+    return view('product-details', compact('product'));
 })->name('product.details');
+
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+
+// Public Cart Routes (7-Day Session Cart)
+Route::get('/cart/items', [CartController::class, 'getCart'])->name('cart.items');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+// Checkout Routes (guest checkout allowed)
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // Customer Authentication Routes
 Route::get('/login', [AuthController::class, 'showCustomerLoginForm'])->name('login');
@@ -44,10 +99,21 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('brands', BrandController::class);
+    Route::resource('banners', BannerController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('sub-categories', SubCategoryController::class);
     Route::resource('attributes', AttributeController::class);
     Route::resource('products', ProductController::class);
     Route::get('categories/{category}/sub-categories', [ProductController::class, 'getSubCategories'])->name('categories.sub-categories');
+    Route::delete('product-images/{image}', [ProductController::class, 'destroyGalleryImage'])->name('products.gallery.destroy');
+
+    // Featured Products (Best Sellers & New Arrivals)
+    Route::get('featured/best-sellers', [FeaturedProductController::class, 'bestSellers'])->name('featured.best-sellers');
+    Route::post('featured/best-sellers/add', [FeaturedProductController::class, 'addBestSeller'])->name('featured.best-sellers.add');
+    Route::delete('featured/best-sellers/{product}', [FeaturedProductController::class, 'removeBestSeller'])->name('featured.best-sellers.remove');
+
+    Route::get('featured/new-arrivals', [FeaturedProductController::class, 'newArrivals'])->name('featured.new-arrivals');
+    Route::post('featured/new-arrivals/add', [FeaturedProductController::class, 'addNewArrival'])->name('featured.new-arrivals.add');
+    Route::delete('featured/new-arrivals/{product}', [FeaturedProductController::class, 'removeNewArrival'])->name('featured.new-arrivals.remove');
 });
 

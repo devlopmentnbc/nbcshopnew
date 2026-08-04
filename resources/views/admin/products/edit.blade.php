@@ -222,8 +222,9 @@
                 </div>
 
                 <!-- Featured Image Card -->
+                <!-- Featured Image Card -->
                 <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-4">
-                    <h2 class="text-[18px] font-semibold text-ink-900 border-b border-surface-line pb-3">Product Image</h2>
+                    <h2 class="text-[18px] font-semibold text-ink-900 border-b border-surface-line pb-3">Main Product Image</h2>
 
                     @if ($product->image)
                         <div class="h-40 w-full overflow-hidden rounded-base border border-surface-line bg-surface-body p-2">
@@ -236,7 +237,34 @@
                     </div>
 
                     <input type="file" name="image" id="image" accept="image/*" class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
-                    <p class="text-[12px] text-ink-400">Leave blank to keep existing image. Supported: JPEG, PNG, WEBP, SVG (Max: 2MB).</p>
+                    <p class="text-[12px] text-ink-400">Leave blank to keep existing main image.</p>
+                </div>
+
+                <!-- Product Gallery Images Card -->
+                <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-4">
+                    <h2 class="text-[18px] font-semibold text-ink-900 border-b border-surface-line pb-3">Product Gallery Images</h2>
+
+                    @if ($product->images->count() > 0)
+                        <div class="space-y-2">
+                            <p class="text-[13px] font-semibold text-ink-700">Existing Gallery Images:</p>
+                            <div class="grid grid-cols-3 gap-3">
+                                @foreach ($product->images as $gImg)
+                                    <div class="relative group h-24 w-full overflow-hidden rounded-base border border-surface-line bg-surface-body p-1">
+                                        <img src="{{ asset($gImg->image_path) }}" alt="Gallery image" class="h-full w-full object-contain mx-auto">
+                                        <button type="button" onclick="if(confirm('Delete this gallery image?')) document.getElementById('delete-gimg-{{ $gImg->id }}').submit();" class="absolute top-1 right-1 h-6 w-6 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors">
+                                            <i data-lucide="x" class="h-3.5 w-3.5"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    <div id="gallery-preview-container" class="hidden grid grid-cols-3 gap-2 p-2 rounded-base border border-surface-line bg-surface-body max-h-48 overflow-y-auto"></div>
+
+                    <label class="block text-[14px] font-semibold text-ink-900">Add More Gallery Images</label>
+                    <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" multiple class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
+                    <p class="text-[12px] text-ink-400">Select additional images to add to this product's gallery.</p>
                 </div>
 
                 <!-- Submit Button -->
@@ -249,6 +277,15 @@
             </div>
         </div>
     </form>
+
+    @if ($product->images->count() > 0)
+        @foreach ($product->images as $gImg)
+            <form id="delete-gimg-{{ $gImg->id }}" action="{{ route('admin.products.gallery.destroy', $gImg->id) }}" method="POST" class="hidden">
+                @csrf
+                @method('DELETE')
+            </form>
+        @endforeach
+    @endif
 </main>
 
 <script>
@@ -262,7 +299,7 @@
         }
     }
 
-    // Image Preview Script
+    // Main Image Preview Script
     document.getElementById('image').addEventListener('change', function(e) {
         const previewContainer = document.getElementById('image-preview-container');
         const preview = document.getElementById('image-preview');
@@ -279,6 +316,60 @@
             previewContainer.classList.add('hidden');
         }
     });
+
+    // Gallery Multiple Images Accumulator Script
+    const galleryInput = document.getElementById('gallery_images');
+    const galleryPreviewContainer = document.getElementById('gallery-preview-container');
+    const galleryDataTransfer = new DataTransfer();
+
+    galleryInput.addEventListener('change', function(e) {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            Array.from(files).forEach(file => {
+                galleryDataTransfer.items.add(file);
+            });
+            galleryInput.files = galleryDataTransfer.files;
+            renderGalleryPreviews();
+        }
+    });
+
+    function renderGalleryPreviews() {
+        galleryPreviewContainer.innerHTML = '';
+        if (galleryDataTransfer.files.length > 0) {
+            galleryPreviewContainer.classList.remove('hidden');
+            Array.from(galleryDataTransfer.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(ex) {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'relative group h-24 w-full overflow-hidden rounded-base border border-surface-line bg-white p-1';
+                    imgDiv.innerHTML = `
+                        <img src="${ex.target.result}" class="h-full w-full object-contain mx-auto">
+                        <button type="button" onclick="removePendingGalleryFile(${index})" class="absolute top-1 right-1 h-5 w-5 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors">
+                            <i data-lucide="x" class="h-3 w-3"></i>
+                        </button>
+                    `;
+                    galleryPreviewContainer.appendChild(imgDiv);
+                    if (window.lucide) lucide.createIcons();
+                }
+                reader.readAsDataURL(file);
+            });
+        } else {
+            galleryPreviewContainer.classList.add('hidden');
+        }
+    }
+
+    function removePendingGalleryFile(index) {
+        const newDT = new DataTransfer();
+        Array.from(galleryDataTransfer.files).forEach((file, i) => {
+            if (i !== index) {
+                newDT.items.add(file);
+            }
+        });
+        galleryDataTransfer.items.clear();
+        Array.from(newDT.files).forEach(file => galleryDataTransfer.items.add(file));
+        galleryInput.files = galleryDataTransfer.files;
+        renderGalleryPreviews();
+    }
 
     // Dependent Category -> Sub Category Filter
     document.getElementById('category_id').addEventListener('change', function() {

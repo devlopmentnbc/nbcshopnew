@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title', "Nature's Beauty Creations")</title>
     <meta name="robots" content="index, follow">
@@ -7960,6 +7961,8 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
         </svg>
     </div>
+
+    @include('components.cart-drawer')
 
     <a class="close_side_menu catagories-close_side_menu" href="javascript:void(0);"></a>
     <a href="javascript:void(0);" class="common-close_search_dropdown"></a>
