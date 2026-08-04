@@ -243,6 +243,25 @@
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
             <a data-nav="products" href="{{ route('admin.products.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Product List</a>
             <a data-nav="add-product" href="{{ route('admin.products.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Product</a>
+            <a data-nav="best-sellers" href="{{ route('admin.featured.best-sellers') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Best Sellers</a>
+            <a data-nav="new-arrivals" href="{{ route('admin.featured.new-arrivals') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">New Arrivals</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Products -->
+    <div data-nav-group="" data-open="false">
+      <button type="button" data-nav-trigger="" title="Featured Products" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="false">
+        <i data-lucide="sparkles" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
+        <span class="nav-text flex-1 text-left">Featured Sections</span>
+        <i data-lucide="chevron-right" data-nav-chevron="" class="nav-text h-4 w-4 shrink-0 text-ink-400 transition-transform duration-300"></i>
+      </button>
+      <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+        <div class="overflow-hidden">
+          <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
+            <a data-nav="featured-best-sellers" href="{{ route('admin.featured.best-sellers') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Best Sellers (Max 6)</a>
+            <a data-nav="featured-new-arrivals" href="{{ route('admin.featured.new-arrivals') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">New Arrivals (Max 6)</a>
           </div>
         </div>
       </div>
@@ -279,6 +298,23 @@
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
             <a data-nav="brands" href="{{ route('admin.brands.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Brand List</a>
             <a data-nav="add-brand" href="{{ route('admin.brands.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Brand</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banners -->
+    <div data-nav-group="" data-open="false">
+      <button type="button" data-nav-trigger="" title="Banners" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="false">
+        <i data-lucide="image" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
+        <span class="nav-text flex-1 text-left">Banners</span>
+        <i data-lucide="chevron-right" data-nav-chevron="" class="nav-text h-4 w-4 shrink-0 text-ink-400 transition-transform duration-300"></i>
+      </button>
+      <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+        <div class="overflow-hidden">
+          <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
+            <a data-nav="banners" href="{{ route('admin.banners.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Banner List</a>
+            <a data-nav="add-banner" href="{{ route('admin.banners.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Banner</a>
           </div>
         </div>
       </div>

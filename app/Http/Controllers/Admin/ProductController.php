@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
+use App\Models\ProductImage;
+
 class ProductController extends Controller
 {
     /**
@@ -19,7 +21,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute']);
+        $query = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images']);
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -71,7 +73,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'how_to_use' => 'nullable|string',
             'ingredients' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'gallery_images' => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
             'status' => 'nullable|boolean',
             'variants' => 'nullable|array',
         ]);
@@ -108,6 +112,24 @@ class ProductController extends Controller
             'status' => $request->has('status') ? (bool) $request->status : true,
         ]);
 
+        // Upload Gallery Images
+        if ($request->hasFile('gallery_images')) {
+            $galleryDir = public_path('uploads/products/gallery');
+            if (!File::exists($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true, true);
+            }
+            foreach ($request->file('gallery_images') as $index => $gFile) {
+                if ($gFile && $gFile->isValid()) {
+                    $gFilename = (int)(microtime(true) * 1000) . '_' . $index . '_' . Str::slug($request->name) . '.' . $gFile->getClientOriginalExtension();
+                    $gFile->move($galleryDir, $gFilename);
+                    $product->images()->create([
+                        'image_path' => 'uploads/products/gallery/' . $gFilename,
+                        'sort_order' => $index,
+                    ]);
+                }
+            }
+        }
+
         $syncData = [];
         if ($request->filled('variants') && is_array($request->variants)) {
             foreach ($request->variants as $valId => $varData) {
@@ -125,7 +147,7 @@ class ProductController extends Controller
         }
         $product->attributeValues()->sync($syncData);
 
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully with attribute pricing.');
+        return redirect()->route('admin.products.index')->with('success', 'Product created successfully with gallery images and pricing.');
     }
 
     /**
@@ -133,7 +155,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->load('attributeValues');
+        $product->load(['attributeValues', 'images']);
         $brands = Brand::where('status', true)->orderBy('name')->get();
         $categories = Category::where('status', true)->orderBy('name')->get();
         $subCategories = SubCategory::where('status', true)->orderBy('name')->get();
@@ -171,7 +193,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'how_to_use' => 'nullable|string',
             'ingredients' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'gallery_images' => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
             'status' => 'nullable|boolean',
             'variants' => 'nullable|array',
         ]);
@@ -212,6 +236,25 @@ class ProductController extends Controller
             'status' => $request->has('status') ? (bool) $request->status : false,
         ]);
 
+        // Upload New Gallery Images
+        if ($request->hasFile('gallery_images')) {
+            $galleryDir = public_path('uploads/products/gallery');
+            if (!File::exists($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true, true);
+            }
+            $existingCount = $product->images()->count();
+            foreach ($request->file('gallery_images') as $index => $gFile) {
+                if ($gFile && $gFile->isValid()) {
+                    $gFilename = (int)(microtime(true) * 1000) . '_' . ($existingCount + $index) . '_' . Str::slug($request->name) . '.' . $gFile->getClientOriginalExtension();
+                    $gFile->move($galleryDir, $gFilename);
+                    $product->images()->create([
+                        'image_path' => 'uploads/products/gallery/' . $gFilename,
+                        'sort_order' => $existingCount + $index,
+                    ]);
+                }
+            }
+        }
+
         $syncData = [];
         if ($request->filled('variants') && is_array($request->variants)) {
             foreach ($request->variants as $valId => $varData) {
@@ -241,9 +284,29 @@ class ProductController extends Controller
             File::delete(public_path($product->image));
         }
 
+        foreach ($product->images as $gImg) {
+            if ($gImg->image_path && File::exists(public_path($gImg->image_path))) {
+                File::delete(public_path($gImg->image_path));
+            }
+        }
+
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+    }
+
+    /**
+     * Delete a single gallery image.
+     */
+    public function destroyGalleryImage(ProductImage $image)
+    {
+        if ($image->image_path && File::exists(public_path($image->image_path))) {
+            File::delete(public_path($image->image_path));
+        }
+
+        $image->delete();
+
+        return back()->with('success', 'Gallery image deleted successfully.');
     }
 
     /**

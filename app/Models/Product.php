@@ -24,12 +24,16 @@ class Product extends Model
         'ingredients',
         'image',
         'status',
+        'is_best_seller',
+        'is_new_arrival',
     ];
 
     protected function casts(): array
     {
         return [
             'status' => 'boolean',
+            'is_best_seller' => 'boolean',
+            'is_new_arrival' => 'boolean',
         ];
     }
 
@@ -46,6 +50,11 @@ class Product extends Model
     public function subCategory(): BelongsTo
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
+    }
+
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('sort_order');
     }
 
     public function attributeValues(): BelongsToMany
