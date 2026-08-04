@@ -2982,124 +2982,156 @@
 </div>
 
     <!-- Start Component Area -->
-    <div class="rbt-component-area rbt-single-product-area rbt-bg-color-white rbt-section-gapBottom">
+    <div class="rbt-component-area rbt-single-product-area nbc-product-details-area rbt-bg-color-white rbt-section-gapBottom">
         <div class="container">
             <div class="row row--20 mt_dec--16 justify-content-center">
                 <div class="col-xl-7 col-lg-12 col-12 mt--16">
-                    <div class="rbt-single-product-media-area position-sticky-top rbt-single-product-media-has-folder-shape d-flex row row--12 rbt-gap--0">
-                        <div class="col-lg-1-5 col-lg-2 order-2 order-lg-1">
-                            <div class="swiper product-single-slider-two-thumb-activation rbt-arrow-show-dfl rbt-thumb-has-bg-shape-overlay rbt-swiper-right-bottom-one rbt-arrow-between rbt-swiper-arrow-transparent">
-                                <div class="swiper-wrapper rbt-store-thumb-variation-1">
-                                    @if(isset($product) && ($product->image || ($product->images && $product->images->count() > 0)))
-                                        @if($product->image)
-                                            <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
-                                                <button class="thumbnail d-block position-relative">
-                                                    <span class="rbt-thumb-img-sm">
-                                                        <img class="w-100" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        @endif
-                                        @if($product->images)
-                                            @foreach($product->images as $index => $gImg)
-                                                <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-{{ $index + 2 }}">
-                                                    <button class="thumbnail d-block position-relative">
-                                                        <span class="rbt-thumb-img-sm">
-                                                            <img class="w-100" src="{{ asset($gImg->image_path) }}" alt="{{ $product->name }}">
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    @else
-                                        <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
-                                            <button class="thumbnail d-block position-relative">
-                                                <span class="rbt-thumb-img-sm">
-                                                    <img class="w-100" src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product Images">
-                                                </span>
-                                            </button>
-                                        </div>
-                                    @endif
-                                </div>
+                    <div class="nbc-fresh-product-gallery" data-product-gallery>
+                        <div class="nbc-fresh-product-gallery__stage">
+                            <a class="nbc-fresh-product-gallery__enlarge" data-gallery-enlarge data-fancybox="product-gallery"
+                                href="{{ isset($product) && $product->image ? asset($product->image) : (isset($product) && $product->images?->first() ? asset($product->images->first()->image_path) : asset('assets/images/product-single/earphone/earphone-05.webp')) }}"
+                                aria-label="Enlarge product image">
+                                <i class="fa-regular fa-arrows-maximize"></i>
+                            </a>
 
-                                <div class="rbt-swiper-arrow rbt-arrow-right">
-                                    <i class="fa-regular fa-chevron-down"></i>
-                                </div>
-                            </div>
+                            <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--prev"
+                                type="button" data-gallery-prev aria-label="Previous product image">
+                                <i class="fa-regular fa-arrow-left"></i>
+                            </button>
+
+                            <img class="nbc-fresh-product-gallery__main" data-gallery-main
+                                src="{{ isset($product) && $product->image ? asset($product->image) : (isset($product) && $product->images?->first() ? asset($product->images->first()->image_path) : asset('assets/images/product-single/earphone/earphone-05.webp')) }}"
+                                alt="{{ isset($product) ? $product->name : 'Product image' }}">
+
+                            <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--next"
+                                type="button" data-gallery-next aria-label="Next product image">
+                                <i class="fa-regular fa-arrow-right"></i>
+                            </button>
                         </div>
-                        <div class="col-lg-4-5 col-lg-10 order-1 order-lg-2">
-                            <div class="swiper rbt-medea-lg-img-area-md-wider product-single-slider-two-activation rbt-arrow-between rbt-arrow-show-dfl">
-                                <div class="rbt-product-badge rbt-product-badge-bg-yellow rbt-badge-top-left--position">
-                                    NEW
-                                </div>
-                                <div class="rbt-product-badge rbt-product-badge-bg-green rbt-badge-top-left--position">
-                                    HOT
-                                </div>
 
-                                <button class="rbt-enlarge-btn position-bottom-right" data-fancybox="product-single-image" data-src="{{ isset($product) && $product->image ? asset($product->image) : asset('assets/images/product-single/earphone/earphone-05.webp') }}">
-                                    <span class="rbt-icon"><i class="fa-regular fa-arrows-maximize"></i></span>
-                                    <span class="rbt-enlarge-text">Enlarge View</span>
+                        <div class="nbc-fresh-product-gallery__thumbs" data-gallery-thumbs aria-label="Product images">
+                            @if (isset($product) && $product->image)
+                                <button class="nbc-fresh-product-gallery__thumb is-active" type="button"
+                                    data-gallery-thumb data-image="{{ asset($product->image) }}"
+                                    aria-label="View main image" aria-pressed="true">
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                                 </button>
-                                <div class="swiper-wrapper rbt-store-thumb-main-1">
-                                    @if(isset($product) && ($product->image || ($product->images && $product->images->count() > 0)))
-                                        @if($product->image)
-                                            <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
-                                                <div class="thumbnail">
-                                                    <div class="rbt-product-single-img">
-                                                        <img class="w-100" data-fancybox="product-single-image" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        @if($product->images)
-                                            @foreach($product->images as $index => $gImg)
-                                                <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-{{ $index + 2 }}">
-                                                    <div class="thumbnail">
-                                                        <div class="rbt-product-single-img">
-                                                            <img class="w-100" data-fancybox="product-single-image" src="{{ asset($gImg->image_path) }}" alt="{{ $product->name }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    @else
-                                        <div class="swiper-slide rbt-scroll-trigger fade_in animation-order-1">
-                                            <div class="thumbnail">
-                                                <div class="rbt-product-single-img">
-                                                    <img class="w-100" data-fancybox="product-single-image" src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product Images">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="rbt-swiper-arrow rbt-arrow-left">
-                                    <div class="custom-overflow">
-                                        <i class="rbt-icon fa-regular fa-arrow-left"></i>
-                                        <i class="rbt-icon-top fa-regular fa-arrow-left"></i>
-                                    </div>
-                                </div>
+                            @endif
 
-                                <div class="rbt-swiper-arrow rbt-arrow-right">
-                                    <div class="custom-overflow">
-                                        <i class="rbt-icon fa-regular fa-arrow-right"></i>
-                                        <i class="rbt-icon-top fa-regular fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                            </div>
+                            @if (isset($product) && $product->images)
+                                @foreach ($product->images as $index => $galleryImage)
+                                    <button class="nbc-fresh-product-gallery__thumb {{ !$product->image && $loop->first ? 'is-active' : '' }}"
+                                        type="button" data-gallery-thumb data-image="{{ asset($galleryImage->image_path) }}"
+                                        aria-label="View product image {{ $index + 1 }}"
+                                        aria-pressed="{{ !$product->image && $loop->first ? 'true' : 'false' }}">
+                                        <img src="{{ asset($galleryImage->image_path) }}" alt="{{ $product->name }}">
+                                    </button>
+                                @endforeach
+                            @endif
 
+                            @if (!isset($product) || (!$product->image && (!$product->images || $product->images->isEmpty())))
+                                <button class="nbc-fresh-product-gallery__thumb is-active" type="button"
+                                    data-gallery-thumb data-image="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}"
+                                    aria-label="View product image" aria-pressed="true">
+                                    <img src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}" alt="Product image">
+                                </button>
+                            @endif
                         </div>
                     </div>
+
+                    <script>
+                        (function() {
+                            const gallery = document.currentScript.previousElementSibling;
+                            if (!gallery || !gallery.matches('[data-product-gallery]')) return;
+
+                            const mainImage = gallery.querySelector('[data-gallery-main]');
+                            const enlargeLink = gallery.querySelector('[data-gallery-enlarge]');
+                            const thumbnails = Array.from(gallery.querySelectorAll('[data-gallery-thumb]'));
+                            const previousButton = gallery.querySelector('[data-gallery-prev]');
+                            const nextButton = gallery.querySelector('[data-gallery-next]');
+                            let activeIndex = Math.max(0, thumbnails.findIndex(function(thumbnail) {
+                                return thumbnail.classList.contains('is-active');
+                            }));
+                            let autoplayTimer = null;
+
+                            function restartAutoplay() {
+                                window.clearInterval(autoplayTimer);
+                                if (thumbnails.length < 2) return;
+                                autoplayTimer = window.setInterval(function() {
+                                    selectImage(activeIndex + 1);
+                                }, 4000);
+                            }
+
+                            function selectImage(index) {
+                                if (!thumbnails.length) return;
+                                activeIndex = (index + thumbnails.length) % thumbnails.length;
+                                const selected = thumbnails[activeIndex];
+                                const imageUrl = selected.dataset.image;
+
+                                mainImage.classList.add('is-changing');
+                                mainImage.src = imageUrl;
+                                enlargeLink.href = imageUrl;
+                                thumbnails.forEach(function(thumbnail, thumbnailIndex) {
+                                    const active = thumbnailIndex === activeIndex;
+                                    thumbnail.classList.toggle('is-active', active);
+                                    thumbnail.setAttribute('aria-pressed', active ? 'true' : 'false');
+                                });
+                                selected.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+                            }
+
+                            mainImage.addEventListener('load', function() {
+                                mainImage.classList.remove('is-changing');
+                            });
+                            thumbnails.forEach(function(thumbnail, index) {
+                                thumbnail.addEventListener('click', function() {
+                                    selectImage(index);
+                                    restartAutoplay();
+                                });
+                            });
+                            previousButton.addEventListener('click', function() {
+                                selectImage(activeIndex - 1);
+                                restartAutoplay();
+                            });
+                            nextButton.addEventListener('click', function() {
+                                selectImage(activeIndex + 1);
+                                restartAutoplay();
+                            });
+
+                            if (thumbnails.length < 2) {
+                                previousButton.hidden = true;
+                                nextButton.hidden = true;
+                            } else {
+                                gallery.addEventListener('mouseenter', function() {
+                                    window.clearInterval(autoplayTimer);
+                                });
+                                gallery.addEventListener('mouseleave', restartAutoplay);
+                                gallery.addEventListener('focusin', function() {
+                                    window.clearInterval(autoplayTimer);
+                                });
+                                gallery.addEventListener('focusout', restartAutoplay);
+                                restartAutoplay();
+                            }
+                        })();
+                    </script>
                 </div>
-                <div class="col-xl-5 col-lg-12 col-12 mt--16" style="padding-top: 100px !important ; ">
+                <div class="col-xl-5 col-lg-12 col-12 mt--16 nbc-product-summary-column">
                     <div class="rbt-single-product-content ptb--0 rbt-product-variations" data-variations='{"global":{"types":{"rbt_product_attribute_color":{"type":"color","label":"Color","attributes":[{"color":"#2B2B2B","label":"Black","slug":"black"},{"color":"#cc999d","label":"Pink","slug":"pink"},{"color":"#9C9B9E","label":"Dark","slug":"dark"},{"color":"#F2EDE7","label":"White","slug":"white"},{"color":"#a09fa4","label":"Gray","slug":"gray"}]},"rbt_product_attribute_size":{"type":"dropdown","label":"Size","attributes":[{"label":"Select","slug":""},{"label":"Extra Large","slug":"xl"},{"label":"Large","slug":"lg"},{"label":"Medium","slug":"md"},{"label":"Small","slug":"sm"},{"label":"Extra Small","slug":"xs"}]},"rbt_product_attribute_layout":{"type":"image","label":"Brand","attributes":[{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-1.webp","label":"Go Pro","alt":"Go Pro"},{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp","label":"Watch","alt":"watch"},{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-3.webp","label":"Camera","alt":"Camera"},{"image_url":"assets/images/product-single/ear-add-prd/eadd-prd-4.webp","label":"Airpod","alt":"Airpod"}]},"rbt_product_attribute_style":{"type":"button","label":"Style","attributes":[{"label":"Casual","slug":"casual"},{"label":"Formal","slug":"formal"},{"label":"Extrime","slug":"extrime"}]}}},"local":[{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"casual","rbt_product_attribute_size":"xl","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-1.webp"},"price":{"regular":950,"sale":120},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"formal","rbt_product_attribute_size":"xl","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp"},"price":{"regular":950,"sale":120},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"casual","rbt_product_attribute_size":"lg","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp"},"price":{"regular":530,"sale":230},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"casual","rbt_product_attribute_size":"xl","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-2.webp"},"price":{"regular":530,"sale":230},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#2B2B2B","rbt_product_attribute_style":"formal","rbt_product_attribute_size":"sm","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-3.webp"},"price":{"regular":920,"sale":240},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150},{"attributes":{"rbt_product_attribute_color":"#cc999d","rbt_product_attribute_size":"xl","rbt_product_attribute_style":"formal","rbt_product_attribute_layout":"assets/images/product-single/ear-add-prd/eadd-prd-4.webp"},"price":{"regular":1200,"sale":130},"description":"Alt Content","sku":"headphone-with-black-extra-large","images":{"thumbnails":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}},"full":{"1":{"url":"assets/images/product-single/earphone/earphone-04.webp","alt":"Alt Content"},"2":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"},"3":{"url":"assets/images/product-single/earphone/earphone-01.webp","alt":"Alt Content"},"4":{"url":"assets/images/product-single/earphone/earphone-03.webp","alt":"Alt Content"},"5":{"url":"assets/images/product-single/earphone/earphone-02.webp","alt":"Alt Content"}}},"quantity":150}]}'>
-                      
+
+                        <div class="nbc-product-badges" aria-label="Product labels">
+                            @if(isset($product) && $product->is_new_arrival)
+                                <span class="nbc-product-badge">New</span>
+                            @endif
+                            @if(isset($product) && ($product->is_on_sale || $product->discount_percentage))
+                                <span class="nbc-product-badge nbc-product-badge--sale">Sale</span>
+                            @endif
+                        </div>
                         <a href="{{ route('shop') }}" class="rbt-card-subtitle rbt-card-catagories-text mt--16">{{ isset($product) && $product->category ? $product->category->name : 'Category' }}</a>
                         <h2 class="rbt-card-title mt--12">{{ isset($product) ? $product->name : 'Product Name' }}
                         </h2>
-                        <p class="description-text b2 mt--16">
+                        <p class="description-text b2 mt--16 nbc-summary-description">
                             {{ isset($product) && $product->short_description ? $product->short_description : 'No description available.' }}
                         </p>
-                        <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
+                        <div class="rbt-info-wrapper d-flex justify-content-between mt--16 nbc-summary-price">
                             <div class="rbt-store-price-1">
                                 <div class="pricing-part mt--0">
                                     <span class="price-text">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
@@ -3116,7 +3148,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="rbt-info-wrapper d-flex mt--24">
+                        <div class="rbt-info-wrapper d-flex mt--24 nbc-summary-rating">
                             <div class="rbt-card-rating mt--0">
                                 <ul class="rbt-rating-icon-list">
                                     <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
@@ -3155,7 +3187,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="rbt-info-wrapper d-flex mt--12">
+                        <div class="nbc-product-benefits">
+                            <span><i class="fa-solid fa-truck"></i> Free islandwide shipping</span>
+                            <span><i class="fa-solid fa-shield-check"></i> Authentic NBC product</span>
+                        </div>
+                        <div class="rbt-info-wrapper d-flex mt--12 nbc-summary-sku">
                             <div class="prd-info-section">
                                 <div class="prd-id-text">
                                     <p class="text-bold">SKU:</p>
@@ -3287,7 +3323,7 @@
                             <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#wishlistModal" type="button"><i class="fa-sharp fa-regular fa-heart"></i>Add To Wishlist</button>
                             <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#socialShareModal" type="button"><i class="fa-sharp fa-regular fa-share-nodes"></i>Share</button>
                         </div>
-                      
+
 
 
                         <div class="rbt-info-wrapper d-block mt--24">
@@ -3523,6 +3559,7 @@
                                 </div>
                             </div>
                         </div> -->
+                        <!--
                         <hr class="rbt-separator rbt-separator-gray200 mt--24">
                         <div class="rbt-info-wrapper d-block mt--24">
                             <ul class="product-details-list shipment-details-list">
@@ -3571,6 +3608,7 @@
                                 </div>
                             </div>
                         </div>
+                    -->
                     </div>
                 </div>
             </div>
@@ -3736,7 +3774,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="rbt-specification-tab" data-bs-toggle="tab" href="#rbt-specification" role="tab" aria-controls="rbt-specification" aria-selected="false">
-                    Specification
+                    How to Use
                     <span class="rbt-fshape-portion rbt-fshape-left-portion">
                         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="50" viewbox="0 0 52 50" fill="none">
                             <path class="rbt-svg-fill-one" d="M0.505402 49.9854C116.894 49.9991 -64.388 49.9777 52 49.9914C52 31.2633 52 20.7632 52 2.03504C40.8 1.63545 35.5357 4.56594 32.5357 10.5615L22.0357 38.5324C18.0017 47.9353 6.6182 49.4495 0.505402 49.9854Z"></path>
@@ -3756,7 +3794,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="rbt-reviews-tab" data-bs-toggle="tab" href="#rbt-reviews" role="tab" aria-controls="rbt-reviews" aria-selected="false">
-                    Reviews
+                    Ingredients
                     <span class="rbt-fshape-portion rbt-fshape-left-portion">
                         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="50" viewbox="0 0 52 50" fill="none">
                             <path class="rbt-svg-fill-one" d="M0.505402 49.9854C116.894 49.9991 -64.388 49.9777 52 49.9914C52 31.2633 52 20.7632 52 2.03504C40.8 1.63545 35.5357 4.56594 32.5357 10.5615L22.0357 38.5324C18.0017 47.9353 6.6182 49.4495 0.505402 49.9854Z"></path>
@@ -3776,7 +3814,7 @@
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="rbt-question-tab" data-bs-toggle="tab" href="#rbt-question" role="tab" aria-controls="rbt-question" aria-selected="false">
-                    Questions
+                    Ratings & Reviews
                     <span class="rbt-fshape-portion rbt-fshape-left-portion">
                         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="50" viewbox="0 0 52 50" fill="none">
                             <path class="rbt-svg-fill-one" d="M0.505402 49.9854C116.894 49.9991 -64.388 49.9777 52 49.9914C52 31.2633 52 20.7632 52 2.03504C40.8 1.63545 35.5357 4.56594 32.5357 10.5615L22.0357 38.5324C18.0017 47.9353 6.6182 49.4495 0.505402 49.9854Z"></path>
