@@ -53,7 +53,6 @@
                             <button class="close-button rbt-round-btn"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>
-                    <p class="description">Authentic herbal beauty, skin care and personal care products from Nature's Beauty Creations.</p>
                     <div class="rbt-inner-search-field style-one rbt-search-field-rounded rbt-search-field-sm-width">
                         <input type="text" placeholder="Search for products">
                         <button class="rbt-round-btn search-btn rbt-text-color-gray-500" type="submit"><i
