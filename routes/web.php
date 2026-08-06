@@ -14,33 +14,16 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\FeaturedProductController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Models\Banner;
 use App\Models\Product;
+use App\Models\Banner;
 use App\Http\Controllers\WishlistController;
-
-// Public Front-End Routes
-Route::get('/', function () {
-    $banners = Banner::where('status', true)->orderBy('sort_order', 'asc')->latest()->get();
-    $bestSellers = Product::with(['brand', 'category', 'attributeValues'])
-        ->where('status', true)
-        ->where('is_best_seller', true)
-        ->take(6)
-        ->latest()
-        ->get();
-
-    $newArrivals = Product::with(['brand', 'category', 'attributeValues'])
-        ->where('status', true)
-        ->where('is_new_arrival', true)
-        ->take(6)
-        ->latest()
-        ->get();
-
-    return view('home', compact('banners', 'bestSellers', 'newArrivals'));
-})->name('home');
-
 use App\Http\Controllers\ShopController;
 
+// Public Front-End Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+
 
 Route::get('/product-details/{slug?}', function ($slug = null) {
     $identifier = $slug ?? request()->query('slug') ?? request()->query('id');
