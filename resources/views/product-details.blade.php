@@ -3102,13 +3102,8 @@
                         <div class="rbt-info-wrapper d-flex justify-content-between mt--16">
                             <div class="rbt-store-price-1">
                                 <div class="pricing-part mt--0">
-                                    <span class="price-text">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
+                                    <span class="price-text">{{ isset($product) ? $product->formattedPrice() : 'N/A' }}</span>
                                 </div>
-                                @if(isset($product))
-                                <div class="pricing-part mt--0">
-                                    <span class="price-text" style="font-size: 14px; color: #666;">{{ $product->priceRangeUsd() }}</span>
-                                </div>
-                                @endif
                             </div>
                             <div class="rbt-quick-access-banner-action-btn d-flex align-items-center">
                                 <button class="rbt-btn rbt-btn-xs rbt-btn-secondary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#findstoreModal">
@@ -7752,7 +7747,7 @@
             <div class="col-lg-2 col-md-12 mt--12 mt_sm--16">
                 <div class="rbt-minicart-bottom-section-center justify-content-center d-flex">
                     <div class="pricing-part">
-                        <span class="price-text rbt-text-bold rbt-text-color-heading">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
+                        <span class="price-text rbt-text-bold rbt-text-color-heading">{{ isset($product) ? $product->formattedPrice() : 'N/A' }}</span>
                     </div>
                 </div>
             </div>

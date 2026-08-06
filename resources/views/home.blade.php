@@ -3041,7 +3041,7 @@
                                                     <p class="rating-digit">(5.0)</p>
                                                 </div>
                                                 <div class="pricing-part">
-                                                    <span class="price-text">{{ $product->priceRangeLkr() }}</span>
+                                                    <span class="price-text">{{ $product->formattedPrice() }}</span>
                                                 </div>
                                             </div>
                                             <div class="rbt-card-footer d-flex footer-content-btn">
@@ -3173,7 +3173,7 @@
                                                     <p class="rating-digit">(5.0)</p>
                                                 </div>
                                                 <div class="pricing-part">
-                                                    <span class="price-text">{{ $product->priceRangeLkr() }}</span>
+                                                    <span class="price-text">{{ $product->formattedPrice() }}</span>
                                                 </div>
                                             </div>
                                             <div class="rbt-card-footer d-flex footer-content-btn">
@@ -3265,6 +3265,7 @@
         </div>
         <!-- End Component Area -->
 
+        @if(!empty($featuredPromotion))
         <!-- Start Component Area -->
         <div class="rbt-component-area rbt-counterdown-area rbt-bg-color-white rbt-section-gapTop nbc-promotion-section">
             <div class="rbt-fullwidth-wrapper">
@@ -3274,30 +3275,26 @@
                     <div class="row row--0 justify-content-end">
                         <div class="col-xl-6 col-md-12 col-12">
                             <div>
-                                <img src="{{ $featuredPromotion ? asset($featuredPromotion->image) : asset('assets/images/nbc/mb_banner1.jpg') }}"
-                                    alt="{{ $featuredPromotion?->name ?? 'Nature\'s Beauty Creations promotion' }}">
+                                <img src="{{ asset($featuredPromotion->image) }}"
+                                    alt="{{ $featuredPromotion->name ?? 'Nature\'s Beauty Creations promotion' }}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-md-12 col-12">
                             <div class="rbt-counterdown-content rbt-counterdown-content-right-position">
                                 <p class="rbt-subtitle mb--0 rbt-scroll-trigger fade_in animation-order-1">
-                                    {{ $featuredPromotion?->promotion_label ?? 'Our Special Discount' }}
+                                    {{ $featuredPromotion->promotion_label ?? 'Our Special Discount' }}
                                 </p>
                                 <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2 rbt-text-regular">
-                                    <span class="rbt-bold--text">{{ $featuredPromotion?->name ?? 'Up to 20% Off' }}</span>
+                                    <span class="rbt-bold--text">{{ $featuredPromotion->name ?? 'Up to 20% Off' }}</span>
                                 </h2>
-                                @if ($featuredPromotion?->description)
+                                @if (!empty($featuredPromotion->description))
                                     <p class="rbt-description mt--12 mb--0">{{ $featuredPromotion->description }}</p>
                                 @endif
-                                {{-- Promotion CTA temporarily hidden.
-                                <a class="rbt-btn rbt-scroll-trigger fade_in animation-order-3"
-                                    href="{{ $featuredPromotionUrl }}">{{ $featuredPromotion?->button_text ?? 'Know More' }}</a>
-                                --}}
                                 <div class="rbt-countdown-section d-flex mt--32">
                                     <div class="rbt-countdown-one cd-border-style rbt-countdown-lg bg-variation-black">
                                         <div class="countdown"
-                                            data-date="{{ $featuredPromotion?->ends_at?->format('Y-m-d') ?? '2026-12-30' }}"
-                                            data-time="{{ $featuredPromotion?->ends_at?->format('H:i') ?? '23:59' }}">
+                                            data-date="{{ $featuredPromotion->ends_at?->format('Y-m-d') ?? '2026-12-30' }}"
+                                            data-time="{{ $featuredPromotion->ends_at?->format('H:i') ?? '23:59' }}">
                                             <div class="countdown-container days">
                                                 <span class="countdown-value">87</span>
                                                 <span class="countdown-heading">Days</span>
@@ -3325,6 +3322,7 @@
             </div>
         </div>
         <!-- End Component Area -->
+        @endif
 
         <!-- Start Component Area -->
         <div class="rbt-component-area rbt-brands-area rbt-bg-color-white rbt-section-gap2 nbc-brand-section">

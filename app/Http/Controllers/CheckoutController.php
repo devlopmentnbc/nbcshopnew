@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Services\ShippingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +16,7 @@ class CheckoutController extends Controller
     /**
      * Show the checkout page with contact/address form and order summary.
      */
-    public function index(Request $request)
+    public function index(ShippingService $shippingService)
     {
         $cart = $this->getValidCart();
 
@@ -25,19 +27,76 @@ class CheckoutController extends Controller
         [$subtotal, $totalItems] = $this->cartTotals($cart);
 
         $user = Auth::user();
+        $countries = Country::where('status', true)->orderBy('name', 'asc')->get();
+
+        // Calculate initial Sri Lanka shipping fee (1kg fixed weight)
+        $initialShippingFee = $shippingService->calculateShipping(
+            'Sri Lanka',
+            1000,
+            'LKR',
+            '',
+            '',
+            $subtotal
+        );
+
+        $initialTotal = $subtotal + $initialShippingFee;
 
         return view('checkout', [
             'cart' => $cart,
             'subtotal' => $subtotal,
             'totalItems' => $totalItems,
             'user' => $user,
+            'countries' => $countries,
+            'initialShippingFee' => $initialShippingFee,
+            'initialTotal' => $initialTotal,
+        ]);
+    }
+
+    /**
+     * AJAX endpoint to calculate shipping fee based on country, city, postal code.
+     */
+    public function calculateShipping(Request $request, ShippingService $shippingService)
+    {
+        $cart = $this->getValidCart();
+        [$subtotal, ] = $this->cartTotals($cart);
+
+        $country = $request->input('country', 'Sri Lanka');
+        $city = $request->input('city', 'Colombo');
+        $postalCode = $request->input('postal_code', '00000');
+
+        // Fixed weight of 1kg (1000g)
+        $weightGrams = 1000;
+
+        $shippingFee = $shippingService->calculateShipping(
+            $country,
+            $weightGrams,
+            'LKR',
+            $city,
+            $postalCode,
+            $subtotal
+        );
+
+        $total = $subtotal + $shippingFee;
+        $isLocal = strtolower(trim($country)) === 'sri lanka' || strtolower(trim($country)) === 'lk';
+
+        return response()->json([
+            'success' => true,
+            'country' => $country,
+            'is_local' => $isLocal,
+            'shipping_fee_lkr' => $shippingFee,
+            'formatted_shipping_fee' => $shippingFee > 0 ? 'LKR ' . number_format($shippingFee, 2) : 'Free',
+            'subtotal_lkr' => $subtotal,
+            'formatted_subtotal' => 'LKR ' . number_format($subtotal, 2),
+            'total_lkr' => $total,
+            'formatted_total' => 'LKR ' . number_format($total, 2),
+            'weight_kg' => 1.0,
         ]);
     }
 
     /**
      * Validate checkout form, create the order, clear the cart, redirect to confirmation.
      */
-    public function store(Request $request)
+    public function store(Request $request, ShippingService $shippingService)
     {
         $cart = $this->getValidCart();
 
@@ -65,13 +124,26 @@ class CheckoutController extends Controller
             'delivery_postal_code' => ['nullable', 'string', 'max:20'],
             'delivery_country' => ['required_if:delivery_same_as_billing,0', 'nullable', 'string', 'max:100'],
 
+            'payment_method' => ['required', 'string', 'in:cash_on_delivery,pay_online'],
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
 
         $sameAsBilling = $request->boolean('delivery_same_as_billing');
+        $deliveryCountry = $sameAsBilling ? $validated['billing_country'] : $validated['delivery_country'];
+        $deliveryCity = $sameAsBilling ? $validated['billing_city'] : ($validated['delivery_city'] ?? '');
+        $deliveryPostal = $sameAsBilling ? ($validated['billing_postal_code'] ?? '') : ($validated['delivery_postal_code'] ?? '');
 
         [$subtotal, ] = $this->cartTotals($cart);
-        $shippingFee = 0.0;
+
+        // Fixed weight of 1kg (1000g)
+        $shippingFee = $shippingService->calculateShipping(
+            $deliveryCountry,
+            1000,
+            'LKR',
+            $deliveryCity,
+            $deliveryPostal,
+            $subtotal
+        );
 
         $order = DB::transaction(function () use ($validated, $sameAsBilling, $cart, $subtotal, $shippingFee) {
             $order = Order::create([
@@ -97,6 +169,8 @@ class CheckoutController extends Controller
                 'delivery_country' => $sameAsBilling ? $validated['billing_country'] : $validated['delivery_country'],
 
                 'notes' => $validated['notes'] ?? null,
+                'payment_method' => $validated['payment_method'],
+                'payment_status' => 'pending',
 
                 'subtotal_lkr' => $subtotal,
                 'shipping_fee_lkr' => $shippingFee,
@@ -119,6 +193,10 @@ class CheckoutController extends Controller
 
             return $order;
         });
+
+        if ($validated['payment_method'] === 'pay_online') {
+            return redirect()->route('payments.cybersource.pay', $order->order_number);
+        }
 
         session()->forget('cart');
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\FeaturedProductController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Banner;
 use App\Models\Product;
+use App\Http\Controllers\WishlistController;
 
 // Public Front-End Routes
 Route::get('/', function () {
@@ -37,9 +38,9 @@ Route::get('/', function () {
     return view('home', compact('banners', 'bestSellers', 'newArrivals'));
 })->name('home');
 
-Route::get('/shop', function () {
-    return view('shop');
-})->name('shop');
+use App\Http\Controllers\ShopController;
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 
 Route::get('/product-details/{slug?}', function ($slug = null) {
     $identifier = $slug ?? request()->query('slug') ?? request()->query('id');
@@ -76,24 +77,43 @@ Route::post('/cart/update', [CartController::class, 'update'])->name('cart.updat
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
+use App\Http\Controllers\Payments\CybersourceController;
+
+// CyberSource Callback & Payment Routes
+Route::get('/payments/cybersource/pay/{orderNumber}', [CybersourceController::class, 'pay'])->name('payments.cybersource.pay');
+Route::post('/payments/cybersource/response', [CybersourceController::class, 'handleResponse'])->name('payments.cybersource.response');
+
 // Checkout Routes (guest checkout allowed)
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout/calculate-shipping', [CheckoutController::class, 'calculateShipping'])->name('checkout.calculate_shipping');
 Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // Customer Authentication Routes
 Route::get('/login', [AuthController::class, 'showCustomerLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'customerLogin'])->name('login.submit');
 Route::post('/register', [AuthController::class, 'customerRegister'])->name('register.submit');
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
+    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+});
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Wishlist Routes
+Route::get('/wishlist/items', [WishlistController::class, 'getItems'])->name('wishlist.items');
+Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 
 // Admin Authentication Routes
 Route::get('/admin/login', [AdminAuthController::class, 'showAdminLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name('admin.logout');
+
+use App\Http\Controllers\Admin\ShippingSettingController;
 
 // Protected Admin Routes
 Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
@@ -109,6 +129,10 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::resource('promotions', PromotionController::class)->except('show');
     Route::get('categories/{category}/sub-categories', [ProductController::class, 'getSubCategories'])->name('categories.sub-categories');
     Route::delete('product-images/{image}', [ProductController::class, 'destroyGalleryImage'])->name('products.gallery.destroy');
+
+    // Shipping Settings (Sri Lanka domestic rate & free shipping threshold)
+    Route::get('settings/shipping', [ShippingSettingController::class, 'index'])->name('settings.shipping.index');
+    Route::post('settings/shipping', [ShippingSettingController::class, 'update'])->name('settings.shipping.update');
 
     // Featured Products (Best Sellers & New Arrivals)
     Route::get('featured/best-sellers', [FeaturedProductController::class, 'bestSellers'])->name('featured.best-sellers');

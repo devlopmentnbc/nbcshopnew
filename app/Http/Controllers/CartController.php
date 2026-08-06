@@ -35,12 +35,41 @@ class CartController extends Controller
             session()->put('cart', $cleanedCart);
         }
 
+        $userCountry = session('country_code', 'LK');
+        $currency = session('currency', 'LKR');
+
+        $shippingService = new \App\Services\ShippingService();
+        $shippingCost = $shippingService->calculateShipping(
+            destinationCountry: $userCountry,
+            currency: $currency,
+            subtotal: ($currency === 'USD' ? $subtotalUsd : $subtotalLkr)
+        );
+
+        $formattedShipping = $currency === 'USD'
+            ? '$' . number_format($shippingCost, 2)
+            : 'LKR ' . number_format($shippingCost, 2);
+
+        $subtotalDisplay = $currency === 'USD' ? $subtotalUsd : $subtotalLkr;
+        $formattedSubtotal = $currency === 'USD'
+            ? '$' . number_format($subtotalUsd, 2)
+            : 'LKR ' . number_format($subtotalLkr, 2);
+
+        $finalTotalRaw = $subtotalDisplay + $shippingCost;
+        $formattedFinalTotal = $currency === 'USD'
+            ? '$' . number_format($finalTotalRaw, 2)
+            : 'LKR ' . number_format($finalTotalRaw, 2);
+
         return response()->json([
             'status' => 'success',
             'cart' => array_values($cleanedCart),
+            'currency' => $currency,
             'total_items' => $totalItems,
             'subtotal_lkr' => number_format($subtotalLkr, 2),
             'subtotal_usd' => number_format($subtotalUsd, 2),
+            'shipping_cost' => $shippingCost,
+            'formatted_shipping' => $formattedShipping,
+            'formatted_subtotal' => $formattedSubtotal,
+            'formatted_final_total' => $formattedFinalTotal,
             'subtotal_lkr_raw' => $subtotalLkr,
             'formatted_subtotal_lkr' => 'LKR ' . number_format($subtotalLkr, 2),
         ]);

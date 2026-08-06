@@ -35,4 +35,24 @@ return [
         ],
     ],
 
+    'dhl' => [
+        'username' => env('DHL_USERNAME', 'apH3yT8xI4aT6d'),
+        'password' => env('DHL_PASSWORD', 'A@9nB#4nM$1hV!6p'),
+        'account_number' => env('DHL_ACCOUNT_NUMBER', ''),
+        'endpoint' => env('DHL_ENDPOINT', 'https://wsbexpress.dhl.com:443/sndpt/expressRateBook'),
+    ],
+
+    'cybersource' => [
+        'access_key' => env('CYBERSOURCE_ACCESS_KEY', ''),
+        'profile_id' => env('CYBERSOURCE_PROFILE_ID', ''),
+        'secret_key' => env('CYBERSOURCE_SECRET_KEY', ''),
+        'endpoint'   => env('CYBERSOURCE_ENDPOINT', 'https://secureacceptance.cybersource.com/pay'),
+    ],
+
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID', ''),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET', ''),
+        'redirect'      => env('GOOGLE_REDIRECT_URI', env('APP_URL', 'http://localhost:8000') . '/auth/google/callback'),
+    ],
+
 ];

@@ -38533,7 +38533,7 @@ button.animated-icon-btn.round-sm::after {
 }
 
 .rbt-wishlisted-btn.active i {
-    background: var(--color-primary);
+ 
     color: var(--color-white);
 }
 
@@ -38553,7 +38553,6 @@ button.animated-icon-btn.round-sm::after {
 }
 
 .rbt-wishlisted-btn.bg-light-one.active i {
-    background: var(--color-black);
     color: var(--color-white);
 }
 
