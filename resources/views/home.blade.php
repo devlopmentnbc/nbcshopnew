@@ -1812,7 +1812,7 @@
                                             <h2 class="rbt-sidebar-banner-titile h4">Up to 40% Off <span
                                                     class="rbt-text-regular">On All Brands</span>
                                             </h2>
-                                         <!-- Know more button temporarily hidden. 
+                                         <!-- Know more button temporarily hidden.
                                             <a href="#" class="rbt-btn rbt-btn-sm">Know More</a> -->
 
                                         </div>
@@ -3012,7 +3012,7 @@
                                         <div class="rbt-card-img top-rounded-md">
                                             <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
                                                 <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
-                                                    src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Niacinamide.png') }}"
+                                                    src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Nature\'s Secret/herbel-hair-oil1.png') }}"
                                                     alt="{{ $product->name }}">
                                             </a>
                                             <div class="rbt-badge-wrapper rbt-content-top-left">
@@ -4812,7 +4812,7 @@
                                                                             <div class="rbt-text-group"> <span
                                                                                     class="icon mr--4"><i
                                                                                         class="fa-solid fa-rotate-left"></i></span>
-                                                                                7 Days Return Plicy
+                                                                                7 Days Return Policy
                                                                             </div>
                                                                         </div>
                                                                     </div>
