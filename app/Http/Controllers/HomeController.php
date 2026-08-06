@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Promotion;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
@@ -19,13 +20,20 @@ class HomeController extends Controller
                 ->first();
         }
 
+        $brands = Brand::where('status', true)
+            ->withCount('products')
+            ->orderByDesc('products_count')
+            ->get();
+
         return view('home', [
             'featuredPromotion' => $featuredPromotion,
             'featuredPromotionUrl' => $featuredPromotion
                 ? $this->promotionUrl($featuredPromotion)
                 : route('shop'),
+            'brands' => $brands,
         ]);
     }
+
 
     private function promotionUrl(Promotion $promotion): string
     {

@@ -3344,145 +3344,52 @@
 
                         <!-- Start Brands Area -->
                         <div class="row row--12 mt_dec--60 nbc-brand-grid">
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-1">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-1">
-                                            <img src="{{ asset("assets/images/nbc/Nature's Secret/nature-secrets-logo.png") }}"
-                                                alt="Nature's Secret">
+                            @forelse($brands ?? [] as $brand)
+                                @php
+                                    $order = $loop->iteration;
+                                    $animOrder = (($order - 1) % 5) + 1;
+
+                                    // Resolve logo: use uploaded image if available, else fallback to local brand folder
+                                    if ($brand->image) {
+                                        $logoSrc = asset('storage/' . $brand->image);
+                                    } else {
+                                        // Map brand slugs to known local logo files
+                                        $logoMap = [
+                                            'natures-secret'  => "assets/images/nbc/Nature's Secret/nature-secrets-logo.png",
+                                            'misumi'          => 'assets/images/nbc/Misumi/misumi-logo.png',
+                                            'selfie'          => 'assets/images/nbc/Selfie/selfie-logo.png',
+                                            'panda-baby'      => 'assets/images/nbc/Panda Baby/panda-baby-logo.png',
+                                            'champion'        => 'assets/images/nbc/Champion/champion-logo.png',
+                                            'chandi-panda'    => 'assets/images/nbc/Chandi Panda/chandi-panda-logo.png',
+                                            'elithe'          => 'assets/images/nbc/Elithe/elithe-logo.png',
+                                            'mydoc'           => 'assets/images/nbc/Mydoc/mydoc-logo.png',
+                                        ];
+                                        $logoSrc = asset($logoMap[$brand->slug] ?? 'assets/images/brands/brand-a-01.webp');
+                                    }
+                                @endphp
+                                <div class="nbc-brand-item mt--60">
+                                    <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-{{ $animOrder }}">
+                                        <div class="inner">
+                                            <div class="brand-image rbt-scroll-trigger zoom_in animation-order-{{ $animOrder }}">
+                                                <img src="{{ $logoSrc }}" alt="{{ $brand->name }}">
+                                            </div>
+                                            <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
+                                               href="{{ route('shop', ['brand' => $brand->slug]) }}">
+                                                <span class="btn-text">
+                                                    @if($brand->products_count > 0)
+                                                        See {{ $brand->products_count }} Product{{ $brand->products_count != 1 ? 's' : '' }}
+                                                    @else
+                                                        See Products
+                                                    @endif
+                                                </span>
+                                                <span class="btn-icon"><i class="fa-solid fa-arrow-up-right ml--4"></i></span>
+                                            </a>
                                         </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm" href="shop-by-brands.html">
-                                            <span class="btn-text">See 16 Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-2">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-2">
-                                            <img src="{{ asset('assets/images/nbc/Misumi/misumi-logo.png') }}"
-                                                alt="Misumi">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm" href="shop-by-brands.html">
-                                            <span class="btn-text">See 32 Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-3">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-3">
-                                            <img src="{{ asset('assets/images/nbc/Selfie/selfie-logo.png') }}"
-                                                alt="Selfie">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm" href="shop-by-brands.html">
-                                            <span class="btn-text">See 28 Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-4">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-4">
-                                            <img src="{{ asset('assets/images/nbc/Panda Baby/panda-baby-logo.png') }}"
-                                                alt="Panda Baby">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm" href="shop-by-brands.html">
-                                            <span class="btn-text">See 64 Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-5">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-1">
-                                            <img src="{{ asset('assets/images/nbc/Champion/champion-logo.png') }}"
-                                                alt="Champion">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm" href="shop-by-brands.html">
-                                            <span class="btn-text">See 48 Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-6">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-2">
-                                            <img src="{{ asset('assets/images/nbc/Chandi Panda/chandi-panda-logo.png') }}"
-                                                alt="Chandi Panda">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
-                                            href="{{ route('shop', ['brand' => 'chandi-panda']) }}">
-                                            <span class="btn-text">See Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-7">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-3">
-                                            <img src="{{ asset('assets/images/nbc/Elithe/elithe-logo.png') }}"
-                                                alt="Elithé">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
-                                            href="{{ route('shop', ['brand' => 'elithe']) }}">
-                                            <span class="btn-text">See Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nbc-brand-item mt--60">
-                                <div
-                                    class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-8">
-                                    <div class="inner">
-                                        <div class="brand-image rbt-scroll-trigger zoom_in animation-order-4">
-                                            <img src="{{ asset('assets/images/nbc/Mydoc/mydoc-logo.png') }}"
-                                                alt="Mydoc">
-                                        </div>
-                                        <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
-                                            href="{{ route('shop', ['brand' => 'mydoc']) }}">
-                                            <span class="btn-text">See Products</span>
-                                            <span class="btn-icon"><i
-                                                    class="fa-solid fa-arrow-up-right ml--4"></i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @empty
+                                <div class="col-12 text-center py-4 text-muted">No brands available.</div>
+                            @endforelse
                         </div>
                         <!-- End Brands Area -->
                     </div>
