@@ -3349,9 +3349,9 @@
                                     $order = $loop->iteration;
                                     $animOrder = (($order - 1) % 5) + 1;
 
-                                    // Resolve logo: use uploaded image if available, else fallback to local brand folder
+                                    // Images are stored directly in public/uploads/brands/ so use asset() directly
                                     if ($brand->image) {
-                                        $logoSrc = asset('storage/' . $brand->image);
+                                        $logoSrc = asset($brand->image);
                                     } else {
                                         // Map brand slugs to known local logo files
                                         $logoMap = [
