@@ -3486,7 +3486,7 @@
     </div>
     <!-- End Wishlist Modal Area  -->
 
-    <div class="rbt-breadcrumb-two rbt-bg-color-white">
+    <div class="rbt-breadcrumb-two rbt-bg-color-white nbc-product-breadcrumb">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -3622,19 +3622,19 @@
                                 <i class="fa-regular fa-arrows-maximize"></i>
                             </a>
 
-                            <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--prev"
+                           <!-- <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--prev"
                                 type="button" data-gallery-prev aria-label="Previous product image">
                                 <i class="fa-regular fa-arrow-left"></i>
-                            </button>
+                            </button> -->
 
                             <img class="nbc-fresh-product-gallery__main" data-gallery-main
                                 src="{{ isset($product) && $product->image ? asset($product->image) : (isset($product) && $product->images?->first() ? asset($product->images->first()->image_path) : asset('assets/images/product-single/earphone/earphone-05.webp')) }}"
                                 alt="{{ isset($product) ? $product->name : 'Product image' }}">
 
-                            <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--next"
+                            <!-- <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--next"
                                 type="button" data-gallery-next aria-label="Next product image">
                                 <i class="fa-regular fa-arrow-right"></i>
-                            </button>
+                            </button> -->
                         </div>
 
                         <div class="nbc-fresh-product-gallery__thumbs" data-gallery-thumbs aria-label="Product images">
@@ -4871,7 +4871,7 @@
                         </li>
                         <!-- End Single Comment  -->
 
-                                <!-- Start Single Comment  -->
+                                <!-- Start Single Comment
                                 <li class="comment">
                                     <div class="comment-body">
                                         <div class="single-comment">
@@ -4903,12 +4903,12 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- End Single Comment  -->
+                                <!-- End Single Comment
                                 </ul>
                             </div> -->
 
                             <div class="rbt-reviews-form">
-                                <form class="rbt-contact-form">
+                              <!--  <form class="rbt-contact-form">
                                     <div class="rbt-fshape-box-outline-style">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -5041,12 +5041,12 @@
 
                                         </div>
                                     </div>
-                                </form>
+                                </form> -->
                             </div>
 
                         </div>
 
-                        <div class="tab-pane fade" id="rbt-question" role="tabpanel"
+                        <!-- <div class="tab-pane fade" id="rbt-question" role="tabpanel"
                             aria-labelledby="rbt-question-tab">
                             <div class="rbt-prd-single-faq-section">
                                 <div class="rbt-section-title-area rbt-bg-color-gray-light">
@@ -5163,12 +5163,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 mt--24 rbt-single-mobile-view-sidebar">
-                <div class="rbt-tab rbt-product-single-details-tab rbt-fshape-tab">
+              <!--  <div class="rbt-tab rbt-product-single-details-tab rbt-fshape-tab">
                     <div class="rbt-tab-nav-wrapper">
                         <ul class="nav nav-tabs" id="rbt-product-recomTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -5478,11 +5478,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="rbt-block-banner-img mt--32">
+                </div> -->
+                <!-- <div class="rbt-block-banner-img mt--32">
                     <img src="{{ asset('assets/images/product-single/single-prd-banner/single-prd-banner-a-01.webp') }}"
                         alt="Ecommerce Product Banner">
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -5490,7 +5490,7 @@
     <!-- End Single Product Tab Area -->
 
     <!-- Start Video Review Area -->
-    <div class="rbt-component-area rbt-section-gap rbt-bg-color-white">
+    <div class="rbt-component-area rbt-section-gap rbt-bg-color-white nbc-hidden-review-videos">
         <div class="container">
             <div class="row">
                 <div
@@ -5622,7 +5622,7 @@
     <!-- End Video Review Area -->
 
     <!-- Start Compare Area -->
-    <div class="rbt-component-area rbt-section-gap rbt-bg-color-gray-light">
+    <div class="rbt-component-area rbt-section-gap rbt-bg-color-gray-light nbc-hidden-compare-items">
         <div class="container">
 
             <div
@@ -6467,7 +6467,7 @@
     <!-- End Component Area -->
 
     <!-- Start Component Area -->
-    <div class="rbt-component-area rbt-section-gap rbt-bg-color-white">
+    <div class="rbt-component-area rbt-section-gap rbt-bg-color-white nbc-hidden-frequently-bought">
         <div class="container">
 
             <div
