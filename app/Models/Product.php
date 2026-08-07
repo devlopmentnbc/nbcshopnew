@@ -111,4 +111,10 @@ class Product extends Model
 
         return '$' . number_format($min, 2) . ' - $' . number_format($max, 2);
     }
+ 
+    public function formattedPrice(): string
+    {
+        $currency = session('currency', 'LKR');
+        return $currency === 'USD' ? $this->priceRangeUsd() : $this->priceRangeLkr();
+    }
 }

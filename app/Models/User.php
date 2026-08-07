@@ -24,6 +24,8 @@ class User extends Authenticatable
         'last_name',
         'phone',
         'email',
+        'google_id',
+        'avatar',
         'password',
         'accepts_privacy',
         'newsletter',
@@ -56,5 +58,15 @@ class User extends Authenticatable
             'special_offers' => 'boolean',
             'is_admin' => 'boolean',
         ];
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

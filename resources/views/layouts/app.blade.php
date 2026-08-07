@@ -3036,6 +3036,34 @@
 
                         <div class="header-right rbt-gap--32">
 
+                            <!-- Shop All Button -->
+                            <!-- <div class="d-none d-xl-flex align-items-center">
+                                <a href="{{ route('shop') }}"
+                                   class="rbt-btn rbt-btn-sm btn-gradient nbc-shop-all-btn"
+                                   style="
+                                       padding: 8px 22px;
+                                       font-size: 13px;
+                                       font-weight: 700;
+                                       letter-spacing: 0.5px;
+                                       border-radius: 50px;
+                                       background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+                                       color: #fff;
+                                       border: none;
+                                       text-decoration: none;
+                                       display: inline-flex;
+                                       align-items: center;
+                                       gap: 6px;
+                                       box-shadow: 0 4px 15px rgba(46,125,50,0.35);
+                                       transition: all 0.3s ease;
+                                       white-space: nowrap;
+                                   "
+                                   onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(46,125,50,0.5)'"
+                                   onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(46,125,50,0.35)'"
+                                >
+                                    <i class="fa-regular fa-bag-shopping"></i>
+                                    Shop All
+                                </a>
+                            </div> -->
 
                             <!-- Navbar Icons -->
                             <ul class="rbt-quick-access">
@@ -3060,9 +3088,10 @@
 
                                 <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-4 rbt-wishlist d-none d-lg-flex tooltips tooltip-distance-lg"
                                     data-tooltip="Wishlist" data-tooltip-position="bottom">
-                                    <a class="rbt-round-btn has-rbt-md-fsize" href="wishlist.html">
+                                    <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal"
+                                        data-bs-target="#wishlistModal">
                                         <i class="fa-regular fa-heart"></i>
-                                        <div class="access-box-count">7</div>
+                                        <div class="access-box-count">{{ Auth::check() ? Auth::user()->wishlists()->count() : 0 }}</div>
                                     </a>
                                 </li>
 
@@ -5592,6 +5621,36 @@
                     </div>
 
                     <div class="header-right">
+
+                        <!-- Shop All Button -->
+                        <!-- <div class="d-none d-xl-flex align-items-center me-2">
+                            <a href="{{ route('shop') }}"
+                               class="rbt-btn rbt-btn-sm btn-gradient nbc-shop-all-btn"
+                               style="
+                                   padding: 8px 22px;
+                                   font-size: 13px;
+                                   font-weight: 700;
+                                   letter-spacing: 0.5px;
+                                   border-radius: 50px;
+                                   background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+                                   color: #fff;
+                                   border: none;
+                                   text-decoration: none;
+                                   display: inline-flex;
+                                   align-items: center;
+                                   gap: 6px;
+                                   box-shadow: 0 4px 15px rgba(46,125,50,0.35);
+                                   transition: all 0.3s ease;
+                                   white-space: nowrap;
+                               "
+                               onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(46,125,50,0.5)'"
+                               onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(46,125,50,0.35)'"
+                            >
+                                <i class="fa-regular fa-bag-shopping"></i>
+                                Shop All
+                            </a>
+                        </div> -->
+
                         <!-- Navbar Icons -->
                         <ul class="rbt-quick-access rbt-gap--12">
 
@@ -5604,20 +5663,58 @@
                                 </a>
                             </li>
 
-                            <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-3 d-none d-lg-flex tooltips tooltip-distance-lg"
-                                data-tooltip="Sign In" data-tooltip-position="bottom">
-                                <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal"
-                                    data-bs-target="#signinModal">
-                                    <i class="fa-regular fa-user"></i>
-                                </a>
-                            </li>
+                            @auth
+                                <li class="rbt-access-box d-none d-lg-flex position-relative nbc-user-access-box">
+                                    <a class="rbt-round-btn has-rbt-md-fsize dropdown-toggle text-decoration-none" href="#" role="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+                                        @if(Auth::user()->avatar)
+                                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;">
+                                        @else
+                                            <i class="fa-regular fa-user"></i>
+                                        @endif
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end nbc-profile-dropdown-menu shadow-lg border-0" aria-labelledby="userProfileDropdown">
+                                        <div class="nbc-user-header">
+                                            <div class="user-name text-truncate">{{ Auth::user()->name }}</div>
+                                            <div class="user-email text-truncate">{{ Auth::user()->email }}</div>
+                                        </div>
+                                        <div class="nbc-menu-body">
+                                            <a class="nbc-dropdown-item" href="{{ route('profile') }}">
+                                                <i class="fa-regular fa-user"></i>
+                                                <span>Profile</span>
+                                            </a>
+                                            @if(Auth::user()->is_admin)
+                                                <a class="nbc-dropdown-item" href="{{ route('admin.dashboard') }}">
+                                                    <i class="fa-solid fa-gauge"></i>
+                                                    <span>Admin Dashboard</span>
+                                                </a>
+                                            @endif
+                                            <hr class="my-1 border-light opacity-25">
+                                            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                                @csrf
+                                                <button type="submit" class="nbc-dropdown-item logout-item w-100 text-start border-0">
+                                                    <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                                                    <span>Logout</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            @else
+                                <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-3 d-none d-lg-flex tooltips tooltip-distance-lg"
+                                    data-tooltip="Sign In" data-tooltip-position="bottom">
+                                    <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal"
+                                        data-bs-target="#signinModal">
+                                        <i class="fa-regular fa-user"></i>
+                                    </a>
+                                </li>
+                            @endauth
 
                             <li class="rbt-access-box rbt-scroll-trigger fade_in animation-order-5 rbt-wishlist d-none d-lg-flex tooltips tooltip-distance-lg"
                                 data-tooltip="Wishlist" data-tooltip-position="bottom">
                                 <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal"
                                     data-bs-target="#wishlistModal">
                                     <i class="fa-regular fa-heart"></i>
-                                    <div class="access-box-count">7</div>
+                                    <div class="access-box-count">{{ Auth::check() ? Auth::user()->wishlists()->count() : 0 }}</div>
                                 </a>
                             </li>
 
@@ -6104,12 +6201,12 @@
                                 </div>
 
                                 <!-- Start social login button -->
-                                <button type="button"
-                                    class="rbt-btn rbt-btn-border rbt-social-login-btn d-block w-100 rbt-social-login-btn">
-                                    <img class="icon" src="{{ asset('assets/images/icons/google-icon.webp') }}"
-                                        alt="Icon">
+                                <a href="{{ route('auth.google') }}"
+                                    class="rbt-btn rbt-btn-border rbt-social-login-btn d-flex align-items-center justify-content-center text-decoration-none w-100">
+                                    <img class="icon me-2" src="{{ asset('assets/images/icons/google-icon.webp') }}"
+                                        alt="Google Icon" style="width: 20px; height: 20px;">
                                     Continue with Google
-                                </button>
+                                </a>
                                 <!-- End social login button -->
 
                                 <div class="rbt-login-system-switch rbt-link-hover">
@@ -6513,6 +6610,22 @@
                                         Create Account
                                     </button>
                                 </form>
+
+                                <!-- Separator -->
+                                <div class="d-flex align-items-center justify-content-center mb--24 mt--24">
+                                    <hr class="rbt-separator rbt-bg-color-gray-light mb--0">
+                                    <span class="pl--8 pr--8 b4 rbt-text-medium">OR</span>
+                                    <hr class="rbt-separator rbt-bg-color-gray-light mb--0">
+                                </div>
+
+                                <!-- Start social login button -->
+                                <a href="{{ route('auth.google') }}"
+                                    class="rbt-btn rbt-btn-border rbt-social-login-btn d-flex align-items-center justify-content-center text-decoration-none w-100">
+                                    <img class="icon me-2" src="{{ asset('assets/images/icons/google-icon.webp') }}"
+                                        alt="Google Icon" style="width: 20px; height: 20px;">
+                                    Sign Up with Google
+                                </a>
+                                <!-- End social login button -->
 
                                 <div class="rbt-login-system-switch rbt-link-hover">
                                     Already registered?
@@ -7963,6 +8076,7 @@
     </div>
 
     @include('components.cart-drawer')
+    @include('components.wishlist-modal')
 
     <a class="close_side_menu catagories-close_side_menu" href="javascript:void(0);"></a>
     <a href="javascript:void(0);" class="common-close_search_dropdown"></a>
@@ -7990,6 +8104,10 @@
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/nbc-cart.js') }}?v={{ filemtime(public_path('assets/js/nbc-cart.js')) }}"></script>
+    <script>
+        window.IS_AUTHENTICATED = @json(Auth::check());
+    </script>
+    <script src="{{ asset('assets/js/nbc-wishlist.js') }}?v={{ filemtime(public_path('assets/js/nbc-wishlist.js')) }}"></script>
 
     @php
         $authModalId = match (true) {

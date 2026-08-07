@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
                                     <span class="price" style="font-size: 14px; white-space: nowrap;">
-                                        LKR {{ number_format($item->line_total_lkr, 2) }}
+                                        රු. {{ number_format($item->line_total_lkr, 2) }}
                                     </span>
                                 </li>
                             @endforeach
@@ -41,23 +41,29 @@
                         <hr class="my-2">
                         <div class="d-flex justify-content-between py-2">
                             <p class="mb-0">Subtotal</p>
-                            <p class="price mb-0">LKR {{ number_format($order->subtotal_lkr, 2) }}</p>
+                            <p class="price mb-0">රු. {{ number_format($order->subtotal_lkr, 2) }}</p>
                         </div>
                         <div class="d-flex justify-content-between py-2">
                             <p class="mb-0 text-muted">Shipping</p>
                             <p class="price mb-0 text-muted">
-                                {{ $order->shipping_fee_lkr > 0 ? 'LKR ' . number_format($order->shipping_fee_lkr, 2) : 'Free' }}
+                                {{ $order->shipping_fee_lkr > 0 ? 'රු. ' . number_format($order->shipping_fee_lkr, 2) : 'Free' }}
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between py-2">
+                            <p class="mb-0 text-muted">Payment Method</p>
+                            <p class="mb-0 fw-semibold text-primary">
+                                {{ $order->payment_method === 'pay_online' ? 'Pay Online' : 'Cash on Delivery' }}
                             </p>
                         </div>
                         <hr class="my-2">
                         <div class="d-flex justify-content-between py-2">
                             <p class="mb-0"><strong>Total</strong></p>
-                            <p class="price mb-0" style="font-weight: 700;">LKR {{ number_format($order->total_lkr, 2) }}</p>
+                            <p class="price mb-0" style="font-weight: 700;">රු. {{ number_format($order->total_lkr, 2) }}</p>
                         </div>
                     </div>
 
                     <div class="row g-4 mb--30">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="checkout-card h-100">
                                 <h6 class="title mb--10">Contact</h6>
                                 <p class="mb-0">{{ $order->name }}</p>
@@ -65,7 +71,14 @@
                                 <p class="mb-0">{{ $order->email }}</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="checkout-card h-100">
+                                <h6 class="title mb--10">Payment Details</h6>
+                                <p class="mb-1">Method: <strong>{{ $order->payment_method === 'pay_online' ? 'Pay Online' : 'Cash on Delivery' }}</strong></p>
+                                <p class="mb-0">Payment Status: <span class="badge {{ $order->payment_status === 'paid' ? 'bg-success' : 'bg-warning text-dark' }}">{{ ucfirst($order->payment_status ?? 'pending') }}</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="checkout-card h-100">
                                 <h6 class="title mb--10">Delivery Address</h6>
                                 <p class="mb-0">{{ $order->delivery_address_line1 }}</p>

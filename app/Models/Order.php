@@ -31,6 +31,8 @@ class Order extends Model
         'delivery_postal_code',
         'delivery_country',
         'notes',
+        'payment_method',
+        'payment_status',
         'subtotal_lkr',
         'shipping_fee_lkr',
         'total_lkr',

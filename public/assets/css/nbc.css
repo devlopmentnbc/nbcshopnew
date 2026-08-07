@@ -2692,8 +2692,83 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     .rbt-card-img:not(:has(.rbt-badge-wrapper))::after {
     content: none;
 }
+.rbt-card-img {
+    position: relative !important;
+}
+
+.rbt-wishlisted-btn,
+.nbc-wishlist-toggle,
 .nbc-product-section .rbt-wishlisted-btn {
-    display: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    color: #2b2b2b !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+    border: none !important;
+    z-index: 10 !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+
+.rbt-wishlisted-btn i,
+.nbc-wishlist-toggle i {
+    font-size: 16px !important;
+    transition: all 0.2s ease !important;
+    color: #2b2b2b !important;
+}
+
+.rbt-wishlisted-btn:hover,
+.nbc-wishlist-toggle:hover {
+    background: #ffffff !important;
+    color: #dc2626 !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16) !important;
+}
+
+.rbt-wishlisted-btn:hover i,
+.nbc-wishlist-toggle:hover i {
+    color: #dc2626 !important;
+}
+
+.rbt-wishlisted-btn.added-wishlist,
+.rbt-wishlisted-btn.active,
+.nbc-wishlist-toggle.added-wishlist,
+.nbc-wishlist-toggle.active {
+    background: #ffffff !important;
+    color: #dc2626 !important;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.2) !important;
+}
+
+.rbt-wishlisted-btn.added-wishlist i,
+.rbt-wishlisted-btn.active i,
+.nbc-wishlist-toggle.added-wishlist i,
+.nbc-wishlist-toggle.active i {
+    color: #dc2626 !important;
+}
+
+.rbt-wishlisted-btn.added-wishlist i::before,
+.rbt-wishlisted-btn.active i::before,
+.nbc-wishlist-toggle.added-wishlist i::before,
+.nbc-wishlist-toggle.active i::before {
+    content: "\f004" !important;
+    font-family: "Font Awesome 6 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+}
+
+.rbt-wishlisted-btn.added-wishlist:hover,
+.rbt-wishlisted-btn.active:hover,
+.nbc-wishlist-toggle.added-wishlist:hover,
+.nbc-wishlist-toggle.active:hover {
+    background: #ffffff !important;
+    color: #dc2626 !important;
+    transform: scale(1.1) !important;
 }
 .nbc-product-section .pricing-part {
     display: block;
@@ -3160,8 +3235,8 @@ body {
 .rbt-header .nbc-shop-header .rbt-mainmenu-nav .nbc-mainmenu > li > a {
     color: rgba(255, 255, 255, 0.96) !important;
     font-family: var(--default-font);
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 500;
     letter-spacing: 0.01em;
     padding: 13px clamp(8px, 0.7vw, 13px) !important;
     text-transform: uppercase;
@@ -3376,6 +3451,111 @@ body {
 .rbt-cart-side-menu .nbc-cart-empty i {
     color: var(--accent-color);
     font-size: 34px;
+}
+
+/* User Profile Dropdown Styling */
+.nbc-user-access-box {
+    position: relative !important;
+}
+
+.nbc-user-access-box .dropdown-toggle::after {
+    display: none !important;
+}
+
+.nbc-profile-dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 260px !important;
+    background: rgba(5, 26, 14, 0.94) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35) !important;
+    padding: 0 !important;
+    margin-top: 10px !important;
+    z-index: 99999 !important;
+    display: block !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(12px) scale(0.98) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s !important;
+    pointer-events: none !important;
+}
+
+.nbc-profile-dropdown-menu.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-user-header {
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding: 16px 20px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-top-left-radius: 14px !important;
+    border-top-right-radius: 14px !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-user-header .user-name {
+    color: #ffffff !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 2px !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-user-header .user-email {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-menu-body {
+    padding: 8px !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-dropdown-item {
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    background: transparent !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-dropdown-item i {
+    font-size: 16px !important;
+    color: #67af1f !important;
+    width: 20px !important;
+    text-align: center !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-dropdown-item:hover {
+    background: rgba(103, 175, 31, 0.22) !important;
+    color: #ffffff !important;
+    transform: translateX(3px) !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-dropdown-item.logout-item {
+    color: #f87171 !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-dropdown-item.logout-item i {
+    color: #f87171 !important;
+}
+
+.nbc-profile-dropdown-menu .nbc-dropdown-item.logout-item:hover {
+    background: rgba(239, 68, 68, 0.2) !important;
+    color: #fca5a5 !important;
 }
 
 /* Keep inactive cart utility panels from extending the document below the footer. */

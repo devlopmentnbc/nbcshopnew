@@ -16,7 +16,10 @@
     function updateCartUI(cartData) {
         const cart = cartData.cart || [];
         const totalItems = cartData.total_items || 0;
-        const subtotalLkr = cartData.formatted_subtotal_lkr || formatMoney(cartData.subtotal_lkr_raw || 0);
+        const currency = cartData.currency || 'LKR';
+        const formattedSubtotal = cartData.formatted_subtotal || cartData.formatted_subtotal_lkr || 'LKR 0.00';
+        const formattedShipping = cartData.formatted_shipping || (currency === 'USD' ? '$0.00' : 'LKR 450.00');
+        const formattedFinalTotal = cartData.formatted_final_total || formattedSubtotal;
 
         // 1. Update all cart count badges in header
         document.querySelectorAll('.rbt-mini-cart .access-box-count, .access-box-count.rbt-shiny, .cart-count-badge').forEach(function (badge) {
@@ -29,6 +32,10 @@
         let html = '';
         if (cart.length > 0) {
             cart.forEach(function (item) {
+                const itemPriceFormatted = currency === 'USD' 
+                    ? ('$' + Number(item.price_usd || 0).toFixed(2))
+                    : ('LKR ' + Number(item.price_lkr || 0).toLocaleString('en-LK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
                 html += `
                 <li class="minicart-item" data-cart-key="${item.key}">
                     <div class="thumbnail">
@@ -38,7 +45,7 @@
                     </div>
                     <div class="product-content">
                         <h3 class="title h6"><a href="${item.url || '#'}">${item.name}</a></h3>
-                        <span class="quantity">${item.quantity}x <span class="price">${item.formatted_price_lkr}</span></span>
+                        <span class="quantity">${item.quantity}x <span class="price">${itemPriceFormatted}</span></span>
                         <div class="bottom-part">
                             <div class="rbt-qty-area">
                                 <button class="qty-item-btn qty-item-btn-decr nbc-cart-decrease" type="button" aria-label="Decrease quantity"><i class="fa-solid fa-minus"></i></button>
@@ -65,14 +72,19 @@
             list.innerHTML = html;
         });
 
-        // 3. Update subtotals and totals in minicart side menu
+        // 3. Update subtotals and totals in minicart side menu specifically
         document.querySelectorAll('.rbt-cart-side-menu').forEach(function (drawer) {
-            const subtotalEls = drawer.querySelectorAll('.rbt-cart-subttotal .price');
-            if (subtotalEls.length > 0) {
-                subtotalEls.forEach(function(el) {
-                    el.textContent = subtotalLkr;
-                });
-            }
+            const countEl = drawer.querySelector('.cart-total-count');
+            if (countEl) countEl.textContent = totalItems;
+
+            const subtotalEl = drawer.querySelector('.cart-subtotal-price');
+            if (subtotalEl) subtotalEl.textContent = formattedSubtotal;
+
+            const shippingEl = drawer.querySelector('.cart-shipping-price');
+            if (shippingEl) shippingEl.textContent = formattedShipping;
+
+            const finalTotalEl = drawer.querySelector('.cart-final-total');
+            if (finalTotalEl) finalTotalEl.textContent = formattedFinalTotal;
         });
     }
 

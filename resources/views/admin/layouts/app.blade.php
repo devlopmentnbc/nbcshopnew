@@ -467,20 +467,16 @@
     </a>
 
     <!-- Settings -->
-    <div data-nav-group="" data-open="false">
-      <button type="button" data-nav-trigger="" title="Settings" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="false">
+    <div data-nav-group="" data-open="{{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }}">
+      <button type="button" data-nav-trigger="" title="Settings" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="{{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }}">
         <i data-lucide="settings" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
         <span class="nav-text flex-1 text-left">Settings</span>
         <i data-lucide="chevron-right" data-nav-chevron="" class="nav-text h-4 w-4 shrink-0 text-ink-400 transition-transform duration-300"></i>
       </button>
-      <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+      <div data-nav-submenu="" class="nav-text grid {{ request()->routeIs('admin.settings.*') ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }} transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="settings" href="settings.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Store Profile</a>
-            <a data-nav="shipping-settings" href="shipping-settings.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Shipping</a>
-            <a data-nav="payment-settings" href="payment-settings.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Payments</a>
-            <a data-nav="permission-settings" href="permission-settings.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Permissions</a>
-            <a data-nav="notifications" href="notifications.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Notifications</a>
+            <a data-nav="shipping-settings" href="{{ route('admin.settings.shipping.index') }}" class="block rounded-base px-2 py-2 {{ request()->routeIs('admin.settings.shipping.*') ? 'font-semibold text-brand-600 bg-surface-muted' : 'text-ink-500 hover:bg-surface-muted hover:text-ink-900' }} transition-colors">Shipping Settings</a>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Promotion;
 use Illuminate\Support\Facades\Schema;
@@ -56,6 +57,11 @@ class HomeController extends Controller
                 ->first();
         }
 
+        $brands = Brand::where('status', true)
+            ->withCount('products')
+            ->orderByDesc('products_count')
+            ->get();
+
         return view('home', [
             'banners' => $banners,
             'bestSellers' => $bestSellers,
@@ -64,8 +70,10 @@ class HomeController extends Controller
             'featuredPromotionUrl' => $featuredPromotion
                 ? $this->promotionUrl($featuredPromotion)
                 : route('shop'),
+            'brands' => $brands,
         ]);
     }
+
 
     private function promotionUrl(Promotion $promotion): string
     {
