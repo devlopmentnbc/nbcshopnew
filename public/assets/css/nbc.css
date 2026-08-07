@@ -3235,8 +3235,8 @@ body {
 .rbt-header .nbc-shop-header .rbt-mainmenu-nav .nbc-mainmenu > li > a {
     color: rgba(255, 255, 255, 0.96) !important;
     font-family: var(--default-font);
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 500;
     letter-spacing: 0.01em;
     padding: 13px clamp(8px, 0.7vw, 13px) !important;
     text-transform: uppercase;

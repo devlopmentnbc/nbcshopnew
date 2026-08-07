@@ -5623,7 +5623,7 @@
                     <div class="header-right">
 
                         <!-- Shop All Button -->
-                        <div class="d-none d-xl-flex align-items-center me-2">
+                        <!-- <div class="d-none d-xl-flex align-items-center me-2">
                             <a href="{{ route('shop') }}"
                                class="rbt-btn rbt-btn-sm btn-gradient nbc-shop-all-btn"
                                style="
@@ -5649,7 +5649,7 @@
                                 <i class="fa-regular fa-bag-shopping"></i>
                                 Shop All
                             </a>
-                        </div>
+                        </div> -->
 
                         <!-- Navbar Icons -->
                         <ul class="rbt-quick-access rbt-gap--12">

@@ -14,78 +14,79 @@ class WishlistController extends Controller
         if (!Auth::check()) {
             return response()->json([
                 'authenticated' => false,
-                'count' => 0,
-                'items' => [],
-                'details' => [],
+                'count'         => 0,
+                'items'         => [],
+                'details'       => [],
             ]);
         }
 
-        $wishlists = Auth::user()->wishlists()->with('product')->get();
+        $wishlists = Auth::user()->wishlists()->get();
 
-        $items = [];
+        $items   = [];
         $details = [];
 
+        $defaultImage = asset('assets/images/nbc/Nature\'s Secret/nature-secrets-logo.png');
+
         foreach ($wishlists as $w) {
-            $key = $w->product_id ? (string) $w->product_id : (string) $w->product_key;
+            // The key we use to match heart-button state on product cards
+            $key = $w->product_id
+                ? (string) $w->product_id
+                : (string) $w->product_key;
+
             $items[] = $key;
 
-            $name = 'Product #' . $key;
-            $image = asset('admin-assets/images/nbcimages/Brand Pics 2/Anti Dandruff.png');
-            $price = 'LKR 0.00';
-            $sku = '#' . $key;
-            $url = route('shop');
+            // ---------- resolve product ----------
+            $prod = null;
 
-            if ($w->product) {
-                $name = $w->product->name;
-                $image = $w->product->image ? asset($w->product->image) : $image;
-                $price = $w->product->formattedPrice();
-                $sku = $w->product->sku ?: ('#' . $w->product->id);
-                $url = route('product.details', ['product' => $w->product->slug ?? $w->product->id]);
-            } else if ($w->product_key) {
-                // Try to find matching Product by slug or id
-                $prod = Product::where('slug', $w->product_key)
-                    ->orWhere('id', $w->product_key)
-                    ->first();
-
-                if ($prod) {
-                    $name = $prod->name;
-                    $image = $prod->image ? asset($prod->image) : $image;
-                    $price = $prod->formattedPrice();
-                    $sku = $prod->sku ?: ('#' . $prod->id);
-                    $url = route('product.details', ['product' => $prod->slug ?? $prod->id]);
-                } else {
-                    $name = ucwords(str_replace(['-', '_'], ' ', $w->product_key));
-                    $sku = '#' . strtoupper(substr(md5($w->product_key), 0, 6));
-
-                    if (str_contains(strtolower($w->product_key), 'dandruff')) {
-                        $image = asset('admin-assets/images/nbcimages/Brand Pics 2/Anti Dandruff.png');
-                        $price = 'LKR 450.00';
-                    } else if (str_contains(strtolower($w->product_key), 'cucumber')) {
-                        $image = asset('admin-assets/images/nbcimages/Brand Pics 2/cucumber facial wash.png');
-                        $price = 'LKR 380.00';
-                    } else if (str_contains(strtolower($w->product_key), 'oil')) {
-                        $image = asset('admin-assets/images/nbcimages/Brand Pics 2/Hair oil 1.png');
-                        $price = 'LKR 620.00';
-                    }
-                }
+            if ($w->product_id) {
+                $prod = Product::find($w->product_id);
             }
 
-            $details[] = [
-                'id' => $w->id,
-                'key' => $key,
-                'name' => $name,
-                'image' => $image,
-                'price' => $price,
-                'sku' => $sku,
-                'url' => $url,
-            ];
+            if (!$prod && $w->product_key) {
+                $prod = Product::where('slug', $w->product_key)
+                    ->orWhere('id', is_numeric($w->product_key) ? (int) $w->product_key : null)
+                    ->first();
+            }
+
+            // ---------- build detail entry ----------
+            if ($prod) {
+                // Resolve image URL — products stored in public/uploads/products/
+                $imageUrl = $prod->image
+                    ? asset($prod->image)
+                    : $defaultImage;
+
+                $details[] = [
+                    'id'    => $w->id,
+                    'key'   => $key,
+                    'name'  => $prod->name,
+                    'image' => $imageUrl,
+                    'price' => method_exists($prod, 'formattedPrice')
+                        ? $prod->formattedPrice()
+                        : 'LKR ' . number_format($prod->price ?? 0, 2),
+                    'sku'   => $prod->sku ?: ('#' . $prod->id),
+                    'url'   => route('product.details', ['slug' => $prod->slug ?? $prod->id]),
+                ];
+            } else {
+                // Wishlist entry with no matching product in DB
+                $details[] = [
+                    'id'    => $w->id,
+                    'key'   => $key,
+                    'name'  => $w->product_key
+                        ? ucwords(str_replace(['-', '_'], ' ', $w->product_key))
+                        : 'Product #' . $key,
+                    'image' => $defaultImage,
+                    'price' => '—',
+                    'sku'   => '#' . strtoupper(substr(md5($key), 0, 6)),
+                    'url'   => route('shop'),
+                ];
+            }
         }
 
         return response()->json([
             'authenticated' => true,
-            'count' => count($items),
-            'items' => $items,
-            'details' => $details,
+            'count'         => count($items),
+            'items'         => $items,
+            'details'       => $details,
         ]);
     }
 
@@ -94,33 +95,38 @@ class WishlistController extends Controller
         if (!Auth::check()) {
             return response()->json([
                 'authenticated' => false,
-                'message' => 'Please sign in to add items to your wishlist.',
+                'message'       => 'Please sign in to add items to your wishlist.',
             ], 401);
         }
 
-        $userId = Auth::id();
+        $userId    = Auth::id();
         $productId = $request->input('product_id');
         $productKey = $request->input('product_key');
 
         if (!$productId && !$productKey) {
             return response()->json([
                 'authenticated' => true,
-                'message' => 'Invalid product reference.',
+                'message'       => 'Invalid product reference.',
             ], 400);
         }
 
+        // If productKey looks numeric, try treating it as product_id
+        if (!$productId && $productKey && is_numeric($productKey)) {
+            $productId  = (int) $productKey;
+            $productKey = null;
+        }
+
         $query = Wishlist::where('user_id', $userId);
+
         if ($productId) {
-            $query->where('product_id', $productId);
-        } else {
-            $query->where(function($q) use ($productId, $productKey) {
-                if ($productId) {
-                    $q->where('product_id', $productId);
-                }
+            $query->where(function ($q) use ($productId, $productKey) {
+                $q->where('product_id', $productId);
                 if ($productKey) {
                     $q->orWhere('product_key', $productKey);
                 }
             });
+        } else {
+            $query->where('product_key', $productKey);
         }
 
         $existing = $query->first();
@@ -130,8 +136,8 @@ class WishlistController extends Controller
             $added = false;
         } else {
             Wishlist::create([
-                'user_id' => $userId,
-                'product_id' => $productId ?: null,
+                'user_id'     => $userId,
+                'product_id'  => $productId ?: null,
                 'product_key' => $productKey ?: null,
             ]);
             $added = true;
@@ -141,9 +147,11 @@ class WishlistController extends Controller
 
         return response()->json([
             'authenticated' => true,
-            'added' => $added,
-            'count' => $count,
-            'message' => $added ? 'Product added to your wishlist.' : 'Product removed from your wishlist.',
+            'added'         => $added,
+            'count'         => $count,
+            'message'       => $added
+                ? 'Product added to your wishlist.'
+                : 'Product removed from your wishlist.',
         ]);
     }
 }
