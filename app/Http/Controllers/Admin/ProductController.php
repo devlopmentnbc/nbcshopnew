@@ -58,6 +58,14 @@ class ProductController extends Controller
     }
 
     /**
+     * Redirect the resource show route to the existing product editor.
+     */
+    public function show(Product $product)
+    {
+        return redirect()->route('admin.products.edit', $product);
+    }
+
+    /**
      * Store a newly created product in storage.
      */
     public function store(Request $request)

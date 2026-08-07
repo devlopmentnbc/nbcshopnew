@@ -3487,7 +3487,7 @@
     <!-- End Wishlist Modal Area  -->
 
     <div class="rbt-breadcrumb-two rbt-bg-color-white nbc-product-breadcrumb">
-        <div class="container">
+      <!--  <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="rbt-breadcrumb-inner d-flex align-items-center justify-content-between">
@@ -3604,7 +3604,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <!-- Start Component Area -->

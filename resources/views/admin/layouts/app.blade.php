@@ -200,7 +200,7 @@
   <!-- Header: workspace switcher + collapse toggle -->
   <div class="sidebar-header relative flex items-center gap-2 p-3">
     <a href="{{ route('admin.dashboard') }}" class="ws-switch flex flex-1 items-center gap-2 rounded-base px-2 py-1.5" aria-label="Unimart dashboard">
-      <img src="{{ asset('admin-assets/images/logo/logo.webp') }}" alt="Unimart" width="142" height="32" decoding="async" class="logo-full h-8 w-auto dark:hidden max-w-[300px]">
+      <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart" width="142" height="32" decoding="async" class="logo-full h-8 w-auto dark:hidden max-w-[300px]">
       <img src="{{ asset('admin-assets/images/logo/logo-blackbg.webp') }}" alt="Unimart" width="142" height="32" loading="lazy" decoding="async" class="logo-full hidden h-8 w-auto dark:block">
       <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart" width="36" height="36" loading="lazy" decoding="async" class="logo-mark hidden h-9 w-9 shrink-0 rounded-lg object-contain">
     </a>
