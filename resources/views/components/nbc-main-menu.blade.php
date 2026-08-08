@@ -9,7 +9,7 @@
             'panda-baby' => 'Panda Baby',
             'sucses' => 'SUCSES',
             'selfie' => 'Selfie',
-            'elithe' => 'elithé',
+            'elithe' => 'Elithé',
         ],
         'Skin Care' => [
             'all-skin' => 'All Skin',
@@ -71,7 +71,8 @@
         @php($firstSlug = array_key_first($items))
         <li class="has-dropdown has-menu-child-item">
             <a href="https://www.nbc.lk/shop/category/{{ $firstSlug }}">
-                {{ $groupName }} <i class="fa-regular fa-chevron-down"></i>
+                <span class="nbc-main-menu__label">{{ $groupName }}</span><i class="fa-regular fa-chevron-down"
+                    aria-hidden="true"></i>
             </a>
             <ul class="submenu">
                 @foreach ($items as $slug => $label)
