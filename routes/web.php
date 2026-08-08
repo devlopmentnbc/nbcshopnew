@@ -14,10 +14,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\FeaturedProductController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Models\Product;
 use App\Models\Banner;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ProductDetailsController;
+use App\Http\Controllers\ProductReviewController;
 
 // Public Front-End Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,30 +26,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 
 
-Route::get('/product-details/{slug?}', function ($slug = null) {
-    $identifier = $slug ?? request()->query('slug') ?? request()->query('id');
-    $product = null;
-
-    if ($identifier) {
-        $product = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images'])
-            ->where(function ($query) use ($identifier) {
-                $query->where('slug', $identifier);
-                if (is_numeric($identifier)) {
-                    $query->orWhere('id', (int) $identifier);
-                }
-            })
-            ->first();
-    }
-
-    if (!$product) {
-        $product = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images'])
-            ->where('status', true)
-            ->latest()
-            ->first();
-    }
-
-    return view('product-details', compact('product'));
-})->name('product.details');
+Route::get('/product-details/{slug?}', [ProductDetailsController::class, 'show'])
+    ->name('product.details');
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -84,6 +63,8 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/products/{product}/reviews', [ProductReviewController::class, 'store'])
+        ->name('product.reviews.store');
 });
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
