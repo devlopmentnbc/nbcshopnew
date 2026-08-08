@@ -3648,6 +3648,209 @@ body {
 }
 
 /* Product details: clean editorial gallery and compact purchase panel */
+.rbt-minicart-bottom-section {
+    bottom: 0 !important;
+    transform: translateY(calc(100% + 2px));
+    transition: transform 0.4s ease;
+}
+
+.rbt-minicart-bottom-section.rbt-minicart-bottom-section-active {
+    bottom: 0 !important;
+    transform: translateY(0);
+}
+
+.nbc-product-tab-content {
+    color: var(--text-color);
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+}
+
+.nbc-product-tab-content > :last-child {
+    margin-bottom: 0;
+}
+
+.nbc-product-tab-content img {
+    border-radius: 12px;
+    height: auto;
+    max-width: 100%;
+}
+
+.nbc-product-tab-content ul,
+.nbc-product-tab-content ol {
+    padding-left: 1.4em;
+}
+
+.nbc-product-reviews {
+    color: var(--text-color);
+}
+
+.nbc-product-reviews__summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-bottom: 24px;
+}
+
+.nbc-product-reviews__summary > strong {
+    color: var(--primary-color);
+    font-size: 34px;
+}
+
+.nbc-product-reviews__summary p {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+.nbc-product-review {
+    border-bottom: 1px solid var(--divider-color);
+    padding: 20px 0;
+}
+
+.nbc-product-review__heading {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.nbc-product-review__heading strong,
+.nbc-product-review__heading span {
+    display: block;
+}
+
+.nbc-product-review h3 {
+    font-size: 18px;
+    margin: 14px 0 6px;
+}
+
+.nbc-product-review p,
+.nbc-product-reviews__empty {
+    margin: 8px 0 0;
+}
+
+.nbc-product-review-form {
+    background: var(--secondary-color);
+    border: 1px solid var(--divider-color);
+    border-radius: 12px;
+    margin-top: 30px;
+    padding: 24px;
+}
+
+.nbc-product-review-form h3 {
+    margin: 0 0 20px;
+}
+
+.nbc-product-review-form label {
+    color: var(--primary-color);
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.nbc-product-review-form__field {
+    margin-bottom: 22px;
+}
+
+.nbc-product-review-form__label {
+    color: var(--primary-color);
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.nbc-review-star-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 1px;
+    width: fit-content;
+}
+
+.nbc-review-star-input input[type="radio"] {
+    display: none !important;
+}
+
+.nbc-review-star-input label::before,
+.nbc-review-star-input label::after {
+    content: none !important;
+    display: none !important;
+}
+
+.nbc-review-star-input label {
+    color: transparent;
+    cursor: pointer;
+    font-size: 34px;
+    line-height: 1;
+    margin: 0;
+    -webkit-text-stroke: 2px var(--accent-color);
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.nbc-review-star-input label:hover,
+.nbc-review-star-input label:hover ~ label,
+.nbc-review-star-input input:checked ~ label {
+    color: var(--accent-color);
+}
+
+.nbc-review-star-input input:focus-visible + label {
+    border-radius: 4px;
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+.nbc-review-star-input label:hover {
+    transform: scale(1.08);
+}
+
+.nbc-product-review-form input,
+.nbc-product-review-form select,
+.nbc-product-review-form textarea {
+    background: var(--white-color);
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    min-height: 48px;
+    padding: 10px 14px;
+    width: 100%;
+}
+
+.nbc-review-submit {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    min-width: 220px;
+}
+
+.nbc-product-review-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.nbc-product-reviews__login {
+    background: var(--secondary-color);
+    border-radius: 10px;
+    margin-top: 24px;
+    padding: 16px 18px;
+}
+
+.nbc-product-reviews__login a {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+@media (max-width: 575px) {
+    .nbc-product-review__heading {
+        display: block;
+    }
+
+    .nbc-product-review__heading > span {
+        margin-top: 8px;
+    }
+
+    .nbc-product-review-form {
+        padding: 18px;
+    }
+}
+
 .nbc-product-breadcrumb {
     padding-top: 125px !important;
 }
