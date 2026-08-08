@@ -3496,16 +3496,23 @@
                             <li>
                                 <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item"><a href="#">Products</a></li>
+                            <li class="rbt-breadcrumb-item"><a href="{{ route('shop') }}">Shop</a></li>
                             <li>
                                 <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item"><a href="#">Headphones</a></li>
-                            <li>
-                                <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
+                            @if ($product?->category)
+                                <li class="rbt-breadcrumb-item">
+                                    <a href="{{ route('shop', ['category' => $product->category->slug ?: $product->category->id]) }}">
+                                        {{ $product->category->name }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
+                                </li>
+                            @endif
+                            <li class="rbt-breadcrumb-item active" aria-current="page">
+                                {{ $product?->name ?? 'Product Details' }}
                             </li>
-                            <li class="rbt-breadcrumb-item active">Beats Wireless Earbuds with Charging Case - Bluetooth
-                                In-Ear Headphones</li>
                         </ul>
 
                         <div class="rbt-single-nav">
@@ -3604,7 +3611,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 
     <!-- Start Component Area -->
@@ -4537,11 +4544,14 @@
                                 </li>
                             </ul>
                         </div>
+                        @if (false)
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="rbt-description" role="tabpanel"
                                 aria-labelledby="rbt-description-tab">
                                 <div class="rbt-product-single-description">
-                                    <h2 class="rbt-block-title h6 mb--0">Immersive visuals</h2>
+                                    <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
+                                        {!! filled($product?->description) ? $product->description : '<p>Description is not available for this product.</p>' !!}
+                                    </div>
                                     <!-- <p class="rbt-block-desc b1 mb--0 mt--12">Quisque varius diam vel metus mattis, id aliquam diam rhoncus.
                         Proin vitae
                         magna in dui finibus malesuada et at nulla. Morbi elit ex, viverra vitae ante vel, blandit feugiat
@@ -4639,6 +4649,11 @@
                             </div>
                             <div class="tab-pane fade" id="rbt-specification" role="tabpanel"
                                 aria-labelledby="rbt-specification-tab">
+                                <div class="rbt-product-single-description">
+                                    <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
+                                        {!! filled($product?->how_to_use) ? $product->how_to_use : '<p>Usage instructions are not available for this product.</p>' !!}
+                                    </div>
+                                </div>
                                 <!-- <div class="rbt-prd-single-specification-info">
                     <div class="rbt-single-specification">
                         <label class="b1 title">Brand :</label>
@@ -4709,6 +4724,11 @@
                             <div class="tab-pane fade" id="rbt-reviews" role="tabpanel"
                                 aria-labelledby="rbt-reviews-tab">
                                 <div class="rbt-product-single-reviews-area">
+                                    <div class="rbt-product-single-description">
+                                        <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
+                                            {!! filled($product?->ingredients) ? $product->ingredients : '<p>Ingredient information is not available for this product.</p>' !!}
+                                        </div>
+                                    </div>
                                     <!-- <div class="rbt-review-statistics-section">
                         <div class="row row--12 mt_dec--24">
                             <div class="col-md-6 mt--24">
@@ -5046,7 +5066,89 @@
 
                         </div>
 
-                        <!-- <div class="tab-pane fade" id="rbt-question" role="tabpanel"
+                        <div class="tab-pane fade" id="rbt-question" role="tabpanel"
+                            aria-labelledby="rbt-question-tab">
+                            <div class="nbc-product-reviews">
+                                <div class="nbc-product-reviews__summary">
+                                    <strong>{{ number_format((float) ($product?->reviews->avg('rating') ?? 0), 1) }}</strong>
+                                    <span>
+                                        @for ($star = 1; $star <= 5; $star++)
+                                            <i class="fa-solid fa-star {{ $star <= round($product?->reviews->avg('rating') ?? 0) ? 'rbt-rated-icon' : '' }}"></i>
+                                        @endfor
+                                    </span>
+                                    <p>{{ $product?->reviews->count() ?? 0 }} verified customer {{ ($product?->reviews->count() ?? 0) === 1 ? 'review' : 'reviews' }}</p>
+                                </div>
+
+                                @if (session('review_success'))
+                                    <div class="alert alert-success">{{ session('review_success') }}</div>
+                                @endif
+
+                                <div class="nbc-product-reviews__list">
+                                    @forelse ($product?->reviews ?? collect() as $review)
+                                        <article class="nbc-product-review">
+                                            <div class="nbc-product-review__heading">
+                                                <div>
+                                                    <strong>{{ $review->user?->name ?? 'NBC customer' }}</strong>
+                                                    <span>{{ $review->created_at->format('d M Y') }}</span>
+                                                </div>
+                                                <span aria-label="{{ $review->rating }} out of 5 stars">
+                                                    @for ($star = 1; $star <= 5; $star++)
+                                                        <i class="fa-solid fa-star {{ $star <= $review->rating ? 'rbt-rated-icon' : '' }}"></i>
+                                                    @endfor
+                                                </span>
+                                            </div>
+                                            @if ($review->title)
+                                                <h3>{{ $review->title }}</h3>
+                                            @endif
+                                            <p>{{ $review->comment }}</p>
+                                        </article>
+                                    @empty
+                                        <p class="nbc-product-reviews__empty">There are no reviews yet. Be the first to review this product.</p>
+                                    @endforelse
+                                </div>
+
+                                @auth
+                                    <form class="nbc-product-review-form" method="POST"
+                                        action="{{ route('product.reviews.store', $product) }}">
+                                        @csrf
+                                        <h3>Write a review</h3>
+                                        <div class="row row--12">
+                                            <div class="col-md-4 mb--16">
+                                                <label for="review-rating">Rating</label>
+                                                <select id="review-rating" name="rating" required>
+                                                    <option value="">Choose a rating</option>
+                                                    @foreach ([5, 4, 3, 2, 1] as $rating)
+                                                        <option value="{{ $rating }}" @selected(old('rating') == $rating)>{{ $rating }} stars</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-8 mb--16">
+                                                <label for="review-title">Review title</label>
+                                                <input id="review-title" name="title" maxlength="120"
+                                                    value="{{ old('title') }}" placeholder="Summarise your experience">
+                                            </div>
+                                            <div class="col-12 mb--16">
+                                                <label for="review-comment">Your review</label>
+                                                <textarea id="review-comment" name="comment" maxlength="2000" required
+                                                    placeholder="Tell others about this product">{{ old('comment') }}</textarea>
+                                            </div>
+                                        </div>
+                                        @if ($errors->hasAny(['rating', 'title', 'comment']))
+                                            <div class="alert alert-danger">
+                                                @foreach (['rating', 'title', 'comment'] as $field)
+                                                    @error($field)<div>{{ $message }}</div>@enderror
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        <button class="rbt-btn rbt-btn-md" type="submit">Submit Review</button>
+                                    </form>
+                                @else
+                                    <p class="nbc-product-reviews__login">Please <a href="{{ route('login') }}">sign in</a> to write a review.</p>
+                                @endauth
+                            </div>
+                        </div>
+
+                        <!-- <div class="tab-pane fade" id="rbt-question-template" role="tabpanel"
                             aria-labelledby="rbt-question-tab">
                             <div class="rbt-prd-single-faq-section">
                                 <div class="rbt-section-title-area rbt-bg-color-gray-light">
@@ -5165,6 +5267,8 @@
                             </div>
                         </div>-->
                     </div>
+                    @endif
+                    @include('components.product-detail-tabs', ['product' => $product])
                 </div>
             </div>
             <div class="col-xl-4 mt--24 rbt-single-mobile-view-sidebar">
@@ -6027,7 +6131,7 @@
                 <div class="row rbt-section-gap2Top pt_sm--100 pt_md--80 pt--0">
                     <div class="col-lg-12 rbt-fshape-row position-relative">
                         <div class="rbt-component-section-title rbt-bg-color-white">
-                            <h2 class="rbt-title text-start h4"><span class="rbt-bold--text">Similar items</span></h2>
+                            <h2 class="rbt-title text-start h4"><span class="rbt-bold--text">Similar Products</span></h2>
                             <span class="rbt-fshape-right-portion">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="52" height="50"
                                     viewbox="0 0 52 50" fill="none">
@@ -6050,8 +6154,19 @@
                     </div>
                 </div>
 
-                <div class="rbt-component-area rbt-fshape-box rbt-bg-color-white">
+                <div class="rbt-component-area rbt-fshape-box rbt-bg-color-white nbc-product-section">
                     <!-- Start Card Area -->
+                    <div class="row row--12 mt_dec--24 nbc-similar-products-grid">
+                        @forelse ($similarProducts as $similarProduct)
+                            <x-nbc-product-card :product="$similarProduct" :animation-order="($loop->iteration % 4) + 1" />
+                        @empty
+                            <div class="col-12 mt--24">
+                                <p class="mb--0 text-center">No similar products are available at the moment.</p>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    @if (false)
                     <div class="row row--12 mt_dec--24">
                         <!-- Start Single Card  -->
                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6 mt--24">
@@ -6457,6 +6572,7 @@
                         <!-- End Single Card  -->
 
                     </div>
+                    @endif
                     <!-- End Card Area -->
                 </div>
             </div>
