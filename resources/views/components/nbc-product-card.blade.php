@@ -27,7 +27,7 @@
         <div class="rbt-card-img top-rounded-md">
             <a href="{{ $detailUrl }}">
                 <img class="rbt-scroll-trigger fade_in animation-order-{{ $animationOrder }} rbt-prd-img"
-                    src="{{ $image }}" alt="{{ $name }}" style="height: 200px; object-fit: contain; padding: 10px;">
+                    src="{{ $image }}" alt="{{ $name }}">
             </a>
             <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips nbc-wishlist-toggle"
                 type="button" data-product-id="{{ $id }}"
@@ -53,12 +53,12 @@
                     <p class="rating-digit">(5.0)</p>
                 </div>
                 <div class="pricing-part">
-                    <span class="price-text font-weight-bold text-success">{{ $priceFormatted }}</span>
+                    <span class="price-text">{{ $priceFormatted }}</span>
                 </div>
             </div>
 
-            <div class="rbt-card-footer d-flex footer-content-btn mt-3">
-                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation nbc-add-to-cart w-100 justify-content-center" href="#"
+            <div class="rbt-card-footer d-flex footer-content-btn">
+                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation nbc-add-to-cart" href="#"
                     data-product-id="{{ $id }}"
                     data-product-name="{{ $name }}"
                     data-product-price="{{ $priceFormatted }}"
