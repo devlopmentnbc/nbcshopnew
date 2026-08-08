@@ -97,6 +97,7 @@ Route::post('/admin/login', [AdminAuthController::class, 'adminLogin'])->name('a
 Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name('admin.logout');
 
 use App\Http\Controllers\Admin\ShippingSettingController;
+use App\Http\Controllers\Admin\OrderController;
 
 // Protected Admin Routes
 Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
@@ -112,6 +113,13 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::resource('promotions', PromotionController::class)->except('show');
     Route::get('categories/{category}/sub-categories', [ProductController::class, 'getSubCategories'])->name('categories.sub-categories');
     Route::delete('product-images/{image}', [ProductController::class, 'destroyGalleryImage'])->name('products.gallery.destroy');
+
+    // Admin Orders
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::patch('orders/{order}/payment-status', [OrderController::class, 'updatePaymentStatus'])->name('orders.updatePaymentStatus');
+    Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 
     // Shipping Settings (Sri Lanka domestic rate & free shipping threshold)
     Route::get('settings/shipping', [ShippingSettingController::class, 'index'])->name('settings.shipping.index');

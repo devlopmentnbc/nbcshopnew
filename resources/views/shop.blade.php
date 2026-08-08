@@ -11,11 +11,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="breadcrumb-inner text-center">
+                <div class="rbt-breadcrumb-inner text-center">
                     <h2 class="title mb--6 h3">Shop Our Products</h2>
-                    <ul class="page-list justify-content-center">
+                    <ul class="rbt-breadcrumb-page-list justify-content-center mt--0">
                         <li class="rbt-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="icon-right"><i class="fa-regular fa-chevron-right"></i></li>
+                        <li>
+                            <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
+                        </li>
                         <li class="rbt-breadcrumb-item active">Shop</li>
                     </ul>
                 </div>
@@ -24,7 +26,7 @@
     </div>
 </div>
 
-<div class="rbt-shop-area ptb--50 bg-color-extra-two" style="background-color: #f8fafc;">
+<div class="rbt-shop-area ptb--50 bg-color-extra-two" style="background-color: #f8fafc;padding-top:80px; padding-bottom:80px;">
     <div class="container">
         <div class="row g-4">
             
@@ -102,17 +104,17 @@
                 <!-- Sorting & Top Bar -->
                 <div class="card border-0 shadow-sm rounded-16 p-3 bg-white mb-4">
                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div class="text-muted small">
+                        <div class="text-muted" style="font-size: 12px;">
                             Showing <span class="fw-bold text-dark">{{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }}</span> of <span class="fw-bold text-dark">{{ $products->total() }}</span> products
                         </div>
 
                         <div class="d-flex align-items-center gap-2">
-                            <label class="small fw-bold text-dark mb-0 me-1">Sort By:</label>
+                            <label class="fw-bold text-dark mb-0 me-1" style="font-size: 12px;">Sort By:</label>
                             <form method="GET" action="{{ route('shop') }}" class="m-0" id="sort-form">
                                 @foreach(request()->except(['sort', 'page']) as $k => $v)
                                     <input type="hidden" name="{{ $k }}" value="{{ $v }}">
                                 @endforeach
-                                <select name="sort" class="form-select form-select-sm rounded-12 py-1 px-3" onchange="document.getElementById('sort-form').submit()">
+                                <select name="sort" class="form-select form-select-sm rounded-12 py-1 ps-3 pe-4" style="font-size: 12px; cursor: pointer;" onchange="document.getElementById('sort-form').submit()">
                                     <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest Products</option>
                                     <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name (A to Z)</option>
                                     <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Name (Z to A)</option>

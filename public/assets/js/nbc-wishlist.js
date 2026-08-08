@@ -150,18 +150,16 @@
         },
 
         renderModalItems: function(details) {
-            var container = $('.nbc-wishlist-modal-items');
-            if (!container.length) return;
+            var tbody = $('.nbc-wishlist-table-body, .rbt-wishlist-table tbody');
+            if (!tbody.length) return;
 
             if (!details || details.length === 0) {
-                container.html(`
-                    <div class="text-center py-5">
-                        <div style="width:72px;height:72px;background:#fef2f2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                            <i class="fa-regular fa-heart" style="font-size:28px;color:#e53935;"></i>
-                        </div>
-                        <h6 class="fw-bold text-dark mb-1">Your Wishlist is Empty</h6>
-                        <p class="text-muted small mb-0">Browse products and click the <i class="fa-regular fa-heart text-danger"></i> icon to save your favourites here!</p>
-                    </div>
+                tbody.html(`
+                    <tr>
+                        <td colspan="4" class="text-center py-4">
+                            <p class="mb-0 rbt-text-bold">Your wishlist is empty</p>
+                        </td>
+                    </tr>
                 `);
                 return;
             }
@@ -169,47 +167,46 @@
             var html = '';
             $.each(details, function(idx, item) {
                 html += `
-                    <div class="nbc-wishlist-item d-flex align-items-center gap-3 py-3 ${idx > 0 ? 'border-top' : ''}"
-                         data-wishlist-key="${item.key}">
-
-                        <!-- Product Image -->
-                        <a href="${item.url}" style="flex-shrink:0;">
-                            <img src="${item.image}" alt="${item.name}"
-                                 style="width:64px;height:64px;object-fit:contain;border-radius:12px;border:1px solid #e5e7eb;background:#f9f9f9;padding:4px;">
-                        </a>
-
-                        <!-- Product Info -->
-                        <div class="flex-grow-1 min-width-0">
-                            <a href="${item.url}" class="text-dark fw-semibold text-decoration-none d-block"
-                               style="font-size:14px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px;"
-                               title="${item.name}">${item.name}</a>
-                            <div class="fw-bold mt-1" style="color:#2e7d32;font-size:15px;">${item.price}</div>
-                            <div class="text-muted" style="font-size:11px;">${item.sku}</div>
-                        </div>
-
-                        <!-- Actions -->
-                        <div class="d-flex flex-column gap-2" style="flex-shrink:0;">
-                            <a href="${item.url}"
-                               class="btn btn-sm btn-success rounded-pill nbc-add-to-cart"
-                               data-product-id="${item.key}"
-                               data-product-name="${item.name}"
-                               data-product-price="${item.price}"
-                               data-product-image="${item.image}"
-                               data-product-url="${item.url}"
-                               style="font-size:12px;font-weight:600;white-space:nowrap;background:linear-gradient(135deg,#2e7d32,#66bb6a);border:none;padding:5px 14px;">
-                                <i class="fa-regular fa-cart-shopping me-1"></i>Add to Cart
-                            </a>
-                            <button class="btn btn-sm btn-outline-danger rounded-pill nbc-wishlist-remove"
-                                    data-wishlist-key="${item.key}"
-                                    style="font-size:12px;font-weight:600;padding:4px 14px;">
-                                <i class="fa-solid fa-xmark me-1"></i>Remove
+                    <tr>
+                        <td class="rbt-product-remove-btn-wrapper">
+                            <button class="rbt-product-remove-btn rbt-round-btn nbc-wishlist-remove" data-wishlist-key="${item.key}" type="button">
+                                <span><i class="fa-solid fa-xmark"></i></span>
                             </button>
-                        </div>
-                    </div>
+                        </td>
+                        <td class="product-thumbnail">
+                            <a href="${item.url}">
+                                <img src="${item.image}" alt="${item.name}">
+                            </a>
+                        </td>
+                        <td class="rbt-wish-product-info">
+                            <div class="rbt-wish-product-name h6">
+                                <a href="${item.url}">
+                                    ${item.name}
+                                </a>
+                            </div>
+                            <div class="rbt-product-price-text rbt-text-color-primary">
+                                <span>${item.price}</span>
+                            </div>
+                            <span class="rbt-product-id"><span class="rbt-text-semi-bold">SKU:</span> ${item.sku}</span>
+                        </td>
+                        <td>
+                            <div class="rbt-button-group">
+                                <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="${item.url}"
+                                    data-product-id="${item.key}"
+                                    data-product-name="${item.name}"
+                                    data-product-price="${item.price}"
+                                    data-product-image="${item.image}"
+                                    data-product-url="${item.url}">
+                                    <i class="fa-regular fa-cart-shopping"></i>
+                                    Add To Cart
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 `;
             });
 
-            container.html(html);
+            tbody.html(html);
         }
     };
 

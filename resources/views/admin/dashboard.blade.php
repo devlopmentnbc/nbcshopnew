@@ -1,575 +1,292 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Admin Dashboard - Unimart')
+@section('title', 'Admin Dashboard - Nature\'s Beauty Creations')
 
 @section('content')
 <main class="px-4 py-6 lg:px-6 min-h-[calc(100vh-140px)]">
-        <div class="mb-6 flex flex-wrap items-center justify-center lg:justify-between gap-3 text-center lg:text-left">
-          <div>
-            <h1 class="lg:text-[24px] text-[20px] font-semibold text-ink-900">Welcome back, Emay 👋</h1>
-            <p class="mt-1 text-[14px] text-ink-500">Here's what's happening in your store today.</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button type="button" class="inline-flex h-11 items-center gap-2 rounded-base border border-surface-line px-4 text-[14px] font-semibold text-ink-700 transition-colors hover:bg-surface-muted">
-              <i data-lucide="download" class="h-4 w-4"></i>
-              Export
-            </button>
-            <a href="add-product.html" class="inline-flex h-11 items-center gap-2 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-700">
-              <i data-lucide="plus" class="h-4 w-4"></i>
-              Add Product
+    <!-- Welcome Header -->
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-left">
+        <div>
+            <h1 class="lg:text-[24px] text-[20px] font-semibold text-ink-900">
+                Welcome back, {{ Auth::user() ? Auth::user()->name : 'Admin' }} 👋
+            </h1>
+            <p class="mt-1 text-[14px] text-ink-500">Here's real-time sales, order, and product reports for Nature's Beauty Creations.</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('admin.orders.index') }}" class="inline-flex h-11 items-center gap-2 rounded-base border border-surface-line px-4 text-[14px] font-semibold text-ink-700 transition-colors hover:bg-surface-muted">
+                <i data-lucide="shopping-bag" class="h-4 w-4 text-brand-600"></i>
+                View All Orders
             </a>
-          </div>
+            <a href="{{ route('admin.products.create') }}" class="inline-flex h-11 items-center gap-2 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-700">
+                <i data-lucide="plus" class="h-4 w-4"></i>
+                Add Product
+            </a>
         </div>
-        <div class="mb-6">
-          <a href="../index.htm" class="inline-flex w-full items-center gap-2 overflow-hidden rounded-base">
-            <img src="{{ asset('admin-assets/images/banner/main-banner-01-1280.webp') }}" srcset="assets/images/banner/main-banner-01-640.webp 640w, assets/images/banner/main-banner-01-1280.webp 1280w, assets/images/banner/main-banner-01.webp 1856w" sizes="(min-width: 1024px) calc(100vw - 326px), calc(100vw - 32px)" alt="Unimart product promotion" width="1856" height="288" fetchpriority="high" decoding="async" class="h-auto w-full object-cover">
-          </a>
+    </div>
+
+    <!-- Banner -->
+
+
+    <!-- Metric Cards -->
+    <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4" aria-label="Dashboard metrics">
+        <!-- Total Revenue -->
+        <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+            <div class="flex items-center justify-between gap-4">
+                <div class="border-l-2 border-admin-teal pl-3">
+                    <p class="text-[14px] font-medium text-ink-400">Total Revenue</p>
+                    <div class="mt-1 flex flex-wrap items-center gap-2">
+                        <strong class="text-[24px] font-bold leading-none text-ink-900">LKR {{ number_format($totalRevenue, 2) }}</strong>
+                    </div>
+                    <p class="text-[12px] text-ink-500 mt-1">Paid & Completed Orders</p>
+                </div>
+                <div class="grid h-12 w-12 place-items-center rounded-base bg-success-50 text-admin-teal">
+                    <i data-lucide="circle-dollar-sign" class="h-6 w-6"></i>
+                </div>
+            </div>
+        </article>
+
+        <!-- Total Orders -->
+        <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+            <div class="flex items-center justify-between gap-4">
+                <div class="border-l-2 border-brand-500 pl-3">
+                    <p class="text-[14px] font-medium text-ink-400">Total Orders</p>
+                    <div class="mt-1 flex flex-wrap items-center gap-2">
+                        <strong class="text-[26px] font-bold leading-none text-ink-900">{{ number_format($totalOrders) }}</strong>
+                    </div>
+                    <p class="text-[12px] text-ink-500 mt-1">
+                        <span class="text-amber-600 font-semibold">{{ $codOrdersCount }} COD</span> · 
+                        <span class="text-indigo-600 font-semibold">{{ $cardOrdersCount }} Card</span>
+                    </p>
+                </div>
+                <div class="grid h-12 w-12 place-items-center rounded-base bg-brand-50 text-brand-600">
+                    <i data-lucide="shopping-cart" class="h-6 w-6"></i>
+                </div>
+            </div>
+        </article>
+
+        <!-- Total Products -->
+        <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+            <div class="flex items-center justify-between gap-4">
+                <div class="border-l-2 border-danger-500 pl-3">
+                    <p class="text-[14px] font-medium text-ink-400">Total Products</p>
+                    <div class="mt-1 flex flex-wrap items-center gap-2">
+                        <strong class="text-[26px] font-bold leading-none text-ink-900">{{ number_format($totalProducts) }}</strong>
+                    </div>
+                    <a href="{{ route('admin.products.index') }}" class="text-[12px] font-semibold text-danger-500 hover:underline mt-1 block">Manage Catalog &rarr;</a>
+                </div>
+                <div class="grid h-12 w-12 place-items-center rounded-base bg-danger-50 text-danger-500">
+                    <i data-lucide="package" class="h-6 w-6"></i>
+                </div>
+            </div>
+        </article>
+
+        <!-- Total Customers -->
+        <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+            <div class="flex items-center justify-between gap-4">
+                <div class="border-l-2 border-purple-500 pl-3">
+                    <p class="text-[14px] font-medium text-ink-400">Total Customers</p>
+                    <div class="mt-1 flex flex-wrap items-center gap-2">
+                        <strong class="text-[26px] font-bold leading-none text-ink-900">{{ number_format($totalCustomers) }}</strong>
+                    </div>
+                    <p class="text-[12px] text-ink-500 mt-1">Registered Customer Accounts</p>
+                </div>
+                <div class="grid h-12 w-12 place-items-center rounded-base bg-purple-50 text-purple-600">
+                    <i data-lucide="users" class="h-6 w-6"></i>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Categories Real Overview -->
+    <!-- <section class="mt-6 rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+        <div class="flex items-center justify-between gap-3">
+            <h2 class="text-[20px] font-semibold text-ink-900">Product Categories ({{ $categories->count() }})</h2>
+            <a href="{{ route('admin.categories.index') }}" class="text-[14px] font-semibold text-brand-600 hover:text-brand-700">View all categories &rarr;</a>
         </div>
+        <div class="no-scrollbar mt-5 flex flex-nowrap gap-5 overflow-x-auto pb-2">
+            @forelse ($categories as $cat)
+                <a href="{{ route('admin.products.index', ['category_id' => $cat->id]) }}" class="group min-w-[120px] text-center">
+                    <span class="mx-auto flex h-[90px] w-[90px] items-center justify-center rounded-full border border-surface-line bg-surface-body p-2 transition duration-300 group-hover:border-brand-500">
+                        @if ($cat->image)
+                            <img src="{{ asset($cat->image) }}" alt="{{ $cat->name }}" class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110 rounded-full">
+                        @else
+                            <span class="text-ink-500 font-bold text-lg">
+                                {{ strtoupper(substr($cat->name, 0, 2)) }}
+                            </span>
+                        @endif
+                    </span>
+                    <span class="mt-2 block truncate text-[14px] font-semibold text-ink-800 transition-colors group-hover:text-brand-600">
+                        {{ $cat->name }}
+                    </span>
+                    <span class="text-[12px] text-ink-400 block">
+                        {{ $cat->products_count }} {{ Str::plural('Product', $cat->products_count) }}
+                    </span>
+                </a>
+            @empty
+                <p class="text-ink-400 text-sm py-4">No categories configured yet.</p>
+            @endforelse
+        </div>
+    </section> -->
 
-        <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4" aria-label="Dashboard metrics">
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-  <div class="flex items-center justify-between gap-4">
-    <div class="border-l-2 border-admin-teal pl-3">
-      <p class="text-[15px] text-ink-400">Total Revenue</p>
-      <div class="mt-1 flex flex-wrap items-center gap-2">
-        <strong class="text-[28px] font-semibold leading-none text-ink-700">$6659</strong>
-        <span class="rounded-base px-2 py-1 text-[12px] font-semibold bg-success-50 text-success-600">+ 8.5%</span>
-      </div>
-    </div>
-    <div class="grid h-11 w-11 place-items-center rounded-base bg-success-50
-          text-admin-teal">
-      <i data-lucide="database" class="h-5 w-5"></i>
-    </div>
-  </div>
-</article>
- <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-  <div class="flex items-center justify-between gap-4">
-    <div class="border-l-2 border-brand-500 pl-3">
-      <p class="text-[15px] text-ink-400">Total Orders</p>
-      <div class="mt-1 flex flex-wrap items-center gap-2">
-        <strong class="text-[28px] font-semibold leading-none text-ink-700">9856</strong>
-        <span class="rounded-base px-2 py-1 text-[12px] font-semibold bg-brand-50 text-brand-600">+ 8.5%</span>
-      </div>
-    </div>
-    <div class="grid h-11 w-11 place-items-center rounded-base bg-brand-50
-          text-brand-600">
-      <i data-lucide="archive" class="h-5 w-5"></i>
-    </div>
-  </div>
-</article>
- <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-  <div class="flex items-center justify-between gap-4">
-    <div class="border-l-2 border-danger-500 pl-3">
-      <p class="text-[15px] text-ink-400">Total Products</p>
-      <div class="mt-1 flex flex-wrap items-center gap-2">
-        <strong class="text-[28px] font-semibold leading-none text-ink-700">893</strong>
-        <span class="rounded-base px-2 py-1 text-[12px] font-semibold bg-danger-50 text-danger-500 uppercase
-          tracking-normal">Add new</span>
-      </div>
-    </div>
-    <div class="grid h-11 w-11 place-items-center rounded-base bg-danger-50 text-danger-500">
-      <i data-lucide="message-circle" class="h-5 w-5"></i>
-    </div>
-  </div>
-</article>
- <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-  <div class="flex items-center justify-between gap-4">
-    <div class="border-l-2 border-purple-500 pl-3">
-      <p class="text-[15px] text-ink-400">Total Customers</p>
-      <div class="mt-1 flex flex-wrap items-center gap-2">
-        <strong class="text-[28px] font-semibold leading-none text-ink-700">4.6k</strong>
-        <span class="rounded-base px-2 py-1 text-[12px] font-semibold bg-purple-50
-          text-purple-600">+ 8.5%</span>
-      </div>
-    </div>
-    <div class="grid h-11 w-11 place-items-center rounded-base bg-purple-50 text-purple-600">
-      <i data-lucide="user-plus" class="h-5 w-5"></i>
-    </div>
-  </div>
-</article>
-
-        </section>
-
-        <section class="mt-6 rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-          <div class="flex items-center justify-between gap-3">
-            <h1 class="text-[20px] font-medium text-ink-900">Category</h1>
-            <div class="flex items-center gap-3">
-              <a href="categories.html" class="text-[14px] font-semibold text-brand-600 hover:text-brand-700">View all</a>
-              <div class="flex items-center gap-1.5">
-                <button type="button" data-cat-prev="" aria-label="Previous categories" class="grid h-8 w-8 place-items-center rounded-full border border-surface-line text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-ink-500">
-                  <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                    <path d="m15 18-6-6 6-6"></path>
-                  </svg>
-                </button>
-                <button type="button" data-cat-next="" aria-label="Next categories" class="grid h-8 w-8 place-items-center rounded-full border border-surface-line text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-ink-500">
-                  <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                    <path d="m9 18 6-6-6-6"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div data-cat-scroll="" class="no-scrollbar mt-5 flex flex-nowrap gap-5 overflow-x-auto pb-2">
-            <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-bg-headphones-01.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Headphones</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-01.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Charging Cable</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-02.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Power Adapter</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-03.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Power Bank</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-bg-headphones-02.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Bluetooth
-            Speaker</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-bg-headphones-03.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Mini Speaker</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-08.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Smart Watch</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-09.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Smart TV</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-10.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Wireless
-            Headphones</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-bg-headphones-04.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Portable Speaker</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-bg-headphones-05.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Microphone</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-06.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Over-Ear
-            Headphones</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-07.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Camera</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-11.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Tablet</span>
-</a>
- <a href="products.html" class="group min-w-[110px] text-center">
-  <span class="mx-auto block h-[104px] w-[104px] transition duration-300">
-    <img src="{{ asset('admin-assets/images/catagory-img/cat-transp-img-12.webp') }}" alt="" width="104" height="104" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-  </span>
-  <span class="mt-3 block truncate text-[14px] tracking-normal text-ink-600 transition-colors group-hover:text-brand-600">Gaming Mouse</span>
-</a>
-
-          </div>
-        </section>
-
-        <section class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(520px,0.95fr)]">
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <h2 class="text-[20px] font-medium text-ink-900">Revenue Report</h2>
-              <div data-revenue-toggle="" class="flex rounded-base border border-surface-line bg-surface-body p-1 text-[13px] font-semibold text-ink-500">
-                <button type="button" data-range="year" class="rounded-base bg-surface-card px-3 py-1 text-brand-600 shadow-card">
-                  Year
-                </button>
-                <button type="button" data-range="month" class="rounded-base px-3 py-1 hover:text-ink-900">
-                  Month
-                </button>
-              </div>
-            </div>
-            <div id="revenueChart" class="mt-7 min-h-[312px]" role="img" aria-label="Revenue report chart"></div>
-          </article>
-
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+    <!-- Recent Orders & Best Selling Products -->
+    <section class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <!-- Recent Orders -->
+        <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-surface-line pb-4">
-              <h2 class="text-[20px] font-medium text-ink-900">Best Selling Product</h2>
-              <label class="flex items-center gap-2 text-[14px] text-ink-700">
-                <span class="font-semibold text-ink-900">Short By:</span>
-                <select class="rounded-base border-0 bg-transparent py-1 pr-7 text-ink-700 focus:ring-2 focus:ring-brand-600">
-                  <option>Today</option>
-                  <option>This Week</option>
-                  <option>This Month</option>
-                </select>
-              </label>
+                <h2 class="text-[18px] font-semibold text-ink-900">Recent Orders</h2>
+                <a href="{{ route('admin.orders.index') }}" class="text-[13px] font-semibold text-brand-600 hover:underline">View All Orders &rarr;</a>
             </div>
-
-            <div class="dashboard-scrollbar overflow-x-auto">
-              <table class="w-full min-w-[650px] text-left">
-                <thead class="sr-only">
-                  <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Orders</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-b border-surface-line last:border-0 hover:bg-surface-body/70">
-  <td class="py-4 pr-4">
-    <div class="flex min-w-[210px] items-center gap-3">
-      <img src="{{ asset('admin-assets/images/products/organic-food-a-01.webp') }}" alt="Organic Food
-                  Pack" width="68" height="68" loading="lazy" decoding="async" class="h-[68px] w-[68px] rounded-base bg-surface-body object-cover">
-      <div>
-        <a href="products.html" class="font-semibold text-ink-900 hover:text-brand-600">Organic Food
-                  Pack</a>
-        <p class="mt-1 text-[13px] text-ink-500">26-08-2026</p>
-      </div>
-    </div>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Price</span>
-    <span class="text-ink-700">$29.00</span>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Orders</span>
-    <span class="text-ink-700">62</span>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Stock</span>
-    <span class="text-ink-700">510</span>
-  </td>
-  <td class="py-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Amount</span>
-    <span class="text-ink-700">$1,798</span>
-  </td>
-</tr>
- <tr class="border-b border-surface-line last:border-0 hover:bg-surface-body/70">
-  <td class="py-4 pr-4">
-    <div class="flex min-w-[210px] items-center gap-3">
-      <img src="{{ asset('admin-assets/images/products/bakery-product-img-02.webp') }}" alt="Bakery
-                  Breakfast Box" width="68" height="68" loading="lazy" decoding="async" class="h-[68px] w-[68px] rounded-base bg-surface-body object-cover">
-      <div>
-        <a href="products.html" class="font-semibold text-ink-900 hover:text-brand-600">Bakery
-                  Breakfast Box</a>
-        <p class="mt-1 text-[13px] text-ink-500">26-08-2026</p>
-      </div>
-    </div>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Price</span>
-    <span class="text-ink-700">$24.00</span>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Orders</span>
-    <span class="text-ink-700">48</span>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Stock</span>
-    <span class="text-ink-700">320</span>
-  </td>
-  <td class="py-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Amount</span>
-    <span class="text-ink-700">$1,152</span>
-  </td>
-</tr>
- <tr class="border-b border-surface-line last:border-0 hover:bg-surface-body/70">
-  <td class="py-4 pr-4">
-    <div class="flex min-w-[210px] items-center gap-3">
-      <img src="{{ asset('admin-assets/images/products/coffee-b-01.webp') }}" alt="Premium Coffee Pack" width="68" height="68" loading="lazy" decoding="async" class="h-[68px] w-[68px] rounded-base bg-surface-body object-cover">
-      <div>
-        <a href="products.html" class="font-semibold text-ink-900 hover:text-brand-600">Premium Coffee Pack</a>
-        <p class="mt-1 text-[13px] text-ink-500">26-08-2026</p>
-      </div>
-    </div>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Price</span>
-    <span class="text-ink-700">$36.00</span>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Orders</span>
-    <span class="text-ink-700">39</span>
-  </td>
-  <td class="py-4 pr-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Stock</span>
-    <span class="text-ink-700">188</span>
-  </td>
-  <td class="py-4">
-    <span class="block text-[13px] font-semibold text-ink-900">Amount</span>
-    <span class="text-ink-700">$1,404</span>
-  </td>
-</tr>
-
-                </tbody>
-              </table>
+            <div class="dashboard-scrollbar overflow-x-auto mt-2">
+                <table class="w-full min-w-[500px] text-left text-[14px]">
+                    <thead>
+                        <tr class="text-[12px] uppercase text-ink-400 border-b border-surface-line">
+                            <th scope="col" class="py-3 pr-4 font-semibold">Order</th>
+                            <th scope="col" class="py-3 pr-4 font-semibold">Customer</th>
+                            <th scope="col" class="py-3 pr-4 font-semibold">Payment</th>
+                            <th scope="col" class="py-3 pr-4 font-semibold">Status</th>
+                            <th scope="col" class="py-3 font-semibold text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-surface-line">
+                        @forelse ($recentOrders as $order)
+                            <tr class="hover:bg-surface-body/70 transition-colors">
+                                <td class="py-3 pr-4">
+                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="font-semibold text-brand-600 hover:underline block">
+                                        #{{ $order->order_number }}
+                                    </a>
+                                    <span class="text-[11px] text-ink-400">{{ $order->created_at ? $order->created_at->format('M d, Y') : '' }}</span>
+                                </td>
+                                <td class="py-3 pr-4 text-ink-800">
+                                    <p class="font-medium text-[13px] text-ink-900">{{ $order->name }}</p>
+                                    <p class="text-[11px] text-ink-400 font-mono">{{ $order->phone }}</p>
+                                </td>
+                                <td class="py-3 pr-4">
+                                    @if (in_array(strtolower($order->payment_method), ['cash_on_delivery', 'cod', 'cash']))
+                                        <span class="inline-flex items-center gap-1 rounded bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700">
+                                            COD
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 rounded bg-indigo-50 px-2 py-0.5 text-[11px] font-semibold text-indigo-700">
+                                            Card
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="py-3 pr-4">
+                                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold
+                                        {{ $order->status === 'completed' ? 'bg-success-50 text-success-600' : '' }}
+                                        {{ $order->status === 'processing' ? 'bg-brand-50 text-brand-600' : '' }}
+                                        {{ $order->status === 'pending' ? 'bg-amber-50 text-amber-600' : '' }}
+                                        {{ $order->status === 'cancelled' ? 'bg-danger-50 text-danger-500' : '' }}">
+                                        {{ ucfirst($order->status) }}
+                                    </span>
+                                </td>
+                                <td class="py-3 text-right font-semibold text-ink-900 text-[13px]">
+                                    LKR {{ number_format($order->total_lkr, 2) }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="py-6 text-center text-ink-400 text-sm">
+                                    No orders recorded yet.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-          </article>
-        </section>
+        </article>
 
-        <!-- Sales Analytics (interactive 3D) + Top Categories -->
-        <section class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 class="text-[20px] font-medium text-ink-900">Sales Analytics</h2>
-                <p class="mt-1 text-[13px] text-ink-400" data-sales-hint="">
-                  Revenue by category across quarters — drag to rotate.
-                </p>
-              </div>
-              <label class="flex items-center gap-2 text-[14px] text-ink-700">
-                <span class="sr-only">Sales chart view</span>
-                <select id="salesViewSelect" class="rounded-base border border-surface-line bg-surface-card py-1.5 pl-3 pr-8 text-[13px] font-semibold text-ink-700 focus:ring-2 focus:ring-brand-600">
-                  <option value="3d">3D View</option>
-                  <option value="2d">2D View</option>
-                </select>
-              </label>
-            </div>
-            <div id="sales3DChart" class="h-[360px] w-full bg-brand-50/50" role="img" aria-label="Sales analytics chart"></div>
-          </article>
-
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 class="text-[20px] font-medium text-ink-900">Top Categories</h2>
-                <p class="mt-1 text-[13px] text-ink-400">Share of revenue this month.</p>
-              </div>
-              <a href="categories.html" class="text-[14px] font-semibold text-brand-600 hover:text-brand-700">View all</a>
-            </div>
-
-            <ul class="space-y-5">
-              <li>
-                <div class="mb-1.5 flex items-center justify-between text-[14px]">
-                  <span class="flex items-center gap-2 font-medium text-ink-900"><span class="h-2.5 w-2.5 rounded-full bg-brand-600"></span> Grocery</span>
-                  <span class="text-ink-500">$24.5k · 38%</span>
-                </div>
-                <div class="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
-                  <span class="block h-full rounded-full bg-brand-600" style="width: 38%"></span>
-                </div>
-              </li>
-              <li>
-                <div class="mb-1.5 flex items-center justify-between text-[14px]">
-                  <span class="flex items-center gap-2 font-medium text-ink-900"><span class="h-2.5 w-2.5 rounded-full bg-admin-teal"></span> Bakery</span>
-                  <span class="text-ink-500">$16.2k · 25%</span>
-                </div>
-                <div class="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
-                  <span class="block h-full rounded-full bg-admin-teal" style="width: 25%"></span>
-                </div>
-              </li>
-              <li>
-                <div class="mb-1.5 flex items-center justify-between text-[14px]">
-                  <span class="flex items-center gap-2 font-medium text-ink-900"><span class="h-2.5 w-2.5 rounded-full bg-accent-500"></span> Drinks</span>
-                  <span class="text-ink-500">$11.8k · 18%</span>
-                </div>
-                <div class="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
-                  <span class="block h-full rounded-full bg-accent-500" style="width: 18%"></span>
-                </div>
-              </li>
-              <li>
-                <div class="mb-1.5 flex items-center justify-between text-[14px]">
-                  <span class="flex items-center gap-2 font-medium text-ink-900"><span class="h-2.5 w-2.5 rounded-full bg-purple-500"></span> Snacks</span>
-                  <span class="text-ink-500">$8.1k · 12%</span>
-                </div>
-                <div class="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
-                  <span class="block h-full rounded-full bg-purple-500" style="width: 12%"></span>
-                </div>
-              </li>
-              <li>
-                <div class="mb-1.5 flex items-center justify-between text-[14px]">
-                  <span class="flex items-center gap-2 font-medium text-ink-900"><span class="h-2.5 w-2.5 rounded-full bg-warning-500"></span> Dairy</span>
-                  <span class="text-ink-500">$4.6k · 7%</span>
-                </div>
-                <div class="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
-                  <span class="block h-full rounded-full bg-warning-500" style="width: 7%"></span>
-                </div>
-              </li>
-            </ul>
-
-            <div class="mt-6 flex items-center justify-between border-t border-surface-line pt-4 text-[14px]">
-              <span class="text-ink-500">Total revenue</span>
-              <span class="text-[18px] font-semibold text-ink-900">$65.2k</span>
-            </div>
-          </article>
-        </section>
-
-        <!-- Recent Orders + Earning -->
-        <section class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(480px,0.9fr)]">
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+        <!-- Top Performing Products -->
+        <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-surface-line pb-4">
-              <h2 class="text-[20px] font-medium text-ink-900">Recent Orders</h2>
-              <label class="flex items-center gap-2 text-[14px] text-ink-700">
-                <span class="font-semibold text-ink-900">Sort By:</span>
-                <select class="rounded-base border-0 bg-transparent py-1 pr-7 text-ink-700 focus:ring-2 focus:ring-brand-600">
-                  <option>Today</option>
-                  <option>This Week</option>
-                  <option>This Month</option>
-                </select>
-              </label>
+                <h2 class="text-[18px] font-semibold text-ink-900">Top Performing Products</h2>
+                <a href="{{ route('admin.products.index') }}" class="text-[13px] font-semibold text-brand-600 hover:underline">View Catalog &rarr;</a>
             </div>
-            <div class="dashboard-scrollbar overflow-x-auto">
-              <table class="w-full min-w-[640px] text-left text-[14px]">
-                <thead>
-                  <tr class="text-[13px] uppercase text-ink-400">
-                    <th scope="col" class="py-3 pr-4 font-semibold">Product</th>
-                    <th scope="col" class="py-3 pr-4 font-semibold">Date</th>
-                    <th scope="col" class="py-3 pr-4 font-semibold">Price</th>
-                    <th scope="col" class="py-3 pr-4 font-semibold">Status</th>
-                    <th scope="col" class="py-3 font-semibold">Payment</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-t border-surface-line">
-                    <td class="py-3 pr-4">
-                      <p class="font-semibold text-ink-900">Almond Milk</p>
-                      <p class="text-[13px] text-ink-400">#64548</p>
-                    </td>
-                    <td class="py-3 pr-4 text-ink-700">5/1/22</td>
-                    <td class="py-3 pr-4 text-ink-700">$250.00</td>
-                    <td class="py-3 pr-4 text-success-600">Completed</td>
-                    <td class="py-3 font-semibold text-danger-500">Unpaid</td>
-                  </tr>
-                  <tr class="border-t border-surface-line">
-                    <td class="py-3 pr-4">
-                      <p class="font-semibold text-ink-900">Potato Chips</p>
-                      <p class="text-[13px] text-ink-400">#64549</p>
-                    </td>
-                    <td class="py-3 pr-4 text-ink-700">5/1/22</td>
-                    <td class="py-3 pr-4 text-ink-700">$250.00</td>
-                    <td class="py-3 pr-4 text-success-600">Completed</td>
-                    <td class="py-3 font-semibold text-success-600">Paid</td>
-                  </tr>
-                  <tr class="border-t border-surface-line">
-                    <td class="py-3 pr-4">
-                      <p class="font-semibold text-ink-900">Fresh Meat</p>
-                      <p class="text-[13px] text-ink-400">#64550</p>
-                    </td>
-                    <td class="py-3 pr-4 text-ink-700">5/1/22</td>
-                    <td class="py-3 pr-4 text-ink-700">$250.00</td>
-                    <td class="py-3 pr-4 text-success-600">Completed</td>
-                    <td class="py-3 font-semibold text-success-600">Paid</td>
-                  </tr>
-                  <tr class="border-t border-surface-line">
-                    <td class="py-3 pr-4">
-                      <p class="font-semibold text-ink-900">Classic Coffee</p>
-                      <p class="text-[13px] text-ink-400">#64551</p>
-                    </td>
-                    <td class="py-3 pr-4 text-ink-700">5/1/22</td>
-                    <td class="py-3 pr-4 text-ink-700">$250.00</td>
-                    <td class="py-3 pr-4 text-warning-600">Pending</td>
-                    <td class="py-3 font-semibold text-success-600">Paid</td>
-                  </tr>
-                </tbody>
-              </table>
+
+            <div class="dashboard-scrollbar overflow-x-auto mt-2">
+                <table class="w-full min-w-[500px] text-left">
+                    <thead>
+                        <tr class="text-[12px] uppercase text-ink-400 border-b border-surface-line">
+                            <th scope="col" class="py-3 pr-4 font-semibold">Product</th>
+                            <th scope="col" class="py-3 pr-4 font-semibold text-center">Price</th>
+                            <th scope="col" class="py-3 pr-4 font-semibold text-center">Units Sold</th>
+                            <th scope="col" class="py-3 font-semibold text-right">Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-surface-line">
+                        @forelse ($bestSellingItems as $item)
+                            <tr class="hover:bg-surface-body/70 transition-colors">
+                                <td class="py-3 pr-4">
+                                    <div class="flex items-center gap-3">
+                                        @if (!empty($item->image))
+                                            <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" class="h-10 w-10 rounded-base bg-surface-body object-cover border border-surface-line">
+                                        @else
+                                            <div class="flex h-10 w-10 items-center justify-center rounded-base bg-surface-muted text-ink-400 text-[10px] border border-surface-line">NBC</div>
+                                        @endif
+                                        <span class="font-semibold text-ink-900 text-[13px] truncate max-w-[180px] block">
+                                            {{ $item->name }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="py-3 pr-4 text-center text-[13px] text-ink-700">
+                                    LKR {{ number_format($item->price_lkr, 2) }}
+                                </td>
+                                <td class="py-3 pr-4 text-center">
+                                    <span class="inline-flex items-center rounded bg-brand-50 px-2 py-0.5 text-[12px] font-bold text-brand-600">
+                                        {{ $item->total_qty }}
+                                    </span>
+                                </td>
+                                <td class="py-3 text-right font-semibold text-ink-900 text-[13px]">
+                                    LKR {{ number_format($item->total_amount, 2) }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="py-6 text-center text-ink-400 text-sm">
+                                    No sales data recorded yet.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-          </article>
+        </article>
+    </section>
 
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <h2 class="text-[20px] font-medium text-ink-900">Earning</h2>
-            <div id="earningChart" class="mt-4 min-h-[300px]" role="img" aria-label="Earning chart"></div>
-          </article>
-        </section>
+    <!-- Payment Methods Quick Action & Breakdown -->
+    <section class="mt-6 rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+        <h2 class="text-[18px] font-semibold text-ink-900 mb-4">Payment Method Summary</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <!-- COD Box -->
+            <div class="rounded-base border border-amber-200 bg-amber-50/50 p-5 flex items-center justify-between">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 text-[14px] font-bold text-amber-800">
+                        <i data-lucide="banknote" class="h-5 w-5 text-amber-600"></i>
+                        Cash on Delivery (COD)
+                    </span>
+                    <p class="text-[24px] font-bold text-amber-900 mt-2">{{ $codOrdersCount }} Orders</p>
+                    <p class="text-[13px] text-amber-700 mt-1">Orders paid upon customer delivery</p>
+                </div>
+                <a href="{{ route('admin.orders.index', ['payment_method' => 'cod']) }}" class="inline-flex h-10 items-center rounded-base bg-amber-600 px-4 text-[13px] font-semibold text-white hover:bg-amber-700 transition-colors">
+                    Filter COD &rarr;
+                </a>
+            </div>
 
-        <!-- Transactions + Visitors + To Do -->
-        <section class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
-          <!-- Transactions -->
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <h2 class="mb-4 text-[20px] font-medium text-ink-900">Transactions</h2>
-            <ul class="space-y-4 text-[14px]">
-              <li class="flex items-center gap-3">
-                <span class="grid h-10 w-10 place-items-center rounded-full bg-danger-50 text-danger-500"><i data-lucide="shield" class="h-5 w-5"></i></span>
-                <span class="flex-1"><span class="block font-semibold text-ink-900">Wallets</span><span class="text-[13px] text-ink-400">Starbucks</span></span>
-                <span class="font-semibold text-danger-500">-$74</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="grid h-10 w-10 place-items-center rounded-full bg-success-50 text-success-600"><i data-lucide="check" class="h-5 w-5"></i></span>
-                <span class="flex-1"><span class="block font-semibold text-ink-900">Bank Transfer</span><span class="text-[13px] text-ink-400">Add Money</span></span>
-                <span class="font-semibold text-success-600">+$125</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-50 text-brand-600"><i data-lucide="dollar-sign" class="h-5 w-5"></i></span>
-                <span class="flex-1"><span class="block font-semibold text-ink-900">Paypal</span><span class="text-[13px] text-ink-400">Add Money</span></span>
-                <span class="font-semibold text-danger-500">-$50</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="grid h-10 w-10 place-items-center rounded-full bg-warning-50 text-warning-600"><i data-lucide="credit-card" class="h-5 w-5"></i></span>
-                <span class="flex-1"><span class="block font-semibold text-ink-900">Mastercard</span><span class="text-[13px] text-ink-400">Ordered Food</span></span>
-                <span class="font-semibold text-danger-500">-$40</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="grid h-10 w-10 place-items-center rounded-full bg-purple-50 text-purple-600"><i data-lucide="bar-chart-3" class="h-5 w-5"></i></span>
-                <span class="flex-1"><span class="block font-semibold text-ink-900">Transfer</span><span class="text-[13px] text-ink-400">Refund</span></span>
-                <span class="font-semibold text-success-600">+$90</span>
-              </li>
-            </ul>
-          </article>
-
-          <!-- Visitors -->
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <h2 class="mb-2 text-[20px] font-medium text-ink-900">Visitors</h2>
-            <div id="visitorsChart" class="min-h-[260px]" role="img" aria-label="Visitors chart"></div>
-          </article>
-
-          <!-- To Do List -->
-          <article class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-            <h2 class="mb-4 text-[20px] font-medium text-ink-900">To Do List</h2>
-            <ul data-todo-list="" class="space-y-3 text-[14px]">
-              <li class="flex items-start gap-3">
-                <input type="checkbox" aria-label="Mark task as complete" class="mt-1 h-4 w-4 rounded border-surface-line text-brand-600 focus:ring-brand-600">
-                <span><span class="block font-semibold text-ink-900">Pick up kids from school</span><span class="text-[13px] text-ink-400">8 Hours</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <input type="checkbox" aria-label="Mark task as complete" class="mt-1 h-4 w-4 rounded border-surface-line text-brand-600 focus:ring-brand-600">
-                <span><span class="block font-semibold text-ink-900">Prepare for presentation</span><span class="text-[13px] text-ink-400">8 Hours</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <input type="checkbox" aria-label="Mark task as complete" class="mt-1 h-4 w-4 rounded border-surface-line text-brand-600 focus:ring-brand-600">
-                <span><span class="block font-semibold text-ink-900">Create invoice</span><span class="text-[13px] text-ink-400">8 Hours</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <input type="checkbox" aria-label="Mark task as complete" class="mt-1 h-4 w-4 rounded border-surface-line text-brand-600 focus:ring-brand-600">
-                <span><span class="block font-semibold text-ink-900">Meeting with Alisa</span><span class="text-[13px] text-ink-400">8 Hours</span></span>
-              </li>
-            </ul>
-            <form data-todo-form="" class="mt-5 flex gap-2">
-              <input data-todo-input="" type="text" placeholder="Enter Task Name" class="h-11 flex-1 rounded-base border border-surface-line bg-surface-body px-3 text-[14px] focus:border-brand-600">
-              <button type="submit" class="h-11 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white hover:bg-brand-700">
-                Add task
-              </button>
-            </form>
-          </article>
-        </section>
-      </main>
+            <!-- Card Box -->
+            <div class="rounded-base border border-indigo-200 bg-indigo-50/50 p-5 flex items-center justify-between">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 text-[14px] font-bold text-indigo-800">
+                        <i data-lucide="credit-card" class="h-5 w-5 text-indigo-600"></i>
+                        Card Payment (CyberSource)
+                    </span>
+                    <p class="text-[24px] font-bold text-indigo-900 mt-2">{{ $cardOrdersCount }} Orders</p>
+                    <p class="text-[13px] text-indigo-700 mt-1">Orders paid online via credit/debit card</p>
+                </div>
+                <a href="{{ route('admin.orders.index', ['payment_method' => 'card']) }}" class="inline-flex h-10 items-center rounded-base bg-indigo-600 px-4 text-[13px] font-semibold text-white hover:bg-indigo-700 transition-colors">
+                    Filter Card &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
 @endsection

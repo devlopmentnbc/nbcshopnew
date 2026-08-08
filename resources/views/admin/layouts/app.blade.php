@@ -198,11 +198,10 @@
 </div>
  <aside id="admin-sidebar" data-sidebar="" class="dashboard-scrollbar fixed inset-y-0 left-0 z-40 flex w-sidebar -translate-x-full flex-col border-r border-surface-line bg-surface-card text-ink-700 lg:translate-x-0" aria-label="Primary navigation">
   <!-- Header: workspace switcher + collapse toggle -->
-  <div class="sidebar-header relative flex items-center gap-2 p-3">
-    <a href="{{ route('admin.dashboard') }}" class="ws-switch flex flex-1 items-center gap-2 rounded-base px-2 py-1.5" aria-label="Unimart dashboard">
-      <img src="{{ asset('admin-assets/images/logo/logo.webp') }}" alt="Unimart" width="142" height="32" decoding="async" class="logo-full h-8 w-auto dark:hidden max-w-[300px]">
-      <img src="{{ asset('admin-assets/images/logo/logo-blackbg.webp') }}" alt="Unimart" width="142" height="32" loading="lazy" decoding="async" class="logo-full hidden h-8 w-auto dark:block">
-      <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart" width="36" height="36" loading="lazy" decoding="async" class="logo-mark hidden h-9 w-9 shrink-0 rounded-lg object-contain">
+  <div class="sidebar-header relative flex items-center gap-2 p-3 border-b border-surface-line/50">
+    <a href="{{ route('admin.dashboard') }}" class="ws-switch flex flex-1 items-center gap-2.5 rounded-base px-2 py-1.5" aria-label="Nature's Beauty Creations Admin Dashboard">
+      <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations" class="logo-full h-10 w-auto object-contain">
+      <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations" class="logo-mark hidden h-9 w-9 shrink-0 object-contain">
     </a>
 
     <button type="button" data-sidebar-collapse="" class="hidden h-9 w-9 shrink-0 items-center justify-center rounded-base text-ink-400 transition-colors hover:bg-surface-muted hover:text-ink-700 lg:inline-flex" aria-label="Collapse sidebar">
@@ -395,19 +394,18 @@
     </a>
 
     <!-- Orders -->
-    <div data-nav-group="" data-open="false">
-      <button type="button" data-nav-trigger="" title="Orders" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="false">
+    <div data-nav-group="" data-open="{{ request()->routeIs('admin.orders.*') ? 'true' : 'false' }}">
+      <button type="button" data-nav-trigger="" title="Orders" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="{{ request()->routeIs('admin.orders.*') ? 'true' : 'false' }}">
         <i data-lucide="shopping-bag" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
         <span class="nav-text flex-1 text-left">Orders</span>
         <i data-lucide="chevron-right" data-nav-chevron="" class="nav-text h-4 w-4 shrink-0 text-ink-400 transition-transform duration-300"></i>
       </button>
-      <div data-nav-submenu="" class="nav-text grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+      <div data-nav-submenu="" class="nav-text grid {{ request()->routeIs('admin.orders.*') ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }} transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="orders" href="orders.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Order List</a>
-            <a data-nav="order-detail" href="order-detail.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Order Details</a>
-            <a data-nav="add-order" href="add-order.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add Order</a>
-            <a data-nav="edit-order" href="edit-order.html" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Edit Order</a>
+            <a data-nav="orders" href="{{ route('admin.orders.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request()->routeIs('admin.orders.index') && !request('payment_method') ? 'font-semibold text-brand-600' : '' }}">All Orders</a>
+            <a data-nav="orders-cod" href="{{ route('admin.orders.index', ['payment_method' => 'cod']) }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request('payment_method') === 'cod' ? 'font-semibold text-brand-600' : '' }}">COD Orders</a>
+            <a data-nav="orders-card" href="{{ route('admin.orders.index', ['payment_method' => 'card']) }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request('payment_method') === 'card' ? 'font-semibold text-brand-600' : '' }}">Card (Pay Online) Orders</a>
           </div>
         </div>
       </div>
@@ -496,12 +494,17 @@
   </nav>
 
   <!-- User profile -->
+  @php
+    $adminUser = Auth::user();
+    $adminName = $adminUser ? $adminUser->name : 'Administrator';
+    $adminEmail = $adminUser ? $adminUser->email : 'admin@naturesbeauty.lk';
+  @endphp
   <div class="relative border-t border-surface-line p-3">
     <button type="button" data-menu-toggle="user" aria-controls="sidebar-user-menu" aria-expanded="false" aria-haspopup="menu" class="user-switch flex w-full items-center gap-3 rounded-base px-2 py-2 text-left transition-colors hover:bg-surface-muted">
-      <img src="{{ asset('admin-assets/avatars/admin-avatar.svg') }}" alt="Emay Walter" class="h-9 w-9 shrink-0 rounded-full object-cover">
+      <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 shrink-0 rounded-full object-contain bg-surface-muted p-1 border border-surface-line">
       <span class="user-text min-w-0 flex-1">
-        <span class="block truncate text-[14px] font-semibold text-ink-900">Emay Walter</span>
-        <span class="block truncate text-[12px] text-ink-400"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9efffaf3f7f0deebf0f7f3ffeceab0f2f1fdfff2">[email&#160;protected]</a></span>
+        <span class="block truncate text-[14px] font-semibold text-ink-900">{{ $adminName }}</span>
+        <span class="block truncate text-[12px] text-ink-400">{{ $adminEmail }}</span>
       </span>
       <i data-lucide="chevrons-up-down" class="user-text h-4 w-4 shrink-0 text-ink-400"></i>
     </button>
@@ -509,20 +512,20 @@
     <!-- User dropdown -->
     <div id="sidebar-user-menu" data-menu="user" class="absolute bottom-full left-3 right-3 z-50 mb-2 hidden rounded-card border border-surface-line bg-surface-card p-1.5 shadow-lift" role="menu">
       <div class="flex items-center gap-3 border-b border-surface-line px-2 pb-3 pt-2">
-        <img src="{{ asset('admin-assets/avatars/admin-avatar.svg') }}" alt="Emay Walter" class="h-9 w-9 rounded-full object-cover">
-        <span class="min-w-0 flex-1"><span class="block truncate text-[14px] font-semibold text-ink-900">Emay Walter</span><span class="block truncate text-[12px] text-ink-400"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cdaca9a0a4a38db8a3a4a0acbfb9e3a1a2aeaca1">[email&#160;protected]</a></span></span>
-      </div>
-      <div class="space-y-0.5 py-1.5">
-        <a data-nav="integrations" href="integrations.html" role="menuitem" class="flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted"><i data-lucide="folder" class="h-[18px] w-[18px] text-ink-500"></i> Integrations</a>
-        <a data-nav="history" href="history.html" role="menuitem" class="flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted"><i data-lucide="history" class="h-[18px] w-[18px] text-ink-500"></i> History</a>
+        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 rounded-full object-contain bg-surface-muted p-1 border border-surface-line">
+        <span class="min-w-0 flex-1">
+          <span class="block truncate text-[14px] font-semibold text-ink-900">{{ $adminName }}</span>
+          <span class="block truncate text-[12px] text-ink-400">{{ $adminEmail }}</span>
+        </span>
       </div>
       <div class="border-t border-surface-line py-1.5">
-        <a data-nav="update-app" href="update-app.html" role="menuitem" class="flex items-center gap-3 rounded-base bg-success-50 px-2 py-2 text-[14px] font-semibold text-success-600 transition-colors hover:bg-success-100">
-          <span class="h-2 w-2 rounded-full bg-success-500"></span> Update App
-        </a>
-        <a href="{{ route('admin.login') }}" role="menuitem" class="mt-0.5 flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted"><i data-lucide="log-out" class="h-[18px] w-[18px] text-ink-500"></i> Logout</a>
+        <form action="{{ route('admin.logout') }}" method="POST">
+          @csrf
+          <button type="submit" role="menuitem" class="w-full flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted text-left">
+            <i data-lucide="log-out" class="h-[18px] w-[18px] text-ink-500"></i> Logout
+          </button>
+        </form>
       </div>
-      <p class="px-2 pb-1 pt-2 text-[12px] text-ink-400">v1.5.69 • Terms &amp; Conditions</p>
     </div>
   </div>
 </aside>
@@ -536,56 +539,47 @@
           <i data-lucide="menu" class="h-5 w-5"></i>
         </button>
 
-        <a href="{{ route('admin.dashboard') }}" class="absolute left-1/2 -translate-x-1/2 lg:hidden" aria-label="Unimart dashboard">
-          <img src="{{ asset('admin-assets/images/logo/logo.webp') }}" alt="Unimart" width="142" height="32" decoding="async" class="h-7 w-auto dark:hidden">
-          <img src="{{ asset('admin-assets/images/logo/logo-blackbg.webp') }}" alt="Unimart" width="142" height="32" loading="lazy" decoding="async" class="hidden h-7 w-auto dark:block">
+        <a href="{{ route('admin.dashboard') }}" class="absolute left-1/2 -translate-x-1/2 lg:hidden" aria-label="Nature's Beauty Creations Admin Dashboard">
+          <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations" class="h-8 w-auto">
         </a>
 
-        <form class="hidden w-full max-w-[520px] items-center lg:flex" role="search">
+        <form class="hidden w-full max-w-[520px] items-center lg:flex" role="search" action="{{ route('admin.orders.index') }}" method="GET">
           <label for="global-search" class="sr-only">Search dashboard</label>
-          <input id="global-search" type="search" placeholder="Search Unimart .." class="h-10 flex-1 rounded-l-card border border-r-0 border-surface-line bg-surface-body px-5 text-[15px] text-ink-700 placeholder:text-ink-400 focus:border-brand-600">
+          <input id="global-search" type="search" name="search" placeholder="Search orders, customers, or products..." class="h-10 flex-1 rounded-l-card border border-r-0 border-surface-line bg-surface-body px-5 text-[15px] text-ink-700 placeholder:text-ink-400 focus:border-brand-600">
           <button type="submit" class="inline-flex h-10 w-14 items-center justify-center rounded-r-card bg-brand-600 text-white hover:bg-brand-700" aria-label="Submit search">
             <i data-lucide="search" class="h-5 w-5"></i>
           </button>
         </form>
 
         <div class="ml-auto flex items-center gap-2 sm:gap-4">
-          <a href="notifications.html" class="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-ink-700 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card" aria-label="Notifications, 4 unread">
-            <i data-lucide="bell" class="h-5 w-5"></i>
-            <span class="absolute right-1 top-1 grid h-5 min-w-5 place-items-center rounded-full bg-danger-500 px-1 text-[11px] font-semibold leading-none text-white">4</span>
-          </a>
-
           <button type="button" data-theme-toggle="" class="hidden h-10 w-10 items-center justify-center rounded-full text-ink-700 hover:bg-surface-muted sm:inline-flex" aria-label="Toggle quiet mode" aria-pressed="false">
             <i data-lucide="moon" class="h-5 w-5"></i>
           </button>
 
           <div class="relative">
-            <button type="button" data-menu-toggle="topbar-user" class="flex items-center gap-3 rounded-card px-2 py-1.5 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card" aria-controls="topbar-user-menu" aria-expanded="false" aria-haspopup="menu" aria-label="Emay Walter Admin - open account menu">
-              <img class="h-10 w-10 rounded-full border border-surface-line object-cover" src="{{ asset('admin-assets/avatars/admin-avatar.svg') }}" alt="Emay Walter">
+            <button type="button" data-menu-toggle="topbar-user" class="flex items-center gap-3 rounded-card px-2 py-1.5 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card" aria-controls="topbar-user-menu" aria-expanded="false" aria-haspopup="menu" aria-label="{{ $adminName }} Admin - open account menu">
+              <img class="h-10 w-10 rounded-full border border-surface-line object-contain bg-surface-muted p-1" src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}">
               <span class="hidden text-left lg:block">
-                <span class="block text-[15px] font-semibold leading-tight text-ink-900">Emay Walter</span>
+                <span class="block text-[15px] font-semibold leading-tight text-ink-900">{{ $adminName }}</span>
                 <span class="flex items-center gap-1 text-[13px] text-ink-500">Admin <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i></span>
               </span>
             </button>
 
             <div id="topbar-user-menu" data-menu="topbar-user" class="absolute right-0 top-full z-50 mt-2 hidden w-64 rounded-card border border-surface-line bg-surface-card p-1.5 shadow-lift" role="menu">
               <div class="flex items-center gap-3 border-b border-surface-line px-2 pb-3 pt-2">
-                <img src="{{ asset('admin-assets/avatars/admin-avatar.svg') }}" alt="Emay Walter" class="h-9 w-9 rounded-full object-cover">
+                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 rounded-full object-contain bg-surface-muted p-1 border border-surface-line">
                 <span class="min-w-0 flex-1">
-                  <span class="block truncate text-[14px] font-semibold text-ink-900">Emay Walter</span>
-                  <span class="block truncate text-[12px] text-ink-400"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b5a5f5652557b4e5552565a494f155754585a57">[email&#160;protected]</a></span>
+                  <span class="block truncate text-[14px] font-semibold text-ink-900">{{ $adminName }}</span>
+                  <span class="block truncate text-[12px] text-ink-400">{{ $adminEmail }}</span>
                 </span>
               </div>
-              <div class="space-y-0.5 py-1.5">
-                <a href="settings.html" role="menuitem" class="flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"><i data-lucide="settings" class="h-[18px] w-[18px] text-ink-500"></i> Profile Setting</a>
-                <a href="notifications.html" role="menuitem" class="flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"><i data-lucide="bell" class="h-[18px] w-[18px] text-ink-500"></i> Notifications</a>
-                <a href="history.html" role="menuitem" class="flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"><i data-lucide="history" class="h-[18px] w-[18px] text-ink-500"></i> History</a>
-              </div>
               <div class="border-t border-surface-line py-1.5">
-                <a href="update-app.html" role="menuitem" class="flex items-center gap-3 rounded-base bg-success-50 px-2 py-2 text-[14px] font-semibold text-success-600 transition-colors hover:bg-success-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-                  <span class="h-2 w-2 rounded-full bg-success-500"></span> Update App
-                </a>
-                <a href="{{ route('admin.login') }}" role="menuitem" class="mt-0.5 flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"><i data-lucide="log-out" class="h-[18px] w-[18px] text-ink-500"></i> Logout</a>
+                <form action="{{ route('admin.logout') }}" method="POST">
+                  @csrf
+                  <button type="submit" role="menuitem" class="w-full flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted text-left">
+                    <i data-lucide="log-out" class="h-[18px] w-[18px] text-ink-500"></i> Logout
+                  </button>
+                </form>
               </div>
             </div>
           </div>

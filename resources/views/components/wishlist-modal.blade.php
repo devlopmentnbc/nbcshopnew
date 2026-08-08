@@ -1,50 +1,42 @@
 <!-- Start Wishlist Modal Area  -->
 <div class="rbt-default-modal modal fade has-rbt-top-folder-shape" id="wishlistModal" tabindex="-1"
     role="dialog" aria-modal="true" aria-labelledby="wishlistModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
-        <div class="modal-content" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.18);">
-
-            <!-- Header -->
-            <div class="modal-header border-0 px-4 pt-4 pb-0 d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center gap-2">
-                    <span style="width:38px;height:38px;background:linear-gradient(135deg,#e53935,#ff7043);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                        <i class="fa-solid fa-heart text-white" style="font-size:16px;"></i>
-                    </span>
-                    <div>
-                        <h5 class="mb-0 fw-bold text-dark" id="wishlistModalLabel" style="font-size:18px;">My Wishlist</h5>
-                        <p class="mb-0 text-muted" style="font-size:12px;">
-                            <span class="nbc-wishlist-modal-count">0</span> saved item(s)
-                        </p>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog sm-size modal-dialog-centered">
+        <div class="modal-content">
+            <div class="rbt-folder-shape-right-portion">
+                <svg xmlns="http://www.w3.org/2000/svg" width="85" height="90" viewbox="0 0 85 90"
+                    fill="none">
+                    <path
+                        d="M0 0H11.1844C14.5695 0 17.7971 1.42971 20.0716 3.93671L82.1927 72.4059C83.9992 74.397 84.9999 76.9893 84.9999 79.6778C84.9999 85.6547 85.0001 90 85.0001 90H0V0Z"
+                        fill="white"></path>
+                </svg>
             </div>
-
-            <!-- Body -->
-            <div class="modal-body p-0" style="max-height: 60vh; overflow-y: auto;">
-                <div class="nbc-wishlist-modal-body px-4 py-3">
-                    <!-- Items rendered by JS -->
-                    <div class="nbc-wishlist-modal-items">
-                        <div class="text-center py-5">
-                            <div class="spinner-border spinner-border-sm text-success" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <p class="text-muted small mt-2 mb-0">Loading your wishlist…</p>
+            <div class="modal-header">
+                <button type="button" class="rbt-round-btn rbt-modal-dis-btn" data-bs-dismiss="modal"
+                    aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="rbt-top-folder-shape-wrapper">
+                <div class="rbt-bg-color-white rbt-content-trs-portion">
+                    <div class="rbt-wishlist-modal-content">
+                        <div class="rbt-title rbt-text-bold h5" id="wishlistModalLabel">Product Wishlist</div>
+                        <div class="rbt-transparent-table-one-wrapper rbt-has-bg-gray pt--0 pb--0 mb--16">
+                            <table class="rbt-transparent-table-one mb--0 rbt-wishlist-table">
+                                <tbody class="nbc-wishlist-table-body">
+                                    <!-- Single wishlist product rows rendered by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="rbt-wishlist-modal-footer d-flex flex-wrap rbt-gap--16 justify-content-between align-items-center">
+                            <a href="{{ route('shop') }}" class="rbt-link"><span class="icon mr--4"><i
+                                        class="fa-sharp fa-regular fa-heart"></i></span>Explore Products</a>
+                            <a href="{{ route('shop') }}" class="rbt-link">Continue Shopping</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <div class="modal-footer border-0 px-4 pb-4 pt-2 gap-2">
-                <a href="{{ route('shop') }}" class="btn btn-outline-success rounded-pill px-4" style="font-size:13px;font-weight:600;">
-                    <i class="fa-regular fa-bag-shopping me-1"></i> Continue Shopping
-                </a>
-                <button type="button" class="btn btn-success rounded-pill px-4" style="font-size:13px;font-weight:600;background:linear-gradient(135deg,#2e7d32,#66bb6a);border:none;" data-bs-dismiss="modal">
-                    Done
-                </button>
-            </div>
-
         </div>
     </div>
 </div>

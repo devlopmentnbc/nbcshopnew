@@ -8036,7 +8036,7 @@
                             <a class="rbt-round-btn has-rbt-md-fsize" href="#!" data-bs-toggle="modal"
                                 data-bs-target="#wishlistModal">
                                 <i class="fa-regular fa-heart"></i>
-                                <div class="access-box-count">3</div>
+                                <div class="access-box-count">{{ Auth::check() ? Auth::user()->wishlists()->count() : 0 }}</div>
                                 <span class="rbt-toolbar-label"> Wishist</span>
                             </a>
                         </li>
