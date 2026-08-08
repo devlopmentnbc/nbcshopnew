@@ -9,7 +9,7 @@
             'panda-baby' => 'Panda Baby',
             'sucses' => 'SUCSES',
             'selfie' => 'Selfie',
-            'elithe' => 'elithé',
+            'elithe' => 'Elithé',
         ],
         'Skin Care' => [
             'all-skin' => 'All Skin',

@@ -2748,13 +2748,13 @@ fieldset:disabled .btn {
 }
 .btn-success {
     color: #fff;
-    background-color: #198754;
-    border-color: #198754;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 .btn-success:hover {
     color: #fff;
-    background-color: #157347;
-    border-color: #146c43;
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 .btn-check:focus + .btn-success,
 .btn-success:focus {

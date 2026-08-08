@@ -18491,7 +18491,6 @@ input[type="radio"] ~ label {
     position: relative;
     font-size: var(--font-size-b2);
     line-height: var(--line-height-b2);
-    color: var(--color-gray-500);
     font-weight: var(--f-medium);
     padding-left: 24px;
     cursor: pointer;
@@ -30246,7 +30245,7 @@ button.animated-icon-btn.round-sm::after {
     font-size: 18px;
     font-weight: 700;
     line-height: 1.6;
-    color: var(--color-black);
+    color: var(--primary-color);
 }
 
 @media only screen and (max-width: 479px) {
