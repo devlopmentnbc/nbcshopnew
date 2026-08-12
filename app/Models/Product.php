@@ -67,7 +67,7 @@ class Product extends Model
     {
         return $this->belongsToMany(AttributeValue::class, 'product_attribute_value', 'product_id', 'attribute_value_id')
                     ->using(ProductAttributeValue::class)
-                    ->withPivot(['price_lkr', 'price_usd', 'sale_price_lkr', 'sale_price_usd', 'stock', 'sku'])
+                    ->withPivot(['price_lkr', 'price_usd', 'sale_price_lkr', 'sale_price_usd', 'stock', 'sku', 'image'])
                     ->withTimestamps();
     }
 

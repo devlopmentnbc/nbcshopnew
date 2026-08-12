@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Unimart-inspired Tailwind admin dashboard HTML template.">
+    <meta name="description" content="Nature's Beauty Creations NBC IT Admin Dashboard.">
     <meta name="theme-color" content="#215ada">
     <meta name="color-scheme" content="light dark">
     <link rel="icon" type="image/png" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
     <link rel="preload" as="image" href="{{ asset('admin-assets/images/banner/main-banner-01-1280.webp') }}" imagesrcset="assets/images/banner/main-banner-01-640.webp 640w, assets/images/banner/main-banner-01-1280.webp 1280w, assets/images/banner/main-banner-01.webp 1856w" imagesizes="(min-width: 1024px) calc(100vw - 326px), calc(100vw - 32px)" fetchpriority="high">
-    <title>@yield('title', 'Admin Dashboard - Unimart')</title>
+    <title>@yield('title', 'Admin Dashboard - NBC IT')</title>
     <script>
       try {
         var d = document.documentElement;
@@ -481,9 +481,9 @@
     </div>
 
     <!-- Reports -->
-    <a data-nav="reports" href="reports.html" title="Reports" class="sidebar-link flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted">
-      <i data-lucide="bar-chart-3" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
-      <span class="nav-text flex-1">Reports</span>
+    <a data-nav="reports" href="{{ route('admin.reports.index') }}" title="Reports & Analytics" class="sidebar-link flex items-center gap-3 rounded-base px-2 py-2 text-[14px] {{ request()->routeIs('admin.reports.*') ? 'font-semibold text-brand-600 bg-surface-muted' : 'text-ink-700 hover:bg-surface-muted' }} transition-colors">
+      <i data-lucide="bar-chart-3" class="h-[18px] w-[18px] shrink-0 {{ request()->routeIs('admin.reports.*') ? 'text-brand-600' : 'text-ink-500' }}"></i>
+      <span class="nav-text flex-1">Reports & Analytics</span>
     </a>
 
     <!-- List Page -->
@@ -510,19 +510,33 @@
     </button>
 
     <!-- User dropdown -->
-    <div id="sidebar-user-menu" data-menu="user" class="absolute bottom-full left-3 right-3 z-50 mb-2 hidden rounded-card border border-surface-line bg-surface-card p-1.5 shadow-lift" role="menu">
-      <div class="flex items-center gap-3 border-b border-surface-line px-2 pb-3 pt-2">
-        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 rounded-full object-contain bg-surface-muted p-1 border border-surface-line">
+    <div id="sidebar-user-menu" data-menu="user" class="absolute bottom-full left-3 right-3 z-[9999] mb-2 hidden rounded-xl p-2 shadow-2xl" style="background-color: #051a0ef0 !important; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);" role="menu">
+      <div class="flex items-center gap-3 border-b border-white/10 px-3 pb-3 pt-2 bg-white/5 rounded-t-lg">
+        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 rounded-full object-contain bg-white p-1 border border-white/20 shrink-0">
         <span class="min-w-0 flex-1">
-          <span class="block truncate text-[14px] font-semibold text-ink-900">{{ $adminName }}</span>
-          <span class="block truncate text-[12px] text-ink-400">{{ $adminEmail }}</span>
+          <span class="block truncate text-[14px] font-bold text-white">{{ $adminName }}</span>
+          <span class="block truncate text-[11px] text-white/70 font-mono">{{ $adminEmail }}</span>
         </span>
       </div>
-      <div class="border-t border-surface-line py-1.5">
+      <div class="space-y-1 py-2 px-1">
+        <a href="{{ route('admin.dashboard') }}" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+          <i data-lucide="layout-dashboard" class="h-4 w-4 text-[#67af1f]"></i> Dashboard
+        </a>
+        <a href="{{ route('admin.orders.index') }}" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+          <i data-lucide="shopping-bag" class="h-4 w-4 text-[#67af1f]"></i> Orders
+        </a>
+        <a href="{{ route('admin.products.index') }}" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+          <i data-lucide="package" class="h-4 w-4 text-[#67af1f]"></i> Products
+        </a>
+        <a href="{{ route('shop') }}" target="_blank" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+          <i data-lucide="external-link" class="h-4 w-4 text-[#67af1f]"></i> Visit Storefront
+        </a>
+      </div>
+      <div class="border-t border-white/10 pt-1.5 px-1">
         <form action="{{ route('admin.logout') }}" method="POST">
           @csrf
-          <button type="submit" role="menuitem" class="w-full flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted text-left">
-            <i data-lucide="log-out" class="h-[18px] w-[18px] text-ink-500"></i> Logout
+          <button type="submit" role="menuitem" class="w-full flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-red-300 transition-colors hover:bg-red-500/20 hover:text-white text-left">
+            <i data-lucide="log-out" class="h-4 w-4 text-red-400"></i> Logout
           </button>
         </form>
       </div>
@@ -557,27 +571,41 @@
           </button>
 
           <div class="relative">
-            <button type="button" data-menu-toggle="topbar-user" class="flex items-center gap-3 rounded-card px-2 py-1.5 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card" aria-controls="topbar-user-menu" aria-expanded="false" aria-haspopup="menu" aria-label="{{ $adminName }} Admin - open account menu">
-              <img class="h-10 w-10 rounded-full border border-surface-line object-contain bg-surface-muted p-1" src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}">
-              <span class="hidden text-left lg:block">
-                <span class="block text-[15px] font-semibold leading-tight text-ink-900">{{ $adminName }}</span>
-                <span class="flex items-center gap-1 text-[13px] text-ink-500">Admin <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i></span>
+            <button type="button" data-menu-toggle="topbar-user" class="flex items-center gap-3 rounded-card px-2.5 py-1.5 transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-controls="topbar-user-menu" aria-expanded="false" aria-haspopup="menu" aria-label="{{ $adminName }} Admin - open account menu">
+              <img class="h-10 w-10 rounded-full border border-surface-line object-contain bg-surface-muted p-1 pointer-events-none" src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}">
+              <span class="hidden text-left lg:block pointer-events-none">
+                <span class="block text-[14px] font-semibold leading-tight text-ink-900">{{ $adminName }}</span>
+                <span class="flex items-center gap-1 text-[12px] text-ink-500">Admin <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i></span>
               </span>
             </button>
 
-            <div id="topbar-user-menu" data-menu="topbar-user" class="absolute right-0 top-full z-50 mt-2 hidden w-64 rounded-card border border-surface-line bg-surface-card p-1.5 shadow-lift" role="menu">
-              <div class="flex items-center gap-3 border-b border-surface-line px-2 pb-3 pt-2">
-                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 rounded-full object-contain bg-surface-muted p-1 border border-surface-line">
+            <div id="topbar-user-menu" data-menu="topbar-user" class="absolute right-0 top-full z-[9999] mt-2 hidden w-64 rounded-xl p-2 shadow-2xl" style="background-color: #051a0ef0 !important; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);" role="menu">
+              <div class="flex items-center gap-3 border-b border-white/10 px-3 pb-3 pt-2 bg-white/5 rounded-t-lg">
+                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="{{ $adminName }}" class="h-9 w-9 rounded-full object-contain bg-white p-1 border border-white/20 shrink-0">
                 <span class="min-w-0 flex-1">
-                  <span class="block truncate text-[14px] font-semibold text-ink-900">{{ $adminName }}</span>
-                  <span class="block truncate text-[12px] text-ink-400">{{ $adminEmail }}</span>
+                  <span class="block truncate text-[14px] font-bold text-white">{{ $adminName }}</span>
+                  <span class="block truncate text-[11px] text-white/70 font-mono">{{ $adminEmail }}</span>
                 </span>
               </div>
-              <div class="border-t border-surface-line py-1.5">
+              <div class="space-y-1 py-2 px-1">
+                <a href="{{ route('admin.dashboard') }}" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+                  <i data-lucide="layout-dashboard" class="h-4 w-4 text-[#67af1f]"></i> Dashboard
+                </a>
+                <a href="{{ route('admin.orders.index') }}" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+                  <i data-lucide="shopping-bag" class="h-4 w-4 text-[#67af1f]"></i> Orders
+                </a>
+                <a href="{{ route('admin.products.index') }}" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+                  <i data-lucide="package" class="h-4 w-4 text-[#67af1f]"></i> Products
+                </a>
+                <a href="{{ route('shop') }}" target="_blank" role="menuitem" class="flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#67af1f]/30">
+                  <i data-lucide="external-link" class="h-4 w-4 text-[#67af1f]"></i> Visit Storefront
+                </a>
+              </div>
+              <div class="border-t border-white/10 pt-1.5 px-1">
                 <form action="{{ route('admin.logout') }}" method="POST">
                   @csrf
-                  <button type="submit" role="menuitem" class="w-full flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted text-left">
-                    <i data-lucide="log-out" class="h-[18px] w-[18px] text-ink-500"></i> Logout
+                  <button type="submit" role="menuitem" class="w-full flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-red-300 transition-colors hover:bg-red-500/20 hover:text-white text-left">
+                    <i data-lucide="log-out" class="h-4 w-4 text-red-400"></i> Logout
                   </button>
                 </form>
               </div>
@@ -593,7 +621,7 @@
 
 
       <footer class="border-t border-surface-line bg-surface-card px-4 py-4 text-center text-[13px] text-ink-500 lg:px-6">
-        Copyright 2026 - Unimart Admin HTML template
+        Copyright 2026 - NBC IT
       </footer>
     </div>
 
@@ -660,6 +688,5 @@
       </div>
     </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="../beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4a64ee10db7a4427ba649e901229556e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>

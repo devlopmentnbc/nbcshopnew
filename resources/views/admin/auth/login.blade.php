@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Unimart-inspired Tailwind admin dashboard HTML template.">
+    <meta name="description" content="NBC IT Admin Dashboard.">
     <meta name="theme-color" content="#215ada">
     <meta name="color-scheme" content="light dark">
     <link rel="icon" type="image/png" href="{{ asset('assets/images/nbc/logo-nbc2.png') }}">
@@ -248,35 +248,12 @@
           </p>
         </div>
       </section>
-
       <section class="flex items-center justify-center px-4 py-10">
-        <form method="POST" action="{{route('admin.login.submit') }}" class="w-full max-w-[440px] rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-          @csrf
-          <a href="{{route('home') }}" class="inline-flex items-center" aria-label="Nature's Beauty Creations Admin Dashboard">
-            <img src="{{asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations" class="h-12 w-auto">
-          </a>
-          <div class="mt-8">
-            <p class="mb-1 text-[13px] font-semibold uppercase text-brand-600">Admin Portal</p>
-            <h2 class="text-[26px] font-semibold text-ink-900">Sign in to Admin</h2>
-            <p class="mt-2 text-[14px] text-ink-500">Log in with your administrator account credentials.</p>
-          </div>
-
-          @if($errors->any())
-            <div class="mt-4 p-3 rounded bg-red-100 border border-red-400 text-red-700 text-sm">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{ $error }</li>
-                    @endforeach
-                </ul>
-            </div>
-        </section>
-
-        <section class="flex items-center justify-center px-4 py-10">
             <form method="POST" action="{{ route('admin.login.submit') }}"
                 class="w-full max-w-[440px] rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
                 @csrf
                 <a href="{{ route('home') }}" class="inline-flex items-center" aria-label="NBC dashboard">
-                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="NBC" class="h-9 w-auto">
+                    <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations" class="h-12 w-auto">
                 </a>
                 <div class="mt-8">
                     <p class="mb-1 text-[13px] font-semibold uppercase text-brand-600">Admin Portal</p>
@@ -288,7 +265,7 @@
                     <div class="mt-4 p-3 rounded bg-red-100 border border-red-400 text-red-700 text-sm">
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{ $error }</li>
+                                <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>

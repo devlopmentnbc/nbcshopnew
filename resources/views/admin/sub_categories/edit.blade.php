@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Sub Category - Admin Unimart')
+@section('title', 'Edit Sub Category - Admin NBC IT')
 
 @section('content')
 <main class="px-4 py-6 lg:px-6 min-h-[calc(100vh-140px)]">

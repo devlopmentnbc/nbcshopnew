@@ -19,6 +19,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the products.
      */
+    /**
+     * Display a listing of the products.
+     */
     public function index(Request $request)
     {
         $query = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images']);
@@ -40,8 +43,9 @@ class ProductController extends Controller
         $products = $query->latest()->paginate(10)->withQueryString();
         $categories = Category::orderBy('name')->get();
         $brands = Brand::orderBy('name')->get();
+        $allAttributes = Attribute::where('status', true)->with('values')->orderBy('name')->get();
 
-        return view('admin.products.index', compact('products', 'categories', 'brands'));
+        return view('admin.products.index', compact('products', 'categories', 'brands', 'allAttributes'));
     }
 
     /**
@@ -138,21 +142,7 @@ class ProductController extends Controller
             }
         }
 
-        $syncData = [];
-        if ($request->filled('variants') && is_array($request->variants)) {
-            foreach ($request->variants as $valId => $varData) {
-                if (isset($varData['selected']) && $varData['selected'] == 1) {
-                    $syncData[$valId] = [
-                        'price_lkr' => $varData['price_lkr'] ?? 0.00,
-                        'price_usd' => $varData['price_usd'] ?? 0.00,
-                        'sale_price_lkr' => !empty($varData['sale_price_lkr']) ? $varData['sale_price_lkr'] : null,
-                        'sale_price_usd' => !empty($varData['sale_price_usd']) ? $varData['sale_price_usd'] : null,
-                        'stock' => $varData['stock'] ?? 0,
-                        'sku' => $varData['sku'] ?? null,
-                    ];
-                }
-            }
-        }
+        $syncData = $this->processVariantsData($request, $product);
         $product->attributeValues()->sync($syncData);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully with gallery images and pricing.');
@@ -179,6 +169,7 @@ class ProductController extends Controller
                 'sale_price_usd' => $val->pivot->sale_price_usd,
                 'stock' => $val->pivot->stock,
                 'sku' => $val->pivot->sku,
+                'image' => $val->pivot->image,
             ];
         }
 
@@ -263,10 +254,71 @@ class ProductController extends Controller
             }
         }
 
+        $syncData = $this->processVariantsData($request, $product);
+        $product->attributeValues()->sync($syncData);
+
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+    }
+
+    /**
+     * Dedicated endpoint to update product variants & stock (from modal or quick form).
+     */
+    public function updateVariants(Request $request, Product $product)
+    {
+        $product->load('attributeValues');
+        $syncData = $this->processVariantsData($request, $product);
+        $product->attributeValues()->sync($syncData);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            $product->load(['attributeValues.attribute', 'brand', 'category']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Product stock and attribute variants updated successfully.',
+                'total_stock' => $product->totalStock(),
+                'product' => $product,
+            ]);
+        }
+
+        return back()->with('success', 'Product stock and attribute variants updated successfully.');
+    }
+
+    /**
+     * Helper to process variant data array and uploaded variant image files.
+     */
+    private function processVariantsData(Request $request, ?Product $product = null): array
+    {
         $syncData = [];
-        if ($request->filled('variants') && is_array($request->variants)) {
+        $existingVariantsMap = $product ? $product->attributeValues->keyBy('id') : collect();
+
+        if ($request->has('variants') && is_array($request->variants)) {
+            $variantDir = public_path('uploads/products/variants');
+            if (!File::exists($variantDir)) {
+                File::makeDirectory($variantDir, 0755, true, true);
+            }
+
             foreach ($request->variants as $valId => $varData) {
-                if (isset($varData['selected']) && $varData['selected'] == 1) {
+                if (isset($varData['selected']) && ($varData['selected'] == 1 || $varData['selected'] === 'true')) {
+                    $imagePath = null;
+                    
+                    // Retain existing image if present
+                    if ($product && isset($existingVariantsMap[$valId])) {
+                        $imagePath = $existingVariantsMap[$valId]->pivot->image ?? null;
+                    }
+
+                    // Check for new uploaded file for this variant
+                    if ($request->hasFile("variants.{$valId}.image")) {
+                        $file = $request->file("variants.{$valId}.image");
+                        if ($file && $file->isValid()) {
+                            // Delete old image if exists
+                            if ($imagePath && File::exists(public_path($imagePath))) {
+                                File::delete(public_path($imagePath));
+                            }
+                            $filename = time() . '_var_' . $valId . '_' . Str::random(5) . '.' . $file->getClientOriginalExtension();
+                            $file->move($variantDir, $filename);
+                            $imagePath = 'uploads/products/variants/' . $filename;
+                        }
+                    }
+
                     $syncData[$valId] = [
                         'price_lkr' => $varData['price_lkr'] ?? 0.00,
                         'price_usd' => $varData['price_usd'] ?? 0.00,
@@ -274,13 +326,13 @@ class ProductController extends Controller
                         'sale_price_usd' => !empty($varData['sale_price_usd']) ? $varData['sale_price_usd'] : null,
                         'stock' => $varData['stock'] ?? 0,
                         'sku' => $varData['sku'] ?? null,
+                        'image' => $imagePath,
                     ];
                 }
             }
         }
-        $product->attributeValues()->sync($syncData);
 
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+        return $syncData;
     }
 
     /**

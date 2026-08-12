@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Add New Banner - Admin Unimart')
+@section('title', 'Add New Banner - Admin NBC IT')
 
 @section('content')
 <main class="px-4 py-6 lg:px-6 min-h-[calc(100vh-140px)]">

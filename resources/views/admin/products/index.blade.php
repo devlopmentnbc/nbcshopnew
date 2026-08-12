@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Product List - Admin Unimart')
+@section('title', 'Product List - Admin NBC IT')
 
 @section('content')
 <main class="px-4 py-6 lg:px-6 min-h-[calc(100vh-140px)]">
@@ -110,13 +110,18 @@
                             </td>
                             <td class="py-4 pr-4">
                                 @php $stock = $product->totalStock(); @endphp
-                                @if ($stock > 10)
-                                    <span class="inline-flex items-center rounded-base bg-success-50 px-2.5 py-1 text-[12px] font-semibold text-success-600">{{ $stock }} in stock</span>
-                                @elseif ($stock > 0)
-                                    <span class="inline-flex items-center rounded-base bg-warning-50 px-2.5 py-1 text-[12px] font-semibold text-warning-600">{{ $stock }} left</span>
-                                @else
-                                    <span class="inline-flex items-center rounded-base bg-danger-50 px-2.5 py-1 text-[12px] font-semibold text-danger-500">Out of Stock</span>
-                                @endif
+                                <div class="flex items-center gap-2">
+                                    @if ($stock > 10)
+                                        <span class="inline-flex items-center rounded-base bg-success-50 px-2.5 py-1 text-[12px] font-semibold text-success-600">{{ $stock }} in stock</span>
+                                    @elseif ($stock > 0)
+                                        <span class="inline-flex items-center rounded-base bg-warning-50 px-2.5 py-1 text-[12px] font-semibold text-warning-600">{{ $stock }} left</span>
+                                    @else
+                                        <span class="inline-flex items-center rounded-base bg-danger-50 px-2.5 py-1 text-[12px] font-semibold text-danger-500">Out of Stock</span>
+                                    @endif
+                                    <button type="button" onclick='openVariantsModal({{ $product->id }}, {{ json_encode($product->name) }}, {{ json_encode(asset($product->image ?: "assets/images/nbc/logo-nbc2.png")) }}, {{ json_encode($product->attributeValues) }})' class="inline-flex items-center gap-1 rounded border border-brand-200 bg-brand-50 px-2 py-1 text-[11px] font-semibold text-brand-600 hover:bg-brand-100 transition-colors" title="Manage Stock, Variant Prices & Images">
+                                        <i data-lucide="layers" class="h-3 w-3"></i> Stock
+                                    </button>
+                                </div>
                             </td>
                             <td class="py-4 pr-4">
                                 <div class="flex flex-wrap gap-1 max-w-[200px]">
@@ -138,7 +143,10 @@
                             </td>
                             <td class="py-4 pr-4 text-right">
                                 <div class="inline-flex items-center gap-2">
-                                    <a href="{{ route('admin.products.edit', $product->id) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-500 hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors" title="Edit Product & Prices">
+                                    <button type="button" onclick='openVariantsModal({{ $product->id }}, {{ json_encode($product->name) }}, {{ json_encode(asset($product->image ?: "assets/images/nbc/logo-nbc2.png")) }}, {{ json_encode($product->attributeValues) }})' class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-500 hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors" title="Manage Stock & Variants">
+                                        <i data-lucide="layers" class="h-4 w-4"></i>
+                                    </button>
+                                    <a href="{{ route('admin.products.edit', $product->id) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-500 hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors" title="Edit Product & Details">
                                         <i data-lucide="pencil" class="h-4 w-4"></i>
                                     </a>
                                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" class="inline">
@@ -168,4 +176,210 @@
         </div>
     </div>
 </main>
+
+<!-- Stock & Variants Interactive Modal -->
+<div id="variantsModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-ink-900/60 backdrop-blur-sm p-4 sm:p-6 md:p-10 flex items-center justify-center">
+    <div class="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-card border border-surface-line bg-surface-card shadow-2xl overflow-hidden">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between border-b border-surface-line px-6 py-4 bg-surface-body">
+            <div class="flex items-center gap-3">
+                <img id="modalProductImg" src="" alt="Product" class="h-10 w-10 rounded-base border border-surface-line object-cover">
+                <div>
+                    <h3 class="text-[17px] font-semibold text-ink-900" id="modalProductName">Manage Variants</h3>
+                    <p class="text-[12px] text-ink-400">Configure LKR/USD prices, sale prices, stock quantities & variant images.</p>
+                </div>
+            </div>
+            <button type="button" onclick="closeVariantsModal()" class="rounded-base p-1.5 text-ink-400 hover:bg-surface-line hover:text-ink-700 transition-colors">
+                <i data-lucide="x" class="h-5 w-5"></i>
+            </button>
+        </div>
+
+        <!-- Modal Body (Form) -->
+        <form id="variantsForm" method="POST" action="" enctype="multipart/form-data" class="flex-1 overflow-y-auto p-6 space-y-6">
+            @csrf
+            
+            <!-- Active / Configured Variants Section -->
+            <div>
+                <h4 class="text-[15px] font-semibold text-ink-900 mb-3 flex items-center gap-2">
+                    <i data-lucide="layers" class="h-4 w-4 text-brand-600"></i>
+                    Currently Configured Variants
+                </h4>
+                <div id="activeVariantsList" class="space-y-3">
+                    <!-- Populated dynamically via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Add Additional Variants Section -->
+            <div class="border-t border-surface-line pt-5">
+                <h4 class="text-[15px] font-semibold text-ink-900 mb-3 flex items-center gap-2">
+                    <i data-lucide="plus-circle" class="h-4 w-4 text-brand-600"></i>
+                    Add New Attribute Variants
+                </h4>
+                <div id="availableAttributesList" class="space-y-4">
+                    @foreach ($allAttributes as $attr)
+                        <div class="rounded-base border border-surface-line bg-surface-body p-3">
+                            <h5 class="text-[13px] font-semibold text-ink-800 mb-2 flex items-center gap-1.5">
+                                <i data-lucide="sliders" class="h-3.5 w-3.5 text-brand-600"></i>
+                                {{ $attr->name }}
+                            </h5>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                                @foreach ($attr->values as $val)
+                                    <div class="modal-attr-option bg-surface-card border border-surface-line p-2.5 rounded-base" data-val-id="{{ $val->id }}">
+                                        <div class="flex items-center gap-2 mb-1.5">
+                                            <input type="checkbox" name="variants[{{ $val->id }}][selected]" value="1" id="modal_new_var_{{ $val->id }}" onchange="toggleModalVariantFields({{ $val->id }})" class="modal-var-check h-4 w-4 rounded border-surface-line text-brand-600 focus:ring-brand-600">
+                                            <label for="modal_new_var_{{ $val->id }}" class="text-[13px] font-semibold text-ink-900 cursor-pointer">
+                                                {{ $val->value_name }}
+                                                @if($val->metric)<span class="text-[10px] text-brand-600 bg-brand-50 px-1 py-0.5 rounded ml-1">{{ $val->metric }}</span>@endif
+                                            </label>
+                                        </div>
+
+                                        <div id="modal_new_fields_{{ $val->id }}" class="hidden space-y-2 pt-2 border-t border-surface-line text-[12px]">
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <div>
+                                                    <label class="block font-medium text-ink-600 mb-0.5">LKR Price (Rs.) *</label>
+                                                    <input type="number" step="0.01" name="variants[{{ $val->id }}][price_lkr]" placeholder="1500.00" class="h-8 w-full rounded border border-surface-line bg-surface-body px-2 text-[12px]">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-ink-600 mb-0.5">USD Price ($) *</label>
+                                                    <input type="number" step="0.01" name="variants[{{ $val->id }}][price_usd]" placeholder="5.00" class="h-8 w-full rounded border border-surface-line bg-surface-body px-2 text-[12px]">
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <div>
+                                                    <label class="block font-medium text-ink-600 mb-0.5">LKR Sale</label>
+                                                    <input type="number" step="0.01" name="variants[{{ $val->id }}][sale_price_lkr]" placeholder="Optional" class="h-8 w-full rounded border border-surface-line bg-surface-body px-2 text-[12px]">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-ink-600 mb-0.5">Stock Qty *</label>
+                                                    <input type="number" name="variants[{{ $val->id }}][stock]" value="10" placeholder="10" class="h-8 w-full rounded border border-surface-line bg-surface-body px-2 text-[12px]">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block font-medium text-ink-600 mb-0.5">Variant Image</label>
+                                                <input type="file" name="variants[{{ $val->id }}][image]" accept="image/*" class="w-full text-[10px] text-ink-500 file:mr-1 file:py-0.5 file:px-1.5 file:rounded file:border-0 file:bg-brand-50 file:text-brand-600 cursor-pointer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-surface-line bg-surface-card sticky bottom-0">
+                <button type="button" onclick="closeVariantsModal()" class="h-10 rounded-base border border-surface-line px-4 text-[14px] font-semibold text-ink-700 hover:bg-surface-muted transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="inline-flex h-10 items-center gap-2 rounded-base bg-brand-600 px-5 text-[14px] font-semibold text-white hover:bg-brand-700 shadow transition-colors">
+                    <i data-lucide="save" class="h-4 w-4"></i>
+                    Save Variants & Stock
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openVariantsModal(productId, productName, productImgUrl, attachedVariants) {
+        const modal = document.getElementById('variantsModal');
+        const form = document.getElementById('variantsForm');
+        const nameEl = document.getElementById('modalProductName');
+        const imgEl = document.getElementById('modalProductImg');
+        const activeList = document.getElementById('activeVariantsList');
+
+        form.action = `/admin/products/${productId}/variants`;
+        nameEl.innerText = `Manage Variants: ${productName}`;
+        imgEl.src = productImgUrl;
+
+        // Reset new variant options
+        document.querySelectorAll('.modal-var-check').forEach(chk => chk.checked = false);
+        document.querySelectorAll('[id^="modal_new_fields_"]').forEach(div => div.classList.add('hidden'));
+
+        // Show all option cards first
+        document.querySelectorAll('.modal-attr-option').forEach(card => card.classList.remove('hidden'));
+
+        // Build active variants HTML
+        activeList.innerHTML = '';
+
+        if (attachedVariants && attachedVariants.length > 0) {
+            attachedVariants.forEach(val => {
+                const pivot = val.pivot || {};
+                const valId = val.id;
+                
+                // Hide from new options list to prevent duplicate selection
+                const existingOptionCard = document.querySelector(`.modal-attr-option[data-val-id="${valId}"]`);
+                if (existingOptionCard) existingOptionCard.classList.add('hidden');
+
+                const imageSrc = pivot.image ? `/${pivot.image}` : null;
+
+                const card = document.createElement('div');
+                card.className = 'rounded-base border border-surface-line bg-surface-body p-3 text-[13px]';
+                card.innerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2 pb-2 border-b border-surface-line">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" name="variants[${valId}][selected]" value="1" checked id="active_var_${valId}" class="h-4 w-4 rounded border-surface-line text-brand-600">
+                            <label for="active_var_${valId}" class="font-semibold text-ink-900 cursor-pointer flex items-center gap-1.5">
+                                <span>${val.value_name}</span>
+                                ${val.metric ? `<span class="text-[11px] font-semibold text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">${val.metric}</span>` : ''}
+                            </label>
+                        </div>
+                        <span class="text-[11px] text-ink-400 font-mono">ID: #${valId}</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">LKR Price (Rs.) *</label>
+                            <input type="number" step="0.01" name="variants[${valId}][price_lkr]" value="${pivot.price_lkr || '0.00'}" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">USD Price ($) *</label>
+                            <input type="number" step="0.01" name="variants[${valId}][price_usd]" value="${pivot.price_usd || '0.00'}" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">LKR Sale</label>
+                            <input type="number" step="0.01" name="variants[${valId}][sale_price_lkr]" value="${pivot.sale_price_lkr || ''}" placeholder="Opt" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">USD Sale</label>
+                            <input type="number" step="0.01" name="variants[${valId}][sale_price_usd]" value="${pivot.sale_price_usd || ''}" placeholder="Opt" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">Stock Qty *</label>
+                            <input type="number" name="variants[${valId}][stock]" value="${pivot.stock ?? 0}" min="0" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">Variant Image</label>
+                            <div class="flex items-center gap-1">
+                                ${imageSrc ? `<img src="${imageSrc}" class="h-8 w-8 shrink-0 object-cover rounded border border-surface-line bg-white">` : ''}
+                                <input type="file" name="variants[${valId}][image]" accept="image/*" class="w-full text-[10px] text-ink-500 file:mr-1 file:py-0.5 file:px-1 file:rounded file:border-0 file:bg-brand-50 file:text-brand-600 cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                activeList.appendChild(card);
+            });
+        } else {
+            activeList.innerHTML = '<p class="text-[13px] text-ink-400 italic bg-surface-body p-3 rounded-base text-center border border-dashed border-surface-line">No active variants configured for this product yet. Select from the attributes below to add variants.</p>';
+        }
+
+        modal.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function closeVariantsModal() {
+        document.getElementById('variantsModal').classList.add('hidden');
+    }
+
+    function toggleModalVariantFields(valId) {
+        const chk = document.getElementById(`modal_new_var_${valId}`);
+        const fields = document.getElementById(`modal_new_fields_${valId}`);
+        if (chk.checked) {
+            fields.classList.remove('hidden');
+        } else {
+            fields.classList.add('hidden');
+        }
+    }
+</script>
 @endsection

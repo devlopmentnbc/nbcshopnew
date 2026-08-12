@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Add New Product - Admin Unimart')
+@section('title', 'Add New Product - Admin NBC IT')
 
 @section('content')
 <main class="px-4 py-6 lg:px-6 min-h-[calc(100vh-140px)]">
@@ -120,8 +120,8 @@
                                                     </label>
                                                 </div>
 
-                                                <!-- Variant Inputs (LKR, USD, Stock) -->
-                                                <div id="variant_inputs_{{ $val->id }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 pt-2 border-t border-surface-line {{ old("variants.{$val->id}.selected") ? '' : 'hidden' }}">
+                                                <!-- Variant Inputs (LKR, USD, Stock, Image) -->
+                                                <div id="variant_inputs_{{ $val->id }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2 border-t border-surface-line {{ old("variants.{$val->id}.selected") ? '' : 'hidden' }}">
                                                     <!-- LKR Price -->
                                                     <div>
                                                         <label class="block text-[12px] font-semibold text-ink-700 mb-1">LKR Price (Rs.) <span class="text-danger-500">*</span></label>
@@ -150,6 +150,12 @@
                                                     <div>
                                                         <label class="block text-[12px] font-semibold text-ink-700 mb-1">Stock Qty <span class="text-danger-500">*</span></label>
                                                         <input type="number" name="variants[{{ $val->id }}][stock]" value="{{ old("variants.{$val->id}.stock", 10) }}" placeholder="10" min="0" class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                                                    </div>
+
+                                                    <!-- Variant Image -->
+                                                    <div>
+                                                        <label class="block text-[12px] font-semibold text-ink-700 mb-1">Variant Image</label>
+                                                        <input type="file" name="variants[{{ $val->id }}][image]" accept="image/*" class="w-full text-[11px] text-ink-500 file:mr-1 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
                                                     </div>
                                                 </div>
                                             </div>

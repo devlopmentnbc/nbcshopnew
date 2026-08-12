@@ -79,6 +79,7 @@ Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name(
 
 use App\Http\Controllers\Admin\ShippingSettingController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ReportController;
 
 // Protected Admin Routes
 Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
@@ -94,6 +95,11 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::resource('promotions', PromotionController::class)->except('show');
     Route::get('categories/{category}/sub-categories', [ProductController::class, 'getSubCategories'])->name('categories.sub-categories');
     Route::delete('product-images/{image}', [ProductController::class, 'destroyGalleryImage'])->name('products.gallery.destroy');
+    Route::post('products/{product}/variants', [ProductController::class, 'updateVariants'])->name('products.variants.update');
+
+    // Admin Reports & Analytics
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
 
     // Admin Orders
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
