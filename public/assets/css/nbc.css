@@ -3007,9 +3007,9 @@ body::-webkit-scrollbar-button:vertical:end:increment {
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
         border-radius: 0 0 14px 14px !important;
         box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28) !important;
-        display: grid;
-        gap: 2px 18px;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-count: 2; /* Fill submenu items column by column */
+        column-gap: 18px;
+        display: block;
         left: 0 !important;
         margin-top: 0;
         max-height: none;
@@ -3030,6 +3030,7 @@ body::-webkit-scrollbar-button:vertical:end:increment {
         li.has-dropdown
         > .submenu
         > li {
+        break-inside: avoid;
         display: block;
         min-width: 0;
         width: 100%;

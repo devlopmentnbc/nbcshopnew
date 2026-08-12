@@ -1,88 +1,68 @@
 @php
-    $mainMenuGroups = [
-        'Brand' => [
-            'champion' => 'Champion',
-            'chandi-panda' => 'Chandi Panda',
-            'misumi' => 'Misumi',
-            'mydoc' => 'MyDoc',
-            'nature-s-secrets' => "Nature's Secrets",
-            'panda-baby' => 'Panda Baby',
-            'sucses' => 'SUCSES',
-            'selfie' => 'Selfie',
-            'elithe' => 'Elithé',
-        ],
-        'Skin Care' => [
-            'all-skin' => 'All Skin',
-            'anti-acne-anti-blemish' => 'Anti - Acne/Anti - Blemish',
-            'eye-care' => 'Eye Care',
-            'facial-cleansers-toners' => 'Facial Cleansers & Toners',
-            'facial-creams-gels' => 'Facial Creams & Gels',
-            'facials-scrubs' => 'Facial Scrubs',
-            'normal-dry-skin' => 'Normal & Dry Skin',
-            'oily-combination-skin' => 'Oily & Combination Skin',
-            'serum' => 'Serum',
-            'shaving' => 'Shaving',
-            'skin-brightening-lightening' => 'Skin Brightening',
-            'skin-soothing-aloe-vera-gel' => 'Skin Soothing Aloe Vera Gel',
-            'sulfate-free-facial-wash' => 'Sulfate-free Facial Wash',
-        ],
-        'Bath & Body' => [
-            'body-butter' => 'Body Butters',
-            'body-cleansers' => 'Body Cleansers',
-            'body-lotions-creams' => 'Body Lotions & Creams',
-            'body-oils' => 'Body Oils',
-            'body-scrub' => 'Body Scrub',
-            'essential-oil' => 'Essential Oil',
-            'hand-foot-care' => 'Hand & Foot Care',
-            'soap' => 'Soap',
-            'sun-protection-1' => 'Sun Protection',
-        ],
-        'Hair Care' => [
-            'conditioner' => 'Conditioner',
-            'hair-gels' => 'Hair Gels',
-            'hair-oils-tonics' => 'Hair oils & tonics',
-            'shampoo' => 'Shampoo',
-        ],
-        'Baby Care' => [
-            'gift' => 'Baby Gifts',
-            'baby-oil' => 'Baby Oil',
-            'colognes' => 'Colognes',
-            'cotton-buds' => 'Cotton Buds',
-            'creams-talc' => 'Creams & Lotions',
-            'nappy-wash' => 'Nappy Wash',
-            'cleansers' => 'Soaps & Cleansers',
-            'talc' => 'Talc',
-        ],
-        'Fragrance' => [
-            'for-her' => 'For Her',
-            'for-him' => 'For Him',
-        ],
-        'Bundles' => [
-            'care-bundles' => 'Care Bundles',
-            'gifts' => 'Gifts',
-            'sanitizers' => 'Sanitizers',
-        ],
-    ];
+    $mainMenuData = once(function () {
+        $brands = \App\Models\Brand::query()
+            ->where('status', true)
+            ->orderBy('name')
+            ->get(['id', 'name', 'slug']);
 
+        $categories = \App\Models\Category::query()
+            ->where('status', true)
+            ->with([
+                'subCategories' => fn ($query) => $query
+                    ->where('status', true)
+                    ->orderBy('name')
+                    ->select(['id', 'category_id', 'name', 'slug']),
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get(['id', 'name', 'slug']);
+
+        return compact('brands', 'categories');
+    });
+
+    $menuBrands = $mainMenuData['brands'];
+    $menuCategories = $mainMenuData['categories'];
 @endphp
 
 <ul class="mainmenu has-nav-bg-shape-hover nbc-mainmenu">
-    @foreach ($mainMenuGroups as $groupName => $items)
-        @php($firstSlug = array_key_first($items))
+    @if ($menuBrands->isNotEmpty())
         <li class="has-dropdown has-menu-child-item">
-            <a href="https://www.nbc.lk/shop/category/{{ $firstSlug }}">
-                <span class="nbc-main-menu__label">{{ $groupName }}</span><i class="fa-regular fa-chevron-down"
+            <a href="{{ route('shop') }}">
+                <span class="nbc-main-menu__label">Brand</span><i class="fa-regular fa-chevron-down"
                     aria-hidden="true"></i>
             </a>
             <ul class="submenu">
-                @foreach ($items as $slug => $label)
-                    <li><a href="https://www.nbc.lk/shop/category/{{ $slug }}">{{ $label }}</a></li>
+                @foreach ($menuBrands as $brand)
+                    <li><a href="{{ route('shop', ['brand' => $brand->slug]) }}">{{ $brand->name }}</a></li>
                 @endforeach
             </ul>
         </li>
-    @endforeach
+    @endif
 
+    @foreach ($menuCategories as $category)
+        @if ($category->subCategories->isNotEmpty())
+            <li class="has-dropdown has-menu-child-item">
+                <a href="{{ route('shop', ['category' => $category->slug]) }}">
+                    <span class="nbc-main-menu__label">{{ $category->name }}</span><i
+                        class="fa-regular fa-chevron-down" aria-hidden="true"></i>
+                </a>
+                <ul class="submenu">
+                    @foreach ($category->subCategories as $subCategory)
+                        <li>
+                            <a href="{{ route('shop', ['sub_category' => $subCategory->slug]) }}">
+                                {{ $subCategory->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+        @else
+            <li>
+                <a href="{{ route('shop', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+            </li>
+        @endif
+    @endforeach
     <li>
-        <a href="https://www.nbc.lk/shop?sort=newest">New Arrivals</a>
+        <a href="{{ route('shop', ['sort' => 'newest']) }}">New Arrivals</a>
     </li>
 </ul>
