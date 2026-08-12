@@ -8,7 +8,7 @@
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-[24px] font-semibold text-ink-900">Sub Categories</h1>
-            <p class="mt-1 text-[14px] text-ink-500">Manage sub-categories linked to parent categories, with uploaded images.</p>
+            <p class="mt-1 text-[14px] text-ink-500">Manage sub-categories linked to parent categories.</p>
         </div>
         <div>
             <a href="{{ route('admin.sub-categories.create') }}" class="inline-flex h-11 items-center gap-2 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-700">
@@ -53,7 +53,10 @@
             <table class="w-full min-w-[650px] text-left text-[14px]">
                 <thead>
                     <tr class="border-b border-surface-line text-[13px] uppercase text-ink-400">
-                        <th class="pb-3 pr-4 font-semibold">Image</th>
+                        {{-- Image support is retained for future use. Change this condition to true to restore the column. --}}
+                        @if (false)
+                            <th class="pb-3 pr-4 font-semibold">Image</th>
+                        @endif
                         <th class="pb-3 pr-4 font-semibold">Sub Category</th>
                         <th class="pb-3 pr-4 font-semibold">Parent Category</th>
                         <th class="pb-3 pr-4 font-semibold">Slug</th>
@@ -64,9 +67,11 @@
                 <tbody class="divide-y divide-surface-line">
                     @forelse ($subCategories as $subCategory)
                         <tr class="hover:bg-surface-body/70 transition-colors">
-                            <td class="py-4 pr-4">
-                                <img src="{{ asset($subCategory->image) }}" alt="{{ $subCategory->name }}" class="h-12 w-12 rounded-base bg-surface-body object-cover border border-surface-line">
-                            </td>
+                            @if (false)
+                                <td class="py-4 pr-4">
+                                    <img src="{{ asset($subCategory->image) }}" alt="{{ $subCategory->name }}" class="h-12 w-12 rounded-base bg-surface-body object-cover border border-surface-line">
+                                </td>
+                            @endif
                             <td class="py-4 pr-4">
                                 <span class="font-semibold text-ink-900 block">{{ $subCategory->name }}</span>
                             </td>
@@ -107,7 +112,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-ink-400">
+                            <td colspan="5" class="py-8 text-center text-ink-400">
                                 <i data-lucide="folder-open" class="mx-auto h-8 w-8 mb-2"></i>
                                 No sub categories found.
                             </td>
