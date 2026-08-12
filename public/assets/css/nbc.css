@@ -3233,15 +3233,12 @@ body {
     .nbc-mainmenu
     li.has-dropdown
     > .submenu {
-    -webkit-backdrop-filter: blur(12px) !important;
-    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     background: rgba(0, 19, 10, 0.92) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 14px !important;
     box-shadow: none !important;
-    clip-path: inset(0 round 14px);
-    filter: drop-shadow(0 18px 38px rgba(0, 0, 0, 0.28));
-    isolation: isolate;
     margin-top: 8px;
     overflow: hidden !important;
     padding: 8px !important;
