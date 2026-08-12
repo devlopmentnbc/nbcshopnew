@@ -404,6 +404,7 @@
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
             <a data-nav="orders" href="{{ route('admin.orders.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request()->routeIs('admin.orders.index') && !request('payment_method') ? 'font-semibold text-brand-600' : '' }}">All Orders</a>
+            <a data-nav="orders-create" href="{{ route('admin.orders.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request()->routeIs('admin.orders.create') ? 'font-semibold text-brand-600' : '' }}">Add Order</a>
             <a data-nav="orders-cod" href="{{ route('admin.orders.index', ['payment_method' => 'cod']) }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request('payment_method') === 'cod' ? 'font-semibold text-brand-600' : '' }}">COD Orders</a>
             <a data-nav="orders-card" href="{{ route('admin.orders.index', ['payment_method' => 'card']) }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request('payment_method') === 'card' ? 'font-semibold text-brand-600' : '' }}">Card (Pay Online) Orders</a>
           </div>
@@ -465,16 +466,16 @@
     </a>
 
     <!-- Settings -->
-    <div data-nav-group="" data-open="{{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }}">
-      <button type="button" data-nav-trigger="" title="Settings" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="{{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }}">
-        <i data-lucide="settings" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
-        <span class="nav-text flex-1 text-left">Settings</span>
+    <div data-nav-group="" data-open="{{ request()->routeIs('admin.settings.*') ? 'true' : 'true' }}">
+      <button type="button" data-nav-trigger="" title="Settings" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="true">
+        <i data-lucide="settings" class="h-[18px] w-[18px] shrink-0 text-brand-600"></i>
+        <span class="nav-text flex-1 text-left font-semibold text-ink-900">Settings</span>
         <i data-lucide="chevron-right" data-nav-chevron="" class="nav-text h-4 w-4 shrink-0 text-ink-400 transition-transform duration-300"></i>
       </button>
-      <div data-nav-submenu="" class="nav-text grid {{ request()->routeIs('admin.settings.*') ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }} transition-all duration-300 ease-in-out">
+      <div data-nav-submenu="" class="nav-text grid grid-rows-[1fr] transition-all duration-300 ease-in-out">
         <div class="overflow-hidden">
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
-            <a data-nav="shipping-settings" href="{{ route('admin.settings.shipping.index') }}" class="block rounded-base px-2 py-2 {{ request()->routeIs('admin.settings.shipping.*') ? 'font-semibold text-brand-600 bg-surface-muted' : 'text-ink-500 hover:bg-surface-muted hover:text-ink-900' }} transition-colors">Shipping Settings</a>
+            <a data-nav="shipping-settings" href="{{ route('admin.settings.shipping.index') }}" class="block rounded-base px-2 py-2 {{ request()->routeIs('admin.settings.shipping.*') ? 'font-bold text-brand-600 bg-brand-50' : 'text-ink-500 hover:bg-surface-muted hover:text-ink-900' }} transition-colors">🚚 Shipping & Payment Limits</a>
           </div>
         </div>
       </div>
@@ -688,5 +689,13 @@
       </div>
     </div>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      });
+    </script>
 </body>
 </html>

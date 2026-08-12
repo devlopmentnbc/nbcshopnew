@@ -19,6 +19,7 @@ class Product extends Model
         'name',
         'slug',
         'sku',
+        'weight_grams',
         'short_description',
         'description',
         'how_to_use',
@@ -35,6 +36,7 @@ class Product extends Model
             'status' => 'boolean',
             'is_best_seller' => 'boolean',
             'is_new_arrival' => 'boolean',
+            'weight_grams' => 'integer',
         ];
     }
 

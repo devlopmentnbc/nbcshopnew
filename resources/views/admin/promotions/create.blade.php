@@ -21,7 +21,7 @@
             class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card lg:p-8">
             @csrf
 
-            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <div class="space-y-6 lg:col-span-2">
                     <section class="space-y-5">
                         <div class="border-b border-surface-line pb-3">

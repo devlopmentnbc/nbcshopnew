@@ -231,9 +231,23 @@
                                                 <div class="col-md-4 text-md-end border-top border-md-0 pt-2 pt-md-0">
                                                     <div class="text-muted extra-small">Total Amount</div>
                                                     <div class="h5 fw-bold text-success mb-1">LKR {{ number_format($order->total_lkr, 2) }}</div>
-                                                    <div class="badge bg-light text-dark border extra-small">
-                                                        {{ strtoupper($order->payment_method ?? 'COD') }} &bull; {{ ucfirst($order->payment_status ?? 'Unpaid') }}
+                                                    <div class="badge bg-light text-dark border extra-small mb-2">
+                                                        {{ strtoupper(str_replace('_', ' ', $order->payment_method ?? 'COD')) }} &bull; {{ ucfirst($order->payment_status ?? 'Unpaid') }}
                                                     </div>
+
+                                                    @if ($order->payment_slip)
+                                                        <div>
+                                                            <a href="{{ asset($order->payment_slip) }}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-2.5 py-1 extra-small">
+                                                                <i class="fa-regular fa-paperclip me-1"></i> View Payment Slip
+                                                            </a>
+                                                        </div>
+                                                    @else
+                                                        <div>
+                                                            <a href="{{ route('checkout.success', $order->order_number) }}" class="btn btn-sm btn-outline-warning text-dark rounded-pill px-2.5 py-1 extra-small">
+                                                                <i class="fa-regular fa-upload me-1"></i> Upload Slip
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

@@ -50,6 +50,7 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/checkout/calculate-shipping', [CheckoutController::class, 'calculateShipping'])->name('checkout.calculate_shipping');
 Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::post('/checkout/upload-slip/{orderNumber}', [CheckoutController::class, 'customerUploadSlip'])->name('checkout.upload_slip');
 
 // Customer Authentication Routes
 Route::get('/login', [AuthController::class, 'showCustomerLoginForm'])->name('login');
@@ -103,9 +104,12 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
 
     // Admin Orders
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::patch('orders/{order}/payment-status', [OrderController::class, 'updatePaymentStatus'])->name('orders.updatePaymentStatus');
+    Route::post('orders/{order}/upload-slip', [OrderController::class, 'uploadSlip'])->name('orders.uploadSlip');
     Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 
     // Shipping Settings (Sri Lanka domestic rate & free shipping threshold)

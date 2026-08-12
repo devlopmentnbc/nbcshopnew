@@ -23,7 +23,7 @@
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Left 2 columns: Main Details & Attribute Pricing -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Basic Info Card -->
@@ -39,8 +39,8 @@
                         @enderror
                     </div>
 
-                    <!-- Slug & SKU -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Slug, SKU & Weight -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label for="slug" class="block text-[14px] font-semibold text-ink-900 mb-2">Slug</label>
                             <input type="text" name="slug" id="slug" value="{{ old('slug', $product->slug) }}" placeholder="e.g. organic-almond-milk" class="h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] text-ink-900 focus:border-brand-600 focus:outline-none">
@@ -49,6 +49,14 @@
                         <div>
                             <label for="sku" class="block text-[14px] font-semibold text-ink-900 mb-2">Main Product SKU</label>
                             <input type="text" name="sku" id="sku" value="{{ old('sku', $product->sku) }}" placeholder="e.g. ALM-MAIN" class="h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label for="weight_grams" class="block text-[14px] font-semibold text-ink-900 mb-2">Product Weight (g) <span class="text-danger-500">*</span></label>
+                            <div class="flex rounded-base border border-surface-line overflow-hidden bg-surface-body focus-within:border-brand-600">
+                                <input type="number" step="1" min="0" name="weight_grams" id="weight_grams" value="{{ old('weight_grams', $product->weight_grams ?? 500) }}" placeholder="500" required class="h-11 flex-1 bg-transparent px-4 text-[14px] text-ink-900 focus:outline-none">
+                                <span class="inline-flex items-center bg-surface-muted px-3 text-[13px] font-semibold text-ink-500 border-l border-surface-line select-none">grams (g)</span>
+                            </div>
                         </div>
                     </div>
 

@@ -34,7 +34,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('checkout.store') }}" id="checkoutForm">
+            <form method="POST" action="{{ route('checkout.store') }}" id="checkoutForm" enctype="multipart/form-data">
                 @csrf
                 <div class="row g-5">
                     <div class="col-lg-7">
@@ -264,42 +264,112 @@
                                     id="orderTotalText">LKR {{ number_format($initialTotal ?? $subtotal, 2) }}</p>
                             </div>
 
+                            @php
+                                $enableCod = \App\Models\Setting::get('enable_shipping_cod', '1') == '1';
+                                $enableCard = \App\Models\Setting::get('enable_shipping_card', '1') == '1';
+                                $maxCodLimit = (float) \App\Models\Setting::get('max_cod_order_limit', 10000.00);
+                                $maxCardLimit = (float) \App\Models\Setting::get('max_card_order_limit', 20000.00);
+
+                                $currentTotal = (float) ($initialTotal ?? $subtotal);
+
+                                $isCodAvailable = $enableCod && ($maxCodLimit <= 0 || $currentTotal <= $maxCodLimit);
+                                $isCardAvailable = $enableCard && ($maxCardLimit <= 0 || $currentTotal <= $maxCardLimit);
+
+                                $defaultMethod = '';
+                                if ($isCodAvailable) {
+                                    $defaultMethod = 'cash_on_delivery';
+                                } elseif ($isCardAvailable) {
+                                    $defaultMethod = 'bank_transfer';
+                                }
+                            @endphp
+
                             <div class="payment-method-box border-top pt-3 mt-3">
                                 <h6 class="title mb--15" style="font-size: 15px;">Payment Method<span
                                         class="rbt-text-color-danger">*</span></h6>
                                 <div class="payment-methods">
-                                    <div class="payment-option mb--15">
-                                        <div
-                                            class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice">
-                                            <input class="form-check-input mt-0 cursor-pointer" type="radio"
-                                                name="payment_method" id="payment_cod" value="cash_on_delivery"
-                                                {{ old('payment_method', 'cash_on_delivery') === 'cash_on_delivery' ? 'checked' : '' }}
-                                                required>
-                                            <label class="form-check-label flex-grow-1 cursor-pointer" for="payment_cod">
-                                                <strong class="d-block text-dark" style="font-size: 14px;">Cash on
-                                                    Delivery (COD)</strong>
-                                                <small class="text-muted d-block"
-                                                    style="font-size: 12px; line-height: 1.3;">Pay with cash upon physical
-                                                    delivery of your order.</small>
-                                            </label>
+                                    @if ($enableCod)
+                                        <!-- Cash on Delivery -->
+                                        <div class="payment-option mb--15">
+                                            <div class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice {{ !$isCodAvailable ? 'bg-light opacity-50' : '' }}" id="cod_box">
+                                                <input class="form-check-input mt-0 cursor-pointer" type="radio"
+                                                    name="payment_method" id="payment_cod" value="cash_on_delivery"
+                                                    {{ old('payment_method', $defaultMethod) === 'cash_on_delivery' && $isCodAvailable ? 'checked' : '' }}
+                                                    {{ !$isCodAvailable ? 'disabled' : '' }} required>
+                                                <label class="form-check-label flex-grow-1 cursor-pointer" for="payment_cod">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <strong class="d-block text-dark" style="font-size: 14px;">Cash on Delivery (COD)</strong>
+                                                        @if ($maxCodLimit > 0)
+                                                            <span class="badge bg-secondary text-white ms-2" style="font-size: 10px;">Max: LKR {{ number_format($maxCodLimit, 0) }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <small class="text-muted d-block" style="font-size: 12px; line-height: 1.3;">Pay with cash upon physical delivery of your order.</small>
+                                                    @if ($enableCod && !$isCodAvailable)
+                                                        <small class="text-danger font-weight-bold d-block mt-1" style="font-size: 11px;" id="cod_limit_msg">
+                                                            Unavailable: Order total (LKR {{ number_format($currentTotal, 2) }}) exceeds maximum COD limit of LKR {{ number_format($maxCodLimit, 2) }}.
+                                                        </small>
+                                                    @endif
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="payment-option">
-                                        <div
-                                            class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice">
-                                            <input class="form-check-input mt-0 cursor-pointer" type="radio"
-                                                name="payment_method" id="payment_online" value="pay_online"
-                                                {{ old('payment_method') === 'pay_online' ? 'checked' : '' }} required>
-                                            <label class="form-check-label flex-grow-1 cursor-pointer"
-                                                for="payment_online">
-                                                <strong class="d-block text-dark" style="font-size: 14px;">Pay
-                                                    Online</strong>
-                                                <small class="text-muted d-block"
-                                                    style="font-size: 12px; line-height: 1.3;">Pay securely online using
-                                                    your Credit or Debit Card via Payment Gateway.</small>
-                                            </label>
+                                    @endif
+
+                                    @if ($enableCard)
+                                        <!-- Bank Transfer / Deposit -->
+                                        <div class="payment-option mb--15">
+                                            <div class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice {{ !$isCardAvailable ? 'bg-light opacity-50' : '' }}" id="bank_box">
+                                                <input class="form-check-input mt-0 cursor-pointer" type="radio"
+                                                    name="payment_method" id="payment_bank" value="bank_transfer"
+                                                    {{ old('payment_method', $defaultMethod) === 'bank_transfer' && $isCardAvailable ? 'checked' : '' }}
+                                                    {{ !$isCardAvailable ? 'disabled' : '' }} required>
+                                                <label class="form-check-label flex-grow-1 cursor-pointer" for="payment_bank">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <strong class="d-block text-dark" style="font-size: 14px;">Bank Transfer / Deposit</strong>
+                                                        @if ($maxCardLimit > 0)
+                                                            <span class="badge bg-secondary text-white ms-2" style="font-size: 10px;">Max: LKR {{ number_format($maxCardLimit, 0) }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <small class="text-muted d-block" style="font-size: 12px; line-height: 1.3;">Direct bank transfer to our account with slip upload option.</small>
+                                                    @if ($enableCard && !$isCardAvailable)
+                                                        <small class="text-danger font-weight-bold d-block mt-1" style="font-size: 11px;" id="card_limit_msg">
+                                                            Unavailable: Order total (LKR {{ number_format($currentTotal, 2) }}) exceeds maximum Card limit of LKR {{ number_format($maxCardLimit, 2) }}.
+                                                        </small>
+                                                    @endif
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
+
+                                        <!-- Online Card Payment -->
+                                        <div class="payment-option">
+                                            <div class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice {{ !$isCardAvailable ? 'bg-light opacity-50' : '' }}" id="card_box">
+                                                <input class="form-check-input mt-0 cursor-pointer" type="radio"
+                                                    name="payment_method" id="payment_online" value="pay_online"
+                                                    {{ old('payment_method', $defaultMethod) === 'pay_online' && $isCardAvailable ? 'checked' : '' }}
+                                                    {{ !$isCardAvailable ? 'disabled' : '' }} required>
+                                                <label class="form-check-label flex-grow-1 cursor-pointer" for="payment_online">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <strong class="d-block text-dark" style="font-size: 14px;">Pay Online (Card)</strong>
+                                                        @if ($maxCardLimit > 0)
+                                                            <span class="badge bg-secondary text-white ms-2" style="font-size: 10px;">Max: LKR {{ number_format($maxCardLimit, 0) }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <small class="text-muted d-block" style="font-size: 12px; line-height: 1.3;">Pay securely online using your Credit or Debit Card via CyberSource Gateway.</small>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (!$isCodAvailable && !$isCardAvailable)
+                                        <div class="alert alert-warning text-center">
+                                            No payment methods are available for an order total of <strong>LKR {{ number_format($currentTotal, 2) }}</strong>. Please contact store support.
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Payment Slip Upload Container -->
+                                <div id="slipUploadContainer" class="mt-3 p-3 bg-light border rounded" style="display: none;">
+                                    <label class="form-label font-weight-bold text-dark small mb-1">Upload Payment Slip (Optional)</label>
+                                    <input type="file" name="payment_slip" accept="image/*,application/pdf" class="form-control form-control-sm">
+                                    <small class="text-muted d-block mt-1" style="font-size: 11px;">You can upload bank slip image or PDF receipt now, or upload it later on your order status page.</small>
                                 </div>
                             </div>
                         </div>
@@ -382,31 +452,34 @@
             }
 
             var codRadio = document.getElementById('payment_cod');
+            var bankRadio = document.getElementById('payment_bank');
             var onlineRadio = document.getElementById('payment_online');
             var btnText = document.getElementById('btnText');
+            var slipUploadContainer = document.getElementById('slipUploadContainer');
 
             function updateSubmitButton() {
                 if (onlineRadio && onlineRadio.checked) {
                     btnText.textContent = 'Proceed to Payment Gateway';
+                    if (slipUploadContainer) slipUploadContainer.style.display = 'none';
+                } else if (bankRadio && bankRadio.checked) {
+                    btnText.textContent = 'Place Order (Bank Transfer)';
+                    if (slipUploadContainer) slipUploadContainer.style.display = 'block';
                 } else {
                     btnText.textContent = 'Place Order (Cash on Delivery)';
+                    if (slipUploadContainer) slipUploadContainer.style.display = 'block';
                 }
             }
 
-            if (codRadio && onlineRadio) {
-                codRadio.addEventListener('change', updateSubmitButton);
-                onlineRadio.addEventListener('change', updateSubmitButton);
-                updateSubmitButton();
-            }
+            if (codRadio) codRadio.addEventListener('change', updateSubmitButton);
+            if (bankRadio) bankRadio.addEventListener('change', updateSubmitButton);
+            if (onlineRadio) onlineRadio.addEventListener('change', updateSubmitButton);
+            updateSubmitButton();
 
             function updateShipping() {
                 var sameAsBilling = sameAsBillingCheckbox ? sameAsBillingCheckbox.checked : true;
-                var countryEl = sameAsBilling ? document.getElementById('billing_country') : document.getElementById(
-                    'delivery_country');
-                var cityEl = sameAsBilling ? document.getElementById('billing_city') : document.getElementById(
-                    'delivery_city');
-                var postalEl = sameAsBilling ? document.getElementById('billing_postal_code') : document.getElementById(
-                    'delivery_postal_code');
+                var countryEl = sameAsBilling ? document.getElementById('billing_country') : document.getElementById('delivery_country');
+                var cityEl = sameAsBilling ? document.getElementById('billing_city') : document.getElementById('delivery_city');
+                var postalEl = sameAsBilling ? document.getElementById('billing_postal_code') : document.getElementById('delivery_postal_code');
 
                 var country = (countryEl && countryEl.value) ? countryEl.value : 'Sri Lanka';
                 var city = (cityEl && cityEl.value) ? cityEl.value : '';

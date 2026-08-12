@@ -14,6 +14,7 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'user_id',
+        'order_type',
         'name',
         'phone',
         'email',
@@ -33,6 +34,7 @@ class Order extends Model
         'notes',
         'payment_method',
         'payment_status',
+        'payment_slip',
         'subtotal_lkr',
         'shipping_fee_lkr',
         'total_lkr',

@@ -11,9 +11,30 @@
                 <i data-lucide="arrow-left" class="h-5 w-5"></i>
             </a>
             <div>
-                <h1 class="text-[24px] font-semibold text-ink-900 flex items-center gap-3">
+                <h1 class="text-[24px] font-semibold text-ink-900 flex flex-wrap items-center gap-2.5">
                     Order #{{ $order->order_number }}
-                    @if (in_array(strtolower($order->payment_method), ['cash_on_delivery', 'cod', 'cash']))
+                    
+                    <!-- Order Type Badge -->
+                    @if ($order->order_type === 'whatsapp')
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[12px] font-bold text-emerald-700 border border-emerald-200">
+                            <i data-lucide="message-square" class="h-3.5 w-3.5"></i> WhatsApp Order
+                        </span>
+                    @elseif ($order->order_type === 'other')
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1 text-[12px] font-bold text-purple-700 border border-purple-200">
+                            <i data-lucide="file-text" class="h-3.5 w-3.5"></i> Direct / Other Channel
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-[12px] font-bold text-blue-700 border border-blue-200">
+                            <i data-lucide="globe" class="h-3.5 w-3.5"></i> Online Store
+                        </span>
+                    @endif
+
+                    <!-- Payment Method Badge -->
+                    @if (in_array(strtolower($order->payment_method), ['bank_transfer', 'bank']))
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-[12px] font-semibold text-sky-700 border border-sky-200">
+                            <i data-lucide="landmark" class="h-3.5 w-3.5"></i> Bank Transfer
+                        </span>
+                    @elseif (in_array(strtolower($order->payment_method), ['cash_on_delivery', 'cod', 'cash']))
                         <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-[12px] font-semibold text-amber-700 border border-amber-200">
                             <i data-lucide="banknote" class="h-3.5 w-3.5"></i> COD
                         </span>
@@ -46,8 +67,8 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <!-- Left 2 Columns: Items & Address -->
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <!-- Left 2 Columns: Items & Address & Slip -->
         <div class="space-y-6 lg:col-span-2">
             <!-- Order Items Card -->
             <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
@@ -177,23 +198,33 @@
             </div>
         </div>
 
-        <!-- Right Column: Status & Customer Info -->
+        <!-- Right Column: Management & Payment Slip -->
         <div class="space-y-6">
             <!-- Management Card -->
-            <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
-                <h3 class="text-[16px] font-semibold text-ink-900 border-b border-surface-line pb-4 mb-4">Order Management</h3>
+            <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-6">
+                <h3 class="text-[16px] font-semibold text-ink-900 border-b border-surface-line pb-3">Order Management</h3>
                 
                 <!-- Order Status Form -->
-                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="mb-6">
+                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
                     <label class="block text-[13px] font-semibold uppercase text-ink-500 mb-2">Order Fulfillment Status</label>
                     <div class="flex gap-2">
-                        <select name="status" class="h-10 flex-1 rounded-base border border-surface-line bg-surface-body px-3 text-[14px] font-semibold text-ink-800 focus:border-brand-600 focus:outline-none">
-                            <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Processing</option>
-                            <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Completed</option>
-                            <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        @php
+                            $oStatusShow = strtolower(trim($order->status ?? 'pending'));
+                            $osShowStyle = match($oStatusShow) {
+                                'completed' => "background-color: #16a34a !important; color: #ffffff !important; border: 1px solid #15803d !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                'processing' => "background-color: #2563eb !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                'pending' => "background-color: #d97706 !important; color: #ffffff !important; border: 1px solid #b45309 !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                'cancelled', 'canceled' => "background-color: #dc2626 !important; color: #ffffff !important; border: 1px solid #b91c1c !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                default => "background-color: #4b5563 !important; color: #ffffff !important; border: 1px solid #374151 !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important;",
+                            };
+                        @endphp
+                        <select name="status" style="{!! $osShowStyle !!}" class="h-10 flex-1 rounded-base px-3 text-[14px] font-bold focus:outline-none cursor-pointer">
+                            <option value="pending" {{ strtolower($order->status) === 'pending' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Pending</option>
+                            <option value="processing" {{ strtolower($order->status) === 'processing' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Processing</option>
+                            <option value="completed" {{ strtolower($order->status) === 'completed' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Completed</option>
+                            <option value="cancelled" {{ strtolower($order->status) === 'cancelled' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Cancelled</option>
                         </select>
                         <button type="submit" class="h-10 rounded-base bg-brand-600 px-4 text-[13px] font-semibold text-white hover:bg-brand-700 transition-colors">
                             Update
@@ -202,20 +233,83 @@
                 </form>
 
                 <!-- Payment Status Form -->
-                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST">
+                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <label class="block text-[13px] font-semibold uppercase text-ink-500 mb-2">Payment Status</label>
-                    <div class="flex gap-2">
-                        <select name="payment_status" class="h-10 flex-1 rounded-base border border-surface-line bg-surface-body px-3 text-[14px] font-semibold text-ink-800 focus:border-brand-600 focus:outline-none">
-                            <option value="pending" {{ $order->payment_status === 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="paid" {{ $order->payment_status === 'paid' ? 'selected' : '' }}>Paid</option>
-                            <option value="failed" {{ $order->payment_status === 'failed' ? 'selected' : '' }}>Failed</option>
+                    <div class="flex gap-2 mb-3">
+                        @php
+                            $pStatusShow = strtolower(trim($order->payment_status ?? 'pending'));
+                            $psShowStyle = match($pStatusShow) {
+                                'paid' => "background-color: #16a34a !important; color: #ffffff !important; border: 1px solid #15803d !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                'pending' => "background-color: #d97706 !important; color: #ffffff !important; border: 1px solid #b45309 !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                'failed', 'unpaid' => "background-color: #dc2626 !important; color: #ffffff !important; border: 1px solid #b91c1c !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: url(\"data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272.5%27 d=%27m6 8 4 4 4-4%27/%3e%3c/svg%3e\") !important; background-position: right 0.5rem center !important; background-repeat: no-repeat !important; background-size: 1.1em 1.1em !important; padding-left: 0.75rem !important; padding-right: 2rem !important;",
+                                default => "background-color: #4b5563 !important; color: #ffffff !important; border: 1px solid #374151 !important; font-weight: 700 !important; border-radius: 8px !important; appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important;",
+                            };
+                        @endphp
+                        <select name="payment_status" style="{!! $psShowStyle !!}" class="h-10 flex-1 rounded-base px-3 text-[14px] font-bold focus:outline-none cursor-pointer">
+                            <option value="pending" {{ strtolower($order->payment_status) === 'pending' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Pending</option>
+                            <option value="paid" {{ strtolower($order->payment_status) === 'paid' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Paid</option>
+                            <option value="failed" {{ strtolower($order->payment_status) === 'failed' ? 'selected' : '' }} style="background-color: #fff !important; color: #333 !important;">Failed</option>
                         </select>
                         <button type="submit" class="h-10 rounded-base bg-brand-600 px-4 text-[13px] font-semibold text-white hover:bg-brand-700 transition-colors">
                             Update
                         </button>
                     </div>
+                </form>
+            </div>
+
+            <!-- Payment Slip Card -->
+            <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-4">
+                <h3 class="text-[16px] font-semibold text-ink-900 border-b border-surface-line pb-3 flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="file-check" class="h-5 w-5 text-brand-600"></i>
+                        Payment Slip / Proof
+                    </span>
+                    @if ($order->payment_slip)
+                        <span class="inline-flex items-center gap-1 rounded bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 border border-emerald-200">
+                            Uploaded
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1 rounded bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold text-amber-700 border border-amber-200">
+                            Missing
+                        </span>
+                    @endif
+                </h3>
+
+                @if ($order->payment_slip)
+                    <div class="rounded-base border border-surface-line bg-surface-body p-3 text-center">
+                        @php $ext = pathinfo($order->payment_slip, PATHINFO_EXTENSION); @endphp
+                        @if (in_array(strtolower($ext), ['pdf']))
+                            <div class="py-6">
+                                <i data-lucide="file-text" class="mx-auto h-12 w-12 text-brand-600 mb-2"></i>
+                                <p class="text-[13px] font-bold text-ink-800">PDF Payment Slip Document</p>
+                            </div>
+                        @else
+                            <a href="{{ asset($order->payment_slip) }}" target="_blank" title="Click to view full image">
+                                <img src="{{ asset($order->payment_slip) }}" alt="Payment Slip" class="mx-auto max-h-48 rounded border border-surface-line object-contain shadow-sm hover:opacity-90 transition-opacity">
+                            </a>
+                        @endif
+                        <div class="mt-3 flex items-center justify-center gap-2">
+                            <a href="{{ asset($order->payment_slip) }}" target="_blank" class="inline-flex items-center gap-1 text-[13px] font-semibold text-brand-600 hover:underline">
+                                <i data-lucide="external-link" class="h-4 w-4"></i> View / Download Slip
+                            </a>
+                        </div>
+                    </div>
+                @else
+                    <p class="text-[13px] text-ink-500">No payment slip image or document has been uploaded for this order yet.</p>
+                @endif
+
+                <!-- Upload / Replace Payment Slip Form -->
+                <form action="{{ route('admin.orders.uploadSlip', $order->id) }}" method="POST" enctype="multipart/form-data" class="pt-2 border-t border-surface-line space-y-3">
+                    @csrf
+                    <label class="block text-[12px] font-semibold uppercase text-ink-500">
+                        {{ $order->payment_slip ? 'Replace Slip Document' : 'Upload Payment Slip' }}
+                    </label>
+                    <input type="file" name="payment_slip" accept="image/*,application/pdf" required class="block w-full text-[12px] text-ink-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-base file:border-0 file:text-[12px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100">
+                    <button type="submit" class="w-full h-9 rounded-base bg-brand-600 text-[13px] font-semibold text-white hover:bg-brand-700 transition-colors flex items-center justify-center gap-1.5">
+                        <i data-lucide="upload" class="h-4 w-4"></i> Save Payment Slip
+                    </button>
                 </form>
             </div>
 
@@ -243,7 +337,7 @@
                             </span>
                         @else
                             <span class="inline-flex items-center gap-1 rounded bg-surface-muted px-2 py-0.5 text-[12px] font-semibold text-ink-600">
-                                <i data-lucide="user-x" class="h-3.5 w-3.5"></i> Guest Checkout
+                                <i data-lucide="user-x" class="h-3.5 w-3.5"></i> Guest / Manual Customer
                             </span>
                         @endif
                     </div>
