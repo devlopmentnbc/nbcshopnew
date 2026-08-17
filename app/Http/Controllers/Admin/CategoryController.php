@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -22,7 +24,10 @@ class CategoryController extends Controller
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $categories = $query->latest()->paginate(10)->withQueryString();
+        $categories = $query
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get();
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -49,14 +54,14 @@ class CategoryController extends Controller
 
         $uploadDir = public_path('uploads/categories');
 
-        if (!File::exists($uploadDir)) {
+        if (! File::exists($uploadDir)) {
             File::makeDirectory($uploadDir, 0755, true, true);
         }
 
         $file = $request->file('image');
-        $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
+        $filename = time().'_'.Str::slug($request->name).'.'.$file->getClientOriginalExtension();
         $file->move($uploadDir, $filename);
-        $imagePath = 'uploads/categories/' . $filename;
+        $imagePath = 'uploads/categories/'.$filename;
 
         $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
 
@@ -65,6 +70,7 @@ class CategoryController extends Controller
             'slug' => $slug,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : true,
+            'sort_order' => ((int) Category::max('sort_order')) + 1,  // Add New Category to the end of the list
         ]);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
@@ -84,8 +90,8 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
-            'slug' => 'nullable|string|max:255|unique:categories,slug,' . $category->id,
+            'name' => 'required|string|max:255|unique:categories,name,'.$category->id,
+            'slug' => 'nullable|string|max:255|unique:categories,slug,'.$category->id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
@@ -96,7 +102,7 @@ class CategoryController extends Controller
             $file = $request->file('image');
             $uploadDir = public_path('uploads/categories');
 
-            if (!File::exists($uploadDir)) {
+            if (! File::exists($uploadDir)) {
                 File::makeDirectory($uploadDir, 0755, true, true);
             }
 
@@ -104,9 +110,9 @@ class CategoryController extends Controller
                 File::delete(public_path($category->image));
             }
 
-            $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
+            $filename = time().'_'.Str::slug($request->name).'.'.$file->getClientOriginalExtension();
             $file->move($uploadDir, $filename);
-            $imagePath = 'uploads/categories/' . $filename;
+            $imagePath = 'uploads/categories/'.$filename;
         }
 
         $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
@@ -133,5 +139,32 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
+    }
+
+    /**
+     * Update category order after dragging.
+     */
+    public function reorder(Request $request)
+    {
+        $validated = $request->validate([
+            'categories' => ['required', 'array'],
+            'categories.*' => ['required', 'integer', 'distinct', 'exists:categories,id'],
+        ]);
+
+        $categoryIds = Category::orderBy('sort_order', 'asc')->orderBy('id', 'asc')->pluck('id');
+        $submittedIds = collect($validated['categories'])->map(fn ($id) => (int) $id);
+
+        if ($submittedIds->sort()->values()->all() !== $categoryIds->sort()->values()->all()) {
+            throw ValidationException::withMessages([
+                'categories' => 'The complete category list is required to save its order.',
+            ]);
+        }
+
+        DB::transaction(function () use ($submittedIds) {
+            $submittedIds->each(fn ($id, $index) => Category::whereKey($id)
+                ->update(['sort_order' => $index + 1]));
+        });
+
+        return response()->json(['message' => 'Category order updated.']);
     }
 }

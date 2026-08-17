@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class SubCategoryController extends Controller
 {
@@ -21,9 +21,9 @@ class SubCategoryController extends Controller
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where('name', 'like', "%{$search}%")
-                  ->orWhereHas('category', function ($q) use ($search) {
-                      $q->where('name', 'like', "%{$search}%");
-                  });
+                ->orWhereHas('category', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
         }
 
         if ($request->filled('category_id')) {
@@ -42,6 +42,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         $categories = Category::where('status', true)->orderBy('name')->get();
+
         return view('admin.sub_categories.create', compact('categories'));
     }
 
@@ -54,20 +55,25 @@ class SubCategoryController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255|unique:sub_categories,name',
             'slug' => 'nullable|string|max:255|unique:sub_categories,slug',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            // Image support is retained for future use.
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
 
-        $uploadDir = public_path('uploads/sub_categories');
+        $imagePath = null;
 
-        if (!File::exists($uploadDir)) {
-            File::makeDirectory($uploadDir, 0755, true, true);
+        if ($request->hasFile('image')) {
+            $uploadDir = public_path('uploads/sub_categories');
+
+            if (! File::exists($uploadDir)) {
+                File::makeDirectory($uploadDir, 0755, true, true);
+            }
+
+            $file = $request->file('image');
+            $filename = time().'_'.Str::slug($request->name).'.'.$file->getClientOriginalExtension();
+            $file->move($uploadDir, $filename);
+            $imagePath = 'uploads/sub_categories/'.$filename;
         }
-
-        $file = $request->file('image');
-        $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-        $file->move($uploadDir, $filename);
-        $imagePath = 'uploads/sub_categories/' . $filename;
 
         $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
 
@@ -88,6 +94,7 @@ class SubCategoryController extends Controller
     public function edit(SubCategory $subCategory)
     {
         $categories = Category::orderBy('name')->get();
+
         return view('admin.sub_categories.edit', compact('subCategory', 'categories'));
     }
 
@@ -98,8 +105,8 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'category_id' => 'required|exists:categories,id',
-            'name' => 'required|string|max:255|unique:sub_categories,name,' . $subCategory->id,
-            'slug' => 'nullable|string|max:255|unique:sub_categories,slug,' . $subCategory->id,
+            'name' => 'required|string|max:255|unique:sub_categories,name,'.$subCategory->id,
+            'slug' => 'nullable|string|max:255|unique:sub_categories,slug,'.$subCategory->id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
@@ -110,7 +117,7 @@ class SubCategoryController extends Controller
             $file = $request->file('image');
             $uploadDir = public_path('uploads/sub_categories');
 
-            if (!File::exists($uploadDir)) {
+            if (! File::exists($uploadDir)) {
                 File::makeDirectory($uploadDir, 0755, true, true);
             }
 
@@ -118,9 +125,9 @@ class SubCategoryController extends Controller
                 File::delete(public_path($subCategory->image));
             }
 
-            $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
+            $filename = time().'_'.Str::slug($request->name).'.'.$file->getClientOriginalExtension();
             $file->move($uploadDir, $filename);
-            $imagePath = 'uploads/sub_categories/' . $filename;
+            $imagePath = 'uploads/sub_categories/'.$filename;
         }
 
         $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);

@@ -770,7 +770,7 @@ body::-webkit-scrollbar-button:vertical:end:increment {
         #fbfcf7 58%,
         #f7f9f2 100%
     );
-    padding: 72px 0;
+    padding: 40px 0;
 }
 
 .nbc-story-card {
@@ -784,7 +784,11 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
     margin: 0 auto;
     max-width: 1480px;
-    padding: clamp(36px, 4vw, 64px);
+    padding: 40px;
+}
+
+.nbc-story-card + .nbc-story-card {
+    margin-top: 32px;
 }
 
 .nbc-story-copy {
@@ -882,6 +886,25 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     box-shadow: 0 18px 50px rgba(12, 48, 44, 0.14);
     overflow: hidden;
     position: relative;
+}
+
+.nbc-story-image {
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    box-shadow: 0 18px 50px rgba(12, 48, 44, 0.14);
+    overflow: hidden;
+}
+
+.nbc-story-image img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    width: 100%;
+}
+
+.nbc-story-image:hover img {
+    transform: scale(1.025);
 }
 
 .nbc-story-video > img {
@@ -1236,7 +1259,7 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     }
 }
 .nbc-promotion-section {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 .nbc-promotion-section .rbt-counterdown-section {
     display: inline-flex;
@@ -2984,9 +3007,9 @@ body::-webkit-scrollbar-button:vertical:end:increment {
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
         border-radius: 0 0 14px 14px !important;
         box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28) !important;
-        display: grid;
-        gap: 2px 18px;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-count: 2; /* Fill submenu items column by column */
+        column-gap: 18px;
+        display: block;
         left: 0 !important;
         margin-top: 0;
         max-height: none;
@@ -3007,6 +3030,7 @@ body::-webkit-scrollbar-button:vertical:end:increment {
         li.has-dropdown
         > .submenu
         > li {
+        break-inside: avoid;
         display: block;
         min-width: 0;
         width: 100%;
@@ -3210,13 +3234,14 @@ body {
     .nbc-mainmenu
     li.has-dropdown
     > .submenu {
-    -webkit-backdrop-filter: blur(12px) !important;
-    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     background: rgba(0, 19, 10, 0.92) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 14px !important;
-    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28) !important;
+    box-shadow: none !important;
     margin-top: 8px;
+    overflow: hidden !important;
     padding: 8px !important;
 }
 
@@ -4387,4 +4412,3 @@ body {
     background: rgba(239, 68, 68, 0.2) !important;
     color: #ffffff !important;
 }
-

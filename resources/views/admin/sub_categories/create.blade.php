@@ -8,7 +8,7 @@
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-[24px] font-semibold text-ink-900">Add New Sub Category</h1>
-            <p class="mt-1 text-[14px] text-ink-500">Create a sub-category under a parent category with a required image.</p>
+            <p class="mt-1 text-[14px] text-ink-500">Create a sub-category under a parent category.</p>
         </div>
         <div>
             <a href="{{ route('admin.sub-categories.index') }}" class="inline-flex h-11 items-center gap-2 rounded-base border border-surface-line px-4 text-[14px] font-semibold text-ink-700 hover:bg-surface-muted transition-colors">
@@ -55,15 +55,17 @@
                 @enderror
             </div>
 
-            <!-- Sub Category Image (Required) -->
+            {{-- Image support is retained for future use. Change this condition to true to restore the field. --}}
+            @if (false)
+            <!-- Sub Category Image -->
             <div>
-                <label for="image" class="block text-[14px] font-semibold text-ink-900 mb-2">Sub Category Image <span class="text-danger-500">*</span></label>
+                <label for="image" class="block text-[14px] font-semibold text-ink-900 mb-2">Sub Category Image</label>
                 <div class="flex items-center gap-4">
                     <div id="image-preview-container" class="hidden h-20 w-20 shrink-0 overflow-hidden rounded-base border border-surface-line bg-surface-body p-1">
                         <img id="image-preview" src="#" alt="Preview" class="h-full w-full object-cover">
                     </div>
                     <div class="flex-1">
-                        <input type="file" name="image" id="image" accept="image/*" required class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
+                        <input type="file" name="image" id="image" accept="image/*" class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
                         <p class="mt-1.5 text-[12px] text-ink-400">Supported formats: JPEG, PNG, WEBP, SVG, GIF (Max: 2MB). File will be saved in <code class="bg-surface-muted px-1 py-0.5 rounded">public/uploads/sub_categories</code>.</p>
                     </div>
                 </div>
@@ -71,6 +73,7 @@
                     <p class="mt-1.5 text-[13px] text-danger-500">{{ $message }}</p>
                 @enderror
             </div>
+            @endif
 
             <!-- Status -->
             <div class="flex items-center gap-3 pt-2">
@@ -92,6 +95,7 @@
     </div>
 </main>
 
+@if (false)
 <script>
     document.getElementById('image').addEventListener('change', function(e) {
         const previewContainer = document.getElementById('image-preview-container');
@@ -110,4 +114,5 @@
         }
     });
 </script>
+@endif
 @endsection

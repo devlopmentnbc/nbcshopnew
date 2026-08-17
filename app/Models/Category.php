@@ -15,12 +15,14 @@ class Category extends Model
         'slug',
         'image',
         'status',
+        'sort_order',
     ];
 
     protected function casts(): array
     {
         return [
             'status' => 'boolean',
+            'sort_order' => 'integer',
         ];
     }
 

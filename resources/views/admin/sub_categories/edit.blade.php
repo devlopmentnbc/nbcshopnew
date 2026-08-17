@@ -8,7 +8,7 @@
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-[24px] font-semibold text-ink-900">Edit Sub Category</h1>
-            <p class="mt-1 text-[14px] text-ink-500">Update sub-category details, parent category, or image.</p>
+            <p class="mt-1 text-[14px] text-ink-500">Update sub-category details or its parent category.</p>
         </div>
         <div>
             <a href="{{ route('admin.sub-categories.index') }}" class="inline-flex h-11 items-center gap-2 rounded-base border border-surface-line px-4 text-[14px] font-semibold text-ink-700 hover:bg-surface-muted transition-colors">
@@ -56,6 +56,8 @@
                 @enderror
             </div>
 
+            {{-- Image support is retained for future use. Change this condition to true to restore the field. --}}
+            @if (false)
             <!-- Sub Category Image -->
             <div>
                 <label for="image" class="block text-[14px] font-semibold text-ink-900 mb-2">Sub Category Image</label>
@@ -75,6 +77,7 @@
                     <p class="mt-1.5 text-[13px] text-danger-500">{{ $message }}</p>
                 @enderror
             </div>
+            @endif
 
             <!-- Status -->
             <div class="flex items-center gap-3 pt-2">
@@ -96,6 +99,7 @@
     </div>
 </main>
 
+@if (false)
 <script>
     document.getElementById('image').addEventListener('change', function(e) {
         const previewContainer = document.getElementById('image-preview-container');
@@ -114,4 +118,5 @@
         }
     });
 </script>
+@endif
 @endsection

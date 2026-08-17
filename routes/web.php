@@ -89,6 +89,7 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
 
     Route::resource('brands', BrandController::class);
     Route::resource('banners', BannerController::class);
+    Route::post('categories/reorder', [CategoryController::class, 'reorder'])->name('categories.reorder');
     Route::resource('categories', CategoryController::class);
     Route::resource('sub-categories', SubCategoryController::class);
     Route::resource('attributes', AttributeController::class);
