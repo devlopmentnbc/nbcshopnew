@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Promotion;
 use Illuminate\Support\Facades\Schema;
@@ -62,6 +63,10 @@ class HomeController extends Controller
             ->orderByDesc('products_count')
             ->get();
 
+        $categories = Category::where('status', true)
+            ->orderBy('sort_order')
+            ->get();
+
         return view('home', [
             'banners' => $banners,
             'bestSellers' => $bestSellers,
@@ -71,6 +76,7 @@ class HomeController extends Controller
                 ? $this->promotionUrl($featuredPromotion)
                 : route('shop'),
             'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 

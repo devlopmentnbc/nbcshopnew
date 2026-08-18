@@ -34,6 +34,7 @@ use App\Http\Controllers\CheckoutController;
 
 // Public Cart Routes (7-Day Session Cart)
 Route::get('/cart/items', [CartController::class, 'getCart'])->name('cart.items');
+Route::get('/cart/product/{product}', [CartController::class, 'productModalData'])->name('cart.product.modal');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');

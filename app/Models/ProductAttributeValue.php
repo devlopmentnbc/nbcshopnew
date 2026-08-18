@@ -20,6 +20,7 @@ class ProductAttributeValue extends Pivot
         'sale_price_usd',
         'stock',
         'sku',
+        'sap_code',
         'image',
     ];
 

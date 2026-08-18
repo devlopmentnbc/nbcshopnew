@@ -101,6 +101,7 @@ class AttributeController extends Controller
             'slug' => 'nullable|string|max:255|unique:attributes,slug,' . $attribute->id,
             'status' => 'nullable|boolean',
             'values' => 'nullable|array',
+            'values.*.id' => 'nullable|integer|exists:attribute_values,id',
             'values.*.value_name' => 'required_with:values.*.value|string|max:255',
             'values.*.value' => 'required_with:values.*.value_name|string|max:255',
             'values.*.metric' => 'nullable|string|max:50',
@@ -114,22 +115,38 @@ class AttributeController extends Controller
             'status' => $request->has('status') ? (bool) $request->status : false,
         ]);
 
-        // Delete existing attribute values and re-create
-        $attribute->values()->delete();
+        // Update existing values in place (preserving their IDs so product
+        // assignments in product_attribute_value aren't cascade-deleted),
+        // create genuinely new ones, and remove only the rows the admin
+        // explicitly deleted from the form.
+        $submittedIds = [];
 
         if ($request->filled('values') && is_array($request->values)) {
             foreach ($request->values as $val) {
-                if (!empty($val['value_name']) && !empty($val['value'])) {
-                    AttributeValue::create([
+                if (empty($val['value_name']) || empty($val['value'])) {
+                    continue;
+                }
+
+                $attributes = [
+                    'value_name' => $val['value_name'],
+                    'value' => $val['value'],
+                    'metric' => $val['metric'] ?? null,
+                ];
+
+                if (!empty($val['id'])) {
+                    $attribute->values()->where('id', $val['id'])->update($attributes);
+                    $submittedIds[] = (int) $val['id'];
+                } else {
+                    $newValue = AttributeValue::create($attributes + [
                         'attribute_id' => $attribute->id,
-                        'value_name' => $val['value_name'],
-                        'value' => $val['value'],
-                        'metric' => $val['metric'] ?? null,
                         'status' => true,
                     ]);
+                    $submittedIds[] = $newValue->id;
                 }
             }
         }
+
+        $attribute->values()->whereNotIn('id', $submittedIds)->delete();
 
         return redirect()->route('admin.attributes.index')->with('success', 'Attribute updated successfully.');
     }

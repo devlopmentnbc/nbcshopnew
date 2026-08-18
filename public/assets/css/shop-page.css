@@ -378,6 +378,10 @@
     width: 100%;
 }
 
+.rbt-shop-filter-area .rbt-product-card .rbt-card-footer.footer-content-btn .rbt-btn {
+    flex-basis: 100% !important;
+}
+
 /* Hover reveals the cart action on laptops; smaller layouts keep it visible. */
 @media (max-width: 1199px) {
     .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-card-body {
@@ -391,7 +395,8 @@
     }
 
     .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-card-footer,
-    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-cart-sidenav-activation {
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .rbt-cart-sidenav-activation,
+    .rbt-shop-filter-area .rbt-product-card.rbt-product-card-style-2 .nbc-add-to-cart {
         opacity: 1 !important;
         transform: none !important;
         visibility: visible !important;

@@ -2750,154 +2750,34 @@
                 <!-- Start Card Area -->
                 <div id="nbcCategoryTrack" class="row row--12 mt_dec--24 nbc-category-track">
 
-                    <div class="col-lg-1-5 col-md-4 col-6 mt--24">
-                        <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-1">
-                            <div class="inner">
-                                <div class="rbt-image-portion position-relative overflow-hidden">
-                                    <a href="#">
-                                        <img class="rbt-scroll-trigger zoom_in animation-order-1"
-                                            src="{{ asset("assets/images/nbc/Nature's Secret/Lotus-Face-Wash.png") }}"
-                                            alt="Skin care products">
-                                    </a>
-                                    <div class="rbt-right-corner-portion bottom--position">
-                                        <div class="rbt-corner-portion-wrapper">
-                                            <a href="#" class="rbt-card-link-btn"><i
-                                                    class="fa-solid fa-arrow-up-right"></i></a>
+                    @forelse ($categories as $index => $category)
+                        <div class="col-lg-1-5 col-md-4 col-6 mt--24">
+                            <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-{{ ($index % 5) + 1 }}">
+                                <div class="inner">
+                                    <div class="rbt-image-portion position-relative overflow-hidden">
+                                        <a href="{{ route('shop', ['category' => $category->slug ?: $category->id]) }}">
+                                            <img class="rbt-scroll-trigger zoom_in animation-order-{{ ($index % 5) + 1 }}"
+                                                src="{{ $category->image ? asset($category->image) : asset('assets/images/nbc/Nature\'s Secret/herbel-hair-oil1.png') }}"
+                                                alt="{{ $category->name }}">
+                                        </a>
+                                        <div class="rbt-right-corner-portion bottom--position">
+                                            <div class="rbt-corner-portion-wrapper">
+                                                <a href="{{ route('shop', ['category' => $category->slug ?: $category->id]) }}"
+                                                    class="rbt-card-link-btn"><i
+                                                        class="fa-solid fa-arrow-up-right"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="content text-center">
-                                    <p class="title">
-                                        <a href="#">Skin Care</a>
-                                    </p>
+                                    <div class="content text-center">
+                                        <p class="title">
+                                            <a href="{{ route('shop', ['category' => $category->slug ?: $category->id]) }}">{{ $category->name }}</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-1-5 col-md-4 col-6 mt--24">
-                        <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-2">
-                            <div class="inner">
-                                <div class="rbt-image-portion position-relative overflow-hidden">
-                                    <a href="#">
-                                        <img class="rbt-scroll-trigger zoom_in animation-order-2"
-                                            src="{{ asset('assets/images/nbc/Misumi/Romansu Soap.png') }}"
-                                            alt="Body care products">
-                                    </a>
-                                    <div class="rbt-right-corner-portion bottom--position">
-                                        <div class="rbt-corner-portion-wrapper">
-                                            <a href="#" class="rbt-card-link-btn"><i
-                                                    class="fa-solid fa-arrow-up-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content text-center">
-                                    <p class="title">
-                                        <a href="#">Bath & Body</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-1-5 col-md-4 col-6 mt--24">
-                        <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-2">
-                            <div class="inner">
-                                <div class="rbt-image-portion position-relative overflow-hidden">
-                                    <a href="#">
-                                        <img class="rbt-scroll-trigger zoom_in animation-order-2"
-                                            src="{{ asset("assets/images/nbc/Nature's Secret/Anti Dandruff.png") }}"
-                                            alt="Body care products">
-                                    </a>
-                                    <div class="rbt-right-corner-portion bottom--position">
-                                        <div class="rbt-corner-portion-wrapper">
-                                            <a href="#" class="rbt-card-link-btn"><i
-                                                    class="fa-solid fa-arrow-up-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content text-center">
-                                    <p class="title">
-                                        <a href="#">Hair Care</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-1-5 col-md-4 col-6 mt--24">
-                        <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-3">
-                            <div class="inner">
-                                <div class="rbt-image-portion position-relative overflow-hidden">
-                                    <a href="#">
-                                        <img class="rbt-scroll-trigger zoom_in animation-order-3"
-                                            src="{{ asset('assets/images/nbc/Panda Baby/panda shampoo.png') }}"
-                                            alt="Hair care products">
-                                    </a>
-                                    <div class="rbt-right-corner-portion bottom--position">
-                                        <div class="rbt-corner-portion-wrapper">
-                                            <a href="#" class="rbt-card-link-btn"><i
-                                                    class="fa-solid fa-arrow-up-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content text-center">
-                                    <p class="title">
-                                        <a href="#">Baby Care</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-1-5 col-md-4 col-6 mt--24">
-                        <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-4">
-                            <div class="inner">
-                                <div class="rbt-image-portion position-relative overflow-hidden">
-                                    <a href="#">
-                                        <img class="rbt-scroll-trigger zoom_in animation-order-4"
-                                            src="{{ asset('assets/images/nbc/SUCSES/emerald perfume.png') }}"
-                                            alt="Fragrances">
-                                    </a>
-                                    <div class="rbt-right-corner-portion bottom--position">
-                                        <div class="rbt-corner-portion-wrapper">
-                                            <a href="#" class="rbt-card-link-btn"><i
-                                                    class="fa-solid fa-arrow-up-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content text-center">
-                                    <p class="title">
-                                        <a href="#">Fragrances</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-1-5 col-md-4 col-6 mt--24">
-                        <div class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-5">
-                            <div class="inner">
-                                <div class="rbt-image-portion position-relative overflow-hidden">
-                                    <a href="#">
-                                        <img class="rbt-scroll-trigger zoom_in animation-order-1"
-                                            src="{{ asset('assets/images/nbc/bundles1.png') }}"
-                                            alt="Baby care products">
-                                    </a>
-                                    <div class="rbt-right-corner-portion bottom--position">
-                                        <div class="rbt-corner-portion-wrapper">
-                                            <a href="#" class="rbt-card-link-btn"><i
-                                                    class="fa-solid fa-arrow-up-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content text-center">
-                                    <p class="title">
-                                        <a href="#">Bundles</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @empty
+                    @endforelse
                 </div>
                 <div class="nbc-category-navigation" aria-label="Category carousel controls">
                     <button id="nbcCategoryPrevious" type="button" aria-label="Previous categories">
@@ -2983,7 +2863,7 @@
                                         class="rbt-card-subtitle b1 rbt-text-color-heading mt--0 rbt-scroll-trigger fade_in animation-order-1">Customer
                                         favourites</span>
                                     <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2"><span
-                                            class="rbt-bold--text">Shop our </span>best sellers</h2>
+                                            class="rbt-bold--text">Shop our </span><span id="homeProductSectionTitle">best sellers</span></h2>
 
                                     <div class="mobile-horizontal-scroll-section">
                                         <div
@@ -3040,12 +2920,19 @@
                                                     </ul>
                                                     <p class="rating-digit">(5.0)</p>
                                                 </div>
+                                                @php $bestSellerPricing = $product->pricingSummary(); @endphp
                                                 <div class="pricing-part">
-                                                    <span class="price-text">{{ $product->formattedPrice() }}</span>
+                                                    @if ($bestSellerPricing['has_sale'])
+                                                        <del class="price-text">{{ $bestSellerPricing['regular_formatted'] }}</del>
+                                                        <span class="price-text">{{ $bestSellerPricing['price_formatted'] }}</span>
+                                                        <span class="rbt-offer-badge">-{{ $bestSellerPricing['discount_percent'] }}%</span>
+                                                    @else
+                                                        <span class="price-text">{{ $bestSellerPricing['price_formatted'] }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#" data-product-id="{{ $product->id }}">
+                                                <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#" data-product-id="{{ $product->id }}">
                                                     <i class="fa-regular fa-cart-shopping"></i> Add To Cart
                                                 </a>
                                                 <div class="rbt-quick-btn-grp has-mixup-midlayer">
@@ -3172,12 +3059,19 @@
                                                     </ul>
                                                     <p class="rating-digit">(5.0)</p>
                                                 </div>
+                                                @php $newArrivalPricing = $product->pricingSummary(); @endphp
                                                 <div class="pricing-part">
-                                                    <span class="price-text">{{ $product->formattedPrice() }}</span>
+                                                    @if ($newArrivalPricing['has_sale'])
+                                                        <del class="price-text">{{ $newArrivalPricing['regular_formatted'] }}</del>
+                                                        <span class="price-text">{{ $newArrivalPricing['price_formatted'] }}</span>
+                                                        <span class="rbt-offer-badge">-{{ $newArrivalPricing['discount_percent'] }}%</span>
+                                                    @else
+                                                        <span class="price-text">{{ $newArrivalPricing['price_formatted'] }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#" data-product-id="{{ $product->id }}">
+                                                <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#" data-product-id="{{ $product->id }}">
                                                     <i class="fa-regular fa-cart-shopping"></i> Add To Cart
                                                 </a>
                                                 <div class="rbt-quick-btn-grp has-mixup-midlayer">
@@ -3238,6 +3132,7 @@
                                 const newTab = document.getElementById('homeNewArrivalsTab');
                                 const bestContainer = document.getElementById('homeBestSellersContainer');
                                 const newContainer = document.getElementById('homeNewArrivalsContainer');
+                                const sectionTitle = document.getElementById('homeProductSectionTitle');
 
                                 if (bestTab && newTab && bestContainer && newContainer) {
                                     bestTab.addEventListener('click', function(e) {
@@ -3246,6 +3141,7 @@
                                         newTab.classList.remove('active');
                                         bestContainer.style.display = 'flex';
                                         newContainer.style.display = 'none';
+                                        if (sectionTitle) sectionTitle.textContent = 'best sellers';
                                     });
 
                                     newTab.addEventListener('click', function(e) {
@@ -3254,6 +3150,7 @@
                                         bestTab.classList.remove('active');
                                         newContainer.style.display = 'flex';
                                         bestContainer.style.display = 'none';
+                                        if (sectionTitle) sectionTitle.textContent = 'new arrivals';
                                     });
                                 }
                             });

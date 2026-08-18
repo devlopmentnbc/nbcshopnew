@@ -255,6 +255,10 @@
                                                 </div>
                                             </div>
                                             <div>
+                                                <label class="block font-medium text-ink-600 mb-0.5">SAP Code</label>
+                                                <input type="text" name="variants[{{ $val->id }}][sap_code]" placeholder="Optional" class="h-8 w-full rounded border border-surface-line bg-surface-body px-2 text-[12px]">
+                                            </div>
+                                            <div>
                                                 <label class="block font-medium text-ink-600 mb-0.5">Variant Image</label>
                                                 <input type="file" name="variants[{{ $val->id }}][image]" accept="image/*" class="w-full text-[10px] text-ink-500 file:mr-1 file:py-0.5 file:px-1.5 file:rounded file:border-0 file:bg-brand-50 file:text-brand-600 cursor-pointer">
                                             </div>
@@ -328,7 +332,7 @@
                         <span class="text-[11px] text-ink-400 font-mono">ID: #${valId}</span>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2">
                         <div>
                             <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">LKR Price (Rs.) *</label>
                             <input type="number" step="0.01" name="variants[${valId}][price_lkr]" value="${pivot.price_lkr || '0.00'}" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
@@ -348,6 +352,10 @@
                         <div>
                             <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">Stock Qty *</label>
                             <input type="number" name="variants[${valId}][stock]" value="${pivot.stock ?? 0}" min="0" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">SAP Code</label>
+                            <input type="text" name="variants[${valId}][sap_code]" value="${pivot.sap_code || ''}" placeholder="Opt" class="h-8 w-full rounded border border-surface-line bg-surface-card px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-ink-700 mb-0.5">Variant Image</label>

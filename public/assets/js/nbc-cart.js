@@ -107,7 +107,7 @@
     }
 
     // Add to Cart via AJAX
-    function addToCart(productId, quantity = 1, attributes = {}, openDrawer = true) {
+    function addToCart(productId, quantity = 1, attributes = {}, openDrawer = true, attributeValueId = null) {
         fetch('/cart/add', {
             method: 'POST',
             headers: {
@@ -119,7 +119,8 @@
             body: JSON.stringify({
                 product_id: productId,
                 quantity: quantity,
-                attributes: attributes
+                attributes: attributes,
+                attribute_value_id: attributeValueId
             })
         })
         .then(response => response.json())
@@ -200,6 +201,164 @@
         }
     }
 
+    // ---- Add to Cart picker modal (listing pages: home/shop cards) ----
+    const atcModalEl = document.getElementById('nbcAddToCartModal');
+    let atcModalInstance = null;
+    let atcCurrentProductId = null;
+    let atcSelectedAttributeValueId = null;
+
+    function getAtcModalInstance() {
+        if (!atcModalEl || typeof window.bootstrap === 'undefined') return null;
+        if (!atcModalInstance) {
+            atcModalInstance = new window.bootstrap.Modal(atcModalEl);
+        }
+        return atcModalInstance;
+    }
+
+    function applyAtcPricing(pricing) {
+        const regularEl = document.getElementById('nbcAtcRegular');
+        const saleEl = document.getElementById('nbcAtcSale');
+        const badgeEl = document.getElementById('nbcAtcBadge');
+        if (!regularEl || !saleEl || !badgeEl) return;
+
+        if (pricing && pricing.has_sale) {
+            regularEl.textContent = pricing.regular_formatted || '';
+            regularEl.style.display = '';
+            badgeEl.textContent = '-' + pricing.discount_percent + '%';
+            badgeEl.style.display = '';
+        } else {
+            regularEl.style.display = 'none';
+            badgeEl.style.display = 'none';
+        }
+        saleEl.textContent = (pricing && pricing.price_formatted) || '';
+    }
+
+    function selectAtcVariant(variant) {
+        atcSelectedAttributeValueId = variant.id;
+
+        atcModalEl.querySelectorAll('.nbc-atc-variant-pill').forEach(function (pill) {
+            pill.classList.toggle('is-active', String(pill.dataset.attributeValueId) === String(variant.id));
+        });
+
+        applyAtcPricing({
+            has_sale: variant.has_sale,
+            regular_formatted: variant.regular_formatted,
+            discount_percent: variant.discount_percent,
+            price_formatted: variant.price_formatted,
+        });
+
+        const stockNote = document.getElementById('nbcAtcStockNote');
+        const confirmBtn = document.getElementById('nbcAtcConfirm');
+        if (stockNote && confirmBtn) {
+            if (variant.stock <= 0) {
+                stockNote.textContent = 'This variant is currently out of stock.';
+                stockNote.style.display = '';
+                confirmBtn.disabled = true;
+            } else {
+                stockNote.style.display = 'none';
+                confirmBtn.disabled = false;
+            }
+        }
+    }
+
+    function renderAtcVariants(data) {
+        const container = document.getElementById('nbcAtcVariants');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (!data.variants || data.variants.length === 0) return;
+
+        const groups = {};
+        const groupOrder = [];
+        data.variants.forEach(function (variant) {
+            if (!groups[variant.attribute_name]) {
+                groups[variant.attribute_name] = [];
+                groupOrder.push(variant.attribute_name);
+            }
+            groups[variant.attribute_name].push(variant);
+        });
+
+        groupOrder.forEach(function (attrName) {
+            const groupWrap = document.createElement('div');
+            groupWrap.style.marginBottom = '16px';
+
+            const label = document.createElement('label');
+            label.style.cssText = 'display:block;font-weight:600;color:#222;margin-bottom:8px;font-size:14px;';
+            label.textContent = attrName + ':';
+            groupWrap.appendChild(label);
+
+            const pillRow = document.createElement('div');
+            pillRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;';
+
+            groups[attrName].forEach(function (variant) {
+                const pill = document.createElement('button');
+                pill.type = 'button';
+                pill.className = 'nbc-atc-variant-pill px-3 py-2 border rounded d-inline-flex align-items-center';
+                pill.dataset.attributeValueId = variant.id;
+                pill.disabled = variant.stock <= 0;
+                pill.innerHTML = '<span>' + variant.value_name + '</span>' +
+                    (variant.metric ? '<span class="ms-1 text-muted" style="font-size:12px;opacity:0.8;margin-left:4px;">(' + variant.metric + ')</span>' : '');
+                pill.addEventListener('click', function () {
+                    selectAtcVariant(variant);
+                });
+                pillRow.appendChild(pill);
+            });
+
+            groupWrap.appendChild(pillRow);
+            container.appendChild(groupWrap);
+        });
+    }
+
+    function populateAtcModal(data) {
+        atcCurrentProductId = data.id;
+        atcSelectedAttributeValueId = data.default_attribute_value_id || null;
+
+        const imageEl = document.getElementById('nbcAtcImage');
+        const nameEl = document.getElementById('nbcAtcName');
+        const qtyInput = document.getElementById('nbcAtcQty');
+        if (imageEl) { imageEl.src = data.image; imageEl.alt = data.name; }
+        if (nameEl) nameEl.textContent = data.name;
+        if (qtyInput) qtyInput.value = 1;
+
+        applyAtcPricing(data.pricing);
+        renderAtcVariants(data);
+
+        const defaultVariant = (data.variants || []).find(function (v) {
+            return String(v.id) === String(atcSelectedAttributeValueId);
+        });
+        if (defaultVariant) {
+            selectAtcVariant(defaultVariant);
+        }
+    }
+
+    function openAddToCartModal(productId) {
+        fetch('/cart/product/' + productId, {
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+            populateAtcModal(data);
+            const modal = getAtcModalInstance();
+            if (modal) modal.show();
+        })
+        .catch(function (err) { console.error('Add to cart modal load error:', err); });
+    }
+
+    // Quantity +/- is already wired globally for any .rbt-qty-area by
+    // main.min.js's cartQtyinfo() handler — no extra listener needed here.
+    const atcQtyInput = document.getElementById('nbcAtcQty');
+
+    const atcConfirmBtn = document.getElementById('nbcAtcConfirm');
+    if (atcConfirmBtn) {
+        atcConfirmBtn.addEventListener('click', function () {
+            if (!atcCurrentProductId) return;
+            const qty = parseInt((atcQtyInput && atcQtyInput.value) || '1', 10) || 1;
+            addToCart(atcCurrentProductId, qty, {}, true, atcSelectedAttributeValueId);
+            const modal = getAtcModalInstance();
+            if (modal) modal.hide();
+        });
+    }
+
     // Global Event Listener
     document.addEventListener('click', function (e) {
         // Add to cart button trigger
@@ -209,15 +368,28 @@
             const productId = addBtn.dataset.productId || addBtn.getAttribute('data-product-id');
             if (!productId) return;
 
-            // Get quantity from the qty input next to the clicked button, if any
-            let qty = 1;
-            const qtyScope = addBtn.closest('.product-btn-grp');
-            const qtyInput = qtyScope ? qtyScope.querySelector('.items-qty-input') : null;
-            if (qtyInput && qtyInput.value) {
-                qty = parseInt(qtyInput.value, 10) || 1;
+            // Product-details page already has its own inline variant picker
+            // and price display, so its Add to Cart buttons add instantly.
+            // Everywhere else (listing cards), open the picker modal.
+            if (addBtn.classList.contains('js-nbc-add-to-cart')) {
+                let qty = 1;
+                const qtyScope = addBtn.closest('.product-btn-grp');
+                const qtyInput = qtyScope ? qtyScope.querySelector('.items-qty-input') : null;
+                if (qtyInput && qtyInput.value) {
+                    qty = parseInt(qtyInput.value, 10) || 1;
+                }
+                const attributeValueId = addBtn.dataset.attributeValueId || addBtn.getAttribute('data-attribute-value-id') || null;
+                addToCart(productId, qty, {}, true, attributeValueId);
+                return;
             }
 
-            addToCart(productId, qty, {}, true);
+            if (atcModalEl) {
+                openAddToCartModal(productId);
+                return;
+            }
+
+            // Fallback if the modal markup isn't present on this page.
+            addToCart(productId, 1, {}, true, addBtn.dataset.attributeValueId || null);
             return;
         }
 

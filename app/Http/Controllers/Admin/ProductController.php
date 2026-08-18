@@ -77,7 +77,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:products,slug',
-            'sku' => 'nullable|string|max:255|unique:products,sku',
+            'usd_offer_price' => 'nullable|numeric|min:0',
             'weight_grams' => 'nullable|numeric|min:0',
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
@@ -116,7 +116,8 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'name' => $request->name,
             'slug' => $slug,
-            'sku' => $request->sku ?: strtoupper(Str::random(8)),
+            'sku' => Product::generateSku(),
+            'usd_offer_price' => $request->usd_offer_price ?: null,
             'weight_grams' => $request->filled('weight_grams') ? (int) $request->weight_grams : 500,
             'short_description' => $request->short_description,
             'description' => $request->description,
@@ -171,6 +172,7 @@ class ProductController extends Controller
                 'sale_price_usd' => $val->pivot->sale_price_usd,
                 'stock' => $val->pivot->stock,
                 'sku' => $val->pivot->sku,
+                'sap_code' => $val->pivot->sap_code,
                 'image' => $val->pivot->image,
             ];
         }
@@ -186,7 +188,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:products,slug,' . $product->id,
-            'sku' => 'nullable|string|max:255|unique:products,sku,' . $product->id,
+            'usd_offer_price' => 'nullable|numeric|min:0',
             'weight_grams' => 'nullable|numeric|min:0',
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
@@ -229,7 +231,7 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'name' => $request->name,
             'slug' => $slug,
-            'sku' => $request->sku ?: $product->sku,
+            'usd_offer_price' => $request->usd_offer_price ?: null,
             'weight_grams' => $request->filled('weight_grams') ? (int) $request->weight_grams : ($product->weight_grams ?: 500),
             'short_description' => $request->short_description,
             'description' => $request->description,
@@ -330,6 +332,7 @@ class ProductController extends Controller
                         'sale_price_usd' => !empty($varData['sale_price_usd']) ? $varData['sale_price_usd'] : null,
                         'stock' => $varData['stock'] ?? 0,
                         'sku' => $varData['sku'] ?? null,
+                        'sap_code' => $varData['sap_code'] ?? null,
                         'image' => $imagePath,
                     ];
                 }

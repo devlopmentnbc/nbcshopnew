@@ -10,6 +10,7 @@
         $brandSlug = $product->brand?->slug ?? "natures-secret";
         $priceFormatted = $product->formattedPrice();
         $detailUrl = route('product.details', ['slug' => $slug]);
+        $defaultAttributeValueId = $product->relationLoaded('attributeValues') ? $product->defaultAttributeValue()?->id : null;
     } else {
         $id = $product['id'] ?? 1;
         $name = $product['name'] ?? 'Product';
@@ -19,6 +20,7 @@
         $brandSlug = $product['brand_slug'] ?? 'natures-secret';
         $priceFormatted = $product['sale_price'] ?? ($product['original_price'] ?? 'LKR 0.00');
         $detailUrl = route('product.details', ['slug' => $slug]);
+        $defaultAttributeValueId = null;
     }
 @endphp
 
@@ -58,8 +60,9 @@
             </div>
 
             <div class="rbt-card-footer d-flex footer-content-btn">
-                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation nbc-add-to-cart" href="#"
+                <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#"
                     data-product-id="{{ $id }}"
+                    data-attribute-value-id="{{ $defaultAttributeValueId }}"
                     data-product-name="{{ $name }}"
                     data-product-price="{{ $priceFormatted }}"
                     data-product-image="{{ $image }}"

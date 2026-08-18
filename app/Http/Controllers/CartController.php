@@ -8,6 +8,50 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     /**
+     * Product + variant data for the "Add to Cart" picker modal used on
+     * listing pages (home/shop cards), which have no inline variant picker.
+     */
+    public function productModalData(Product $product)
+    {
+        $product->load('attributeValues.attribute');
+
+        $currency = session('currency', 'LKR');
+        $symbol = $currency === 'USD' ? '$' : 'LKR ';
+
+        $variants = $product->attributeValues->map(function ($val) use ($currency, $symbol) {
+            $regular = (float) ($currency === 'USD' ? $val->pivot->price_usd : $val->pivot->price_lkr);
+            $saleRaw = $currency === 'USD' ? $val->pivot->sale_price_usd : $val->pivot->sale_price_lkr;
+            $hasSale = $saleRaw && (float) $saleRaw > 0 && (float) $saleRaw < $regular;
+            $sale = $hasSale ? (float) $saleRaw : null;
+            $discountPercent = $hasSale && $regular > 0 ? (int) round((1 - ($sale / $regular)) * 100) : 0;
+
+            return [
+                'id' => $val->id,
+                'attribute_name' => $val->attribute->name ?? 'Attribute',
+                'value_name' => $val->value_name,
+                'metric' => $val->metric,
+                'stock' => (int) ($val->pivot->stock ?? 0),
+                'has_sale' => $hasSale,
+                'discount_percent' => $discountPercent,
+                'regular_formatted' => $symbol . number_format($regular, 2),
+                'price_formatted' => $symbol . number_format($hasSale ? $sale : $regular, 2),
+            ];
+        })->values();
+
+        $defaultVariant = $product->defaultAttributeValue();
+
+        return response()->json([
+            'id' => $product->id,
+            'name' => $product->name,
+            'image' => $product->image ? asset($product->image) : asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1-hover.webp'),
+            'url' => route('product.details', $product->slug ?: $product->id),
+            'default_attribute_value_id' => $defaultVariant?->id,
+            'variants' => $variants,
+            'pricing' => $product->pricingSummary(),
+        ]);
+    }
+
+    /**
      * Get cart contents & summary JSON
      */
     public function getCart(Request $request)
@@ -83,37 +127,49 @@ class CartController extends Controller
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'nullable|integer|min:1',
+            'attribute_value_id' => 'nullable|integer|exists:attribute_values,id',
             'attributes' => 'nullable|array',
         ]);
 
         $productId = $request->input('product_id');
         $quantity = (int) $request->input('quantity', 1);
         $selectedAttrs = $request->input('attributes', []);
+        $requestedAttributeValueId = $request->input('attribute_value_id');
 
         $product = Product::with(['attributeValues', 'images'])->findOrFail($productId);
 
+        // Resolve which variant this line item is for: the requested one if it
+        // actually belongs to this product, otherwise the default (cheapest).
+        $variant = $requestedAttributeValueId
+            ? $product->attributeValues->firstWhere('id', (int) $requestedAttributeValueId)
+            : null;
+        $variant = $variant ?: $product->defaultAttributeValue();
+
         $cart = session()->get('cart', []);
 
-        // Unique cart key (product_id + attributes)
+        // Unique cart key (product_id + variant) so different variants of the
+        // same product become separate line items.
         $cartKey = (string) $productId;
-        if (!empty($selectedAttrs)) {
-            ksort($selectedAttrs);
-            $cartKey .= '-' . md5(json_encode($selectedAttrs));
+        if ($variant) {
+            $cartKey .= '-' . $variant->id;
         }
 
-        // Calculate prices from variants/pivot
-        $pricesLkr = $product->attributeValues->map(function ($val) {
-            return $val->pivot->sale_price_lkr ?: $val->pivot->price_lkr;
-        })->filter(fn($p) => $p > 0);
-        $priceLkr = $pricesLkr->isNotEmpty() ? (float) $pricesLkr->min() : 0.0;
+        if ($variant) {
+            $priceLkr = (float) ($variant->pivot->sale_price_lkr ?: $variant->pivot->price_lkr);
+            $priceUsd = (float) ($variant->pivot->sale_price_usd ?: $variant->pivot->price_usd);
+            $variantName = $variant->value_name;
+        } else {
+            $priceLkr = 0.0;
+            $priceUsd = 0.0;
+            $variantName = null;
+        }
 
-        $pricesUsd = $product->attributeValues->map(function ($val) {
-            return $val->pivot->sale_price_usd ?: $val->pivot->price_usd;
-        })->filter(fn($p) => $p > 0);
-        $priceUsd = $pricesUsd->isNotEmpty() ? (float) $pricesUsd->min() : 0.0;
+        $displayName = $variantName ? "{$product->name} - {$variantName}" : $product->name;
 
         // Image URL
-        $imageUrl = $product->image ? asset($product->image) : asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1-hover.webp');
+        $imageUrl = ($variant && $variant->pivot->image)
+            ? asset($variant->pivot->image)
+            : ($product->image ? asset($product->image) : asset('assets/images/product-img/electronics/electronics-bg-trans-10-a-1-hover.webp'));
 
         if (isset($cart[$cartKey])) {
             $cart[$cartKey]['quantity'] += $quantity;
@@ -121,7 +177,9 @@ class CartController extends Controller
             $cart[$cartKey] = [
                 'key' => $cartKey,
                 'product_id' => $product->id,
-                'name' => $product->name,
+                'attribute_value_id' => $variant?->id,
+                'variant_name' => $variantName,
+                'name' => $displayName,
                 'slug' => $product->slug,
                 'url' => route('product.details', $product->slug ?: $product->id),
                 'image' => $imageUrl,

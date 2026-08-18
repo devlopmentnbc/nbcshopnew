@@ -3518,94 +3518,14 @@
                         <div class="rbt-single-nav">
 
                             <div class="rbt-products-nav">
-                                <div class="rbt-event-hover tooltips" data-tooltip="Previous Product"
-                                    data-tooltip-position="top">
-                                    <a class="rbt-product-nav-btn rbt-round-btn rbt-btn-prev"
-                                        href="product-single-electronics.html" aria-label="Previous product">
-                                        <i class="fa-regular fa-chevron-left"></i>
-                                    </a>
-
-                                    <div class="rbt-dropdown rbt-dropdown-from-right">
-                                        <div
-                                            class="rbt-card rbt-product-card rbt-list-view-variation rbt-list-view-sm rbt-bg-color-gray-light">
-                                            <div class="inner rbt-scroll-trigger fade_in animation-order-1">
-                                                <div class="rbt-card-body">
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(42)</p>
-                                                    </div>
-                                                    <h2 class="rbt-card-title"><a
-                                                            href="product-single-electronics.html">Beats Studio Pro
-                                                            Wireless
-                                                            Earbuds –
-                                                            Black</a></h2>
-
-                                                    <div class="pricing-part">
-                                                        <del class="price-text">Rs. 255.34</del>
-                                                        <span class="price-text">Rs. 69.78</span>
-                                                    </div>
-                                                </div>
-                                                <div class="rbt-card-img rbt-bg-color-default">
-                                                    <a href="#"><img
-                                                            src="{{ asset('assets/images/product-single/earphone/earphone-05.webp') }}"
-                                                            alt="Card Image"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                                 <a href="{{ route('shop') }}" class="rbt-product-nav-btn rbt-round-btn tooltips"
                                     data-tooltip="Back To Products" data-tooltip-position="top">
                                     <i class="fa-regular fa-grid-2"></i>
                                 </a>
 
-                                <div class="rbt-event-hover tooltips" data-tooltip="Next Product"
-                                    data-tooltip-position="top">
-                                    <a class="rbt-product-nav-btn rbt-round-btn rbt-btn-next"
-                                        href="product-single-electronics.html" aria-label="Next product">
-                                        <i class="fa-regular fa-chevron-right"></i>
-                                    </a>
-
-                                    <div class="rbt-dropdown rbt-dropdown-from-right">
-                                        <div
-                                            class="rbt-card rbt-product-card rbt-list-view-variation rbt-list-view-sm rbt-bg-color-gray-light">
-                                            <div class="inner rbt-scroll-trigger fade_in animation-order-1">
-                                                <div class="rbt-card-body">
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(42)</p>
-                                                    </div>
-                                                    <h2 class="rbt-card-title"><a
-                                                            href="product-single-electronics.html">Xiaomi Pill - Portable
-                                                            Bluetooth Wireless Speaker</a></h2>
-
-                                                    <div class="pricing-part">
-                                                        <del class="price-text">Rs. 255.34</del>
-                                                        <span class="price-text">Rs. 69.78</span>
-                                                    </div>
-                                                </div>
-                                                <div class="rbt-card-img rbt-bg-color-default">
-                                                    <a href="#"><img
-                                                            src="{{ asset('assets/images/product-img/electronics/electronics-bg-trans-list-01.webp') }}"
-                                                            alt="Card Image"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -3787,18 +3707,34 @@
                         <p class="description-text b2 mt--16 nbc-summary-description">
                             {{ isset($product) && $product->short_description ? $product->short_description : 'No description available.' }}
                         </p>
+                        @php
+                            $summaryDefaultVariant = isset($product) ? $product->defaultAttributeValue() : null;
+                            $summaryCurrency = session('currency', 'LKR');
+                            $summarySymbol = $summaryCurrency === 'USD' ? '$' : 'LKR ';
+
+                            if ($summaryDefaultVariant) {
+                                $summaryRegular = (float) ($summaryCurrency === 'USD' ? $summaryDefaultVariant->pivot->price_usd : $summaryDefaultVariant->pivot->price_lkr);
+                                $summarySale = $summaryCurrency === 'USD' ? $summaryDefaultVariant->pivot->sale_price_usd : $summaryDefaultVariant->pivot->sale_price_lkr;
+                                $summaryHasSale = $summarySale && (float) $summarySale > 0 && (float) $summarySale < $summaryRegular;
+                                $summaryDiscountPct = $summaryHasSale && $summaryRegular > 0 ? round((1 - ((float) $summarySale / $summaryRegular)) * 100) : 0;
+                                $summaryDisplayPrice = $summaryHasSale ? (float) $summarySale : $summaryRegular;
+                            } else {
+                                $summaryRegular = 0;
+                                $summaryHasSale = false;
+                                $summaryDiscountPct = 0;
+                                $summaryDisplayPrice = 0;
+                            }
+                        @endphp
                         <div class="rbt-info-wrapper d-flex justify-content-between mt--16 nbc-summary-price">
                             <div class="rbt-store-price-1">
                                 <div class="pricing-part mt--0">
+                                    <del class="price-text js-nbc-regular-price"
+                                        style="{{ $summaryHasSale ? '' : 'display:none' }}">{{ $summarySymbol }}{{ number_format($summaryRegular, 2) }}</del>
                                     <span
-                                        class="price-text">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
+                                        class="price-text js-nbc-sale-price">{{ $summaryDefaultVariant ? $summarySymbol . number_format($summaryDisplayPrice, 2) : (isset($product) ? $product->formattedPrice() : 'N/A') }}</span>
+                                    <span class="rbt-offer-badge js-nbc-offer-badge"
+                                        style="{{ $summaryHasSale ? '' : 'display:none' }}">-{{ $summaryDiscountPct }}%</span>
                                 </div>
-                                @if (isset($product))
-                                    <div class="pricing-part mt--0">
-                                        <span class="price-text"
-                                            style="font-size: 14px; color: #666;">{{ $product->priceRangeUsd() }}</span>
-                                    </div>
-                                @endif
                             </div>
                             <div class="rbt-quick-access-banner-action-btn d-flex align-items-center">
                                 <button class="rbt-btn rbt-btn-xs rbt-btn-secondary d-flex align-items-center"
@@ -3854,12 +3790,7 @@
                             <span><i class="fa-solid fa-shield-check"></i> Authentic NBC product</span>
                         </div>
                         <div class="rbt-info-wrapper d-flex mt--12 nbc-summary-sku">
-                            <div class="prd-info-section">
-                                <div class="prd-id-text">
-                                    <p class="text-bold">SKU:</p>
-                                    <p> {{ isset($product) && $product->sku ? $product->sku : 'N/A' }}</p>
-                                </div>
-                            </div>
+                            
                             <div class="prd-info-section has-left-separator">
                                 <br>
                                 <!-- <div class="prd-id-text">
@@ -3913,27 +3844,99 @@
                                     $groupedAttributes = $product->attributeValues->groupBy(function ($item) {
                                         return $item->attribute->name ?? 'Attribute';
                                     });
+                                    $defaultVariant = $product->defaultAttributeValue();
                                 @endphp
-                                <div class="rbt-product-attributes-wrapper mt--24">
+                                <style>
+                                    #nbcProductAttributes .nbc-variant-pill.is-active {
+                                        border-color: var(--color-primary, #dc2626) !important;
+                                        background-color: rgba(220, 38, 38, 0.06) !important;
+                                        color: var(--color-primary, #dc2626) !important;
+                                    }
+                                </style>
+                                <div class="rbt-product-attributes-wrapper mt--24" id="nbcProductAttributes"
+                                    data-currency="{{ session('currency', 'LKR') }}">
                                     @foreach ($groupedAttributes as $attrName => $values)
                                         <div class="rbt-attribute-group mb--16">
                                             <label class="rbt-title b2 mb--8 d-block"
                                                 style="font-weight: 600; color: #222;">{{ $attrName }}:</label>
                                             <div class="d-flex flex-wrap align-items-center" style="gap: 8px;">
                                                 @foreach ($values as $val)
-                                                    <div class="rbt-attr-pill px-3 py-2 border rounded d-inline-flex align-items-center"
-                                                        style="border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 8px; font-size: 14px; color: #1e293b; font-weight: 500;">
+                                                    <button type="button"
+                                                        class="rbt-attr-pill nbc-variant-pill px-3 py-2 border rounded d-inline-flex align-items-center {{ $defaultVariant && $defaultVariant->id === $val->id ? 'is-active' : '' }}"
+                                                        data-attribute-value-id="{{ $val->id }}"
+                                                        data-value-name="{{ $val->value_name }}"
+                                                        data-regular-lkr="{{ $val->pivot->price_lkr }}"
+                                                        data-regular-usd="{{ $val->pivot->price_usd }}"
+                                                        data-sale-lkr="{{ $val->pivot->sale_price_lkr }}"
+                                                        data-sale-usd="{{ $val->pivot->sale_price_usd }}"
+                                                        style="border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 8px; font-size: 14px; color: #1e293b; font-weight: 500; cursor: pointer;">
                                                         <span>{{ $val->value_name }}</span>
                                                         @if ($val->metric)
                                                             <span class="ms-1 text-muted"
                                                                 style="font-size: 12px; opacity: 0.8; margin-left: 4px;">({{ $val->metric }})</span>
                                                         @endif
-                                                    </div>
+                                                    </button>
                                                 @endforeach
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
+
+                                <script>
+                                    (function() {
+                                        const wrapper = document.getElementById('nbcProductAttributes');
+                                        if (!wrapper) return;
+
+                                        const currency = wrapper.dataset.currency === 'USD' ? 'USD' : 'LKR';
+                                        const regularEls = document.querySelectorAll('.js-nbc-regular-price');
+                                        const saleEls = document.querySelectorAll('.js-nbc-sale-price');
+                                        const badgeEls = document.querySelectorAll('.js-nbc-offer-badge');
+                                        const addToCartBtns = document.querySelectorAll('.js-nbc-add-to-cart');
+
+                                        function formatAmount(amount) {
+                                            const num = Number(amount || 0);
+                                            return currency === 'USD'
+                                                ? ('$' + num.toFixed(2))
+                                                : ('LKR ' + num.toLocaleString('en-LK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        }
+
+                                        function selectVariant(pill) {
+                                            wrapper.querySelectorAll('.nbc-variant-pill').forEach(function(p) {
+                                                p.classList.remove('is-active');
+                                            });
+                                            pill.classList.add('is-active');
+
+                                            const regular = Number((currency === 'USD' ? pill.dataset.regularUsd : pill.dataset.regularLkr) || 0);
+                                            const saleRaw = currency === 'USD' ? pill.dataset.saleUsd : pill.dataset.saleLkr;
+                                            const sale = Number(saleRaw || 0);
+                                            const hasSale = saleRaw && sale > 0 && sale < regular;
+                                            const discountPct = hasSale && regular > 0 ? Math.round((1 - (sale / regular)) * 100) : 0;
+                                            const displayPrice = hasSale ? sale : regular;
+
+                                            regularEls.forEach(function(el) {
+                                                el.textContent = formatAmount(regular);
+                                                el.style.display = hasSale ? '' : 'none';
+                                            });
+                                            saleEls.forEach(function(el) {
+                                                el.textContent = formatAmount(displayPrice);
+                                            });
+                                            badgeEls.forEach(function(el) {
+                                                el.textContent = '-' + discountPct + '%';
+                                                el.style.display = hasSale ? '' : 'none';
+                                            });
+
+                                            addToCartBtns.forEach(function(btn) {
+                                                btn.dataset.attributeValueId = pill.dataset.attributeValueId;
+                                            });
+                                        }
+
+                                        wrapper.querySelectorAll('.nbc-variant-pill').forEach(function(pill) {
+                                            pill.addEventListener('click', function() {
+                                                selectVariant(pill);
+                                            });
+                                        });
+                                    })();
+                                </script>
                             @endif
                             <!-- <div class="rbt-countdown-banner rbt-countdown-banner-sm rbt-countdown-banner-has-bg-01">
                                     <span class="b3 rbt-title">Special Offer :</span>
@@ -3979,8 +3982,9 @@
                                 <input type="number" class="items-qty-input" value="1" min="1">
                                 <button class="qty-item-btn qty-item-btn-incr"><i class="fa-solid fa-plus"></i></button>
                             </div>
-                            <a class="rbt-btn rbt-btn-border has-left-icon d-block text-center btn-add-to-cart"
-                                href="#" data-product-id="{{ isset($product) ? $product->id : '' }}"><i
+                            <a class="rbt-btn rbt-btn-border has-left-icon d-block text-center btn-add-to-cart js-nbc-add-to-cart"
+                                href="#" data-product-id="{{ isset($product) ? $product->id : '' }}"
+                                data-attribute-value-id="{{ $summaryDefaultVariant?->id }}"><i
                                     class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
                         </div>
                         <div class="prd-btn-grp">
@@ -9334,15 +9338,16 @@
                     <div class="rbt-minicart-bottom-section-center justify-content-center d-flex">
                         <div class="pricing-part">
                             <span
-                                class="price-text rbt-text-bold rbt-text-color-heading">{{ isset($product) ? $product->priceRangeLkr() : 'N/A' }}</span>
+                                class="price-text rbt-text-bold rbt-text-color-heading js-nbc-sale-price">{{ $summaryDefaultVariant ? $summarySymbol . number_format($summaryDisplayPrice, 2) : (isset($product) ? $product->formattedPrice() : 'N/A') }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 mt--12 mt_sm--16">
                     <div class="rbt-minicart-bottom-section-right d-flex">
                         <div class="minicart-btn-grp d-flex rbt-gap--16">
-                            <a class="rbt-btn rbt-btn-border rbt-btn-sm d-block has-left-icon btn-add-to-cart"
-                                href="#" data-product-id="{{ isset($product) ? $product->id : '' }}"><i
+                            <a class="rbt-btn rbt-btn-border rbt-btn-sm d-block has-left-icon btn-add-to-cart js-nbc-add-to-cart"
+                                href="#" data-product-id="{{ isset($product) ? $product->id : '' }}"
+                                data-attribute-value-id="{{ $summaryDefaultVariant->id ?? '' }}"><i
                                     class="fa-regular mr fa-cart-shopping"></i> Add To Cart</a>
                             <a class="rbt-btn rbt-btn-sm d-block" href="#">Buy Now</a>
                         </div>

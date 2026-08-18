@@ -267,7 +267,9 @@ class CheckoutController extends Controller
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item['product_id'] ?? null,
+                    'attribute_value_id' => $item['attribute_value_id'] ?? null,
                     'name' => $item['name'],
+                    'variant_name' => $item['variant_name'] ?? null,
                     'image' => $item['image'] ?? null,
                     'price_lkr' => $item['price_lkr'] ?? 0,
                     'quantity' => $item['quantity'],

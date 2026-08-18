@@ -68,6 +68,7 @@
                 <div id="values-container" class="space-y-3">
                     @forelse ($attribute->values as $index => $val)
                         <div class="value-row flex flex-wrap items-center gap-3 rounded-base border border-surface-line bg-surface-body p-3">
+                            <input type="hidden" name="values[{{ $index }}][id]" value="{{ $val->id }}">
                             <div class="flex-1 min-w-[150px]">
                                 <label class="block text-[12px] font-semibold text-ink-700 mb-1">Value Name</label>
                                 <input type="text" name="values[{{ $index }}][value_name]" value="{{ old("values.{$index}.value_name", $val->value_name) }}" placeholder="e.g. 50 ml" class="h-10 w-full rounded-base border border-surface-line bg-surface-card px-3 text-[14px] text-ink-900 focus:border-brand-600 focus:outline-none">

@@ -39,16 +39,11 @@
                         @enderror
                     </div>
 
-                    <!-- Slug, SKU & Weight -->
+                    <!-- Slug, Weight & USD Offer Price -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label for="slug" class="block text-[14px] font-semibold text-ink-900 mb-2">Slug</label>
                             <input type="text" name="slug" id="slug" value="{{ old('slug', $product->slug) }}" placeholder="e.g. organic-almond-milk" class="h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] text-ink-900 focus:border-brand-600 focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label for="sku" class="block text-[14px] font-semibold text-ink-900 mb-2">Main Product SKU</label>
-                            <input type="text" name="sku" id="sku" value="{{ old('sku', $product->sku) }}" placeholder="e.g. ALM-MAIN" class="h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] text-ink-900 focus:border-brand-600 focus:outline-none">
                         </div>
 
                         <div>
@@ -58,6 +53,21 @@
                                 <span class="inline-flex items-center bg-surface-muted px-3 text-[13px] font-semibold text-ink-500 border-l border-surface-line select-none">grams (g)</span>
                             </div>
                         </div>
+
+                        <div>
+                            <label for="usd_offer_price" class="block text-[14px] font-semibold text-ink-900 mb-2">USD Offer Price</label>
+                            <div class="flex rounded-base border border-surface-line overflow-hidden bg-surface-body focus-within:border-brand-600">
+                                <span class="inline-flex items-center bg-surface-muted px-3 text-[13px] font-semibold text-ink-500 border-r border-surface-line select-none">$</span>
+                                <input type="number" step="0.01" min="0" name="usd_offer_price" id="usd_offer_price" value="{{ old('usd_offer_price', $product->usd_offer_price) }}" placeholder="Optional" class="h-11 flex-1 bg-transparent px-4 text-[14px] text-ink-900 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Product SKU (read-only) -->
+                    <div>
+                        <label class="block text-[14px] font-semibold text-ink-900 mb-2">Main Product SKU</label>
+                        <input type="text" value="{{ $product->sku }}" disabled class="h-11 w-full rounded-base border border-surface-line bg-surface-muted px-4 text-[14px] text-ink-500 cursor-not-allowed">
+                        <p class="mt-1.5 text-[12px] text-ink-400">Auto-generated on creation and cannot be edited.</p>
                     </div>
 
                     <!-- Short Description -->
@@ -133,8 +143,8 @@
                                                     </label>
                                                 </div>
 
-                                                <!-- Variant Inputs (LKR, USD, Stock, Image) -->
-                                                <div id="variant_inputs_{{ $val->id }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2 border-t border-surface-line {{ old("variants.{$val->id}.selected", $isAttached) ? '' : 'hidden' }}">
+                                                <!-- Variant Inputs (LKR, USD, Stock, SAP Code, Image) -->
+                                                <div id="variant_inputs_{{ $val->id }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-3 pt-2 border-t border-surface-line {{ old("variants.{$val->id}.selected", $isAttached) ? '' : 'hidden' }}">
                                                     <!-- LKR Price -->
                                                     <div>
                                                         <label class="block text-[12px] font-semibold text-ink-700 mb-1">LKR Price (Rs.) <span class="text-danger-500">*</span></label>
@@ -163,6 +173,12 @@
                                                     <div>
                                                         <label class="block text-[12px] font-semibold text-ink-700 mb-1">Stock Qty <span class="text-danger-500">*</span></label>
                                                         <input type="number" name="variants[{{ $val->id }}][stock]" value="{{ old("variants.{$val->id}.stock", $varData['stock'] ?? 10) }}" placeholder="10" min="0" class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                                                    </div>
+
+                                                    <!-- SAP Code -->
+                                                    <div>
+                                                        <label class="block text-[12px] font-semibold text-ink-700 mb-1">SAP Code</label>
+                                                        <input type="text" name="variants[{{ $val->id }}][sap_code]" value="{{ old("variants.{$val->id}.sap_code", $varData['sap_code'] ?? '') }}" placeholder="Optional" class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
                                                     </div>
 
                                                     <!-- Variant Image -->

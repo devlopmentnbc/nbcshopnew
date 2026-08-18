@@ -8077,6 +8077,7 @@
 
     @include('components.cart-drawer')
     @include('components.wishlist-modal')
+    @include('components.add-to-cart-modal')
 
     <a class="close_side_menu catagories-close_side_menu" href="javascript:void(0);"></a>
     <a href="javascript:void(0);" class="common-close_search_dropdown"></a>
