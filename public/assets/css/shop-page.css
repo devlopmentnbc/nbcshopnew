@@ -421,3 +421,263 @@
 .rbt-shop-filter-area .rbt-shop-filter-tag-list a:hover i {
     color: #fff;
 }
+
+/* Responsive utilities required by Laravel's default Tailwind paginator. */
+.shop-pagination-wrapper .hidden {
+    display: none !important;
+}
+
+.shop-pagination-wrapper .flex {
+    display: flex !important;
+}
+
+.shop-pagination-wrapper nav {
+    width: 100%;
+}
+
+.shop-pagination-wrapper nav svg {
+    flex: 0 0 20px;
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.shop-pagination-wrapper nav span.inline-flex,
+.shop-pagination-wrapper nav a {
+    background-color: #fff !important;
+    color: #606060 !important;
+    flex: none !important;
+    display: flex !important;
+    gap: 8px !important;
+    box-shadow: none !important;
+}
+
+.shop-pagination-wrapper nav a:focus,
+.shop-pagination-wrapper nav a:hover,
+.shop-pagination-wrapper nav a:active {
+    background-color: #fff !important;
+    color: rgb(96, 96, 96) !important;
+    border-color: rgb(222, 226, 230) !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+.shop-pagination-wrapper nav span[aria-current="page"] > span {
+    background-color: rgb(17, 58, 50) !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+
+}
+
+@media (min-width: 640px) {
+    .shop-pagination-wrapper .sm\:hidden {
+        display: none !important;
+    }
+
+    .shop-pagination-wrapper .sm\:flex {
+        display: flex !important;
+    }
+
+    .shop-pagination-wrapper .sm\:flex-1 {
+        flex: 1 1 0% !important;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) {
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:first-child {
+        left: 0;
+        position: absolute;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:first-child p {
+        margin-bottom: 0;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child > span {
+        align-items: center;
+        box-shadow: none !important;
+        display: flex !important;
+        flex: 0 0 auto !important;
+        gap: 8px !important;
+        max-width: max-content;
+        width: max-content !important;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child > span > a,
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child > span > span {
+        border-radius: 4px !important;
+        height: 40px !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        min-width: 40px !important;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child {
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: max-content;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child > span > * {
+        flex: 0 0 auto !important;
+    }
+
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child a,
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child span[aria-disabled="true"],
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child span[aria-current="page"],
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child span[aria-disabled="true"] > span,
+    .shop-pagination-wrapper nav > div:nth-child(2) > div:last-child span[aria-current="page"] > span {
+        align-items: center;
+        display: inline-flex !important;
+        flex: 0 0 auto !important;
+        height: 40px;
+        justify-content: center;
+        min-width: 40px;
+        max-width: max-content;
+        width: auto !important;
+    }
+
+    .shop-pagination-wrapper nav a[rel="prev"]::after {
+        content: " PREVIOUS";
+    }
+
+    .shop-pagination-wrapper nav a[rel="next"]::before {
+        content: "NEXT ";
+    }
+
+    .shop-pagination-wrapper nav a[rel="prev"],
+    .shop-pagination-wrapper nav a[rel="next"] {
+        min-width: 100px !important;
+    }
+}
+
+@media (max-width: 639.98px) {
+    .shop-pagination-wrapper nav > div:first-child {
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+/* desktop paginator */
+.shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md {
+    background: transparent !important;
+    box-shadow: none !important;
+    display: flex !important;
+    gap: 8px !important;
+}
+
+.shop-pagination-wrapper nav span.inline-flex > a,
+.shop-pagination-wrapper nav span.inline-flex > span {
+    align-items: center !important;
+    background-color: #fff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 4px !important;
+    display: inline-flex !important;
+    height: 40px !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    min-width: 40px !important;
+    padding: 0 10px !important;
+    text-decoration: none !important;
+}
+
+.shop-pagination-wrapper nav span[aria-current="page"],
+.shop-pagination-wrapper nav span[aria-current="page"] > span {
+    background-color: #113a32 !important;
+    border-color: #113a32 !important;
+    color: #fff !important;
+}
+
+.shop-pagination-wrapper nav a[rel="prev"],
+.shop-pagination-wrapper nav a[rel="next"],
+.shop-pagination-wrapper nav span:first-child[aria-disabled="true"],
+.shop-pagination-wrapper nav span:last-child[aria-disabled="true"] {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    min-width: 120px !important;
+    text-transform: uppercase !important;
+}
+
+.shop-pagination-wrapper nav a[rel="prev"]::after,
+.shop-pagination-wrapper nav span:first-child span::after {
+    content: " PREVIOUS";
+}
+
+.shop-pagination-wrapper nav a[rel="next"]::before,
+.shop-pagination-wrapper nav span:last-child span::before {
+    content: "NEXT ";
+}
+
+.shop-pagination-wrapper nav span.inline-flex > span > span {
+    align-items: center !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+
+@media (min-width: 640px) {
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md {
+        align-items: center !important;
+        gap: 4px !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > a,
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span {
+        border: 1px solid #d7e0de !important;
+        border-radius: 2px !important;
+        font-size: 12px !important;
+        height: 32px !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+        min-width: 32px !important;
+        padding: 0 8px !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > a[rel="prev"],
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > a[rel="next"],
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span:first-child[aria-disabled="true"],
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span:last-child[aria-disabled="true"] {
+        min-width: 88px !important;
+        padding: 0 10px !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md svg {
+        height: 14px !important;
+        width: 14px !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span[aria-disabled="true"]:not(:first-child):not(:last-child) {
+        background: transparent !important;
+        border-color: transparent !important;
+        min-width: 24px !important;
+        padding: 0 4px !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span[aria-current="page"] {
+        background-color: #113a32 !important;
+        border-color: #113a32 !important;
+        color: #fff !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md *::before,
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md *::after {
+        content: none !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > a[rel="prev"]::after,
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span:first-child[aria-disabled="true"] > span::after {
+        content: " PREVIOUS" !important;
+    }
+
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > a[rel="next"]::before,
+    .shop-pagination-wrapper nav span.inline-flex.shadow-sm.rounded-md > span:last-child[aria-disabled="true"] > span::before {
+        content: "NEXT " !important;
+    }
+}

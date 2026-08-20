@@ -29,12 +29,12 @@
 <div class="rbt-shop-area ptb--50 bg-color-extra-two" style="background-color: #f8fafc;padding-top:80px; padding-bottom:80px;">
     <div class="container">
         <div class="row g-4">
-            
+
             <!-- Sidebar Filters -->
             <div class="col-lg-3 col-md-4">
                 <div class="card border-0 shadow-sm rounded-16 p-4 bg-white sticky-top" style="top: 100px; z-index: 7;">
                     <form method="GET" action="{{ route('shop') }}" id="shop-filter-form">
-                        
+
                         <!-- Search Box -->
                         <div class="mb-4">
                             <label class="fw-bold text-dark mb-2 small"><i class="fa-regular fa-magnifying-glass me-1 text-success"></i> Search Products</label>
@@ -52,13 +52,13 @@
                                 <i class="fa-regular fa-layer-group me-1 text-success"></i> Categories
                             </h6>
                             <div class="d-flex flex-column gap-2">
-                                <a href="{{ route('shop', array_merge(request()->except(['category', 'page']))) }}" 
+                                <a href="{{ route('shop', array_merge(request()->except(['category', 'page']))) }}"
                                    class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('category') ? 'fw-bold text-success' : 'text-dark' }}">
                                     <span>All Categories</span>
                                     <span class="badge bg-light text-dark rounded-pill">{{ $products->total() }}</span>
                                 </a>
                                 @foreach($categories as $cat)
-                                    <a href="{{ route('shop', array_merge(request()->all(), ['category' => $cat->slug, 'page' => 1])) }}" 
+                                    <a href="{{ route('shop', array_merge(request()->all(), ['category' => $cat->slug, 'page' => 1])) }}"
                                        class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('category') == $cat->slug ? 'fw-bold text-success' : 'text-dark' }}">
                                         <span>{{ $cat->name }}</span>
                                         <span class="badge bg-light text-dark rounded-pill">{{ $cat->products_count }}</span>
@@ -73,12 +73,12 @@
                                 <i class="fa-regular fa-tags me-1 text-success"></i> Brands
                             </h6>
                             <div class="d-flex flex-column gap-2">
-                                <a href="{{ route('shop', array_merge(request()->except(['brand', 'page']))) }}" 
+                                <a href="{{ route('shop', array_merge(request()->except(['brand', 'page']))) }}"
                                    class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('brand') ? 'fw-bold text-success' : 'text-dark' }}">
                                     <span>All Brands</span>
                                 </a>
                                 @foreach($brands as $b)
-                                    <a href="{{ route('shop', array_merge(request()->all(), ['brand' => $b->slug, 'page' => 1])) }}" 
+                                    <a href="{{ route('shop', array_merge(request()->all(), ['brand' => $b->slug, 'page' => 1])) }}"
                                        class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('brand') == $b->slug ? 'fw-bold text-success' : 'text-dark' }}">
                                         <span>{{ $b->name }}</span>
                                         <span class="badge bg-light text-dark rounded-pill">{{ $b->products_count }}</span>
@@ -145,7 +145,7 @@
 
                 <!-- Pagination -->
                 @if($products->hasPages())
-                    <div class="d-flex justify-content-center mt-5">
+                    <div class="d-flex justify-content-center mt-5 shop-pagination-wrapper">
                         {{ $products->links() }}
                     </div>
                 @endif
