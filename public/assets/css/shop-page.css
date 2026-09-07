@@ -681,3 +681,17 @@
         content: "NEXT " !important;
     }
 }
+
+/* Sidebar Accordion / Collapse Toggle Styles */
+.filter-collapse-icon {
+    transition: transform 0.25s ease;
+}
+
+button[aria-expanded="false"] .filter-collapse-icon {
+    transform: rotate(-90deg);
+}
+
+button[aria-expanded="true"] .filter-collapse-icon {
+    transform: rotate(0deg);
+}
+

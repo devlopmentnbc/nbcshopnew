@@ -48,42 +48,54 @@
 
                         <!-- Categories Filter -->
                         <div class="mb-4 border-bottom pb-3">
-                            <h6 class="fw-bold text-dark mb-3">
-                                <i class="fa-regular fa-layer-group me-1 text-success"></i> Categories
-                            </h6>
-                            <div class="d-flex flex-column gap-2">
-                                <a href="{{ route('shop', array_merge(request()->except(['category', 'page']))) }}"
-                                   class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('category') ? 'fw-bold text-success' : 'text-dark' }}">
-                                    <span>All Categories</span>
-                                    <span class="badge bg-light text-dark rounded-pill">{{ $products->total() }}</span>
-                                </a>
-                                @foreach($categories as $cat)
-                                    <a href="{{ route('shop', array_merge(request()->all(), ['category' => $cat->slug, 'page' => 1])) }}"
-                                       class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('category') == $cat->slug ? 'fw-bold text-success' : 'text-dark' }}">
-                                        <span>{{ $cat->name }}</span>
-                                        <span class="badge bg-light text-dark rounded-pill">{{ $cat->products_count }}</span>
+                            <button type="button" class="btn p-0 w-100 d-flex align-items-center justify-content-between text-dark text-decoration-none shadow-none border-0 bg-transparent mb-1"
+                                    data-bs-toggle="collapse" data-bs-target="#categoriesFilterCollapse" aria-expanded="{{ request('category') ? 'true' : 'false' }}" aria-controls="categoriesFilterCollapse">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center">
+                                    <i class="fa-regular fa-layer-group me-2 text-success"></i> Categories
+                                </h6>
+                                <i class="fa-solid fa-chevron-down filter-collapse-icon text-muted small"></i>
+                            </button>
+                            <div class="collapse {{ request('category') ? 'show' : '' }}" id="categoriesFilterCollapse">
+                                <div class="d-flex flex-column gap-2 pt-2">
+                                    <a href="{{ route('shop', array_merge(request()->except(['category', 'page']))) }}"
+                                       class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('category') ? 'fw-bold text-success' : 'text-dark' }}">
+                                        <span>All Categories</span>
+                                        <span class="badge bg-light text-dark rounded-pill">{{ $products->total() }}</span>
                                     </a>
-                                @endforeach
+                                    @foreach($categories as $cat)
+                                        <a href="{{ route('shop', array_merge(request()->all(), ['category' => $cat->slug, 'page' => 1])) }}"
+                                           class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('category') == $cat->slug ? 'fw-bold text-success' : 'text-dark' }}">
+                                            <span>{{ $cat->name }}</span>
+                                            <span class="badge bg-light text-dark rounded-pill">{{ $cat->products_count }}</span>
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 
                         <!-- Brands Filter -->
                         <div class="mb-4 border-bottom pb-3">
-                            <h6 class="fw-bold text-dark mb-3">
-                                <i class="fa-regular fa-tags me-1 text-success"></i> Brands
-                            </h6>
-                            <div class="d-flex flex-column gap-2">
-                                <a href="{{ route('shop', array_merge(request()->except(['brand', 'page']))) }}"
-                                   class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('brand') ? 'fw-bold text-success' : 'text-dark' }}">
-                                    <span>All Brands</span>
-                                </a>
-                                @foreach($brands as $b)
-                                    <a href="{{ route('shop', array_merge(request()->all(), ['brand' => $b->slug, 'page' => 1])) }}"
-                                       class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('brand') == $b->slug ? 'fw-bold text-success' : 'text-dark' }}">
-                                        <span>{{ $b->name }}</span>
-                                        <span class="badge bg-light text-dark rounded-pill">{{ $b->products_count }}</span>
+                            <button type="button" class="btn p-0 w-100 d-flex align-items-center justify-content-between text-dark text-decoration-none shadow-none border-0 bg-transparent mb-1"
+                                    data-bs-toggle="collapse" data-bs-target="#brandsFilterCollapse" aria-expanded="{{ request('brand') ? 'true' : 'false' }}" aria-controls="brandsFilterCollapse">
+                                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center">
+                                    <i class="fa-regular fa-tags me-2 text-success"></i> Brands
+                                </h6>
+                                <i class="fa-solid fa-chevron-down filter-collapse-icon text-muted small"></i>
+                            </button>
+                            <div class="collapse {{ request('brand') ? 'show' : '' }}" id="brandsFilterCollapse">
+                                <div class="d-flex flex-column gap-2 pt-2">
+                                    <a href="{{ route('shop', array_merge(request()->except(['brand', 'page']))) }}"
+                                       class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('brand') ? 'fw-bold text-success' : 'text-dark' }}">
+                                        <span>All Brands</span>
                                     </a>
-                                @endforeach
+                                    @foreach($brands as $b)
+                                        <a href="{{ route('shop', array_merge(request()->all(), ['brand' => $b->slug, 'page' => 1])) }}"
+                                           class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('brand') == $b->slug ? 'fw-bold text-success' : 'text-dark' }}">
+                                            <span>{{ $b->name }}</span>
+                                            <span class="badge bg-light text-dark rounded-pill">{{ $b->products_count }}</span>
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 
