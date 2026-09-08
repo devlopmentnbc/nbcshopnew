@@ -3125,54 +3125,25 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <form class="rbt-search-form">
+                        <form action="{{ route('shop') }}" method="GET" class="rbt-search-form nbc-header-search-form">
                             <div class="input-sectition position-relative w-100 mr--12 mr_sm--4">
-                                <input class="search-input" type="text"
-                                    placeholder="What Are You Looking For?">
+                                <input class="search-input nbc-search-input" type="text" name="search"
+                                    placeholder="What product are you looking for?" value="{{ request('search') }}" autocomplete="off">
                                 <i class="fa-sharp fa-regular inner-search-icon fa-magnifying-glass"></i>
-                                <button class="media-search-btn media-search-popupactivation">
-                                    <i class="fa-sharp fa-regular fa-camera"></i>
-                                </button>
                             </div>
                             <div class="submit-btn">
-                                <a class="rbt-btn btn-md" href="#">Search</a>
+                                <button type="submit" class="rbt-btn btn-md">Search</button>
                             </div>
-                            <div class="rbt-media-search-section">
-                                <div class="rbt-media-wrapper">
-                                    <div class="section-title"><span class="title b1">Find product inspiration with
-                                            Image
-                                            Search</span></div>
-                                    <div class="rbt-file-upload-container">
-                                        <input type="file" class="fileInput" multiple="" hidden="">
-                                        <div class="file-upload-area fileUploadArea">
-                                            <div class="file-upload-content">
-                                                <span class="rbt-icon"><i
-                                                        class="fa-solid fa-cloud-arrow-up"></i></span>
-                                                <p class="rbt-title">Drag & Drop Files Here <span
-                                                        class="rbt-text-color-gray-400">Or</span></p>
-                                                <button class="browseFilesButton rbt-btn rbt-btn-sm">Browse
-                                                    Files</button>
-                                            </div>
-                                            <div class="fileList file-list"></div>
-                                        </div>
-                                        <p class="fileCount">0 of 10</p>
-                                    </div>
-                                    <div class="rbt-copy-link-part rbt-text-copy-activation">
-                                        <input class="rbt-copy-value-field" type="text"
-                                            value="https://unimart.template/wishlist" readonly="">
-                                        <button class="rbt-btn rbt-btn-xs has-left-icon rbt-copy-btn"
-                                            data-tooltip="Copy">
-                                            <i class="fa-regular fa-copy"></i>
-                                            <span class="rbt-btn-text">Copy</span>
-                                        </button>
-                                    </div>
-                                    <button type="button" class="rbt-round-btn rbt-ms-dismiss-btn">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0);" class="rbt-ms-dismiss-outsider"></a>
                         </form>
+                    </div>
+                </div>
+
+                <div class="nbc-live-search-container mt-3" style="display: none;">
+                    <div class="d-flex align-items-center justify-content-between mb-2 px-1">
+                        <span class="text-muted small fw-bold">SEARCH RESULTS</span>
+                        <span class="badge bg-light text-dark nbc-live-search-count">0 found</span>
+                    </div>
+                    <div class="nbc-live-search-results list-group shadow-sm rounded-12 overflow-hidden mb-3" style="max-height: 350px; overflow-y: auto;">
                     </div>
                 </div>
 
@@ -3186,18 +3157,16 @@
                             </div>
 
                             <div class="rbt-search-list-wrapper rbt-tag-list rbt-tag-list-rounded-lg">
-                                <a href="#">Fashion</a>
-                                <a href="#">Interior</a>
-                                <a href="#">Nature</a>
-                                <a href="#">Jewellery</a>
-                                <a href="#">Art</a>
-                                <a href="#">Aliexpress</a>
-                                <a href="#">Technology</a>
-                                <a href="#">Texture</a>
-                                <a href="#">Architecture</a>
-                                <a href="#">Business</a>
-                                <a href="#">Jewellery</a>
-                                <a href="#">Aliexpress</a>
+                                <a href="{{ route('shop', ['search' => 'Shampoo']) }}">Shampoo</a>
+                                <a href="{{ route('shop', ['search' => 'Aloe Vera']) }}">Aloe Vera</a>
+                                <a href="{{ route('shop', ['search' => 'Face Wash']) }}">Face Wash</a>
+                                <a href="{{ route('shop', ['search' => 'Moisturizer']) }}">Moisturizer</a>
+                                <a href="{{ route('shop', ['search' => 'Herbal Oil']) }}">Herbal Oil</a>
+                                <a href="{{ route('shop', ['search' => 'Baby Care']) }}">Baby Care</a>
+                                <a href="{{ route('shop', ['search' => 'Body Wash']) }}">Body Wash</a>
+                                <a href="{{ route('shop', ['search' => 'Conditioner']) }}">Conditioner</a>
+                                <a href="{{ route('shop', ['search' => 'Cleanser']) }}">Cleanser</a>
+                                <a href="{{ route('shop', ['search' => 'Face Cream']) }}">Face Cream</a>
                             </div>
                         </div>
 
@@ -5750,57 +5719,28 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <form class="rbt-search-form">
+                            <form action="{{ route('shop') }}" method="GET" class="rbt-search-form nbc-header-search-form">
                                 <div class="input-sectition position-relative w-100 mr--12 mr_sm--4">
-                                    <input class="search-input" type="text"
-                                        placeholder="What Are You Looking For?">
+                                    <input class="search-input nbc-search-input" type="text" name="search"
+                                        placeholder="What product are you looking for?" value="{{ request('search') }}" autocomplete="off">
                                     <i class="fa-sharp fa-regular inner-search-icon fa-magnifying-glass"></i>
-                                    <button class="media-search-btn media-search-popupactivation">
-                                        <i class="fa-sharp fa-regular fa-camera"></i>
-                                    </button>
                                 </div>
                                 <div class="submit-btn">
-                                    <a class="rbt-btn btn-md" href="#">Search</a>
+                                    <button type="submit" class="rbt-btn btn-md">Search</button>
                                 </div>
-                                <div class="rbt-media-search-section">
-                                    <div class="rbt-media-wrapper">
-                                        <div class="section-title"><span class="title b1">Find product inspiration
-                                                with Image
-                                                Search</span></div>
-                                        <div class="rbt-file-upload-container">
-                                            <input type="file" class="fileInput" multiple=""
-                                                hidden="">
-                                            <div class="file-upload-area fileUploadArea">
-                                                <div class="file-upload-content">
-                                                    <span class="rbt-icon"><i
-                                                            class="fa-solid fa-cloud-arrow-up"></i></span>
-                                                    <p class="rbt-title">Drag & Drop Files Here <span
-                                                            class="rbt-text-color-gray-400">Or</span></p>
-                                                    <button class="browseFilesButton rbt-btn rbt-btn-sm">Browse
-                                                        Files</button>
-                                                </div>
-                                                <div class="fileList file-list"></div>
-                                            </div>
-                                            <p class="fileCount">0 of 10</p>
-                                        </div>
-                                        <div class="rbt-copy-link-part rbt-text-copy-activation">
-                                            <input class="rbt-copy-value-field" type="text"
-                                                value="https://unimart.template/wishlist" readonly="">
-                                            <button class="rbt-btn rbt-btn-xs has-left-icon rbt-copy-btn"
-                                                data-tooltip="Copy">
-                                                <i class="fa-regular fa-copy"></i>
-                                                <span class="rbt-btn-text">Copy</span>
-                                            </button>
-                                        </div>
-                                        <button type="button" class="rbt-round-btn rbt-ms-dismiss-btn">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <a href="javascript:void(0);" class="rbt-ms-dismiss-outsider"></a>
                             </form>
                         </div>
                     </div>
+
+                    <div class="nbc-live-search-container mt-3" style="display: none;">
+                        <div class="d-flex align-items-center justify-content-between mb-2 px-1">
+                            <span class="text-muted small fw-bold">SEARCH RESULTS</span>
+                            <span class="badge bg-light text-dark nbc-live-search-count">0 found</span>
+                        </div>
+                        <div class="nbc-live-search-results list-group shadow-sm rounded-12 overflow-hidden mb-3" style="max-height: 350px; overflow-y: auto;">
+                        </div>
+                    </div>
+
                     <div class="rbt-search-scroll-vertical-wrapper rbt-scroll-vertical">
                         <div class="inner">
                             <div class="row row--0">
@@ -5811,18 +5751,16 @@
                                 </div>
 
                                 <div class="rbt-search-list-wrapper rbt-tag-list rbt-tag-list-rounded-lg">
-                                    <a href="#">Fashion</a>
-                                    <a href="#">Interior</a>
-                                    <a href="#">Nature</a>
-                                    <a href="#">Jewellery</a>
-                                    <a href="#">Art</a>
-                                    <a href="#">Aliexpress</a>
-                                    <a href="#">Technology</a>
-                                    <a href="#">Texture</a>
-                                    <a href="#">Architecture</a>
-                                    <a href="#">Business</a>
-                                    <a href="#">Jewellery</a>
-                                    <a href="#">Aliexpress</a>
+                                    <a href="{{ route('shop', ['search' => 'Shampoo']) }}">Shampoo</a>
+                                    <a href="{{ route('shop', ['search' => 'Aloe Vera']) }}">Aloe Vera</a>
+                                    <a href="{{ route('shop', ['search' => 'Face Wash']) }}">Face Wash</a>
+                                    <a href="{{ route('shop', ['search' => 'Moisturizer']) }}">Moisturizer</a>
+                                    <a href="{{ route('shop', ['search' => 'Herbal Oil']) }}">Herbal Oil</a>
+                                    <a href="{{ route('shop', ['search' => 'Baby Care']) }}">Baby Care</a>
+                                    <a href="{{ route('shop', ['search' => 'Body Wash']) }}">Body Wash</a>
+                                    <a href="{{ route('shop', ['search' => 'Conditioner']) }}">Conditioner</a>
+                                    <a href="{{ route('shop', ['search' => 'Cleanser']) }}">Cleanser</a>
+                                    <a href="{{ route('shop', ['search' => 'Face Cream']) }}">Face Cream</a>
                                 </div>
                             </div>
 
@@ -8131,6 +8069,80 @@
             });
         </script>
     @endif
+
+    <script>
+        (function() {
+            'use strict';
+
+            var searchInputs = document.querySelectorAll('.nbc-search-input');
+            var debounceTimer = null;
+
+            searchInputs.forEach(function(input) {
+                input.addEventListener('input', function() {
+                    var val = this.value.trim();
+                    var dropdown = this.closest('.rbt-search-dropdown');
+                    if (!dropdown) return;
+
+                    var container = dropdown.querySelector('.nbc-live-search-container');
+                    var resultsDiv = dropdown.querySelector('.nbc-live-search-results');
+                    var countBadge = dropdown.querySelector('.nbc-live-search-count');
+
+                    if (!container || !resultsDiv) return;
+
+                    if (debounceTimer) clearTimeout(debounceTimer);
+
+                    if (val.length < 2) {
+                        container.style.display = 'none';
+                        resultsDiv.innerHTML = '';
+                        return;
+                    }
+
+                    debounceTimer = setTimeout(function() {
+                        fetch('{{ route('search.live') }}?q=' + encodeURIComponent(val), {
+                            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+                        })
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            if (data.status === 'success') {
+                                var products = data.products || [];
+                                if (countBadge) countBadge.textContent = data.count + ' found';
+
+                                if (products.length > 0) {
+                                    var html = '';
+                                    products.forEach(function(p) {
+                                        html += `
+                                        <a href="${p.url}" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between p-2 border-bottom">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <img src="${p.image}" alt="${p.name}" width="42" height="42" style="object-fit: contain; border-radius: 6px; background: #f8fafc; border: 1px solid #e2e8f0;">
+                                                <div>
+                                                    <div class="fw-bold text-dark small" style="line-height: 1.3;">${p.name}</div>
+                                                    ${p.category ? '<small class="text-muted" style="font-size: 11px;">' + p.category + '</small>' : ''}
+                                                </div>
+                                            </div>
+                                            <div class="text-end ms-2" style="white-space: nowrap;">
+                                                <span class="fw-bold text-success small">${p.price_formatted}</span>
+                                            </div>
+                                        </a>`;
+                                    });
+                                    resultsDiv.innerHTML = html;
+                                    container.style.display = 'block';
+                                } else {
+                                    resultsDiv.innerHTML = `
+                                    <div class="p-3 text-center text-muted small bg-light">
+                                        <i class="fa-regular fa-magnifying-glass me-1"></i> No matching products found for "${val}"
+                                    </div>`;
+                                    container.style.display = 'block';
+                                }
+                            }
+                        })
+                        .catch(function(err) {
+                            console.error('Live search error:', err);
+                        });
+                    }, 250);
+                });
+            });
+        })();
+    </script>
 
     <script type="module" src="beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
         integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="

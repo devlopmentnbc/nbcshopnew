@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="rbt-breadcrumb-two rbt-bg-color-white">
+    <div class="rbt-breadcrumb-two rbt-bg-color-white nbc-checkout-breadcrumb">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -222,34 +222,40 @@
                         <div class="checkout-card checkout-summary-card">
                             <h5 class="title mb--20">Order Summary</h5>
 
-                            <ul class="checkout-summary-list list-unstyled mb--20">
-                                @foreach ($cart as $item)
-                                    <li class="d-flex align-items-center justify-content-between py-2">
+                            <ul class="checkout-summary-list list-unstyled mb--20" id="checkoutSummaryList">
+                                @foreach ($cart as $key => $item)
+                                    @php
+                                        $itemKey = $item['key'] ?? $key;
+                                    @endphp
+                                    <li class="d-flex align-items-center justify-content-between py-2 checkout-item-row" data-cart-key="{{ $itemKey }}">
                                         <div class="d-flex align-items-center gap-3">
-                                            <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" width="50"
-                                                height="50" style="object-fit: cover; border-radius: 6px;">
+                                            <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" width="48"
+                                                height="48" style="object-fit: cover; border-radius: 6px;">
                                             <div>
-                                                <p class="mb-0" style="font-size: 14px;">{{ $item['name'] }}</p>
-                                                <span class="text-muted" style="font-size: 13px;">Qty:
-                                                    {{ $item['quantity'] }}</span>
+                                                <p class="mb-0 fw-semibold text-dark" style="font-size: 14px; line-height: 1.3;">{{ $item['name'] }}</p>
+                                                <span class="text-muted" style="font-size: 13px;">Qty: {{ $item['quantity'] }}</span>
                                             </div>
                                         </div>
-                                        <span class="price" style="font-size: 14px; white-space: nowrap;">
-                                            LKR {{ number_format(($item['price_lkr'] ?? 0) * $item['quantity'], 2) }}
-                                        </span>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="price fw-semibold text-dark" style="font-size: 14px; white-space: nowrap;">
+                                                LKR {{ number_format(($item['price_lkr'] ?? 0) * $item['quantity'], 2) }}
+                                            </span>
+                                            <button type="button" class="btn btn-sm text-danger p-1 remove-checkout-item" data-cart-key="{{ $itemKey }}" title="Remove product" style="line-height: 1; border: none; background: transparent; cursor: pointer;">
+                                                <i class="fa-regular fa-trash-can" style="font-size: 15px;"></i>
+                                            </button>
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
 
                             <hr class="my-2">
                             <div class="d-flex justify-content-between py-2">
-                                <p class="mb-0">Subtotal ({{ $totalItems }} item{{ $totalItems === 1 ? '' : 's' }})
-                                </p>
-                                <p class="price mb-0">LKR {{ number_format($subtotal, 2) }}</p>
+                                <p class="mb-0" id="subtotalLabelText">Subtotal ({{ $totalItems }} item{{ $totalItems === 1 ? '' : 's' }})</p>
+                                <p class="price mb-0" id="subtotalAmountText">LKR {{ number_format($subtotal, 2) }}</p>
                             </div>
                             <div class="d-flex justify-content-between py-2 align-items-center">
-                                <span class="text-muted" style="font-size: 13px;">Package Weight</span>
-                                <span class="badge bg-light text-dark border" style="font-size: 12px;">1 kg (Fixed)</span>
+                                <span class="text-muted" style="font-size: 13px;">Estimated Package Weight</span>
+                                <span class="badge bg-light text-dark border" style="font-size: 12px;" id="packageWeightText">{{ $formattedCartWeight }}</span>
                             </div>
                             <div class="d-flex justify-content-between py-2">
                                 <p class="mb-0 text-muted">Shipping</p>
@@ -279,7 +285,7 @@
                                 if ($isCodAvailable) {
                                     $defaultMethod = 'cash_on_delivery';
                                 } elseif ($isCardAvailable) {
-                                    $defaultMethod = 'bank_transfer';
+                                    $defaultMethod = 'pay_online';
                                 }
                             @endphp
 
@@ -314,30 +320,6 @@
                                     @endif
 
                                     @if ($enableCard)
-                                        <!-- Bank Transfer / Deposit -->
-                                        <div class="payment-option mb--15">
-                                            <div class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice {{ !$isCardAvailable ? 'bg-light opacity-50' : '' }}" id="bank_box">
-                                                <input class="form-check-input mt-0 cursor-pointer" type="radio"
-                                                    name="payment_method" id="payment_bank" value="bank_transfer"
-                                                    {{ old('payment_method', $defaultMethod) === 'bank_transfer' && $isCardAvailable ? 'checked' : '' }}
-                                                    {{ !$isCardAvailable ? 'disabled' : '' }} required>
-                                                <label class="form-check-label flex-grow-1 cursor-pointer" for="payment_bank">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <strong class="d-block text-dark" style="font-size: 14px;">Bank Transfer / Deposit</strong>
-                                                        @if ($maxCardLimit > 0)
-                                                            <span class="badge bg-secondary text-white ms-2" style="font-size: 10px;">Max: LKR {{ number_format($maxCardLimit, 0) }}</span>
-                                                        @endif
-                                                    </div>
-                                                    <small class="text-muted d-block" style="font-size: 12px; line-height: 1.3;">Direct bank transfer to our account with slip upload option.</small>
-                                                    @if ($enableCard && !$isCardAvailable)
-                                                        <small class="text-danger font-weight-bold d-block mt-1" style="font-size: 11px;" id="card_limit_msg">
-                                                            Unavailable: Order total (LKR {{ number_format($currentTotal, 2) }}) exceeds maximum Card limit of LKR {{ number_format($maxCardLimit, 2) }}.
-                                                        </small>
-                                                    @endif
-                                                </label>
-                                            </div>
-                                        </div>
-
                                         <!-- Online Card Payment -->
                                         <div class="payment-option">
                                             <div class="form-check p-3 border rounded d-flex align-items-center gap-3 custom-payment-choice {{ !$isCardAvailable ? 'bg-light opacity-50' : '' }}" id="card_box">
@@ -347,7 +329,7 @@
                                                     {{ !$isCardAvailable ? 'disabled' : '' }} required>
                                                 <label class="form-check-label flex-grow-1 cursor-pointer" for="payment_online">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <strong class="d-block text-dark" style="font-size: 14px;">Pay Online (Card)</strong>
+                                                        <strong class="d-block text-dark" style="font-size: 14px;">Pay Online (Card Gateway)</strong>
                                                         @if ($maxCardLimit > 0)
                                                             <span class="badge bg-secondary text-white ms-2" style="font-size: 10px;">Max: LKR {{ number_format($maxCardLimit, 0) }}</span>
                                                         @endif
@@ -363,13 +345,6 @@
                                             No payment methods are available for an order total of <strong>LKR {{ number_format($currentTotal, 2) }}</strong>. Please contact store support.
                                         </div>
                                     @endif
-                                </div>
-
-                                <!-- Payment Slip Upload Container -->
-                                <div id="slipUploadContainer" class="mt-3 p-3 bg-light border rounded" style="display: none;">
-                                    <label class="form-label font-weight-bold text-dark small mb-1">Upload Payment Slip (Optional)</label>
-                                    <input type="file" name="payment_slip" accept="image/*,application/pdf" class="form-control form-control-sm">
-                                    <small class="text-muted d-block mt-1" style="font-size: 11px;">You can upload bank slip image or PDF receipt now, or upload it later on your order status page.</small>
                                 </div>
                             </div>
                         </div>
@@ -399,7 +374,13 @@
 
         .checkout-summary-card {
             position: sticky;
-            top: 24px;
+            top: 150px;
+        }
+
+        @media (max-width: 1199px) {
+            .checkout-summary-card {
+                top: 135px;
+            }
         }
 
         .checkout-summary-list li:not(:last-child) {
@@ -452,26 +433,18 @@
             }
 
             var codRadio = document.getElementById('payment_cod');
-            var bankRadio = document.getElementById('payment_bank');
             var onlineRadio = document.getElementById('payment_online');
             var btnText = document.getElementById('btnText');
-            var slipUploadContainer = document.getElementById('slipUploadContainer');
 
             function updateSubmitButton() {
                 if (onlineRadio && onlineRadio.checked) {
                     btnText.textContent = 'Proceed to Payment Gateway';
-                    if (slipUploadContainer) slipUploadContainer.style.display = 'none';
-                } else if (bankRadio && bankRadio.checked) {
-                    btnText.textContent = 'Place Order (Bank Transfer)';
-                    if (slipUploadContainer) slipUploadContainer.style.display = 'block';
                 } else {
                     btnText.textContent = 'Place Order (Cash on Delivery)';
-                    if (slipUploadContainer) slipUploadContainer.style.display = 'block';
                 }
             }
 
             if (codRadio) codRadio.addEventListener('change', updateSubmitButton);
-            if (bankRadio) bankRadio.addEventListener('change', updateSubmitButton);
             if (onlineRadio) onlineRadio.addEventListener('change', updateSubmitButton);
             updateSubmitButton();
 
@@ -487,6 +460,9 @@
 
                 var shippingFeeText = document.getElementById('shippingFeeText');
                 var orderTotalText = document.getElementById('orderTotalText');
+                var subtotalLabelText = document.getElementById('subtotalLabelText');
+                var subtotalAmountText = document.getElementById('subtotalAmountText');
+                var packageWeightText = document.getElementById('packageWeightText');
 
                 if (shippingFeeText) shippingFeeText.textContent = 'Calculating...';
 
@@ -512,6 +488,45 @@
                         if (data && data.success) {
                             if (shippingFeeText) shippingFeeText.textContent = data.formatted_shipping_fee;
                             if (orderTotalText) orderTotalText.textContent = data.formatted_total;
+                            if (subtotalAmountText) subtotalAmountText.textContent = data.formatted_subtotal;
+                            if (packageWeightText && data.formatted_weight) packageWeightText.textContent = data.formatted_weight;
+                            if (subtotalLabelText && typeof data.total_items !== 'undefined') {
+                                subtotalLabelText.textContent = 'Subtotal (' + data.total_items + ' item' + (data.total_items === 1 ? '' : 's') + ')';
+                            }
+
+                            // Dynamic update of COD & Card box availability
+                            var codBox = document.getElementById('cod_box');
+                            var codRadio = document.getElementById('payment_cod');
+                            var cardBox = document.getElementById('card_box');
+                            var cardRadio = document.getElementById('payment_online');
+
+                            if (codBox && codRadio) {
+                                if (data.cod_available) {
+                                    codBox.classList.remove('bg-light', 'opacity-50');
+                                    codRadio.disabled = false;
+                                } else {
+                                    codBox.classList.add('bg-light', 'opacity-50');
+                                    codRadio.disabled = true;
+                                    if (codRadio.checked && cardRadio && !cardRadio.disabled) {
+                                        cardRadio.checked = true;
+                                        updateSubmitButton();
+                                    }
+                                }
+                            }
+
+                            if (cardBox && cardRadio) {
+                                if (data.card_available) {
+                                    cardBox.classList.remove('bg-light', 'opacity-50');
+                                    cardRadio.disabled = false;
+                                } else {
+                                    cardBox.classList.add('bg-light', 'opacity-50');
+                                    cardRadio.disabled = true;
+                                    if (cardRadio.checked && codRadio && !codRadio.disabled) {
+                                        codRadio.checked = true;
+                                        updateSubmitButton();
+                                    }
+                                }
+                            }
                         }
                     })
                     .catch(function(err) {
@@ -522,6 +537,66 @@
                             'LKR {{ number_format($initialTotal ?? $subtotal, 2) }}';
                     });
             }
+
+            function bindRemoveCheckoutItems() {
+                var removeButtons = document.querySelectorAll('.remove-checkout-item');
+                removeButtons.forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var cartKey = this.getAttribute('data-cart-key');
+                        if (!cartKey) return;
+
+                        var row = this.closest('.checkout-item-row');
+                        if (row) {
+                            row.style.opacity = '0.4';
+                            row.style.pointerEvents = 'none';
+                        }
+
+                        fetch('{{ route('cart.remove') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({ cart_key: cartKey })
+                        })
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            if (data.status === 'success') {
+                                if (row) row.remove();
+
+                                var remainingRows = document.querySelectorAll('.checkout-item-row');
+                                if (remainingRows.length === 0) {
+                                    window.location.href = '{{ route('shop') }}';
+                                    return;
+                                }
+
+                                updateShipping();
+
+                                if (data.cart_data && typeof updateCartUI === 'function') {
+                                    updateCartUI(data.cart_data);
+                                }
+                            } else {
+                                if (row) {
+                                    row.style.opacity = '1';
+                                    row.style.pointerEvents = 'auto';
+                                }
+                                alert(data.message || 'Error removing product.');
+                            }
+                        })
+                        .catch(function(err) {
+                            console.error('Remove error:', err);
+                            if (row) {
+                                row.style.opacity = '1';
+                                row.style.pointerEvents = 'auto';
+                            }
+                        });
+                    });
+                });
+            }
+
+            bindRemoveCheckoutItems();
 
             var billingCountryEl = document.getElementById('billing_country');
             var deliveryCountryEl = document.getElementById('delivery_country');

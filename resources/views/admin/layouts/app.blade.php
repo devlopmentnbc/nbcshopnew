@@ -407,10 +407,17 @@
             <a data-nav="orders-create" href="{{ route('admin.orders.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request()->routeIs('admin.orders.create') ? 'font-semibold text-brand-600' : '' }}">Add Order</a>
             <a data-nav="orders-cod" href="{{ route('admin.orders.index', ['payment_method' => 'cod']) }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request('payment_method') === 'cod' ? 'font-semibold text-brand-600' : '' }}">COD Orders</a>
             <a data-nav="orders-card" href="{{ route('admin.orders.index', ['payment_method' => 'card']) }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request('payment_method') === 'card' ? 'font-semibold text-brand-600' : '' }}">Card (Pay Online) Orders</a>
+            <a data-nav="orders-pickups" href="{{ route('admin.pickups.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900 {{ request()->routeIs('admin.pickups.*') ? 'font-semibold text-brand-600' : '' }}">Courier Pickups</a>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Courier Pickups -->
+    <a data-nav="pickups" href="{{ route('admin.pickups.index') }}" title="Courier Pickups" class="sidebar-link flex items-center gap-3 rounded-base px-2 py-2 text-[14px] {{ request()->routeIs('admin.pickups.*') ? 'bg-brand-50 text-brand-600 font-semibold' : 'text-ink-700 hover:bg-surface-muted' }} transition-colors">
+      <i data-lucide="truck" class="h-[18px] w-[18px] shrink-0 {{ request()->routeIs('admin.pickups.*') ? 'text-brand-600' : 'text-ink-500' }}"></i>
+      <span class="nav-text flex-1">Courier Pickups</span>
+    </a>
 
     <!-- Localization -->
     <div data-nav-group="" data-open="false">

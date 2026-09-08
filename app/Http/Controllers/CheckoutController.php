@@ -30,6 +30,9 @@ class CheckoutController extends Controller
         $countries = Country::where('status', true)->orderBy('name', 'asc')->get();
 
         $cartWeight = $this->cartTotalWeight($cart);
+        $formattedCartWeight = $cartWeight >= 1000
+            ? ($cartWeight % 1000 === 0 ? ($cartWeight / 1000) . ' kg' : round($cartWeight / 1000, 2) . ' kg')
+            : $cartWeight . ' g';
 
         // Calculate initial Sri Lanka shipping fee
         $initialShippingFee = $shippingService->calculateShipping(
@@ -51,6 +54,8 @@ class CheckoutController extends Controller
             'countries' => $countries,
             'initialShippingFee' => $initialShippingFee,
             'initialTotal' => $initialTotal,
+            'cartWeight' => $cartWeight,
+            'formattedCartWeight' => $formattedCartWeight,
         ]);
     }
 
@@ -60,7 +65,7 @@ class CheckoutController extends Controller
     public function calculateShipping(Request $request, ShippingService $shippingService)
     {
         $cart = $this->getValidCart();
-        [$subtotal, ] = $this->cartTotals($cart);
+        [$subtotal, $totalItems] = $this->cartTotals($cart);
 
         $country = $request->input('country', 'Sri Lanka');
         $city = $request->input('city', 'Colombo');
@@ -84,10 +89,15 @@ class CheckoutController extends Controller
         $maxCodLimit = (float) \App\Models\Setting::get('max_cod_order_limit', 10000.00);
         $maxCardLimit = (float) \App\Models\Setting::get('max_card_order_limit', 20000.00);
 
+        $formattedWeight = $weightGrams >= 1000
+            ? ($weightGrams % 1000 === 0 ? ($weightGrams / 1000) . ' kg' : round($weightGrams / 1000, 2) . ' kg')
+            : $weightGrams . ' g';
+
         return response()->json([
             'success' => true,
             'country' => $country,
             'is_local' => $isLocal,
+            'total_items' => $totalItems,
             'shipping_fee_lkr' => $shippingFee,
             'formatted_shipping_fee' => $shippingFee > 0 ? 'LKR ' . number_format($shippingFee, 2) : 'Free',
             'subtotal_lkr' => $subtotal,
@@ -96,6 +106,7 @@ class CheckoutController extends Controller
             'formatted_total' => 'LKR ' . number_format($total, 2),
             'weight_grams' => $weightGrams,
             'weight_kg' => round($weightGrams / 1000, 2),
+            'formatted_weight' => $formattedWeight,
             'max_cod_limit' => $maxCodLimit,
             'max_card_limit' => $maxCardLimit,
             'cod_available' => \App\Models\Setting::get('enable_shipping_cod', '1') == '1' && ($maxCodLimit <= 0 || $total <= $maxCodLimit),
@@ -104,23 +115,46 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Helper to sum up total cart weight in grams based on product weight_grams.
+     * Helper to sum up total cart weight in grams based on product weight_grams and item quantity.
      */
     private function cartTotalWeight(array $cart): int
     {
-        $productIds = array_keys($cart);
-        $products = \App\Models\Product::whereIn('id', $productIds)->get()->keyBy('id');
+        $productIds = [];
+        foreach ($cart as $key => $item) {
+            $pid = $item['product_id'] ?? null;
+            if (!$pid && is_string($key)) {
+                $parts = explode('-', $key);
+                $pid = is_numeric($parts[0]) ? (int) $parts[0] : null;
+            }
+            if (!$pid && is_numeric($key)) {
+                $pid = (int) $key;
+            }
+            if ($pid) {
+                $productIds[] = $pid;
+            }
+        }
+
+        $products = \App\Models\Product::whereIn('id', array_unique($productIds))->get()->keyBy('id');
 
         $totalWeightGrams = 0;
 
-        foreach ($cart as $productId => $item) {
-            $product = $products->get($productId);
-            $itemWeight = $product ? ($product->weight_grams ?: 500) : 500;
+        foreach ($cart as $key => $item) {
+            $pid = $item['product_id'] ?? null;
+            if (!$pid && is_string($key)) {
+                $parts = explode('-', $key);
+                $pid = is_numeric($parts[0]) ? (int) $parts[0] : null;
+            }
+            if (!$pid && is_numeric($key)) {
+                $pid = (int) $key;
+            }
+
+            $product = $pid ? $products->get($pid) : null;
+            $itemWeight = ($product && !empty($product->weight_grams)) ? (int) $product->weight_grams : 500;
             $quantity = is_array($item) ? ($item['quantity'] ?? 1) : 1;
             $totalWeightGrams += ($itemWeight * $quantity);
         }
 
-        return max(500, $totalWeightGrams);
+        return max(100, $totalWeightGrams);
     }
 
     /**
@@ -164,7 +198,6 @@ class CheckoutController extends Controller
             $allowedMethods[] = 'cash_on_delivery';
         }
         if ($enableCard && ($maxCardLimit <= 0 || $orderTotal <= $maxCardLimit)) {
-            $allowedMethods[] = 'bank_transfer';
             $allowedMethods[] = 'pay_online';
         }
 
@@ -206,10 +239,11 @@ class CheckoutController extends Controller
 
         [$subtotal, ] = $this->cartTotals($cart);
 
-        // Fixed weight of 1kg (1000g)
+        // Calculate dynamic package weight based on products and quantities
+        $cartWeight = $this->cartTotalWeight($cart);
         $shippingFee = $shippingService->calculateShipping(
             $deliveryCountry,
-            1000,
+            $cartWeight,
             'LKR',
             $deliveryCity,
             $deliveryPostal,

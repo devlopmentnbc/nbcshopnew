@@ -24,6 +24,7 @@ use App\Http\Controllers\ProductReviewController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/search/live', [ShopController::class, 'liveSearch'])->name('search.live');
 
 
 Route::get('/product-details/{slug?}', [ProductDetailsController::class, 'show'])
@@ -81,7 +82,13 @@ Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name(
 
 use App\Http\Controllers\Admin\ShippingSettingController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ReportController;
+
+use App\Http\Controllers\Api\CitypakWebhookController;
+
+// Citypak Push Webhook Route
+Route::post('/api/citypak/webhook', [CitypakWebhookController::class, 'handlePushWebhook'])->name('citypak.webhook');
 
 // Protected Admin Routes
 Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
@@ -114,7 +121,18 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::post('orders/{order}/upload-slip', [OrderController::class, 'uploadSlip'])->name('orders.uploadSlip');
     Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 
-    // Shipping Settings (Sri Lanka domestic rate & free shipping threshold)
+    // Citypak Courier Actions
+    Route::post('orders/{order}/citypak/dispatch', [OrderController::class, 'dispatchCitypak'])->name('orders.citypak.dispatch');
+    Route::get('orders/{order}/citypak/waybill', [OrderController::class, 'printWaybill'])->name('orders.citypak.waybill');
+    Route::get('orders/{order}/citypak/track', [OrderController::class, 'trackCitypak'])->name('orders.citypak.track');
+    Route::post('citypak/pickup', [OrderController::class, 'createPickup'])->name('citypak.pickup');
+
+    // Courier Pickups Batch Management
+    Route::get('pickups', [PickupController::class, 'index'])->name('pickups.index');
+    Route::post('pickups', [PickupController::class, 'store'])->name('pickups.store');
+    Route::get('pickups/{pickup}', [PickupController::class, 'show'])->name('pickups.show');
+
+    // Shipping Settings (Sri Lanka domestic rate & free shipping threshold & Citypak)
     Route::get('settings/shipping', [ShippingSettingController::class, 'index'])->name('settings.shipping.index');
     Route::post('settings/shipping', [ShippingSettingController::class, 'update'])->name('settings.shipping.update');
 

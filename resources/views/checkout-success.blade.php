@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="rbt-section-gap">
+    <div class="rbt-section-gap nbc-checkout-breadcrumb">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -24,46 +24,6 @@
                         <p class="mb-0">Order Number: <strong>{{ $order->order_number }}</strong></p>
                     </div>
 
-                    <!-- Payment Slip Card for Bank Transfer / Non-Card Orders -->
-                    <div class="checkout-card mb--30 border-warning" style="background-color: #fffdf5;">
-                        <h5 class="title mb--15 d-flex align-items-center justify-content-between">
-                            <span><i class="fa-solid fa-receipt text-warning me-2"></i> Payment Slip / Proof</span>
-                            @if ($order->payment_slip)
-                                <span class="badge bg-success text-white">Slip Uploaded</span>
-                            @else
-                                <span class="badge bg-warning text-dark">Action Needed</span>
-                            @endif
-                        </h5>
-
-                        @if ($order->payment_slip)
-                            <div class="alert alert-success d-flex align-items-center gap-3 mb-3">
-                                <i class="fa-solid fa-check-circle fs-4"></i>
-                                <div>
-                                    <strong class="d-block">Payment slip has been received!</strong>
-                                    <small>Our team is verifying your payment details.</small>
-                                </div>
-                            </div>
-                            <div class="text-center mb-3">
-                                <a href="{{ asset($order->payment_slip) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">
-                                    <i class="fa-solid fa-external-link me-1"></i> View Uploaded Payment Slip
-                                </a>
-                            </div>
-                        @else
-                            <p class="small text-muted mb-3">If you paid via Bank Deposit or Transfer, please upload your receipt/slip image below so we can process your order faster.</p>
-                        @endif
-
-                        <form action="{{ route('checkout.upload_slip', $order->order_number) }}" method="POST" enctype="multipart/form-data" class="row g-2 align-items-center">
-                            @csrf
-                            <div class="col">
-                                <input type="file" name="payment_slip" accept="image/*,application/pdf" required class="form-control form-control-sm">
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-sm btn-primary rounded-pill px-3">
-                                    <i class="fa-solid fa-upload me-1"></i> {{ $order->payment_slip ? 'Replace Slip' : 'Upload Slip' }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
 
                     <div class="checkout-card mb--30">
                         <h5 class="title mb--20">Order Summary</h5>

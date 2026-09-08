@@ -314,6 +314,87 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.index')->with('success', "Order #{$orderNumber} has been deleted.");
     }
 
+    /**
+     * Dispatch order to Citypak Courier API.
+     */
+    public function dispatchCitypak(Request $request, Order $order, \App\Services\CitypakService $citypakService)
+    {
+        $result = $citypakService->createOrder($order, $request->all());
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json($result, $result['success'] ? 200 : 400);
+        }
+
+        if ($result['success']) {
+            $msg = "Order #{$order->order_number} successfully dispatched to Citypak Courier! (Tracking Number: " . ($result['tracking_number'] ?? 'N/A') . ")";
+            return redirect()->back()->with('success', $msg);
+        }
+
+        return redirect()->back()->with('error', "Citypak Dispatch Failed: " . ($result['message'] ?? 'Unknown error'));
+    }
+
+    /**
+     * Stream Waybill PDF for the specified order.
+     */
+    public function printWaybill(Request $request, Order $order, \App\Services\CitypakService $citypakService)
+    {
+        if (empty($order->citypak_order_id) && empty($order->citypak_tracking_number)) {
+            return redirect()->back()->with('error', 'This order has not been dispatched to Citypak yet.');
+        }
+
+        $pageSize = $request->input('page_size', 'A4');
+        $perPageCount = intval($request->input('per_page_waybill_count', 4));
+
+        if ($order->citypak_order_id) {
+            return $citypakService->getWaybillPdfByOrderId($order->citypak_order_id, $pageSize, $perPageCount);
+        }
+
+        return $citypakService->getWaybillPdfByTrackingNumbers([$order->citypak_tracking_number], $pageSize, $perPageCount);
+    }
+
+    /**
+     * Track order live status via Citypak API.
+     */
+    public function trackCitypak(Order $order, \App\Services\CitypakService $citypakService)
+    {
+        if (empty($order->citypak_tracking_number)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No Citypak tracking number found for this order.',
+            ], 404);
+        }
+
+        $result = $citypakService->trackOrder($order->citypak_tracking_number);
+        return response()->json($result);
+    }
+
+    /**
+     * Request courier pickup from Citypak.
+     */
+    public function createPickup(Request $request, \App\Services\CitypakService $citypakService)
+    {
+        $validated = $request->validate([
+            'pickup_address_line_1' => ['required', 'string', 'max:255'],
+            'pickup_address_line_2' => ['nullable', 'string', 'max:255'],
+            'pickup_address_line_3' => ['nullable', 'string', 'max:255'],
+            'pickup_address_line_4_city' => ['required', 'string', 'max:100'],
+            'pickup_contact_person' => ['required', 'string', 'max:150'],
+            'pickup_contact_number_1' => ['required', 'string', 'max:30'],
+            'estimated_pickup_weight_grams' => ['required', 'integer', 'min:1'],
+            'estimated_waybill_count' => ['required', 'integer', 'min:1'],
+            'pickup_from_datetime' => ['required', 'string'],
+            'pickup_to_datetime' => ['required', 'string'],
+        ]);
+
+        $result = $citypakService->createPickup($validated);
+
+        if ($result['success']) {
+            return redirect()->back()->with('success', $result['message']);
+        }
+
+        return redirect()->back()->with('error', 'Pickup request failed: ' . $result['message']);
+    }
+
     private function generateOrderNumber(): string
     {
         do {

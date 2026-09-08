@@ -200,7 +200,118 @@
 
         <!-- Right Column: Management & Payment Slip -->
         <div class="space-y-6">
-            <!-- Management Card -->
+            <!-- Citypak Courier Fulfillment Card -->
+            <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-4">
+                <h3 class="text-[16px] font-semibold text-ink-900 border-b border-surface-line pb-3 flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="truck" class="h-5 w-5 text-emerald-600"></i>
+                        Citypak Courier Fulfillment
+                    </span>
+                    @if ($order->citypak_tracking_number || $order->citypak_order_id)
+                        <span class="inline-flex items-center gap-1 rounded bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 border border-emerald-200">
+                            Dispatched
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1 rounded bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold text-amber-700 border border-amber-200">
+                            Not Dispatched
+                        </span>
+                    @endif
+                </h3>
+
+                @if ($order->citypak_tracking_number || $order->citypak_order_id)
+                    <div class="space-y-3 text-[14px]">
+                        <div class="grid grid-cols-2 gap-3 bg-surface-body p-3 rounded-base border border-surface-line">
+                            <div>
+                                <span class="text-[11px] uppercase text-ink-400 font-semibold block">Citypak Order ID</span>
+                                <span class="font-bold text-ink-900">#{{ $order->citypak_order_id ?: 'N/A' }}</span>
+                            </div>
+                            <div>
+                                <span class="text-[11px] uppercase text-ink-400 font-semibold block">Tracking Number</span>
+                                <span class="font-mono font-bold text-brand-600">{{ $order->citypak_tracking_number ?: 'N/A' }}</span>
+                            </div>
+                            @if ($order->citypak_delivery_facility_code)
+                                <div>
+                                    <span class="text-[11px] uppercase text-ink-400 font-semibold block">Facility Code</span>
+                                    <span class="text-ink-700">{{ $order->citypak_delivery_facility_code }}</span>
+                                </div>
+                            @endif
+                            @if ($order->citypak_status)
+                                <div>
+                                    <span class="text-[11px] uppercase text-ink-400 font-semibold block">Latest Status</span>
+                                    <span class="inline-flex items-center rounded bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+                                        {{ $order->citypak_status }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Print Waybill PDF & Pickup Buttons -->
+                        <div class="pt-2 flex flex-wrap gap-2">
+                            <a href="{{ route('admin.orders.citypak.waybill', $order->id) }}" target="_blank" class="flex-1 h-9 rounded-base bg-brand-600 px-3 text-[13px] font-semibold text-white hover:bg-brand-700 transition-colors flex items-center justify-center gap-1.5">
+                                <i data-lucide="printer" class="h-4 w-4"></i> Print Waybill (A4)
+                            </a>
+                            <a href="{{ route('admin.orders.citypak.waybill', [$order->id, 'page_size' => '4X6', 'per_page_waybill_count' => 1]) }}" target="_blank" class="h-9 rounded-base border border-surface-line bg-surface-body px-3 text-[13px] font-semibold text-ink-700 hover:bg-surface-muted transition-colors flex items-center justify-center gap-1">
+                                4x6 Label
+                            </a>
+                            <button type="button" onclick="openPickupModal(1, {{ max(500, intval($order->items->sum(fn($i) => ($i->product?->weight_grams ?: 500) * $i->quantity))) }})" class="h-9 rounded-base bg-amber-600 px-3 text-[13px] font-semibold text-white hover:bg-amber-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                                <i data-lucide="truck" class="h-4 w-4"></i> Request Pickup
+                            </button>
+                        </div>
+
+                        <!-- Tracking History Section -->
+                        @if (!empty($order->citypak_tracking_history))
+                            <div class="pt-3 border-t border-surface-line">
+                                <h4 class="text-[13px] font-semibold text-ink-800 mb-2">Delivery Activity Log</h4>
+                                <div class="space-y-2 max-h-40 overflow-y-auto pr-1">
+                                    @foreach (array_reverse($order->citypak_tracking_history) as $log)
+                                        <div class="text-[12px] p-2 rounded bg-surface-body border border-surface-line flex justify-between items-center">
+                                            <div>
+                                                <span class="font-bold text-ink-900 block">{{ $log['status'] ?? ($log['status_type'] ?? 'UPDATE') }}</span>
+                                                @if (!empty($log['reason']))
+                                                    <span class="text-danger-600 block text-[11px]">{{ $log['reason'] }}</span>
+                                                @endif
+                                            </div>
+                                            <span class="text-ink-400 font-mono text-[11px]">{{ $log['action_datetime'] ?? '' }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @else
+                    <p class="text-[13px] text-ink-500">Dispatch this order to Citypak Courier for doorstep delivery in Sri Lanka.</p>
+                    
+                    <form action="{{ route('admin.orders.citypak.dispatch', $order->id) }}" method="POST" class="pt-2 space-y-3 border-t border-surface-line">
+                        @csrf
+                        <div>
+                            <label class="block text-[12px] font-semibold text-ink-700 mb-1">Package Description (Max 128 chars)</label>
+                            <input type="text" name="description" value="{{ Str::limit(implode(', ', $order->items->pluck('name')->toArray()), 120) }}" maxlength="128" required class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-800">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[12px] font-semibold text-ink-700 mb-1">Weight (Grams)</label>
+                                <input type="number" name="weight_g" value="500" min="1" max="100000" required class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-800">
+                            </div>
+                            <div>
+                                <label class="block text-[12px] font-semibold text-ink-700 mb-1">Pieces Count</label>
+                                <input type="number" name="number_of_pieces" value="{{ min(20, max(1, $order->items->sum('quantity'))) }}" min="1" max="20" required class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-800">
+                            </div>
+                        </div>
+
+                        @if (in_array(strtolower($order->payment_method), ['cash_on_delivery', 'cod', 'cash']) && strtolower($order->payment_status) !== 'paid')
+                            <div>
+                                <label class="block text-[12px] font-semibold text-ink-700 mb-1">COD Collection Amount (LKR)</label>
+                                <input type="number" step="0.01" name="cash_on_delivery_amount" value="{{ $order->total_lkr }}" required class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] font-bold text-emerald-700">
+                            </div>
+                        @endif
+
+                        <button type="submit" onclick="return confirm('Dispatch order #{{ $order->order_number }} to Citypak Courier?');" class="w-full h-10 rounded-base text-[14px] font-bold text-white transition-opacity hover:opacity-90 flex items-center justify-center gap-2 shadow-xs cursor-pointer" style="background-color: #059669 !important; color: #ffffff !important; border: 1px solid #047857 !important;">
+                            <i data-lucide="send" class="h-4 w-4"></i> Dispatch to Citypak Courier Now
+                        </button>
+                    </form>
+                @endif
+            </div>
             <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-6">
                 <h3 class="text-[16px] font-semibold text-ink-900 border-b border-surface-line pb-3">Order Management</h3>
                 
@@ -346,4 +457,6 @@
         </div>
     </div>
 </main>
+
+@include('admin.components.citypak-pickup-modal')
 @endsection

@@ -3887,6 +3887,23 @@ body {
     padding-top: 125px !important;
 }
 
+.nbc-checkout-breadcrumb {
+    padding-top: 150px !important;
+    padding-bottom: 15px !important;
+}
+
+@media (max-width: 1199px) {
+    .nbc-checkout-breadcrumb {
+        padding-top: 135px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .nbc-checkout-breadcrumb {
+        padding-top: 115px !important;
+    }
+}
+
 .nbc-product-details-area {
     padding: 48px 0 64px;
 }

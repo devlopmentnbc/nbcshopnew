@@ -70,4 +70,54 @@ class ShopController extends Controller
 
         return view('shop', compact('products', 'brands', 'categories'));
     }
+
+    /**
+     * AJAX Live Search endpoint for header search popup.
+     */
+    public function liveSearch(Request $request)
+    {
+        $queryStr = trim($request->input('q', ''));
+        if (strlen($queryStr) < 2) {
+            return response()->json([
+                'status' => 'success',
+                'query' => $queryStr,
+                'count' => 0,
+                'products' => [],
+            ]);
+        }
+
+        $products = Product::with(['category', 'brand', 'attributeValues'])
+            ->where('status', true)
+            ->where(function ($q) use ($queryStr) {
+                $q->where('name', 'like', "%{$queryStr}%")
+                  ->orWhere('description', 'like', "%{$queryStr}%")
+                  ->orWhere('sku', 'like', "%{$queryStr}%");
+            })
+            ->take(8)
+            ->get();
+
+        $results = $products->map(function ($product) {
+            $pricing = $product->pricingSummary();
+            $image = $product->image ? asset($product->image) : asset('assets/images/nbc/logo-nbc2.png');
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'image' => $image,
+                'category' => $product->category->name ?? null,
+                'brand' => $product->brand->name ?? null,
+                'url' => route('product.details', $product->slug ?: $product->id),
+                'price_formatted' => $pricing['price_formatted'] ?? ('LKR ' . number_format($product->price_lkr ?? 0, 2)),
+                'regular_formatted' => $pricing['regular_formatted'] ?? null,
+                'has_sale' => $pricing['has_sale'] ?? false,
+            ];
+        });
+
+        return response()->json([
+            'status' => 'success',
+            'query' => $queryStr,
+            'count' => $results->count(),
+            'products' => $results,
+        ]);
+    }
 }
