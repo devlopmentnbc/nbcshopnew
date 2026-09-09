@@ -157,8 +157,13 @@
 
                 <!-- Pagination -->
                 @if($products->hasPages())
-                    <div class="d-flex justify-content-center mt-5 shop-pagination-wrapper">
-                        {{ $products->links() }}
+                    <div class="d-flex flex-column gap-3 mt-5">
+                        <div class="d-flex justify-content-center shop-pagination-wrapper">
+                            {{ $products->links() }}
+                        </div>
+                        <div class="d-flex justify-content-center shop-pagination-wrapper">
+                            {{ $products->links() }}
+                        </div>
                     </div>
                 @endif
 
