@@ -2849,46 +2849,32 @@
             });
         </script>
 
-        <!-- Start Component Area -->
-        <div class="rbt-component-area rbt-products-area nbc-product-section">
+        <!-- Start Best Sellers Area -->
+        <div class="rbt-component-area rbt-products-area nbc-product-section mb--60">
             <div class="rbt-fullwidth-wrapper">
-                <div class="rbt-gray-contain-box rbt-gray-contain-box-style-one rbt-bg-color-gray-light pt--80 pb--80">
+                <div class="rbt-gray-contain-box rbt-gray-contain-box-style-one rbt-bg-color-gray-light pt--60 pb--60">
                     <div class="container">
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div
-                                    class="rbt-component-section-title rbt-gap--4 text-center border-0 p-0 align-items-center">
-                                    <span
-                                        class="rbt-card-subtitle b1 rbt-text-color-heading mt--0 rbt-scroll-trigger fade_in animation-order-1">Customer
-                                        favourites</span>
-                                    <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2"><span
-                                            class="rbt-bold--text">Shop our </span><span id="homeProductSectionTitle">best sellers</span></h2>
-
-                                    <div class="mobile-horizontal-scroll-section">
-                                        <div
-                                            class="rbt-product-nav-section rbt-nav-effect-activation mt--12 rbt-scroll-trigger fade_in animation-order-2 justify-content-center">
-                                            <ul class="rbt-product-nav-grp">
-                                                <li><a href="javascript:void(0)" id="homeBestSellersTab" class="rbt-product-nav active">Best Sellers</a>
-                                                </li>
-                                                <li><a href="javascript:void(0)" id="homeNewArrivalsTab" class="rbt-product-nav">New Arrivals</a></li>
-                                            </ul>
-                                            <ul class="rbt-product-nav-grp">
-                                                <li><a href="{{ route('shop') }}" class="rbt-product-nav">View All</a>
-                                                </li>
-                                            </ul>
-                                            <span class="rbt-bg-highlight"></span>
-                                        </div>
-                                    </div>
+                        <div class="row align-items-center mb--30">
+                            <div class="col-lg-8 col-md-8 col-12">
+                                <div class="rbt-component-section-title border-0 p-0 text-start">
+                                    <span class="rbt-card-subtitle b1 rbt-text-color-heading mt--0 rbt-scroll-trigger fade_in animation-order-1">Customer favourites</span>
+                                    <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2"><span class="rbt-bold--text">Shop our </span>Best Sellers</h2>
                                 </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 text-md-end text-start mt_sm--15">
+                                <a href="{{ route('shop') }}" class="rbt-btn rbt-btn-secondary rbt-btn-sm rounded-pill">
+                                    <span class="btn-text">View All</span>
+                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right ml--4"></i></span>
+                                </a>
                             </div>
                         </div>
 
                         <div class="nbc-product-carousel-wrapper position-relative">
                             <!-- Start Best Sellers Card Area -->
-                            <div class="row row--12 mt_dec--24 nbc-product-track" id="homeBestSellersContainer">
+                            <div class="row row--12 nbc-product-track" id="homeBestSellersContainer">
                                 @forelse ($bestSellers as $product)
-                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6">
                                         <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
                                             <div class="rbt-card-img top-rounded-md">
                                                 <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
@@ -2945,89 +2931,52 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                            <div class="rbt-card-img top-rounded-md">
-                                                <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset('assets/images/nbc/Niacinamide.png') }}" alt="Niacinamide Face Serum"></a>
-                                                <div class="rbt-badge-wrapper rbt-content-top-left">
-                                                    <div class="rbt-product-badge rbt-product-badge-bg-secondary">SALE</div>
-                                                </div>
-                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                            </div>
-                                            <div class="rbt-card-body rbt-bg-color-white">
-                                                <div class="rbt-card-top-content">
-                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Nature's Secret</a>
-                                                    <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Niacinamide Face Serum</a></h2>
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(25)</p>
-                                                    </div>
-                                                    <div class="pricing-part">
-                                                        <del class="price-text">Rs. 2,750.00</del>
-                                                        <span class="price-text">Rs. 2,450.00</span>
-                                                        <span class="rbt-offer-badge">-30%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="rbt-card-footer d-flex footer-content-btn">
-                                                    <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                            <div class="rbt-card-img top-rounded-md">
-                                                <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset("assets/images/nbc/Nature's Secret/Avocado-Body-Lotion.png") }}" alt="Avocado Body Lotion"></a>
-                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                            </div>
-                                            <div class="rbt-card-body rbt-bg-color-white">
-                                                <div class="rbt-card-top-content">
-                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Nature's Secret</a>
-                                                    <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Avocado Body Lotion</a></h2>
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(25)</p>
-                                                    </div>
-                                                    <div class="pricing-part">
-                                                        <del class="price-text">Rs. 295.00</del>
-                                                        <span class="price-text">Rs. 179.98</span>
-                                                        <span class="rbt-offer-badge">-30%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="rbt-card-footer d-flex footer-content-btn">
-                                                    <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="col-12 text-center py-4 text-muted">No best sellers available.</div>
                                 @endforelse
                             </div>
-                            <!-- End Best Sellers Card Area -->
 
+                            <div class="nbc-product-navigation" aria-label="Best Sellers carousel controls">
+                                <button id="homeBestSellersPrevious" type="button" aria-label="Previous products">
+                                    <i class="fa-regular fa-arrow-left"></i>
+                                </button>
+                                <button id="homeBestSellersNext" type="button" aria-label="Next products">
+                                    <i class="fa-regular fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Best Sellers Area -->
+
+        <!-- Start New Arrivals Area -->
+        <div class="rbt-component-area rbt-products-area nbc-product-section mb--60">
+            <div class="rbt-fullwidth-wrapper">
+                <div class="rbt-gray-contain-box rbt-gray-contain-box-style-one rbt-bg-color-white pt--60 pb--60">
+                    <div class="container">
+
+                        <div class="row align-items-center mb--30">
+                            <div class="col-lg-8 col-md-8 col-12">
+                                <div class="rbt-component-section-title border-0 p-0 text-start">
+                                    <span class="rbt-card-subtitle b1 rbt-text-color-heading mt--0 rbt-scroll-trigger fade_in animation-order-1">Fresh additions</span>
+                                    <h2 class="rbt-title rbt-scroll-trigger fade_in animation-order-2"><span class="rbt-bold--text">Shop our </span>New Arrivals</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 text-md-end text-start mt_sm--15">
+                                <a href="{{ route('shop') }}" class="rbt-btn rbt-btn-secondary rbt-btn-sm rounded-pill">
+                                    <span class="btn-text">View All</span>
+                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right ml--4"></i></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="nbc-product-carousel-wrapper position-relative">
                             <!-- Start New Arrivals Card Area -->
-                            <div class="row row--12 mt_dec--24 nbc-product-track" id="homeNewArrivalsContainer" style="display: none;">
+                            <div class="row row--12 nbc-product-track" id="homeNewArrivalsContainer">
                                 @forelse ($newArrivals as $product)
-                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6">
                                         <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
                                             <div class="rbt-card-img top-rounded-md">
                                                 <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
@@ -3084,173 +3033,97 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                            <div class="rbt-card-img top-rounded-md">
-                                                <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset('assets/images/nbc/Misumi/Momo Perfume.png') }}" alt="Misumi Momo Perfume"></a>
-                                                <div class="rbt-badge-wrapper rbt-content-top-left">
-                                                    <div class="rbt-product-badge rbt-product-badge-bg-primary">NEW</div>
-                                                </div>
-                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                            </div>
-                                            <div class="rbt-card-body rbt-bg-color-white">
-                                                <div class="rbt-card-top-content">
-                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Misumi</a>
-                                                    <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Momo Perfume</a></h2>
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(25)</p>
-                                                    </div>
-                                                    <div class="pricing-part">
-                                                        <del class="price-text">Rs. 295.00</del>
-                                                        <span class="price-text">Rs. 179.98</span>
-                                                        <span class="rbt-offer-badge">-30%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="rbt-card-footer d-flex footer-content-btn">
-                                                    <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="col-12 text-center py-4 text-muted">No new arrivals available.</div>
                                 @endforelse
                             </div>
-                            <!-- End New Arrivals Card Area -->
 
-                            <div class="nbc-product-navigation" aria-label="Product carousel controls">
-                                <button id="homeProductPrevious" type="button" aria-label="Previous products">
+                            <div class="nbc-product-navigation" aria-label="New Arrivals carousel controls">
+                                <button id="homeNewArrivalsPrevious" type="button" aria-label="Previous products">
                                     <i class="fa-regular fa-arrow-left"></i>
                                 </button>
-                                <button id="homeProductNext" type="button" aria-label="Next products">
+                                <button id="homeNewArrivalsNext" type="button" aria-label="Next products">
                                     <i class="fa-regular fa-arrow-right"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const bestTab = document.getElementById('homeBestSellersTab');
-                                const newTab = document.getElementById('homeNewArrivalsTab');
-                                const bestContainer = document.getElementById('homeBestSellersContainer');
-                                const newContainer = document.getElementById('homeNewArrivalsContainer');
-                                const sectionTitle = document.getElementById('homeProductSectionTitle');
-                                const previous = document.getElementById('homeProductPrevious');
-                                const next = document.getElementById('homeProductNext');
-
-                                if (!bestContainer || !newContainer || typeof window.Swiper !== 'function') return;
-
-                                function initProductSwiper(container) {
-                                    if (!container) return null;
-                                    const slides = Array.from(container.children);
-                                    if (slides.length === 0) return null;
-
-                                    const wrapper = document.createElement('div');
-                                    wrapper.className = 'swiper-wrapper';
-
-                                    slides.forEach(function(slide) {
-                                        slide.classList.add('swiper-slide');
-                                        wrapper.appendChild(slide);
-                                    });
-
-                                    container.appendChild(wrapper);
-                                    container.classList.add('swiper');
-
-                                    return new window.Swiper(container, {
-                                        autoplay: false,
-                                        grabCursor: true,
-                                        loop: slides.length > 4,
-                                        observer: true,
-                                        observeParents: true,
-                                        slidesPerView: 1.2,
-                                        spaceBetween: 12,
-                                        speed: 500,
-                                        breakpoints: {
-                                            576: {
-                                                slidesPerView: 2,
-                                                spaceBetween: 16
-                                            },
-                                            768: {
-                                                slidesPerView: 2,
-                                                spaceBetween: 20
-                                            },
-                                            992: {
-                                                slidesPerView: 3,
-                                                spaceBetween: 24
-                                            },
-                                            1200: {
-                                                slidesPerView: 4,
-                                                spaceBetween: 24
-                                            }
-                                        }
-                                    });
-                                }
-
-                                const bestSwiper = initProductSwiper(bestContainer);
-                                const newSwiper = initProductSwiper(newContainer);
-
-                                if (previous) {
-                                    previous.addEventListener('click', function() {
-                                        if (bestContainer && bestContainer.style.display !== 'none' && bestSwiper) {
-                                            bestSwiper.slidePrev();
-                                        } else if (newContainer && newContainer.style.display !== 'none' && newSwiper) {
-                                            newSwiper.slidePrev();
-                                        }
-                                    });
-                                }
-
-                                if (next) {
-                                    next.addEventListener('click', function() {
-                                        if (bestContainer && bestContainer.style.display !== 'none' && bestSwiper) {
-                                            bestSwiper.slideNext();
-                                        } else if (newContainer && newContainer.style.display !== 'none' && newSwiper) {
-                                            newSwiper.slideNext();
-                                        }
-                                    });
-                                }
-
-                                if (bestTab && newTab) {
-                                    bestTab.addEventListener('click', function(e) {
-                                        e.preventDefault();
-                                        bestTab.classList.add('active');
-                                        newTab.classList.remove('active');
-                                        bestContainer.style.display = 'block';
-                                        newContainer.style.display = 'none';
-                                        if (sectionTitle) sectionTitle.textContent = 'best sellers';
-                                        if (bestSwiper) {
-                                            bestSwiper.update();
-                                        }
-                                    });
-
-                                    newTab.addEventListener('click', function(e) {
-                                        e.preventDefault();
-                                        newTab.classList.add('active');
-                                        bestTab.classList.remove('active');
-                                        newContainer.style.display = 'block';
-                                        bestContainer.style.display = 'none';
-                                        if (sectionTitle) sectionTitle.textContent = 'new arrivals';
-                                        if (newSwiper) {
-                                            newSwiper.update();
-                                        }
-                                    });
-                                }
-                            });
-                        </script>
-
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Component Area -->
+        <!-- End New Arrivals Area -->
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const bestContainer = document.getElementById('homeBestSellersContainer');
+                const newContainer = document.getElementById('homeNewArrivalsContainer');
+                const bestPrevious = document.getElementById('homeBestSellersPrevious');
+                const bestNext = document.getElementById('homeBestSellersNext');
+                const newPrevious = document.getElementById('homeNewArrivalsPrevious');
+                const newNext = document.getElementById('homeNewArrivalsNext');
+
+                if (typeof window.Swiper !== 'function') return;
+
+                function initProductSwiper(container) {
+                    if (!container) return null;
+                    const slides = Array.from(container.children);
+                    if (slides.length === 0) return null;
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'swiper-wrapper';
+
+                    slides.forEach(function(slide) {
+                        slide.classList.add('swiper-slide');
+                        wrapper.appendChild(slide);
+                    });
+
+                    container.appendChild(wrapper);
+                    container.classList.add('swiper');
+
+                    return new window.Swiper(container, {
+                        autoplay: false,
+                        grabCursor: true,
+                        loop: slides.length > 4,
+                        observer: true,
+                        observeParents: true,
+                        slidesPerView: 1.2,
+                        spaceBetween: 12,
+                        speed: 500,
+                        breakpoints: {
+                            576: { slidesPerView: 2, spaceBetween: 16 },
+                            768: { slidesPerView: 2, spaceBetween: 20 },
+                            992: { slidesPerView: 3, spaceBetween: 24 },
+                            1200: { slidesPerView: 4, spaceBetween: 24 }
+                        }
+                    });
+                }
+
+                const bestSwiper = initProductSwiper(bestContainer);
+                const newSwiper = initProductSwiper(newContainer);
+
+                if (bestPrevious && bestSwiper) {
+                    bestPrevious.addEventListener('click', function() {
+                        bestSwiper.slidePrev();
+                    });
+                }
+                if (bestNext && bestSwiper) {
+                    bestNext.addEventListener('click', function() {
+                        bestSwiper.slideNext();
+                    });
+                }
+
+                if (newPrevious && newSwiper) {
+                    newPrevious.addEventListener('click', function() {
+                        newSwiper.slidePrev();
+                    });
+                }
+                if (newNext && newSwiper) {
+                    newNext.addEventListener('click', function() {
+                        newSwiper.slideNext();
+                    });
+                }
+            });
+        </script>
 
         @if(!empty($featuredPromotion))
         <!-- Start Component Area -->
@@ -3357,19 +3230,8 @@
                                 <div class="nbc-brand-item mt--60">
                                     <div class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-{{ $animOrder }}">
                                         <div class="inner">
-                                            <div class="brand-image rbt-scroll-trigger zoom_in animation-order-{{ $animOrder }}">
+                                            <a href="{{ route('shop', ['brand' => $brand->slug]) }}" class="brand-image d-block rbt-scroll-trigger zoom_in animation-order-{{ $animOrder }}" title="View {{ $brand->name }} Products">
                                                 <img src="{{ $logoSrc }}" alt="{{ $brand->name }}">
-                                            </div>
-                                            <a class="rbt-btn rbt-btn-secondary rbt-btn-sm"
-                                               href="{{ route('shop', ['brand' => $brand->slug]) }}">
-                                                <span class="btn-text">
-                                                    @if($brand->products_count > 0)
-                                                        See {{ $brand->products_count }} Product{{ $brand->products_count != 1 ? 's' : '' }}
-                                                    @else
-                                                        See Products
-                                                    @endif
-                                                </span>
-                                                <span class="btn-icon"><i class="fa-solid fa-arrow-up-right ml--4"></i></span>
                                             </a>
                                         </div>
                                     </div>
