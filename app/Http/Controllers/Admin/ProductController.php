@@ -274,7 +274,7 @@ class ProductController extends Controller
     {
         $product->load(['attributeValues.attribute', 'brand', 'category', 'subCategory']);
         $attributes = Attribute::with(['values' => function ($q) {
-            $q->where('status', true)->orderBy('sort_order');
+            $q->where('status', true)->orderBy('id');
         }])->where('status', true)->orderBy('name')->get();
 
         return view('admin.products.variants', compact('product', 'attributes'));
