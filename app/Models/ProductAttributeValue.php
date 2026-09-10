@@ -21,6 +21,7 @@ class ProductAttributeValue extends Pivot
         'stock',
         'sku',
         'sap_code',
+        'weight_grams',
         'image',
     ];
 
@@ -32,6 +33,7 @@ class ProductAttributeValue extends Pivot
             'sale_price_lkr' => 'decimal:2',
             'sale_price_usd' => 'decimal:2',
             'stock' => 'integer',
+            'weight_grams' => 'integer',
         ];
     }
 }

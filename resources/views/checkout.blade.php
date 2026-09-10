@@ -226,6 +226,8 @@
                                 @foreach ($cart as $key => $item)
                                     @php
                                         $itemKey = $item['key'] ?? $key;
+                                        $itemPrice = ($currency === 'USD') ? ($item['price_usd'] ?? 0) : ($item['price_lkr'] ?? 0);
+                                        $itemLineTotal = $itemPrice * $item['quantity'];
                                     @endphp
                                     <li class="d-flex align-items-center justify-content-between py-2 checkout-item-row" data-cart-key="{{ $itemKey }}">
                                         <div class="d-flex align-items-center gap-3">
@@ -237,8 +239,10 @@
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center gap-2">
-                                            <span class="price fw-semibold text-dark" style="font-size: 14px; white-space: nowrap;">
-                                                LKR {{ number_format(($item['price_lkr'] ?? 0) * $item['quantity'], 2) }}
+                                            <span class="price fw-semibold text-dark item-line-total" style="font-size: 14px; white-space: nowrap;"
+                                                  data-price-lkr="{{ ($item['price_lkr'] ?? 0) * $item['quantity'] }}"
+                                                  data-price-usd="{{ ($item['price_usd'] ?? 0) * $item['quantity'] }}">
+                                                {{ $currencySymbol }}{{ number_format($itemLineTotal, 2) }}
                                             </span>
                                             <button type="button" class="btn btn-sm text-danger p-1 remove-checkout-item" data-cart-key="{{ $itemKey }}" title="Remove product" style="line-height: 1; border: none; background: transparent; cursor: pointer;">
                                                 <i class="fa-regular fa-trash-can" style="font-size: 15px;"></i>
@@ -251,7 +255,7 @@
                             <hr class="my-2">
                             <div class="d-flex justify-content-between py-2">
                                 <p class="mb-0" id="subtotalLabelText">Subtotal ({{ $totalItems }} item{{ $totalItems === 1 ? '' : 's' }})</p>
-                                <p class="price mb-0" id="subtotalAmountText">LKR {{ number_format($subtotal, 2) }}</p>
+                                <p class="price mb-0" id="subtotalAmountText">{{ $currencySymbol }}{{ number_format($subtotal, 2) }}</p>
                             </div>
                             <div class="d-flex justify-content-between py-2 align-items-center">
                                 <span class="text-muted" style="font-size: 13px;">Estimated Package Weight</span>
@@ -260,14 +264,14 @@
                             <div class="d-flex justify-content-between py-2">
                                 <p class="mb-0 text-muted">Shipping</p>
                                 <p class="price mb-0 text-muted fw-semibold" id="shippingFeeText">
-                                    {{ ($initialShippingFee ?? 0) > 0 ? 'LKR ' . number_format($initialShippingFee, 2) : 'Free' }}
+                                    {{ ($initialShippingFee ?? 0) > 0 ? $currencySymbol . number_format($initialShippingFee, 2) : 'Free' }}
                                 </p>
                             </div>
                             <hr class="my-2">
                             <div class="d-flex justify-content-between py-2 mb--20">
                                 <p class="mb-0"><strong>Total</strong></p>
                                 <p class="price mb-0 text-primary" style="font-weight: 700; font-size: 18px;"
-                                    id="orderTotalText">LKR {{ number_format($initialTotal ?? $subtotal, 2) }}</p>
+                                    id="orderTotalText">{{ $currencySymbol }}{{ number_format($initialTotal ?? $subtotal, 2) }}</p>
                             </div>
 
                             @php
@@ -486,6 +490,7 @@
                     })
                     .then(function(data) {
                         if (data && data.success) {
+                            var sym = data.currency_symbol || (data.currency === 'USD' ? '$' : 'LKR ');
                             if (shippingFeeText) shippingFeeText.textContent = data.formatted_shipping_fee;
                             if (orderTotalText) orderTotalText.textContent = data.formatted_total;
                             if (subtotalAmountText) subtotalAmountText.textContent = data.formatted_subtotal;
@@ -494,19 +499,37 @@
                                 subtotalLabelText.textContent = 'Subtotal (' + data.total_items + ' item' + (data.total_items === 1 ? '' : 's') + ')';
                             }
 
+                            // Update all item row line totals to match active currency
+                            document.querySelectorAll('.item-line-total').forEach(function(el) {
+                                var pUsd = parseFloat(el.getAttribute('data-price-usd') || 0);
+                                var pLkr = parseFloat(el.getAttribute('data-price-lkr') || 0);
+                                var pVal = data.currency === 'USD' ? pUsd : pLkr;
+                                el.textContent = sym + pVal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            });
+
                             // Dynamic update of COD & Card box availability
                             var codBox = document.getElementById('cod_box');
                             var codRadio = document.getElementById('payment_cod');
                             var cardBox = document.getElementById('card_box');
                             var cardRadio = document.getElementById('payment_online');
+                            var codMsg = document.getElementById('cod_limit_msg');
 
                             if (codBox && codRadio) {
                                 if (data.cod_available) {
                                     codBox.classList.remove('bg-light', 'opacity-50');
                                     codRadio.disabled = false;
+                                    if (codMsg) codMsg.style.display = 'none';
                                 } else {
                                     codBox.classList.add('bg-light', 'opacity-50');
                                     codRadio.disabled = true;
+                                    if (codMsg) {
+                                        codMsg.style.display = 'block';
+                                        if (!data.is_local) {
+                                            codMsg.textContent = 'Cash on Delivery is available for Sri Lanka domestic orders only.';
+                                        } else {
+                                            codMsg.textContent = 'Unavailable: Order total exceeds maximum COD limit.';
+                                        }
+                                    }
                                     if (codRadio.checked && cardRadio && !cardRadio.disabled) {
                                         cardRadio.checked = true;
                                         updateSubmitButton();

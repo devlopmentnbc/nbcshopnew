@@ -173,6 +173,7 @@ class ProductController extends Controller
                 'stock' => $val->pivot->stock,
                 'sku' => $val->pivot->sku,
                 'sap_code' => $val->pivot->sap_code,
+                'weight_grams' => $val->pivot->weight_grams,
                 'image' => $val->pivot->image,
             ];
         }
@@ -333,6 +334,7 @@ class ProductController extends Controller
                         'stock' => $varData['stock'] ?? 0,
                         'sku' => $varData['sku'] ?? null,
                         'sap_code' => $varData['sap_code'] ?? null,
+                        'weight_grams' => isset($varData['weight_grams']) && $varData['weight_grams'] !== '' ? (int) $varData['weight_grams'] : null,
                         'image' => $imagePath,
                     ];
                 }

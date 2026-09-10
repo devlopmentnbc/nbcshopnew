@@ -1579,6 +1579,86 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     height: 310px;
     object-fit: contain;
 }
+.nbc-product-carousel-wrapper {
+    position: relative;
+}
+.nbc-product-track {
+    display: block;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.nbc-product-track .swiper-wrapper {
+    align-items: stretch;
+}
+.nbc-product-track .swiper-slide {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.nbc-product-track .swiper-slide > .rbt-card {
+    height: 100%;
+    margin-top: 0 !important;
+}
+.nbc-product-navigation {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    left: -24px;
+    pointer-events: none;
+    position: absolute;
+    right: -24px;
+    top: 52%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+.nbc-product-navigation button {
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid rgba(12, 48, 44, 0.18);
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(12, 48, 44, 0.15);
+    color: #0c302c;
+    cursor: pointer;
+    display: inline-flex;
+    height: 44px;
+    justify-content: center;
+    pointer-events: auto;
+    transition: all 0.25s ease;
+    width: 44px;
+    font-size: 16px;
+}
+.nbc-product-navigation button:hover {
+    background: #0c302c;
+    border-color: #0c302c;
+    color: #ffffff;
+    transform: scale(1.06);
+}
+.nbc-product-navigation button:active {
+    transform: scale(0.96);
+}
+@media (max-width: 991px) {
+    .nbc-product-navigation {
+        left: -12px;
+        right: -12px;
+    }
+}
+@media (max-width: 767px) {
+    .nbc-product-navigation {
+        left: 2px;
+        right: 2px;
+    }
+    .nbc-product-navigation button {
+        height: 38px;
+        width: 38px;
+        font-size: 14px;
+    }
+}
 .nbc-product-section .mobile-horizontal-scroll-section {
     display: flex;
     justify-content: center;

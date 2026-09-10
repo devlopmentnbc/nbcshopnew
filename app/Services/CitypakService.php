@@ -60,7 +60,7 @@ class CitypakService
             ];
         }
 
-        $order->loadMissing('items.product');
+        $order->loadMissing(['items.product.attributeValues', 'items.attributeValue']);
 
         // Sender details from settings or defaults
         $fromName = $this->sanitizeString(Setting::get('citypak_from_name', config('app.name', 'Unimart Store')), 150);
@@ -83,7 +83,7 @@ class CitypakService
         $toContact2 = '';
 
         // Calculate total weight in grams (default 500g, max 100,000g)
-        $calculatedWeight = 0;
+        $calculatedWeight = $order->total_weight_grams;
         $totalPieces = 0;
         $itemNames = [];
 
@@ -91,15 +91,6 @@ class CitypakService
             $qty = max(1, intval($item->quantity));
             $totalPieces += $qty;
             $itemNames[] = $qty . 'x ' . $item->name;
-
-            $productWeight = 0;
-            if ($item->product && !empty($item->product->weight_grams)) {
-                $productWeight = floatval($item->product->weight_grams);
-            }
-            if ($productWeight <= 0) {
-                $productWeight = 500; // fallback per item
-            }
-            $calculatedWeight += ($productWeight * $qty);
         }
 
         $weightGrams = intval($overrides['weight_g'] ?? ($calculatedWeight > 0 ? $calculatedWeight : 500));

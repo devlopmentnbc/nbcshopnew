@@ -78,10 +78,19 @@ class Order extends Model
     public function getTotalWeightGramsAttribute(): int
     {
         $weight = 0;
-        $this->loadMissing('items.product');
+        $this->loadMissing(['items.product.attributeValues', 'items.attributeValue']);
         foreach ($this->items as $item) {
-            $productWeight = ($item->product && !empty($item->product->weight_grams)) ? floatval($item->product->weight_grams) : 500;
-            $weight += ($productWeight * max(1, intval($item->quantity)));
+            $itemWeight = null;
+            if ($item->product && $item->attribute_value_id) {
+                $variant = $item->product->attributeValues->firstWhere('id', (int) $item->attribute_value_id);
+                if ($variant && isset($variant->pivot->weight_grams) && $variant->pivot->weight_grams !== null && (int)$variant->pivot->weight_grams > 0) {
+                    $itemWeight = (int) $variant->pivot->weight_grams;
+                }
+            }
+            if ($itemWeight === null) {
+                $itemWeight = ($item->product && !empty($item->product->weight_grams)) ? floatval($item->product->weight_grams) : 500;
+            }
+            $weight += ($itemWeight * max(1, intval($item->quantity)));
         }
         return intval($weight > 0 ? $weight : 500);
     }

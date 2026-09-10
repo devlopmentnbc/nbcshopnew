@@ -2884,247 +2884,258 @@
                             </div>
                         </div>
 
-                        <!-- Start Best Sellers Card Area -->
-                        <div class="row row--12 mt_dec--24" id="homeBestSellersContainer">
-                            @forelse ($bestSellers as $product)
-                                <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                        <div class="rbt-card-img top-rounded-md">
-                                            <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
-                                                <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
-                                                    src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Nature\'s Secret/herbel-hair-oil1.png') }}"
-                                                    alt="{{ $product->name }}">
-                                            </a>
-                                            <div class="rbt-badge-wrapper rbt-content-top-left">
-                                                <div class="rbt-product-badge rbt-product-badge-bg-secondary">BEST SELLER</div>
-                                            </div>
-                                            <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips"
-                                                type="button" data-tooltip="Add to wishlist"
-                                                data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                        <div class="rbt-card-body rbt-bg-color-white">
-                                            <div class="rbt-card-top-content">
-                                                <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">
-                                                    {{ $product->brand ? $product->brand->name : ($product->category ? $product->category->name : 'NBC Shop') }}
+                        <div class="nbc-product-carousel-wrapper position-relative">
+                            <!-- Start Best Sellers Card Area -->
+                            <div class="row row--12 mt_dec--24 nbc-product-track" id="homeBestSellersContainer">
+                                @forelse ($bestSellers as $product)
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
+                                            <div class="rbt-card-img top-rounded-md">
+                                                <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
+                                                    <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
+                                                        src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Nature\'s Secret/herbel-hair-oil1.png') }}"
+                                                        alt="{{ $product->name }}">
                                                 </a>
-                                                <h2 class="rbt-card-title">
-                                                    <a href="{{ route('product.details', $product->slug ?: $product->id) }}">{{ $product->name }}</a>
-                                                </h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(5.0)</p>
+                                                <div class="rbt-badge-wrapper rbt-content-top-left">
+                                                    <div class="rbt-product-badge rbt-product-badge-bg-secondary">BEST SELLER</div>
                                                 </div>
-                                                @php $bestSellerPricing = $product->pricingSummary(); @endphp
-                                                <div class="pricing-part">
-                                                    @if ($bestSellerPricing['has_sale'])
-                                                        <del class="price-text">{{ $bestSellerPricing['regular_formatted'] }}</del>
-                                                        <span class="price-text">{{ $bestSellerPricing['price_formatted'] }}</span>
-                                                        <span class="rbt-offer-badge">-{{ $bestSellerPricing['discount_percent'] }}%</span>
-                                                    @else
-                                                        <span class="price-text">{{ $bestSellerPricing['price_formatted'] }}</span>
-                                                    @endif
-                                                </div>
+                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips"
+                                                    type="button" data-tooltip="Add to wishlist"
+                                                    data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
                                             </div>
-                                            <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#" data-product-id="{{ $product->id }}">
-                                                    <i class="fa-regular fa-cart-shopping"></i> Add To Cart
-                                                </a>
-                                                <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                    <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                    <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                            <div class="rbt-card-body rbt-bg-color-white">
+                                                <div class="rbt-card-top-content">
+                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">
+                                                        {{ $product->brand ? $product->brand->name : ($product->category ? $product->category->name : 'NBC Shop') }}
+                                                    </a>
+                                                    <h2 class="rbt-card-title">
+                                                        <a href="{{ route('product.details', $product->slug ?: $product->id) }}">{{ $product->name }}</a>
+                                                    </h2>
+                                                    <div class="rbt-card-rating">
+                                                        <ul class="rbt-rating-icon-list">
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                        </ul>
+                                                        <p class="rating-digit">(5.0)</p>
+                                                    </div>
+                                                    @php $bestSellerPricing = $product->pricingSummary(); @endphp
+                                                    <div class="pricing-part">
+                                                        @if ($bestSellerPricing['has_sale'])
+                                                            <del class="price-text">{{ $bestSellerPricing['regular_formatted'] }}</del>
+                                                            <span class="price-text">{{ $bestSellerPricing['price_formatted'] }}</span>
+                                                            <span class="rbt-offer-badge">-{{ $bestSellerPricing['discount_percent'] }}%</span>
+                                                        @else
+                                                            <span class="price-text">{{ $bestSellerPricing['price_formatted'] }}</span>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @empty
-                                <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                        <div class="rbt-card-img top-rounded-md">
-                                            <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset('assets/images/nbc/Niacinamide.png') }}" alt="Niacinamide Face Serum"></a>
-                                            <div class="rbt-badge-wrapper rbt-content-top-left">
-                                                <div class="rbt-product-badge rbt-product-badge-bg-secondary">SALE</div>
-                                            </div>
-                                            <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                        <div class="rbt-card-body rbt-bg-color-white">
-                                            <div class="rbt-card-top-content">
-                                                <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Nature's Secret</a>
-                                                <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Niacinamide Face Serum</a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(25)</p>
-                                                </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 2,750.00</del>
-                                                    <span class="price-text">Rs. 2,450.00</span>
-                                                    <span class="rbt-offer-badge">-30%</span>
-                                                </div>
-                                            </div>
-                                            <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                                                <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                    <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                    <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                                <div class="rbt-card-footer d-flex footer-content-btn">
+                                                    <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#" data-product-id="{{ $product->id }}">
+                                                        <i class="fa-regular fa-cart-shopping"></i> Add To Cart
+                                                    </a>
+                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
+                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
+                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                        <div class="rbt-card-img top-rounded-md">
-                                            <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset("assets/images/nbc/Nature's Secret/Avocado-Body-Lotion.png") }}" alt="Avocado Body Lotion"></a>
-                                            <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                        <div class="rbt-card-body rbt-bg-color-white">
-                                            <div class="rbt-card-top-content">
-                                                <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Nature's Secret</a>
-                                                <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Avocado Body Lotion</a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(25)</p>
+                                @empty
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
+                                            <div class="rbt-card-img top-rounded-md">
+                                                <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset('assets/images/nbc/Niacinamide.png') }}" alt="Niacinamide Face Serum"></a>
+                                                <div class="rbt-badge-wrapper rbt-content-top-left">
+                                                    <div class="rbt-product-badge rbt-product-badge-bg-secondary">SALE</div>
                                                 </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 295.00</del>
-                                                    <span class="price-text">Rs. 179.98</span>
-                                                    <span class="rbt-offer-badge">-30%</span>
-                                                </div>
+                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
                                             </div>
-                                            <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                                                <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                    <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                    <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                            <div class="rbt-card-body rbt-bg-color-white">
+                                                <div class="rbt-card-top-content">
+                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Nature's Secret</a>
+                                                    <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Niacinamide Face Serum</a></h2>
+                                                    <div class="rbt-card-rating">
+                                                        <ul class="rbt-rating-icon-list">
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                        </ul>
+                                                        <p class="rating-digit">(25)</p>
+                                                    </div>
+                                                    <div class="pricing-part">
+                                                        <del class="price-text">Rs. 2,750.00</del>
+                                                        <span class="price-text">Rs. 2,450.00</span>
+                                                        <span class="rbt-offer-badge">-30%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="rbt-card-footer d-flex footer-content-btn">
+                                                    <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
+                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
+                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
+                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforelse
-                        </div>
-                        <!-- End Best Sellers Card Area -->
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
+                                            <div class="rbt-card-img top-rounded-md">
+                                                <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset("assets/images/nbc/Nature's Secret/Avocado-Body-Lotion.png") }}" alt="Avocado Body Lotion"></a>
+                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
+                                            </div>
+                                            <div class="rbt-card-body rbt-bg-color-white">
+                                                <div class="rbt-card-top-content">
+                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Nature's Secret</a>
+                                                    <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Avocado Body Lotion</a></h2>
+                                                    <div class="rbt-card-rating">
+                                                        <ul class="rbt-rating-icon-list">
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                        </ul>
+                                                        <p class="rating-digit">(25)</p>
+                                                    </div>
+                                                    <div class="pricing-part">
+                                                        <del class="price-text">Rs. 295.00</del>
+                                                        <span class="price-text">Rs. 179.98</span>
+                                                        <span class="rbt-offer-badge">-30%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="rbt-card-footer d-flex footer-content-btn">
+                                                    <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
+                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
+                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
+                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforelse
+                            </div>
+                            <!-- End Best Sellers Card Area -->
 
-                        <!-- Start New Arrivals Card Area -->
-                        <div class="row row--12 mt_dec--24" id="homeNewArrivalsContainer" style="display: none;">
-                            @forelse ($newArrivals as $product)
-                                <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                        <div class="rbt-card-img top-rounded-md">
-                                            <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
-                                                <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
-                                                    src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Misumi/Momo Perfume.png') }}"
-                                                    alt="{{ $product->name }}">
-                                            </a>
-                                            <div class="rbt-badge-wrapper rbt-content-top-left">
-                                                <div class="rbt-product-badge rbt-product-badge-bg-primary">NEW</div>
-                                            </div>
-                                            <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips"
-                                                type="button" data-tooltip="Add to wishlist"
-                                                data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                        <div class="rbt-card-body rbt-bg-color-white">
-                                            <div class="rbt-card-top-content">
-                                                <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">
-                                                    {{ $product->brand ? $product->brand->name : ($product->category ? $product->category->name : 'NBC Shop') }}
+                            <!-- Start New Arrivals Card Area -->
+                            <div class="row row--12 mt_dec--24 nbc-product-track" id="homeNewArrivalsContainer" style="display: none;">
+                                @forelse ($newArrivals as $product)
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
+                                            <div class="rbt-card-img top-rounded-md">
+                                                <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
+                                                    <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
+                                                        src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Misumi/Momo Perfume.png') }}"
+                                                        alt="{{ $product->name }}">
                                                 </a>
-                                                <h2 class="rbt-card-title">
-                                                    <a href="{{ route('product.details', $product->slug ?: $product->id) }}">{{ $product->name }}</a>
-                                                </h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(5.0)</p>
+                                                <div class="rbt-badge-wrapper rbt-content-top-left">
+                                                    <div class="rbt-product-badge rbt-product-badge-bg-primary">NEW</div>
                                                 </div>
-                                                @php $newArrivalPricing = $product->pricingSummary(); @endphp
-                                                <div class="pricing-part">
-                                                    @if ($newArrivalPricing['has_sale'])
-                                                        <del class="price-text">{{ $newArrivalPricing['regular_formatted'] }}</del>
-                                                        <span class="price-text">{{ $newArrivalPricing['price_formatted'] }}</span>
-                                                        <span class="rbt-offer-badge">-{{ $newArrivalPricing['discount_percent'] }}%</span>
-                                                    @else
-                                                        <span class="price-text">{{ $newArrivalPricing['price_formatted'] }}</span>
-                                                    @endif
-                                                </div>
+                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips"
+                                                    type="button" data-tooltip="Add to wishlist"
+                                                    data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
                                             </div>
-                                            <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#" data-product-id="{{ $product->id }}">
-                                                    <i class="fa-regular fa-cart-shopping"></i> Add To Cart
-                                                </a>
-                                                <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                    <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                    <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                            <div class="rbt-card-body rbt-bg-color-white">
+                                                <div class="rbt-card-top-content">
+                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">
+                                                        {{ $product->brand ? $product->brand->name : ($product->category ? $product->category->name : 'NBC Shop') }}
+                                                    </a>
+                                                    <h2 class="rbt-card-title">
+                                                        <a href="{{ route('product.details', $product->slug ?: $product->id) }}">{{ $product->name }}</a>
+                                                    </h2>
+                                                    <div class="rbt-card-rating">
+                                                        <ul class="rbt-rating-icon-list">
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                        </ul>
+                                                        <p class="rating-digit">(5.0)</p>
+                                                    </div>
+                                                    @php $newArrivalPricing = $product->pricingSummary(); @endphp
+                                                    <div class="pricing-part">
+                                                        @if ($newArrivalPricing['has_sale'])
+                                                            <del class="price-text">{{ $newArrivalPricing['regular_formatted'] }}</del>
+                                                            <span class="price-text">{{ $newArrivalPricing['price_formatted'] }}</span>
+                                                            <span class="rbt-offer-badge">-{{ $newArrivalPricing['discount_percent'] }}%</span>
+                                                        @else
+                                                            <span class="price-text">{{ $newArrivalPricing['price_formatted'] }}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="rbt-card-footer d-flex footer-content-btn">
+                                                    <a class="rbt-btn rbt-btn-sm has-left-icon nbc-add-to-cart" href="#" data-product-id="{{ $product->id }}">
+                                                        <i class="fa-regular fa-cart-shopping"></i> Add To Cart
+                                                    </a>
+                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
+                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
+                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @empty
-                                <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
-                                    <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
-                                        <div class="rbt-card-img top-rounded-md">
-                                            <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset('assets/images/nbc/Misumi/Momo Perfume.png') }}" alt="Misumi Momo Perfume"></a>
-                                            <div class="rbt-badge-wrapper rbt-content-top-left">
-                                                <div class="rbt-product-badge rbt-product-badge-bg-primary">NEW</div>
-                                            </div>
-                                            <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                        <div class="rbt-card-body rbt-bg-color-white">
-                                            <div class="rbt-card-top-content">
-                                                <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Misumi</a>
-                                                <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Momo Perfume</a></h2>
-                                                <div class="rbt-card-rating">
-                                                    <ul class="rbt-rating-icon-list">
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                    </ul>
-                                                    <p class="rating-digit">(25)</p>
+                                @empty
+                                    <div class="col-lg-4 col-xl-3 col-xxl-3 col-md-6 col-sm-6 col-6 mt--24 mt_sm--16">
+                                        <div class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
+                                            <div class="rbt-card-img top-rounded-md">
+                                                <a href="{{ route('product.details') }}"><img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img" src="{{ asset('assets/images/nbc/Misumi/Momo Perfume.png') }}" alt="Misumi Momo Perfume"></a>
+                                                <div class="rbt-badge-wrapper rbt-content-top-left">
+                                                    <div class="rbt-product-badge rbt-product-badge-bg-primary">NEW</div>
                                                 </div>
-                                                <div class="pricing-part">
-                                                    <del class="price-text">Rs. 295.00</del>
-                                                    <span class="price-text">Rs. 179.98</span>
-                                                    <span class="rbt-offer-badge">-30%</span>
-                                                </div>
+                                                <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips" type="button" data-tooltip="Add to wishlist" data-tooltip-position="left"><i class="fa-regular fa-heart"></i></button>
                                             </div>
-                                            <div class="rbt-card-footer d-flex footer-content-btn">
-                                                <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
-                                                <div class="rbt-quick-btn-grp has-mixup-midlayer">
-                                                    <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
-                                                    <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                            <div class="rbt-card-body rbt-bg-color-white">
+                                                <div class="rbt-card-top-content">
+                                                    <a href="#" class="rbt-card-subtitle rbt-card-catagories-text mt--12">Misumi</a>
+                                                    <h2 class="rbt-card-title"><a href="{{ route('product.details') }}">Momo Perfume</a></h2>
+                                                    <div class="rbt-card-rating">
+                                                        <ul class="rbt-rating-icon-list">
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
+                                                        </ul>
+                                                        <p class="rating-digit">(25)</p>
+                                                    </div>
+                                                    <div class="pricing-part">
+                                                        <del class="price-text">Rs. 295.00</del>
+                                                        <span class="price-text">Rs. 179.98</span>
+                                                        <span class="rbt-offer-badge">-30%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="rbt-card-footer d-flex footer-content-btn">
+                                                    <a class="rbt-btn rbt-btn-sm has-left-icon rbt-cart-sidenav-activation" href="#"><i class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
+                                                    <div class="rbt-quick-btn-grp has-mixup-midlayer">
+                                                        <button class="rbt-compare-btn rbt-quick-btn tooltips" data-tooltip="Add to Compare" data-tooltip-position="top" type="button"><i class="fa-regular fa-scale-balanced"></i></button>
+                                                        <button class="rbt-watch-btn rbt-quick-btn tooltips top-right" data-tooltip="Quick View" data-tooltip-position="top" type="button" data-bs-toggle="modal" data-bs-target="#quickviewModal"><i class="fa-sharp fa-regular fa-eye"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforelse
+                                @endforelse
+                            </div>
+                            <!-- End New Arrivals Card Area -->
+
+                            <div class="nbc-product-navigation" aria-label="Product carousel controls">
+                                <button id="homeProductPrevious" type="button" aria-label="Previous products">
+                                    <i class="fa-regular fa-arrow-left"></i>
+                                </button>
+                                <button id="homeProductNext" type="button" aria-label="Next products">
+                                    <i class="fa-regular fa-arrow-right"></i>
+                                </button>
+                            </div>
                         </div>
-                        <!-- End New Arrivals Card Area -->
 
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
@@ -3133,24 +3144,103 @@
                                 const bestContainer = document.getElementById('homeBestSellersContainer');
                                 const newContainer = document.getElementById('homeNewArrivalsContainer');
                                 const sectionTitle = document.getElementById('homeProductSectionTitle');
+                                const previous = document.getElementById('homeProductPrevious');
+                                const next = document.getElementById('homeProductNext');
 
-                                if (bestTab && newTab && bestContainer && newContainer) {
+                                if (!bestContainer || !newContainer || typeof window.Swiper !== 'function') return;
+
+                                function initProductSwiper(container) {
+                                    if (!container) return null;
+                                    const slides = Array.from(container.children);
+                                    if (slides.length === 0) return null;
+
+                                    const wrapper = document.createElement('div');
+                                    wrapper.className = 'swiper-wrapper';
+
+                                    slides.forEach(function(slide) {
+                                        slide.classList.add('swiper-slide');
+                                        wrapper.appendChild(slide);
+                                    });
+
+                                    container.appendChild(wrapper);
+                                    container.classList.add('swiper');
+
+                                    return new window.Swiper(container, {
+                                        autoplay: false,
+                                        grabCursor: true,
+                                        loop: slides.length > 4,
+                                        observer: true,
+                                        observeParents: true,
+                                        slidesPerView: 1.2,
+                                        spaceBetween: 12,
+                                        speed: 500,
+                                        breakpoints: {
+                                            576: {
+                                                slidesPerView: 2,
+                                                spaceBetween: 16
+                                            },
+                                            768: {
+                                                slidesPerView: 2,
+                                                spaceBetween: 20
+                                            },
+                                            992: {
+                                                slidesPerView: 3,
+                                                spaceBetween: 24
+                                            },
+                                            1200: {
+                                                slidesPerView: 4,
+                                                spaceBetween: 24
+                                            }
+                                        }
+                                    });
+                                }
+
+                                const bestSwiper = initProductSwiper(bestContainer);
+                                const newSwiper = initProductSwiper(newContainer);
+
+                                if (previous) {
+                                    previous.addEventListener('click', function() {
+                                        if (bestContainer && bestContainer.style.display !== 'none' && bestSwiper) {
+                                            bestSwiper.slidePrev();
+                                        } else if (newContainer && newContainer.style.display !== 'none' && newSwiper) {
+                                            newSwiper.slidePrev();
+                                        }
+                                    });
+                                }
+
+                                if (next) {
+                                    next.addEventListener('click', function() {
+                                        if (bestContainer && bestContainer.style.display !== 'none' && bestSwiper) {
+                                            bestSwiper.slideNext();
+                                        } else if (newContainer && newContainer.style.display !== 'none' && newSwiper) {
+                                            newSwiper.slideNext();
+                                        }
+                                    });
+                                }
+
+                                if (bestTab && newTab) {
                                     bestTab.addEventListener('click', function(e) {
                                         e.preventDefault();
                                         bestTab.classList.add('active');
                                         newTab.classList.remove('active');
-                                        bestContainer.style.display = 'flex';
+                                        bestContainer.style.display = 'block';
                                         newContainer.style.display = 'none';
                                         if (sectionTitle) sectionTitle.textContent = 'best sellers';
+                                        if (bestSwiper) {
+                                            bestSwiper.update();
+                                        }
                                     });
 
                                     newTab.addEventListener('click', function(e) {
                                         e.preventDefault();
                                         newTab.classList.add('active');
                                         bestTab.classList.remove('active');
-                                        newContainer.style.display = 'flex';
+                                        newContainer.style.display = 'block';
                                         bestContainer.style.display = 'none';
                                         if (sectionTitle) sectionTitle.textContent = 'new arrivals';
+                                        if (newSwiper) {
+                                            newSwiper.update();
+                                        }
                                     });
                                 }
                             });

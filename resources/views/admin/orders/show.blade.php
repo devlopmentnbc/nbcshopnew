@@ -253,7 +253,7 @@
                             <a href="{{ route('admin.orders.citypak.waybill', [$order->id, 'page_size' => '4X6', 'per_page_waybill_count' => 1]) }}" target="_blank" class="h-9 rounded-base border border-surface-line bg-surface-body px-3 text-[13px] font-semibold text-ink-700 hover:bg-surface-muted transition-colors flex items-center justify-center gap-1">
                                 4x6 Label
                             </a>
-                            <button type="button" onclick="openPickupModal(1, {{ max(500, intval($order->items->sum(fn($i) => ($i->product?->weight_grams ?: 500) * $i->quantity))) }})" class="h-9 rounded-base bg-amber-600 px-3 text-[13px] font-semibold text-white hover:bg-amber-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                            <button type="button" onclick="openPickupModal(1, {{ max(500, intval($order->total_weight_grams)) }})" class="h-9 rounded-base bg-amber-600 px-3 text-[13px] font-semibold text-white hover:bg-amber-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
                                 <i data-lucide="truck" class="h-4 w-4"></i> Request Pickup
                             </button>
                         </div>
@@ -291,7 +291,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-[12px] font-semibold text-ink-700 mb-1">Weight (Grams)</label>
-                                <input type="number" name="weight_g" value="500" min="1" max="100000" required class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-800">
+                                <input type="number" name="weight_g" value="{{ max(1, $order->total_weight_grams) }}" min="1" max="100000" required class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-800">
                             </div>
                             <div>
                                 <label class="block text-[12px] font-semibold text-ink-700 mb-1">Pieces Count</label>

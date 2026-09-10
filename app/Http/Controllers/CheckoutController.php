@@ -16,6 +16,9 @@ class CheckoutController extends Controller
     /**
      * Show the checkout page with contact/address form and order summary.
      */
+    /**
+     * Show the checkout page with contact/address form and order summary.
+     */
     public function index(ShippingService $shippingService)
     {
         $cart = $this->getValidCart();
@@ -24,7 +27,12 @@ class CheckoutController extends Controller
             return redirect()->route('shop')->with('error', 'Your cart is empty.');
         }
 
-        [$subtotal, $totalItems] = $this->cartTotals($cart);
+        $userCountry = session('country_code', 'LK');
+        $isLocal = strtolower(trim($userCountry)) === 'lk' || strtolower(trim($userCountry)) === 'sri lanka';
+        $currency = session('currency', $isLocal ? 'LKR' : 'USD');
+        $currencySymbol = $currency === 'USD' ? '$' : 'LKR ';
+
+        [$subtotal, $totalItems] = $this->cartTotals($cart, $currency);
 
         $user = Auth::user();
         $countries = Country::where('status', true)->orderBy('name', 'asc')->get();
@@ -34,11 +42,11 @@ class CheckoutController extends Controller
             ? ($cartWeight % 1000 === 0 ? ($cartWeight / 1000) . ' kg' : round($cartWeight / 1000, 2) . ' kg')
             : $cartWeight . ' g';
 
-        // Calculate initial Sri Lanka shipping fee
+        // Calculate initial shipping fee based on user country and currency
         $initialShippingFee = $shippingService->calculateShipping(
-            'Sri Lanka',
+            $userCountry === 'LK' ? 'Sri Lanka' : $userCountry,
             $cartWeight,
-            'LKR',
+            $currency,
             '',
             '',
             $subtotal
@@ -56,6 +64,8 @@ class CheckoutController extends Controller
             'initialTotal' => $initialTotal,
             'cartWeight' => $cartWeight,
             'formattedCartWeight' => $formattedCartWeight,
+            'currency' => $currency,
+            'currencySymbol' => $currencySymbol,
         ]);
     }
 
@@ -65,9 +75,18 @@ class CheckoutController extends Controller
     public function calculateShipping(Request $request, ShippingService $shippingService)
     {
         $cart = $this->getValidCart();
-        [$subtotal, $totalItems] = $this->cartTotals($cart);
-
         $country = $request->input('country', 'Sri Lanka');
+        $isLocal = strtolower(trim($country)) === 'sri lanka' || strtolower(trim($country)) === 'lk';
+
+        // Determine currency: foreign country selected or session currency is USD
+        $currency = session('currency', 'LKR');
+        if (!$isLocal) {
+            $currency = 'USD';
+        }
+        $symbol = $currency === 'USD' ? '$' : 'LKR ';
+
+        [$subtotal, $totalItems] = $this->cartTotals($cart, $currency);
+
         $city = $request->input('city', 'Colombo');
         $postalCode = $request->input('postal_code', '00000');
 
@@ -77,17 +96,27 @@ class CheckoutController extends Controller
         $shippingFee = $shippingService->calculateShipping(
             $country,
             $weightGrams,
-            'LKR',
+            $currency,
             $city,
             $postalCode,
             $subtotal
         );
 
         $total = $subtotal + $shippingFee;
-        $isLocal = strtolower(trim($country)) === 'sri lanka' || strtolower(trim($country)) === 'lk';
 
         $maxCodLimit = (float) \App\Models\Setting::get('max_cod_order_limit', 10000.00);
         $maxCardLimit = (float) \App\Models\Setting::get('max_card_order_limit', 20000.00);
+
+        [$subtotalLkr, ] = $this->cartTotals($cart, 'LKR');
+        $shippingFeeLkr = $shippingService->calculateShipping(
+            $country,
+            $weightGrams,
+            'LKR',
+            $city,
+            $postalCode,
+            $subtotalLkr
+        );
+        $totalLkr = $subtotalLkr + $shippingFeeLkr;
 
         $formattedWeight = $weightGrams >= 1000
             ? ($weightGrams % 1000 === 0 ? ($weightGrams / 1000) . ' kg' : round($weightGrams / 1000, 2) . ' kg')
@@ -96,21 +125,23 @@ class CheckoutController extends Controller
         return response()->json([
             'success' => true,
             'country' => $country,
+            'currency' => $currency,
+            'currency_symbol' => $symbol,
             'is_local' => $isLocal,
             'total_items' => $totalItems,
-            'shipping_fee_lkr' => $shippingFee,
-            'formatted_shipping_fee' => $shippingFee > 0 ? 'LKR ' . number_format($shippingFee, 2) : 'Free',
-            'subtotal_lkr' => $subtotal,
-            'formatted_subtotal' => 'LKR ' . number_format($subtotal, 2),
-            'total_lkr' => $total,
-            'formatted_total' => 'LKR ' . number_format($total, 2),
+            'shipping_fee' => $shippingFee,
+            'formatted_shipping_fee' => $shippingFee > 0 ? $symbol . number_format($shippingFee, 2) : 'Free',
+            'subtotal' => $subtotal,
+            'formatted_subtotal' => $symbol . number_format($subtotal, 2),
+            'total' => $total,
+            'formatted_total' => $symbol . number_format($total, 2),
             'weight_grams' => $weightGrams,
             'weight_kg' => round($weightGrams / 1000, 2),
             'formatted_weight' => $formattedWeight,
             'max_cod_limit' => $maxCodLimit,
             'max_card_limit' => $maxCardLimit,
-            'cod_available' => \App\Models\Setting::get('enable_shipping_cod', '1') == '1' && ($maxCodLimit <= 0 || $total <= $maxCodLimit),
-            'card_available' => \App\Models\Setting::get('enable_shipping_card', '1') == '1' && ($maxCardLimit <= 0 || $total <= $maxCardLimit),
+            'cod_available' => $isLocal && \App\Models\Setting::get('enable_shipping_cod', '1') == '1' && ($maxCodLimit <= 0 || $totalLkr <= $maxCodLimit),
+            'card_available' => \App\Models\Setting::get('enable_shipping_card', '1') == '1' && ($maxCardLimit <= 0 || $totalLkr <= $maxCardLimit),
         ]);
     }
 
@@ -134,7 +165,7 @@ class CheckoutController extends Controller
             }
         }
 
-        $products = \App\Models\Product::whereIn('id', array_unique($productIds))->get()->keyBy('id');
+        $products = \App\Models\Product::with('attributeValues')->whereIn('id', array_unique($productIds))->get()->keyBy('id');
 
         $totalWeightGrams = 0;
 
@@ -149,7 +180,20 @@ class CheckoutController extends Controller
             }
 
             $product = $pid ? $products->get($pid) : null;
-            $itemWeight = ($product && !empty($product->weight_grams)) ? (int) $product->weight_grams : 500;
+            $variantId = is_array($item) ? ($item['attribute_value_id'] ?? null) : null;
+
+            $itemWeight = null;
+            if ($product && $variantId) {
+                $variant = $product->attributeValues->firstWhere('id', (int) $variantId);
+                if ($variant && isset($variant->pivot->weight_grams) && $variant->pivot->weight_grams !== null && (int)$variant->pivot->weight_grams > 0) {
+                    $itemWeight = (int) $variant->pivot->weight_grams;
+                }
+            }
+
+            if ($itemWeight === null) {
+                $itemWeight = ($product && !empty($product->weight_grams)) ? (int) $product->weight_grams : 500;
+            }
+
             $quantity = is_array($item) ? ($item['quantity'] ?? 1) : 1;
             $totalWeightGrams += ($itemWeight * $quantity);
         }
@@ -173,7 +217,7 @@ class CheckoutController extends Controller
         $deliveryCity = $sameAsBilling ? $request->input('billing_city', '') : $request->input('delivery_city', '');
         $deliveryPostal = $sameAsBilling ? $request->input('billing_postal_code', '') : $request->input('delivery_postal_code', '');
 
-        [$subtotal, ] = $this->cartTotals($cart);
+        [$subtotal, ] = $this->cartTotals($cart, 'LKR');
 
         // Calculate shipping fee to get total
         $cartWeight = $this->cartTotalWeight($cart);
@@ -379,14 +423,16 @@ class CheckoutController extends Controller
         return $valid;
     }
 
-    private function cartTotals(array $cart): array
+    private function cartTotals(array $cart, ?string $currency = null): array
     {
+        $currency = $currency ?: session('currency', 'LKR');
         $subtotal = 0.0;
         $totalItems = 0;
 
         foreach ($cart as $item) {
-            $subtotal += ($item['price_lkr'] ?? 0) * $item['quantity'];
-            $totalItems += $item['quantity'];
+            $price = ($currency === 'USD') ? (float)($item['price_usd'] ?? 0) : (float)($item['price_lkr'] ?? 0);
+            $subtotal += $price * ($item['quantity'] ?? 1);
+            $totalItems += ($item['quantity'] ?? 1);
         }
 
         return [$subtotal, $totalItems];
