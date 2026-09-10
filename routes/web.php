@@ -105,6 +105,7 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::resource('promotions', PromotionController::class)->except('show');
     Route::get('categories/{category}/sub-categories', [ProductController::class, 'getSubCategories'])->name('categories.sub-categories');
     Route::delete('product-images/{image}', [ProductController::class, 'destroyGalleryImage'])->name('products.gallery.destroy');
+    Route::get('products/{product}/variants', [ProductController::class, 'manageVariants'])->name('products.variants.manage');
     Route::post('products/{product}/variants', [ProductController::class, 'updateVariants'])->name('products.variants.update');
 
     // Admin Reports & Analytics

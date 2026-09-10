@@ -268,7 +268,20 @@ class ProductController extends Controller
     }
 
     /**
-     * Dedicated endpoint to update product variants & stock (from modal or quick form).
+     * Show dedicated variant management page for a product.
+     */
+    public function manageVariants(Product $product)
+    {
+        $product->load(['attributeValues.attribute', 'brand', 'category', 'subCategory']);
+        $attributes = Attribute::with(['values' => function ($q) {
+            $q->where('status', true)->orderBy('sort_order');
+        }])->where('status', true)->orderBy('name')->get();
+
+        return view('admin.products.variants', compact('product', 'attributes'));
+    }
+
+    /**
+     * Dedicated endpoint to update product variants & stock.
      */
     public function updateVariants(Request $request, Product $product)
     {
@@ -286,7 +299,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Product stock and attribute variants updated successfully.');
+        return redirect()->route('admin.products.variants.manage', $product->id)->with('success', 'Product stock and attribute variants updated successfully.');
     }
 
     /**
