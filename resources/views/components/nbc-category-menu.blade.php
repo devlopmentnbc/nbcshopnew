@@ -57,7 +57,7 @@
             'for-her' => 'For Her',
             'for-him' => 'For Him',
         ],
-        'Bundles' => [
+        'Gifts' => [
             'care-bundles' => 'Care Bundles',
             'gifts' => 'Gifts',
             'sanitizers' => 'Sanitizers',
@@ -70,7 +70,8 @@
         @foreach ($categoryGroups as $groupName => $items)
             @php($firstSlug = array_key_first($items))
             <li class="dropdown-parent-list">
-                <a href="https://www.nbc.lk/shop/category/{{ $firstSlug }}">
+                <a
+                    href="{{ $groupName === 'Gifts' ? route('shop', ['category' => 'gifts']) : 'https://www.nbc.lk/shop/category/' . $firstSlug }}">
                     <span><i class="fa-regular fa-leaf"></i></span>{{ $groupName }}
                     <span class="rbt-chevron-right"><i class="fa-regular fa-chevron-right"></i></span>
                 </a>
@@ -82,7 +83,8 @@
                                 <ul class="mega-menu-item nbc-category-menu__links">
                                     @foreach ($items as $slug => $label)
                                         <li>
-                                            <a href="https://www.nbc.lk/shop/category/{{ $slug }}">{{ $label }}</a>
+                                            <a
+                                                href="https://www.nbc.lk/shop/category/{{ $slug }}">{{ $label }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
