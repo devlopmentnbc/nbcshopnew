@@ -39,6 +39,13 @@ class Order extends Model
         'shipping_fee_lkr',
         'total_lkr',
         'status',
+        'citypak_order_id',
+        'citypak_tracking_number',
+        'citypak_status',
+        'citypak_delivery_facility_code',
+        'citypak_dispatched_at',
+        'citypak_tracking_history',
+        'citypak_pickup_id',
     ];
 
     protected $casts = [
@@ -46,6 +53,8 @@ class Order extends Model
         'subtotal_lkr' => 'decimal:2',
         'shipping_fee_lkr' => 'decimal:2',
         'total_lkr' => 'decimal:2',
+        'citypak_dispatched_at' => 'datetime',
+        'citypak_tracking_history' => 'array',
     ];
 
     public function user(): BelongsTo
@@ -56,5 +65,33 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function citypakPickup(): BelongsTo
+    {
+        return $this->belongsTo(CitypakPickup::class, 'citypak_pickup_id');
+    }
+
+    /**
+     * Calculate total weight of order items in grams.
+     */
+    public function getTotalWeightGramsAttribute(): int
+    {
+        $weight = 0;
+        $this->loadMissing(['items.product.attributeValues', 'items.attributeValue']);
+        foreach ($this->items as $item) {
+            $itemWeight = null;
+            if ($item->product && $item->attribute_value_id) {
+                $variant = $item->product->attributeValues->firstWhere('id', (int) $item->attribute_value_id);
+                if ($variant && isset($variant->pivot->weight_grams) && $variant->pivot->weight_grams !== null && (int)$variant->pivot->weight_grams > 0) {
+                    $itemWeight = (int) $variant->pivot->weight_grams;
+                }
+            }
+            if ($itemWeight === null) {
+                $itemWeight = ($item->product && !empty($item->product->weight_grams)) ? floatval($item->product->weight_grams) : 500;
+            }
+            $weight += ($itemWeight * max(1, intval($item->quantity)));
+        }
+        return intval($weight > 0 ? $weight : 500);
     }
 }

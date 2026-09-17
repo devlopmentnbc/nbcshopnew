@@ -55,4 +55,11 @@ return [
         'redirect'      => env('GOOGLE_REDIRECT_URI', env('APP_URL', 'http://localhost:8000') . '/auth/google/callback'),
     ],
 
+    'citypak' => [
+        'api_key'     => env('CITYPAK_API_KEY', ''),
+        'environment' => env('CITYPAK_ENVIRONMENT', 'staging'), // 'staging' or 'production'
+        'staging_url' => 'https://staging.citypak.lk',
+        'production_url' => 'https://falcon.citypak.lk',
+    ],
+
 ];

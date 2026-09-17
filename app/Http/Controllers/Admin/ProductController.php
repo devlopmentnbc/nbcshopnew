@@ -173,6 +173,7 @@ class ProductController extends Controller
                 'stock' => $val->pivot->stock,
                 'sku' => $val->pivot->sku,
                 'sap_code' => $val->pivot->sap_code,
+                'weight_grams' => $val->pivot->weight_grams,
                 'image' => $val->pivot->image,
             ];
         }
@@ -267,7 +268,20 @@ class ProductController extends Controller
     }
 
     /**
-     * Dedicated endpoint to update product variants & stock (from modal or quick form).
+     * Show dedicated variant management page for a product.
+     */
+    public function manageVariants(Product $product)
+    {
+        $product->load(['attributeValues.attribute', 'brand', 'category', 'subCategory']);
+        $attributes = Attribute::with(['values' => function ($q) {
+            $q->where('status', true)->orderBy('id');
+        }])->where('status', true)->orderBy('name')->get();
+
+        return view('admin.products.variants', compact('product', 'attributes'));
+    }
+
+    /**
+     * Dedicated endpoint to update product variants & stock.
      */
     public function updateVariants(Request $request, Product $product)
     {
@@ -285,7 +299,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Product stock and attribute variants updated successfully.');
+        return redirect()->route('admin.products.variants.manage', $product->id)->with('success', 'Product stock and attribute variants updated successfully.');
     }
 
     /**
@@ -333,6 +347,7 @@ class ProductController extends Controller
                         'stock' => $varData['stock'] ?? 0,
                         'sku' => $varData['sku'] ?? null,
                         'sap_code' => $varData['sap_code'] ?? null,
+                        'weight_grams' => isset($varData['weight_grams']) && $varData['weight_grams'] !== '' ? (int) $varData['weight_grams'] : null,
                         'image' => $imagePath,
                     ];
                 }

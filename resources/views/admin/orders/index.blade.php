@@ -10,7 +10,11 @@
             <h1 class="text-[24px] font-semibold text-ink-900">Orders</h1>
             <p class="mt-1 text-[14px] text-ink-500">Track, filter, and manage customer orders (Online, WhatsApp, Direct / Manual channel).</p>
         </div>
-        <div>
+        <div class="flex items-center gap-3">
+            <button type="button" onclick="openPickupModal()" class="inline-flex h-10 items-center gap-2 rounded-base bg-amber-600 px-4 text-[14px] font-semibold text-white hover:bg-amber-700 shadow-sm transition-colors cursor-pointer">
+                <i data-lucide="truck" class="h-4 w-4"></i>
+                Request Courier Pickup
+            </button>
             <a href="{{ route('admin.orders.create') }}" class="inline-flex h-10 items-center gap-2 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white hover:bg-brand-700 shadow-sm transition-colors">
                 <i data-lucide="plus-circle" class="h-4 w-4"></i>
                 Create Order Manually
@@ -119,6 +123,7 @@
                         <th class="pb-3 pr-4 font-semibold">Payment Method</th>
                         <th class="pb-3 pr-4 font-semibold">Payment Status</th>
                         <th class="pb-3 pr-4 font-semibold">Slip</th>
+                        <th class="pb-3 pr-4 font-semibold">Citypak Courier</th>
                         <th class="pb-3 pr-4 font-semibold">Order Status</th>
                         <th class="pb-3 pr-4 font-semibold">Total</th>
                         <th class="pb-3 pr-4 font-semibold">Date</th>
@@ -214,6 +219,29 @@
                                 @endif
                             </td>
 
+                            <!-- Citypak Courier Action Column -->
+                            <td class="py-4 pr-4">
+                                @if ($order->citypak_tracking_number || $order->citypak_order_id)
+                                    <div class="space-y-1">
+                                        <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 border border-emerald-200" title="Citypak Order ID: {{ $order->citypak_order_id }}">
+                                            <i data-lucide="truck" class="h-3 w-3"></i> {{ $order->citypak_tracking_number ?: ('ID: #' . $order->citypak_order_id) }}
+                                        </span>
+                                        <div>
+                                            <a href="{{ route('admin.orders.citypak.waybill', $order->id) }}" target="_blank" class="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-600 hover:underline">
+                                                <i data-lucide="file-text" class="h-3 w-3"></i> Print Waybill
+                                            </a>
+                                        </div>
+                                    </div>
+                                @else
+                                    <form action="{{ route('admin.orders.citypak.dispatch', $order->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        <button type="submit" onclick="return confirm('Create Citypak courier order for #{{ $order->order_number }}?');" class="inline-flex items-center gap-1.5 rounded-base px-3 py-1.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 cursor-pointer shadow-xs" style="background-color: #059669 !important; color: #ffffff !important; border: 1px solid #047857 !important; display: inline-flex !important; align-items: center !important;">
+                                            <i data-lucide="send" class="h-3.5 w-3.5"></i> Create Courier Order
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+
                             <!-- Order Status Dropdown -->
                             <td class="py-4 pr-4">
                                 <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="inline-block">
@@ -284,4 +312,6 @@
         </div>
     </div>
 </main>
+
+@include('admin.components.citypak-pickup-modal')
 @endsection

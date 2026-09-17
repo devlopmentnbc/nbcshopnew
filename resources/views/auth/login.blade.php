@@ -2911,14 +2911,14 @@
                                     <label class="rbt-field-label" for="signin_email">Your Email Address<span
                                             class="rbt-text-color-danger">*</span></label>
                                     <input class="rbt-input-field" id="signin_email" name="email" type="email"
-                                        value="{{ old('email', 'customer@example.com') }}"
+                                        value="{{ old('email') }}"
                                         placeholder="Enter Email Address" required autofocus>
                                 </div>
                                 <div class="rbt-input-field-grp mt--20">
                                     <label class="rbt-field-label" for="signin_password">Password<span
                                             class="rbt-text-color-danger">*</span></label>
                                     <input class="rbt-input-field" id="signin_password" name="password"
-                                        type="password" value="password" placeholder="Enter Password" required>
+                                        type="password" placeholder="Enter Password" required>
                                 </div>
                                 <div
                                     class="rbt-inner-content mt--20 flex-wrap gap-2 d-flex justify-content-between align-items-center">

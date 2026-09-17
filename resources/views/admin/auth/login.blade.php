@@ -276,13 +276,13 @@
                         <span class="text-[14px] font-semibold text-ink-700">Email address</span>
                         <input name="email"
                             class="mt-2 h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] focus:border-brand-600"
-                            type="email" value="{{ old('email', 'admin@example.com') }}" required autofocus>
+                            type="email" value="{{ old('email') }}" placeholder="admin@example.com" required autofocus>
                     </label>
                     <label class="block">
                         <span class="text-[14px] font-semibold text-ink-700">Password</span>
                         <input name="password"
                             class="mt-2 h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] focus:border-brand-600"
-                            type="password" value="password" required>
+                            type="password" placeholder="••••••••" required>
                     </label>
                 </div>
 

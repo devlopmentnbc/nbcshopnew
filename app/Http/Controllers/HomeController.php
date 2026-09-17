@@ -23,14 +23,14 @@ class HomeController extends Controller
             ->where('status', true)
             ->where('is_best_seller', true)
             ->latest()
-            ->take(6)
+            ->take(12)
             ->get();
 
         if ($bestSellers->isEmpty()) {
             $bestSellers = Product::with(['brand', 'category', 'attributeValues'])
                 ->where('status', true)
                 ->latest()
-                ->take(6)
+                ->take(12)
                 ->get();
         }
 
@@ -38,14 +38,14 @@ class HomeController extends Controller
             ->where('status', true)
             ->where('is_new_arrival', true)
             ->latest()
-            ->take(6)
+            ->take(12)
             ->get();
 
         if ($newArrivals->isEmpty()) {
             $newArrivals = Product::with(['brand', 'category', 'attributeValues'])
                 ->where('status', true)
                 ->latest()
-                ->take(6)
+                ->take(12)
                 ->get();
         }
 

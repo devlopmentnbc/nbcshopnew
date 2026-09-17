@@ -110,21 +110,38 @@
 
                 <!-- Attribute Variant Pricing & Inventory Matrix -->
                 <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-6">
-                    <div>
-                        <h2 class="text-[18px] font-semibold text-ink-900">Attribute Variants, Pricing & Stock</h2>
-                        <p class="text-[13px] text-ink-500">Check applicable attribute values below to configure their specific LKR price, USD price, and stock.</p>
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-surface-line pb-3">
+                        <div>
+                            <h2 class="text-[18px] font-semibold text-ink-900">Attribute Variants, Pricing & Stock</h2>
+                            <p class="text-[13px] text-ink-500">Check applicable attribute values below to configure their specific LKR price, USD price, and stock.</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-[12px]">
+                            <button type="button" onclick="expandAllAttrGroups('createAttributesList')" class="font-medium text-brand-600 hover:underline">Expand All</button>
+                            <span class="text-ink-300">|</span>
+                            <button type="button" onclick="minimizeAllAttrGroups('createAttributesList')" class="font-medium text-ink-500 hover:underline">Minimize All</button>
+                        </div>
                     </div>
 
                     @if ($attributes->count() > 0)
-                        <div class="space-y-6">
+                        <div id="createAttributesList" class="space-y-4">
                             @foreach ($attributes as $attr)
-                                <div class="rounded-base border border-surface-line bg-surface-body p-4 space-y-4">
-                                    <h3 class="text-[15px] font-semibold text-ink-900 flex items-center gap-2">
-                                        <i data-lucide="sliders" class="h-4 w-4 text-brand-600"></i>
-                                        {{ $attr->name }}
-                                    </h3>
+                                <div class="attr-group-card rounded-base border border-surface-line bg-surface-body overflow-hidden">
+                                    <!-- Clickable Header to Expand/Minimize -->
+                                    <button type="button" onclick="toggleAttrGroup(this)" class="w-full flex items-center justify-between p-3.5 bg-surface-muted/60 hover:bg-surface-muted transition-colors text-left">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="sliders" class="h-4 w-4 text-brand-600"></i>
+                                            <span class="text-[14px] font-semibold text-ink-800">{{ $attr->name }}</span>
+                                            <span class="text-[11px] font-medium text-ink-500 bg-surface-card px-2 py-0.5 rounded-full border border-surface-line">
+                                                {{ $attr->values->count() }} {{ Str::plural('option', $attr->values->count()) }}
+                                            </span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-ink-400">
+                                            <span class="attr-group-status text-[11px] font-medium">Minimize</span>
+                                            <i data-lucide="chevron-down" class="attr-chevron h-4 w-4 transition-transform duration-200" style="transform: rotate(180deg)"></i>
+                                        </div>
+                                    </button>
 
-                                    <div class="space-y-3">
+                                    <div class="attr-group-content p-4 border-t border-surface-line space-y-3">
                                         @forelse ($attr->values as $val)
                                             <div class="variant-item rounded-base border border-surface-line bg-surface-card p-4">
                                                 <div class="flex items-center gap-3 mb-3">
@@ -137,8 +154,8 @@
                                                     </label>
                                                 </div>
 
-                                                <!-- Variant Inputs (LKR, USD, Stock, SAP Code, Image) -->
-                                                <div id="variant_inputs_{{ $val->id }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-3 pt-2 border-t border-surface-line {{ old("variants.{$val->id}.selected") ? '' : 'hidden' }}">
+                                                <!-- Variant Inputs (LKR, USD, Stock, Weight, SAP Code, Image) -->
+                                                <div id="variant_inputs_{{ $val->id }}" class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-3 pt-2 border-t border-surface-line {{ old("variants.{$val->id}.selected") ? '' : 'hidden' }}">
                                                     <!-- LKR Price -->
                                                     <div>
                                                         <label class="block text-[12px] font-semibold text-ink-700 mb-1">LKR Price (Rs.) <span class="text-danger-500">*</span></label>
@@ -167,6 +184,12 @@
                                                     <div>
                                                         <label class="block text-[12px] font-semibold text-ink-700 mb-1">Stock Qty <span class="text-danger-500">*</span></label>
                                                         <input type="number" name="variants[{{ $val->id }}][stock]" value="{{ old("variants.{$val->id}.stock", 10) }}" placeholder="10" min="0" class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                                                    </div>
+
+                                                    <!-- Weight (g) -->
+                                                    <div>
+                                                        <label class="block text-[12px] font-semibold text-ink-700 mb-1">Weight (g)</label>
+                                                        <input type="number" step="1" min="0" name="variants[{{ $val->id }}][weight_grams]" value="{{ old("variants.{$val->id}.weight_grams") }}" placeholder="e.g. 500" class="h-9 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
                                                     </div>
 
                                                     <!-- SAP Code -->
@@ -363,6 +386,48 @@
         Array.from(newDT.files).forEach(file => galleryDataTransfer.items.add(file));
         galleryInput.files = galleryDataTransfer.files;
         renderGalleryPreviews();
+    }
+
+    // Accordion expand / minimize helpers
+    function toggleAttrGroup(button) {
+        const card = button.closest('.attr-group-card');
+        const content = card.querySelector('.attr-group-content');
+        const chevron = card.querySelector('.attr-chevron');
+        const status = card.querySelector('.attr-group-status');
+
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            if (chevron) chevron.style.transform = 'rotate(180deg)';
+            if (status) status.textContent = 'Minimize';
+        } else {
+            content.classList.add('hidden');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+            if (status) status.textContent = 'Expand';
+        }
+    }
+
+    function expandAllAttrGroups(containerId) {
+        const container = document.getElementById(containerId) || document;
+        container.querySelectorAll('.attr-group-card').forEach(card => {
+            const content = card.querySelector('.attr-group-content');
+            const chevron = card.querySelector('.attr-chevron');
+            const status = card.querySelector('.attr-group-status');
+            if (content) content.classList.remove('hidden');
+            if (chevron) chevron.style.transform = 'rotate(180deg)';
+            if (status) status.textContent = 'Minimize';
+        });
+    }
+
+    function minimizeAllAttrGroups(containerId) {
+        const container = document.getElementById(containerId) || document;
+        container.querySelectorAll('.attr-group-card').forEach(card => {
+            const content = card.querySelector('.attr-group-content');
+            const chevron = card.querySelector('.attr-chevron');
+            const status = card.querySelector('.attr-group-status');
+            if (content) content.classList.add('hidden');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+            if (status) status.textContent = 'Expand';
+        });
     }
 
     // Dependent Category -> Sub Category Filter
