@@ -740,28 +740,6 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     display: flex;
     flex-direction: column;
 }
-.nbc-home-sections > .nbc-home-hero {
-    order: 1;
-}
-.nbc-home-sections > .nbc-brand-section {
-    order: 2;
-}
-.nbc-home-sections > .nbc-category-section {
-    order: 3;
-}
-.nbc-home-sections > .nbc-product-section:not(.nbc-sale-section) {
-    order: 4;
-}
-.nbc-home-sections > .rbt-counterdown-area {
-    order: 5;
-}
-.nbc-home-sections > .nbc-sale-section {
-    order: 6;
-}
-.nbc-home-sections > .nbc-story-section {
-    order: 7;
-}
-
 .nbc-story-section {
     background: linear-gradient(
         180deg,
@@ -3896,7 +3874,9 @@ body {
     line-height: 1;
     margin: 0;
     -webkit-text-stroke: 2px var(--accent-color);
-    transition: color 0.15s ease, transform 0.15s ease;
+    transition:
+        color 0.15s ease,
+        transform 0.15s ease;
 }
 
 .nbc-review-star-input label:hover,
@@ -4434,7 +4414,6 @@ body {
         flex-basis: 64px;
         height: 64px;
     }
-
 }
 
 /* ==========================================================================
