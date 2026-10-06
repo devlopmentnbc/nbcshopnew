@@ -244,6 +244,7 @@
             <a data-nav="add-product" href="{{ route('admin.products.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add New Product</a>
             <a data-nav="best-sellers" href="{{ route('admin.featured.best-sellers') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Best Sellers</a>
             <a data-nav="new-arrivals" href="{{ route('admin.featured.new-arrivals') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">New Arrivals</a>
+            <a data-nav="on-sale" href="{{ route('admin.featured.on-sale') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">On Sale</a>
           </div>
         </div>
       </div>
@@ -261,6 +262,7 @@
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
             <a data-nav="featured-best-sellers" href="{{ route('admin.featured.best-sellers') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Best Sellers (Max 6)</a>
             <a data-nav="featured-new-arrivals" href="{{ route('admin.featured.new-arrivals') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">New Arrivals (Max 6)</a>
+            <a data-nav="featured-on-sale" href="{{ route('admin.featured.on-sale') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">On Sale (Max 4)</a>
           </div>
         </div>
       </div>

@@ -50,6 +50,14 @@ class HomeController extends Controller
                 ->get();
         }
 
+        // Selected in Admin > Featured > On Sale (max 4).
+        $saleProducts = Product::with(['brand', 'category', 'attributeValues'])
+            ->where('status', true)
+            ->where('is_on_sale', true)
+            ->latest()
+            ->take(4)
+            ->get();
+
         $featuredPromotion = null;
 
         if (Schema::hasTable('promotions')) {
@@ -73,6 +81,7 @@ class HomeController extends Controller
             'banners' => $banners,
             'bestSellers' => $bestSellers,
             'newArrivals' => $newArrivals,
+            'saleProducts' => $saleProducts,
             'featuredPromotion' => $featuredPromotion,
             'featuredPromotionUrl' => $featuredPromotion
                 ? $this->promotionUrl($featuredPromotion)

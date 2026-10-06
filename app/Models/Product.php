@@ -30,6 +30,7 @@ class Product extends Model
         'status',
         'is_best_seller',
         'is_new_arrival',
+        'is_on_sale',
     ];
 
     protected function casts(): array
@@ -38,6 +39,7 @@ class Product extends Model
             'status' => 'boolean',
             'is_best_seller' => 'boolean',
             'is_new_arrival' => 'boolean',
+            'is_on_sale' => 'boolean',
             'weight_grams' => 'integer',
             'usd_offer_price' => 'decimal:2',
         ];

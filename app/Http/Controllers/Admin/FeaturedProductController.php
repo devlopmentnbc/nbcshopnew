@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class FeaturedProductController extends Controller
 {
+    private const MAX_ON_SALE = 4;
+
     /**
      * Display Best Sellers product management page.
      */
@@ -116,5 +118,60 @@ class FeaturedProductController extends Controller
         $product->update(['is_new_arrival' => false]);
 
         return redirect()->back()->with('success', 'Product removed from New Arrivals successfully.');
+    }
+
+    /**
+     * Display the home page "On Sale" product management page.
+     */
+    public function onSale()
+    {
+        $onSaleProducts = Product::with(['brand', 'category', 'attributeValues'])
+            ->where('is_on_sale', true)
+            ->latest()
+            ->get();
+
+        $availableProducts = Product::with(['brand', 'category'])
+            ->where('is_on_sale', false)
+            ->where('status', true)
+            ->orderBy('name')
+            ->get();
+
+        $maxProducts = self::MAX_ON_SALE;
+
+        return view('admin.featured.on_sale', compact('onSaleProducts', 'availableProducts', 'maxProducts'));
+    }
+
+    /**
+     * Add a product to the home page "On Sale" section.
+     */
+    public function addOnSale(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        if (Product::where('is_on_sale', true)->count() >= self::MAX_ON_SALE) {
+            return redirect()->back()->with('error', 'Maximum limit reached! You can only add up to '.self::MAX_ON_SALE.' products for On Sale.');
+        }
+
+        $product = Product::findOrFail($request->product_id);
+
+        if ($product->is_on_sale) {
+            return redirect()->back()->with('info', 'This product is already in On Sale.');
+        }
+
+        $product->update(['is_on_sale' => true]);
+
+        return redirect()->back()->with('success', 'Product successfully added to On Sale.');
+    }
+
+    /**
+     * Remove a product from the home page "On Sale" section.
+     */
+    public function removeOnSale(Product $product)
+    {
+        $product->update(['is_on_sale' => false]);
+
+        return redirect()->back()->with('success', 'Product removed from On Sale successfully.');
     }
 }

@@ -2863,51 +2863,6 @@
 
 
 
-        @php
-            $saleProducts = [
-                [
-                    'name' => 'Niacinamide Face Serum',
-                    'brand' => "Nature's Secret",
-                    'brand_slug' => 'natures-secret',
-                    'image' => 'assets/images/nbc/Niacinamide.png',
-                    'original_price' => 'Rs. 2,750.00',
-                    'sale_price' => 'Rs. 2,450.00',
-                    'discount' => 11,
-                    'reviews' => 25,
-                ],
-                [
-                    'name' => 'Sakura Body Wash',
-                    'brand' => 'Misumi',
-                    'brand_slug' => 'misumi',
-                    'image' => 'assets/images/nbc/Misumi/Sakura Body Wash.png',
-                    'original_price' => 'Rs. 1,290.00',
-                    'sale_price' => 'Rs. 990.00',
-                    'discount' => 23,
-                    'reviews' => 18,
-                ],
-                [
-                    'name' => 'Perfume Shampoo',
-                    'brand' => "Nature's Secret",
-                    'brand_slug' => 'natures-secret',
-                    'image' => "assets/images/nbc/Nature's Secret/Perfume-Shampoo.png",
-                    'original_price' => 'Rs. 1,450.00',
-                    'sale_price' => 'Rs. 1,190.00',
-                    'discount' => 18,
-                    'reviews' => 21,
-                ],
-                [
-                    'name' => 'Champion Herbal Fresh Soap',
-                    'brand' => 'Champion',
-                    'brand_slug' => 'champion',
-                    'image' => 'assets/images/nbc/Champion/Herbal Fresh Soap.png',
-                    'original_price' => 'Rs. 320.00',
-                    'sale_price' => 'Rs. 275.00',
-                    'discount' => 14,
-                    'reviews' => 32,
-                ],
-            ];
-        @endphp
-
         <!-- Start New Arrivals Area -->
         <div class="rbt-component-area rbt-products-area nbc-product-section mb--60">
             <div class="rbt-fullwidth-wrapper">
@@ -3069,6 +3024,7 @@
         <!-- End Component Area -->
         @endif
 
+        @if ($saleProducts->isNotEmpty())
         <!-- Start On Sale Products Area -->
         <div class="rbt-component-area rbt-products-area nbc-product-section nbc-sale-section rbt-section-gap2Bottom">
             <div class="rbt-fullwidth-wrapper">
@@ -3118,6 +3074,7 @@
             </div>
         </div>
         <!-- End On Sale Products Area -->
+        @endif
 
         @include('partials.home-story-section', ['number' => 1, 'story' => $storySections[1]])
 

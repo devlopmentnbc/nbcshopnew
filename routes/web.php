@@ -153,4 +153,8 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::get('featured/new-arrivals', [FeaturedProductController::class, 'newArrivals'])->name('featured.new-arrivals');
     Route::post('featured/new-arrivals/add', [FeaturedProductController::class, 'addNewArrival'])->name('featured.new-arrivals.add');
     Route::delete('featured/new-arrivals/{product}', [FeaturedProductController::class, 'removeNewArrival'])->name('featured.new-arrivals.remove');
+
+    Route::get('featured/on-sale', [FeaturedProductController::class, 'onSale'])->name('featured.on-sale');
+    Route::post('featured/on-sale/add', [FeaturedProductController::class, 'addOnSale'])->name('featured.on-sale.add');
+    Route::delete('featured/on-sale/{product}', [FeaturedProductController::class, 'removeOnSale'])->name('featured.on-sale.remove');
 });
