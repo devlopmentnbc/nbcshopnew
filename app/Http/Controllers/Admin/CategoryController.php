@@ -81,7 +81,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        $subCategories = $category->subCategories()
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get(['id', 'name', 'status']);
+
+        return view('admin.categories.edit', compact('category', 'subCategories'));
     }
 
     /**

@@ -897,6 +897,19 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     transform: scale(1.025);
 }
 
+.nbc-story-video > video {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.nbc-story-video iframe,
+.nbc-story-video video[controls] {
+    background: #000;
+    object-fit: contain;
+}
+
 .nbc-story-video iframe {
     border: 0;
     display: block;

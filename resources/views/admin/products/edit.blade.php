@@ -250,7 +250,7 @@
 
                     <!-- Category -->
                     <div>
-                        <label for="category_id" class="block text-[14px] font-semibold text-ink-900 mb-2">Category <span class="text-danger-500">*</span></label>
+                        <label for="category_id" class="block text-[14px] font-semibold text-ink-900 mb-2">Main Category <span class="text-danger-500">*</span></label>
                         <select name="category_id" id="category_id" required class="h-11 w-full rounded-base border border-surface-line bg-surface-body px-4 text-[14px] text-ink-900 focus:border-brand-600 focus:outline-none @error('category_id') border-danger-500 @enderror">
                             <option value="">Select Category</option>
                             @foreach ($categories as $cat)
@@ -271,6 +271,8 @@
                             @endforeach
                         </select>
                     </div>
+
+                    @include('admin.products.partials.additional-categories')
 
                     <!-- Status -->
                     <div class="flex items-center gap-3 pt-2">

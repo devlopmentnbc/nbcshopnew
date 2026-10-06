@@ -26,17 +26,13 @@ class ShopController extends Controller
         // Filter by Category
         if ($request->filled('category')) {
             $catSlug = $request->input('category');
-            $query->whereHas('category', function ($q) use ($catSlug) {
-                $q->where('slug', $catSlug)->orWhere('id', $catSlug);
-            });
+            $query->inCategory(Category::where('slug', $catSlug)->orWhere('id', $catSlug)->pluck('id'));
         }
 
         // Filter by SubCategory
         if ($request->filled('sub_category')) {
             $subSlug = $request->input('sub_category');
-            $query->whereHas('subCategory', function ($q) use ($subSlug) {
-                $q->where('slug', $subSlug)->orWhere('id', $subSlug);
-            });
+            $query->inSubCategory(SubCategory::where('slug', $subSlug)->orWhere('id', $subSlug)->pluck('id'));
         }
 
         // Filter by Search Query
@@ -64,9 +60,10 @@ class ShopController extends Controller
             $q->where('status', true);
         }])->get();
 
-        $categories = Category::withCount(['products' => function($q) {
-            $q->where('status', true);
-        }])->get();
+        // Count products listed under each category, whether as main or additional category.
+        $categories = Category::get()->each(function ($category) {
+            $category->products_count = Product::where('status', true)->inCategory($category->id)->count();
+        });
 
         return view('shop', compact('products', 'brands', 'categories'));
     }
@@ -86,14 +83,18 @@ class ShopController extends Controller
             ]);
         }
 
-        $products = Product::with(['category', 'brand', 'attributeValues'])
-            ->where('status', true)
+        $matches = Product::where('status', true)
             ->where(function ($q) use ($queryStr) {
                 $q->where('name', 'like', "%{$queryStr}%")
                   ->orWhere('description', 'like', "%{$queryStr}%")
                   ->orWhere('sku', 'like', "%{$queryStr}%");
-            })
-            ->take(8)
+            });
+
+        $total = (clone $matches)->count();
+
+        // The popup scrolls, so show a generous batch; anything beyond it is reachable via "View all".
+        $products = $matches->with(['category', 'brand', 'attributeValues'])
+            ->take(30)
             ->get();
 
         $results = $products->map(function ($product) {
@@ -116,8 +117,9 @@ class ShopController extends Controller
         return response()->json([
             'status' => 'success',
             'query' => $queryStr,
-            'count' => $results->count(),
+            'count' => $total,
             'products' => $results,
+            'view_all_url' => route('shop', ['search' => $queryStr]),
         ]);
     }
 }

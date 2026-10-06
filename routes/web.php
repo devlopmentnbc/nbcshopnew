@@ -81,6 +81,7 @@ Route::post('/admin/login', [AdminAuthController::class, 'adminLogin'])->name('a
 Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name('admin.logout');
 
 use App\Http\Controllers\Admin\ShippingSettingController;
+use App\Http\Controllers\Admin\HomeStorySettingController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ReportController;
@@ -99,6 +100,7 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::resource('banners', BannerController::class);
     Route::post('categories/reorder', [CategoryController::class, 'reorder'])->name('categories.reorder');
     Route::resource('categories', CategoryController::class);
+    Route::post('sub-categories/reorder', [SubCategoryController::class, 'reorder'])->name('sub-categories.reorder');
     Route::resource('sub-categories', SubCategoryController::class);
     Route::resource('attributes', AttributeController::class);
     Route::resource('products', ProductController::class);
@@ -136,6 +138,12 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     // Shipping Settings (Sri Lanka domestic rate & free shipping threshold & Citypak)
     Route::get('settings/shipping', [ShippingSettingController::class, 'index'])->name('settings.shipping.index');
     Route::post('settings/shipping', [ShippingSettingController::class, 'update'])->name('settings.shipping.update');
+
+    // Home page "Award-Winning, World-Class" story sections
+    Route::get('settings/home-story', [HomeStorySettingController::class, 'index'])->name('settings.home-story.index');
+    Route::post('settings/home-story/{section}', [HomeStorySettingController::class, 'update'])
+        ->whereNumber('section')
+        ->name('settings.home-story.update');
 
     // Featured Products (Best Sellers & New Arrivals)
     Route::get('featured/best-sellers', [FeaturedProductController::class, 'bestSellers'])->name('featured.best-sellers');

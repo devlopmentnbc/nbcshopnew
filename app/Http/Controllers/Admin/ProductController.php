@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::with(['brand', 'category', 'subCategory', 'attributeValues.attribute', 'images']);
+        $query = Product::with(['brand', 'category', 'subCategory', 'additionalCategories.category', 'additionalCategories.subCategory', 'attributeValues.attribute', 'images']);
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -33,7 +33,7 @@ class ProductController extends Controller
         }
 
         if ($request->filled('category_id')) {
-            $query->where('category_id', $request->input('category_id'));
+            $query->inCategory($request->input('category_id'));
         }
 
         if ($request->filled('brand_id')) {
@@ -82,6 +82,9 @@ class ProductController extends Controller
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'nullable|exists:sub_categories,id',
+            'extra_categories' => 'nullable|array',
+            'extra_categories.*.category_id' => 'nullable|exists:categories,id',
+            'extra_categories.*.sub_category_id' => 'nullable|exists:sub_categories,id',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'how_to_use' => 'nullable|string',
@@ -147,6 +150,7 @@ class ProductController extends Controller
 
         $syncData = $this->processVariantsData($request, $product);
         $product->attributeValues()->sync($syncData);
+        $this->syncAdditionalCategories($request, $product);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully with gallery images and pricing.');
     }
@@ -156,7 +160,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->load(['attributeValues', 'images']);
+        $product->load(['attributeValues', 'images', 'additionalCategories']);
         $brands = Brand::where('status', true)->orderBy('name')->get();
         $categories = Category::where('status', true)->orderBy('name')->get();
         $subCategories = SubCategory::where('status', true)->orderBy('name')->get();
@@ -194,6 +198,9 @@ class ProductController extends Controller
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'nullable|exists:sub_categories,id',
+            'extra_categories' => 'nullable|array',
+            'extra_categories.*.category_id' => 'nullable|exists:categories,id',
+            'extra_categories.*.sub_category_id' => 'nullable|exists:sub_categories,id',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'how_to_use' => 'nullable|string',
@@ -263,8 +270,41 @@ class ProductController extends Controller
 
         $syncData = $this->processVariantsData($request, $product);
         $product->attributeValues()->sync($syncData);
+        $this->syncAdditionalCategories($request, $product);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+    }
+
+    /**
+     * Replace the product's additional category placements with the submitted rows.
+     * Rows without a category, duplicates, and the main category placement are skipped.
+     */
+    private function syncAdditionalCategories(Request $request, Product $product): void
+    {
+        $subCategoryParents = SubCategory::pluck('category_id', 'id');
+        $mainKey = $product->category_id.'-'.($product->sub_category_id ?? '');
+
+        $rows = collect($request->input('extra_categories', []))
+            ->filter(fn ($row) => ! empty($row['category_id']))
+            ->map(function ($row) use ($subCategoryParents) {
+                $subCategoryId = $row['sub_category_id'] ?? null;
+
+                // Ignore a sub-category that doesn't belong to the chosen category.
+                if ($subCategoryId && (int) ($subCategoryParents[$subCategoryId] ?? 0) !== (int) $row['category_id']) {
+                    $subCategoryId = null;
+                }
+
+                return [
+                    'category_id' => (int) $row['category_id'],
+                    'sub_category_id' => $subCategoryId ? (int) $subCategoryId : null,
+                ];
+            })
+            ->unique(fn ($row) => $row['category_id'].'-'.($row['sub_category_id'] ?? ''))
+            ->reject(fn ($row) => $row['category_id'].'-'.($row['sub_category_id'] ?? '') === $mainKey)
+            ->values();
+
+        $product->additionalCategories()->delete();
+        $product->additionalCategories()->createMany($rows->all());
     }
 
     /**

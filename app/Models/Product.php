@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -69,6 +70,51 @@ class Product extends Model
     public function subCategory(): BelongsTo
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
+    }
+
+    /**
+     * Extra categories the product is also listed under, besides its main category.
+     */
+    public function additionalCategories(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class);
+    }
+
+    /**
+     * Products listed under any of the given categories, as main or additional category.
+     */
+    public function scopeInCategory(Builder $query, $categoryIds): Builder
+    {
+        $categoryIds = collect($categoryIds)->all();
+
+        return $query->where(fn ($q) => $q
+            ->whereIn('category_id', $categoryIds)
+            ->orWhereHas('additionalCategories', fn ($p) => $p->whereIn('category_id', $categoryIds)));
+    }
+
+    /**
+     * Products listed under any of the given sub-categories, as main or additional placement.
+     */
+    public function scopeInSubCategory(Builder $query, $subCategoryIds): Builder
+    {
+        $subCategoryIds = collect($subCategoryIds)->all();
+
+        return $query->where(fn ($q) => $q
+            ->whereIn('sub_category_id', $subCategoryIds)
+            ->orWhereHas('additionalCategories', fn ($p) => $p->whereIn('sub_category_id', $subCategoryIds)));
+    }
+
+    /**
+     * IDs of every category the product is listed under (main first).
+     */
+    public function allCategoryIds(): array
+    {
+        return collect([$this->category_id])
+            ->merge($this->additionalCategories()->pluck('category_id'))
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
     }
 
     public function images(): \Illuminate\Database\Eloquent\Relations\HasMany

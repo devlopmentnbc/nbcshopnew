@@ -43,9 +43,11 @@ class ProductDetailsController extends Controller
         $similarProducts = collect();
 
         if ($product) {
+            $categoryIds = $product->allCategoryIds();
+
             $similarProducts = Product::with(['brand', 'category', 'attributeValues'])
                 ->where('status', true)
-                ->where('category_id', $product->category_id)
+                ->inCategory($categoryIds)
                 ->when(
                     $product->brand_id,
                     fn ($query, $brandId) => $query->where('brand_id', $brandId),
@@ -59,7 +61,7 @@ class ProductDetailsController extends Controller
             if ($similarProducts->count() < 4) {
                 $fallbackProducts = Product::with(['brand', 'category', 'attributeValues'])
                     ->where('status', true)
-                    ->where('category_id', $product->category_id)
+                    ->inCategory($categoryIds)
                     ->whereKeyNot($product->getKey())
                     ->whereNotIn('id', $similarProducts->pluck('id'))
                     ->latest()

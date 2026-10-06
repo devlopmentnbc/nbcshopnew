@@ -3119,41 +3119,7 @@
         </div>
         <!-- End On Sale Products Area -->
 
-        <!-- Start NBC Factory Story Area -->
-        <section class="rbt-component-area nbc-story-section" aria-labelledby="nbc-story-image-title">
-            <div class="rbt-fullwidth-wrapper">
-                <div class="nbc-story-card">
-                    <div class="nbc-story-copy rbt-scroll-trigger fade_in animation-order-1">
-                        <span class="nbc-story-eyebrow">Nature's Beauty Creations Limited</span>
-                        <h2 id="nbc-story-image-title">
-                            An Award-Winning, World-Class,
-                            <em>Eco-friendly Factory</em>
-                        </h2>
-                        <p class="nbc-story-lead">
-                            We are honoured to be Sri Lanka’s most awarded, certified and environment-friendly cosmetics
-                            manufacturer
-                        </p>
-
-                        <a class="nbc-story-link" href="https://palegoldenrod-squirrel-304943.hostingersite.com/"
-                            target="_blank" rel="noopener">
-                            Read More Of Our Story
-                            <span class="nbc-story-link-icon" aria-hidden="true">
-                                <i class="fa-solid fa-arrow-up-right"></i>
-                            </span>
-                        </a>
-                    </div>
-
-                    <div class="nbc-story-media rbt-scroll-trigger fade_in animation-order-2">
-                        <div class="nbc-story-image">
-                            <img src="https://img.youtube.com/vi/TpYrcp4VdDs/maxresdefault.jpg"
-                                alt="A glimpse inside Nature's Beauty Creations" loading="lazy">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        <!-- End NBC Factory Story Area -->
+        @include('partials.home-story-section', ['number' => 1, 'story' => $storySections[1]])
 
         <!-- Start Best Sellers Area -->
         <div class="rbt-component-area rbt-products-area nbc-product-section mb--60">
@@ -3450,62 +3416,7 @@
             });
         </script>
 
-        <!-- Start NBC Factory Story Area -->
-        <section class="rbt-component-area nbc-story-section" aria-labelledby="nbc-story-title">
-            <div class="rbt-fullwidth-wrapper">
-                <div class="nbc-story-card">
-                    <div class="nbc-story-copy rbt-scroll-trigger fade_in animation-order-1">
-                        <span class="nbc-story-eyebrow">Nature's Beauty Creations Limited</span>
-                        <h2 id="nbc-story-title">
-                            An Award-Winning, World-Class,
-                            <em>Eco-friendly Factory</em>
-                        </h2>
-                        <p class="nbc-story-lead">
-                            We are honoured to be Sri Lanka’s most awarded, certified and environment-friendly cosmetics
-                            manufacturer
-                        </p>
-
-                        <a class="nbc-story-link" href="https://palegoldenrod-squirrel-304943.hostingersite.com/"
-                            target="_blank" rel="noopener">
-                            Read More Of Our Story
-                            <span class="nbc-story-link-icon" aria-hidden="true">
-                                <i class="fa-solid fa-arrow-up-right"></i>
-                            </span>
-                        </a>
-                    </div>
-
-                    <div class="nbc-story-media rbt-scroll-trigger fade_in animation-order-2">
-                        <div class="nbc-story-video" data-nbc-story-video>
-                            <img src="https://img.youtube.com/vi/TpYrcp4VdDs/maxresdefault.jpg"
-                                alt="A glimpse inside Nature's Beauty Creations" loading="lazy">
-                            <button class="nbc-story-video-play" type="button"
-                                aria-label="Play the Nature's Beauty Creations story video">
-                                <i class="fa-solid fa-play" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const storyVideo = document.querySelector('[data-nbc-story-video]');
-                const playButton = storyVideo?.querySelector('.nbc-story-video-play');
-
-                playButton?.addEventListener('click', function() {
-                    const iframe = document.createElement('iframe');
-                    iframe.src =
-                        'https://www.youtube.com/embed/TpYrcp4VdDs?autoplay=1&controls=0&rel=0&modestbranding=1';
-                    iframe.title = "Sri Lanka's Greenest Cosmetics Manufacturer - Nature's Beauty Creations";
-                    iframe.allow =
-                        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-                    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-                    iframe.allowFullscreen = true;
-                    storyVideo.replaceChildren(iframe);
-                });
-            });
-        </script>
-        <!-- End NBC Factory Story Area -->
+        @include('partials.home-story-section', ['number' => 2, 'story' => $storySections[2]])
     </div>
 
 

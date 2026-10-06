@@ -88,9 +88,10 @@
                                 {{ $category->slug }}
                             </td>
                             <td class="py-4 pr-4">
-                                <span class="inline-flex items-center rounded-base bg-surface-muted px-2.5 py-1 text-[13px] font-semibold text-ink-700">
+                                <a href="{{ route('admin.categories.edit', $category->id) }}#sub-category-sortable" title="Arrange sub-category order"
+                                    class="inline-flex items-center rounded-base bg-surface-muted px-2.5 py-1 text-[13px] font-semibold text-ink-700 hover:bg-surface-line">
                                     {{ $category->sub_categories_count }} Sub-categories
-                                </span>
+                                </a>
                             </td>
                             <td class="py-4 pr-4">
                                 @if ($category->status)

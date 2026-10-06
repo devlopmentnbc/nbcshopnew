@@ -10,7 +10,8 @@
             ->with([
                 'subCategories' => fn ($query) => $query
                     ->where('status', true)
-                    ->orderBy('name')
+                    ->orderBy('sort_order')
+                    ->orderBy('id')
                     ->select(['id', 'category_id', 'name', 'slug']),
             ])
             ->orderBy('sort_order')

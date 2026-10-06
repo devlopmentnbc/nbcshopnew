@@ -80,6 +80,42 @@
             </div>
         </form>
     </div>
+
+    <!-- Sub-Category Order -->
+    <div class="mt-6 max-w-2xl rounded-card border border-surface-line bg-surface-card p-6 shadow-card">
+        <div class="mb-4">
+            <h2 class="text-[18px] font-semibold text-ink-900">Sub-Category Order</h2>
+            <p id="sub-category-order-status" class="mt-1 text-[13px] text-ink-500" aria-live="polite">
+                @if ($subCategories->isNotEmpty())
+                    Drag the handle to set the order shown under {{ $category->name }} in the storefront menu. Changes save automatically.
+                @else
+                    This category has no sub-categories yet.
+                @endif
+            </p>
+        </div>
+
+        @if ($subCategories->isNotEmpty())
+            <ul id="sub-category-sortable" class="divide-y divide-surface-line rounded-base border border-surface-line"
+                data-reorder-url="{{ route('admin.sub-categories.reorder') }}"
+                data-category-id="{{ $category->id }}"
+                data-csrf-token="{{ csrf_token() }}">
+                @foreach ($subCategories as $subCategory)
+                    <li class="flex items-center gap-3 px-3 py-2.5 bg-surface-card" data-sub-category-id="{{ $subCategory->id }}">
+                        <button type="button" draggable="true" data-drag-handle
+                            class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-400 hover:bg-surface-muted hover:text-ink-700"
+                            style="cursor: grab" aria-label="Drag {{ $subCategory->name }} to reorder"
+                            title="Drag to reorder">
+                            <i data-lucide="grip-vertical" class="h-4 w-4 pointer-events-none"></i>
+                        </button>
+                        <span class="flex-1 text-[14px] font-medium text-ink-900">{{ $subCategory->name }}</span>
+                        @unless ($subCategory->status)
+                            <span class="inline-flex items-center rounded-full bg-danger-50 px-2.5 py-0.5 text-[12px] font-semibold text-danger-500">Inactive</span>
+                        @endunless
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
 </main>
 
 <script>
@@ -100,4 +136,77 @@
         }
     });
 </script>
+
+@if ($subCategories->isNotEmpty())
+    {{-- Save the new sub-category order --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const list = document.getElementById('sub-category-sortable');
+            const status = document.getElementById('sub-category-order-status');
+            let draggedItem = null;
+            let originalOrder = [];
+
+            if (!list) return;
+
+            const currentOrder = () => Array.from(list.querySelectorAll('[data-sub-category-id]'))
+                .map(item => Number(item.dataset.subCategoryId));
+
+            list.addEventListener('dragstart', function(event) {
+                const handle = event.target.closest('[data-drag-handle]');
+                if (!handle) return;
+
+                draggedItem = handle.closest('[data-sub-category-id]');
+                originalOrder = currentOrder();
+                draggedItem.style.opacity = '0.45';
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', draggedItem.dataset.subCategoryId);
+            });
+
+            list.addEventListener('dragover', function(event) {
+                if (!draggedItem) return;
+
+                event.preventDefault();
+                const targetItem = event.target.closest('[data-sub-category-id]');
+                if (!targetItem || targetItem === draggedItem) return;
+
+                const bounds = targetItem.getBoundingClientRect();
+                const insertAfter = event.clientY > bounds.top + bounds.height / 2;
+                list.insertBefore(draggedItem, insertAfter ? targetItem.nextSibling : targetItem);
+            });
+
+            list.addEventListener('dragend', async function() {
+                if (!draggedItem) return;
+
+                draggedItem.style.opacity = '';
+                draggedItem = null;
+                const updatedOrder = currentOrder();
+
+                if (updatedOrder.join(',') === originalOrder.join(',')) return;
+
+                status.textContent = 'Saving sub-category order...';
+
+                try {
+                    const response = await fetch(list.dataset.reorderUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': list.dataset.csrfToken,
+                        },
+                        body: JSON.stringify({
+                            category_id: Number(list.dataset.categoryId),
+                            sub_categories: updatedOrder,
+                        }),
+                    });
+
+                    if (!response.ok) throw new Error('Unable to save sub-category order.');
+                    status.textContent = 'Sub-category order saved.';
+                } catch (error) {
+                    status.textContent = 'Could not save the order. Refreshing...';
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
+@endif
 @endsection

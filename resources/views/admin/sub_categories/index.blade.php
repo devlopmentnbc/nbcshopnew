@@ -8,7 +8,7 @@
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-[24px] font-semibold text-ink-900">Sub Categories</h1>
-            <p class="mt-1 text-[14px] text-ink-500">Manage sub-categories linked to parent categories.</p>
+            <p class="mt-1 text-[14px] text-ink-500">Manage sub-categories and drag them into the storefront menu order.</p>
         </div>
         <div>
             <a href="{{ route('admin.sub-categories.create') }}" class="inline-flex h-11 items-center gap-2 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-700">
@@ -46,6 +46,13 @@
                 </div>
                 <button type="submit" class="h-10 rounded-base bg-surface-muted px-4 text-[14px] font-semibold text-ink-700 hover:bg-surface-line">Filter</button>
             </form>
+            <p id="sub-category-order-status" class="text-[13px] text-ink-500" aria-live="polite">
+                @if ($canReorder)
+                    Drag the handle to change the display order.
+                @else
+                    Select a category (without a search) to change its sub-category order.
+                @endif
+            </p>
         </div>
 
         <!-- Table -->
@@ -54,6 +61,9 @@
                 <thead>
                     <tr class="border-b border-surface-line text-[13px] uppercase text-ink-400">
                         {{-- Image support is retained for future use. Change this condition to true to restore the column. --}}
+                        @if ($canReorder)
+                            <th class="pb-3 pr-4 font-semibold">Order</th>
+                        @endif
                         @if (false)
                             <th class="pb-3 pr-4 font-semibold">Image</th>
                         @endif
@@ -64,9 +74,25 @@
                         <th class="pb-3 pr-4 font-semibold text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-surface-line">
+                {{-- Drag rows to reorder sub-categories within the selected category. --}}
+                <tbody id="sub-category-sortable" class="divide-y divide-surface-line"
+                    @if ($canReorder)
+                        data-reorder-url="{{ route('admin.sub-categories.reorder') }}"
+                        data-category-id="{{ request('category_id') }}"
+                        data-csrf-token="{{ csrf_token() }}"
+                    @endif>
                     @forelse ($subCategories as $subCategory)
-                        <tr class="hover:bg-surface-body/70 transition-colors">
+                        <tr class="hover:bg-surface-body/70 transition-colors" data-sub-category-id="{{ $subCategory->id }}">
+                            @if ($canReorder)
+                                <td class="py-4 pr-4">
+                                    <button type="button" draggable="true" data-drag-handle
+                                        class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-400 hover:bg-surface-muted hover:text-ink-700"
+                                        style="cursor: grab" aria-label="Drag {{ $subCategory->name }} to reorder"
+                                        title="Drag to reorder">
+                                        <i data-lucide="grip-vertical" class="h-4 w-4 pointer-events-none"></i>
+                                    </button>
+                                </td>
+                            @endif
                             @if (false)
                                 <td class="py-4 pr-4">
                                     <img src="{{ asset($subCategory->image) }}" alt="{{ $subCategory->name }}" class="h-12 w-12 rounded-base bg-surface-body object-cover border border-surface-line">
@@ -112,7 +138,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="py-8 text-center text-ink-400">
+                            <td colspan="{{ $canReorder ? 6 : 5 }}" class="py-8 text-center text-ink-400">
                                 <i data-lucide="folder-open" class="mx-auto h-8 w-8 mb-2"></i>
                                 No sub categories found.
                             </td>
@@ -122,9 +148,84 @@
             </table>
         </div>
 
-        <div class="mt-6">
-            {{ $subCategories->links() }}
-        </div>
+        @unless ($canReorder)
+            <div class="mt-6">
+                {{ $subCategories->links() }}
+            </div>
+        @endunless
     </div>
 </main>
+
+@if ($canReorder)
+    {{-- Save the new sub-category order --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tbody = document.getElementById('sub-category-sortable');
+            const status = document.getElementById('sub-category-order-status');
+            let draggedRow = null;
+            let originalOrder = [];
+
+            if (!tbody) return;
+
+            const currentOrder = () => Array.from(tbody.querySelectorAll('[data-sub-category-id]'))
+                .map(row => Number(row.dataset.subCategoryId));
+
+            tbody.addEventListener('dragstart', function(event) {
+                const handle = event.target.closest('[data-drag-handle]');
+                if (!handle) return;
+
+                draggedRow = handle.closest('[data-sub-category-id]');
+                originalOrder = currentOrder();
+                draggedRow.style.opacity = '0.45';
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', draggedRow.dataset.subCategoryId);
+            });
+
+            tbody.addEventListener('dragover', function(event) {
+                if (!draggedRow) return;
+
+                event.preventDefault();
+                const targetRow = event.target.closest('[data-sub-category-id]');
+                if (!targetRow || targetRow === draggedRow) return;
+
+                const bounds = targetRow.getBoundingClientRect();
+                const insertAfter = event.clientY > bounds.top + bounds.height / 2;
+                tbody.insertBefore(draggedRow, insertAfter ? targetRow.nextSibling : targetRow);
+            });
+
+            tbody.addEventListener('dragend', async function() {
+                if (!draggedRow) return;
+
+                draggedRow.style.opacity = '';
+                draggedRow = null;
+                const updatedOrder = currentOrder();
+
+                if (updatedOrder.join(',') === originalOrder.join(',')) return;
+
+                status.textContent = 'Saving sub-category order...';
+
+                try {
+                    const response = await fetch(tbody.dataset.reorderUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': tbody.dataset.csrfToken,
+                        },
+                        body: JSON.stringify({
+                            category_id: Number(tbody.dataset.categoryId),
+                            sub_categories: updatedOrder,
+                        }),
+                    });
+
+                    if (!response.ok) throw new Error('Unable to save sub-category order.');
+                    status.textContent = 'Sub-category order saved.';
+                } catch (error) {
+                    status.textContent = 'Could not save the order. Refreshing the list...';
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
+@endif
 @endsection

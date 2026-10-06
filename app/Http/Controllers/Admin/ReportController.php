@@ -150,7 +150,7 @@ class ReportController extends Controller
             ->get()
             ->map(function ($cat) use ($startDate, $endDate) {
                 $items = OrderItem::whereHas('product', function ($p) use ($cat) {
-                    $p->where('category_id', $cat->id);
+                    $p->inCategory($cat->id);
                 })->whereHas('order', function ($q) use ($startDate, $endDate) {
                     $q->whereBetween('created_at', [$startDate, $endDate]);
                 });

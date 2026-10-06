@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Promotion;
+use App\Support\HomeStorySections;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
@@ -68,6 +69,7 @@ class HomeController extends Controller
             ->get();
 
         return view('home', [
+            'storySections' => HomeStorySections::forHome(),
             'banners' => $banners,
             'bestSellers' => $bestSellers,
             'newArrivals' => $newArrivals,

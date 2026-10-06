@@ -3143,7 +3143,7 @@
                         <span class="text-muted small fw-bold">SEARCH RESULTS</span>
                         <span class="badge bg-light text-dark nbc-live-search-count">0 found</span>
                     </div>
-                    <div class="nbc-live-search-results list-group shadow-sm rounded-12 overflow-hidden mb-3" style="max-height: 350px; overflow-y: auto;">
+                    <div class="nbc-live-search-results list-group shadow-sm rounded-12 mb-3" style="max-height: min(60vh, 480px); overflow-y: auto; overscroll-behavior: contain;">
                     </div>
                 </div>
 
@@ -5737,7 +5737,7 @@
                             <span class="text-muted small fw-bold">SEARCH RESULTS</span>
                             <span class="badge bg-light text-dark nbc-live-search-count">0 found</span>
                         </div>
-                        <div class="nbc-live-search-results list-group shadow-sm rounded-12 overflow-hidden mb-3" style="max-height: 350px; overflow-y: auto;">
+                        <div class="nbc-live-search-results list-group shadow-sm rounded-12 mb-3" style="max-height: min(60vh, 480px); overflow-y: auto; overscroll-behavior: contain;">
                         </div>
                     </div>
 
@@ -8124,7 +8124,14 @@
                                             </div>
                                         </a>`;
                                     });
+                                    if (data.count > products.length && data.view_all_url) {
+                                        html += `
+                                        <a href="${data.view_all_url}" class="list-group-item list-group-item-action text-center fw-bold small p-2">
+                                            View all ${data.count} results
+                                        </a>`;
+                                    }
                                     resultsDiv.innerHTML = html;
+                                    resultsDiv.scrollTop = 0;
                                     container.style.display = 'block';
                                 } else {
                                     resultsDiv.innerHTML = `

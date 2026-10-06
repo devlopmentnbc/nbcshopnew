@@ -96,6 +96,14 @@
                                             &rsaquo; <span class="text-brand-600 font-medium">{{ $product->subCategory->name }}</span>
                                         @endif
                                     </p>
+                                    @foreach ($product->additionalCategories as $placement)
+                                        <p class="text-ink-400">
+                                            + {{ $placement->category?->name }}
+                                            @if ($placement->subCategory)
+                                                &rsaquo; <span class="text-brand-600 font-medium">{{ $placement->subCategory->name }}</span>
+                                            @endif
+                                        </p>
+                                    @endforeach
                                 </div>
                             </td>
                             <td class="py-4 pr-4">
