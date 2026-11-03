@@ -741,14 +741,12 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     flex-direction: column;
 }
 .nbc-story-section {
-    background: linear-gradient(
-        180deg,
-        var(--white-color) 0%,
-        var(--white-color) 18%,
-        #fbfcf7 58%,
-        #f7f9f2 100%
-    );
+    background: var(--white-color);
+    isolation: isolate;
+    overflow: clip;
     padding: 40px 0;
+    position: relative;
+    z-index: 1;
 }
 
 .nbc-story-card {
@@ -763,6 +761,11 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     margin: 0 auto;
     max-width: 1480px;
     padding: 40px;
+}
+
+.nbc-story-section--sale-width .nbc-story-card {
+    max-width: none;
+    width: 100%;
 }
 
 .nbc-story-card + .nbc-story-card {
@@ -1565,6 +1568,7 @@ body::-webkit-scrollbar-button:vertical:end:increment {
     margin-left: 0 !important;
     margin-right: 0 !important;
     overflow: hidden;
+    padding: 3px 2px 6px;
     position: relative;
     width: 100%;
 }
