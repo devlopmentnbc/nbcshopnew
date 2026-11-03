@@ -160,7 +160,7 @@
                     </div>
 
                     <!-- Products Grid -->
-                    <div class="row row--15 g-3">
+                    <div class="row row--15 g-3 nbc-shop-product-grid">
                         @forelse($products as $product)
                             <x-nbc-product-card :product="$product" :animation-order="$loop->iteration" />
                         @empty
