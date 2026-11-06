@@ -483,6 +483,7 @@
           <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
             <a data-nav="shipping-settings" href="{{ route('admin.settings.shipping.index') }}" class="block rounded-base px-2 py-2 {{ request()->routeIs('admin.settings.shipping.*') ? 'font-bold text-brand-600 bg-brand-50' : 'text-ink-500 hover:bg-surface-muted hover:text-ink-900' }} transition-colors">Shipping & Payment Limits</a>
             <a data-nav="home-story-settings" href="{{ route('admin.settings.home-story.index') }}" class="block rounded-base px-2 py-2 {{ request()->routeIs('admin.settings.home-story.*') ? 'font-bold text-brand-600 bg-brand-50' : 'text-ink-500 hover:bg-surface-muted hover:text-ink-900' }} transition-colors">Home Story Sections</a>
+            <a data-nav="home-brands-settings" href="{{ route('admin.settings.home-brands.index') }}" class="block rounded-base px-2 py-2 {{ request()->routeIs('admin.settings.home-brands.*') ? 'font-bold text-brand-600 bg-brand-50' : 'text-ink-500 hover:bg-surface-muted hover:text-ink-900' }} transition-colors">Brands Section Background</a>
           </div>
         </div>
       </div>

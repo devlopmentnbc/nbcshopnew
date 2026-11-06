@@ -139,7 +139,8 @@
         <div class="rbt-component-area rbt-brands-area rbt-bg-color-white rbt-section-gap2 nbc-brand-section">
             <div class="rbt-fullwidth-wrapper">
                 <div
-                    class="rbt-gray-contain-box rbt-gray-contain-box-style-one has-bg-image has-bg-image-01 pt--80 pb--80">
+                    class="rbt-gray-contain-box rbt-gray-contain-box-style-one has-bg-image has-bg-image-01 pt--80 pb--80"
+                    @if (!empty($brandsBackgroundUrl)) style="background-image: url('{{ $brandsBackgroundUrl }}');" @endif>
                     <div class="container">
 
                         <div class="row">

@@ -87,6 +87,7 @@ class HomeController extends Controller
                 ? $this->promotionUrl($featuredPromotion)
                 : route('shop'),
             'brands' => $brands,
+            'brandsBackgroundUrl' => \App\Http\Controllers\Admin\HomeBrandsSettingController::backgroundUrl(),
             'categories' => $categories,
         ]);
     }

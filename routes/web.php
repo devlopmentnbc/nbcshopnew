@@ -82,6 +82,7 @@ Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name(
 
 use App\Http\Controllers\Admin\ShippingSettingController;
 use App\Http\Controllers\Admin\HomeStorySettingController;
+use App\Http\Controllers\Admin\HomeBrandsSettingController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ReportController;
@@ -144,6 +145,10 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::post('settings/home-story/{section}', [HomeStorySettingController::class, 'update'])
         ->whereNumber('section')
         ->name('settings.home-story.update');
+
+    // Home page "Our trusted Brands" section background image
+    Route::get('settings/home-brands', [HomeBrandsSettingController::class, 'index'])->name('settings.home-brands.index');
+    Route::post('settings/home-brands', [HomeBrandsSettingController::class, 'update'])->name('settings.home-brands.update');
 
     // Featured Products (Best Sellers & New Arrivals)
     Route::get('featured/best-sellers', [FeaturedProductController::class, 'bestSellers'])->name('featured.best-sellers');
