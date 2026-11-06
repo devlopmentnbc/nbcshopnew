@@ -36,7 +36,7 @@ class HomeStorySections
             'title_highlight' => 'Eco-friendly Factory',
             'description' => "We are honoured to be Sri Lanka's most awarded, certified and environment-friendly cosmetics manufacturer",
             'button_text' => 'Read More Of Our Story',
-            'button_url' => 'https://palegoldenrod-squirrel-304943.hostingersite.com/',
+            'button_url' => 'https://testshop.nbccloud.lk/',
             'button_new_tab' => true,
             'media_type' => $section === 2 ? 'youtube' : 'image',
             'image' => 'https://img.youtube.com/vi/TpYrcp4VdDs/maxresdefault.jpg',

@@ -30,10 +30,10 @@
             <div class="nbc-footer__column">
                 <section class="nbc-footer__group">
                     <h2>Partnership Opportunities</h2>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/export">Overseas Distributorship</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/private-label">Private Label</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/hotel-amenities">Hotel Amenities</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/vouchers">Vouchers</a>
+                    <a href="https://testshop.nbccloud.lk/export">Overseas Distributorship</a>
+                    <a href="https://testshop.nbccloud.lk/private-label">Private Label</a>
+                    <a href="https://testshop.nbccloud.lk/hotel-amenities">Hotel Amenities</a>
+                    <a href="https://testshop.nbccloud.lk/vouchers">Vouchers</a>
                 </section>
                 <section class="nbc-footer__group">
                     <h2>Showrooms</h2>
@@ -63,11 +63,11 @@
                 </section>
                 <section class="nbc-footer__group nbc-footer__information">
                     <h2>Information</h2>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/contact">Contact Us</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/about/careers">Careers</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/delivery">Delivery</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/copyright-legal">Copyright, Legal</a>
-                    <a href="https://palegoldenrod-squirrel-304943.hostingersite.com/privacy-policies">Privacy Policies</a>
+                    <a href="https://testshop.nbccloud.lk/contact">Contact Us</a>
+                    <a href="https://testshop.nbccloud.lk/about/careers">Careers</a>
+                    <a href="https://testshop.nbccloud.lk/delivery">Delivery</a>
+                    <a href="https://testshop.nbccloud.lk/copyright-legal">Copyright, Legal</a>
+                    <a href="https://testshop.nbccloud.lk/privacy-policies">Privacy Policies</a>
                 </section>
             </div>
         </div>
