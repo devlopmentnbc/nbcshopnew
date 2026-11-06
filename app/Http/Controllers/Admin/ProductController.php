@@ -111,7 +111,7 @@ class ProductController extends Controller
             $imagePath = 'uploads/products/' . $filename;
         }
 
-        $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
+        $slug = $this->uniqueSlug($request->filled('slug') ? $request->slug : $request->name);
 
         $product = Product::create([
             'brand_id' => $request->brand_id,
@@ -231,7 +231,7 @@ class ProductController extends Controller
             $imagePath = 'uploads/products/' . $filename;
         }
 
-        $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
+        $slug = $this->uniqueSlug($request->filled('slug') ? $request->slug : $request->name, $product->id);
 
         $product->update([
             'brand_id' => $request->brand_id,
@@ -442,5 +442,23 @@ class ProductController extends Controller
             ->get(['id', 'name']);
 
         return response()->json($subCategories);
+    }
+
+    /**
+     * Slugify the value and append -2, -3, ... if another product already uses it.
+     */
+    private function uniqueSlug(string $value, ?int $ignoreId = null): string
+    {
+        $base = Str::slug($value) ?: 'product';
+        $slug = $base;
+        $suffix = 2;
+
+        while (Product::where('slug', $slug)
+            ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
+            ->exists()) {
+            $slug = $base . '-' . $suffix++;
+        }
+
+        return $slug;
     }
 }
