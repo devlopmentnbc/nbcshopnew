@@ -731,7 +731,7 @@
                                     class="rbt-bold--text">daily care ritual</span></h2>
                         </div>
                         <a class="rbt-btn rbt-btn-secondary rbt-btn-sm-2 rbt-scroll-trigger fade_in animation-order-2"
-                            href="categories-list.html">
+                            href="{{ route('categories') }}">
                             <span class="btn-text">View All Categories</span>
                             <span class="btn-icon ml--4"><i
                                     class="fa-sharp fa-solid fa-arrow-up-right-from-square"></i></span>

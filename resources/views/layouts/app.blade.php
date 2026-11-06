@@ -157,7 +157,7 @@
                                     </div>
                                 </div>
                                 <div class="header-info p-0 d-none rbt-category-update rbt-category-update-var-modern">
-                                    <a class="rbt-btn-transparent has-bg-shape-hover" href="shop-by-categories.html">
+                                    <a class="rbt-btn-transparent has-bg-shape-hover" href="{{ route('categories') }}">
                                         <i class="fa-solid fa-bars"></i>
                                         <span>Shop by Categories</span>
                                     </a>

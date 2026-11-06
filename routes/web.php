@@ -17,6 +17,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Models\Banner;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CategoryListController;
 use App\Http\Controllers\ProductDetailsController;
 use App\Http\Controllers\ProductReviewController;
 
@@ -24,6 +25,7 @@ use App\Http\Controllers\ProductReviewController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/categories', [CategoryListController::class, 'index'])->name('categories');
 Route::get('/search/live', [ShopController::class, 'liveSearch'])->name('search.live');
 
 
