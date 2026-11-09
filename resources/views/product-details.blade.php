@@ -1693,7 +1693,7 @@
                                         <article class="nbc-product-review">
                                             <div class="nbc-product-review__heading">
                                                 <div>
-                                                    <strong>{{ $review->user?->name ?? 'NBC customer' }}</strong>
+                                                    <strong>{{ $review->display_name }}</strong>
                                                     <span>{{ $review->created_at->format('d M Y') }}</span>
                                                 </div>
                                                 <span aria-label="{{ $review->rating }} out of 5 stars">

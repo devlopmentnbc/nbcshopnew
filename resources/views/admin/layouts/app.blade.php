@@ -355,6 +355,23 @@
       </div>
     </div>
 
+    <!-- Reviews -->
+    <div data-nav-group="" data-open="{{ request()->routeIs('admin.reviews.*') ? 'true' : 'false' }}">
+      <button type="button" data-nav-trigger="" title="Reviews" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="{{ request()->routeIs('admin.reviews.*') ? 'true' : 'false' }}">
+        <i data-lucide="star" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
+        <span class="nav-text flex-1 text-left">Reviews</span>
+        <i data-lucide="chevron-right" data-nav-chevron="" class="nav-text h-4 w-4 shrink-0 text-ink-400 transition-transform duration-300"></i>
+      </button>
+      <div data-nav-submenu="" class="nav-text grid {{ request()->routeIs('admin.reviews.*') ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }} transition-all duration-300 ease-in-out">
+        <div class="overflow-hidden">
+          <div class="mt-0.5 space-y-0.5 pl-9 text-[13px]">
+            <a data-nav="reviews" href="{{ route('admin.reviews.index') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Review List</a>
+            <a data-nav="add-review" href="{{ route('admin.reviews.create') }}" class="block rounded-base px-2 py-2 text-ink-500 transition-colors hover:bg-surface-muted hover:text-ink-900">Add Manual Review</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Users -->
     <div data-nav-group="" data-open="false">
       <button type="button" data-nav-trigger="" title="Users" class="sidebar-link flex w-full items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted" aria-expanded="false">

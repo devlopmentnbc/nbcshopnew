@@ -10,6 +10,7 @@ class Review extends Model
     protected $fillable = [
         'product_id',
         'user_id',
+        'reviewer_name',
         'rating',
         'title',
         'comment',
@@ -28,5 +29,18 @@ class Review extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Name shown publicly: the manual reviewer name, else the account name.
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->reviewer_name ?: ($this->user?->name ?? 'NBC customer');
+    }
+
+    public function isManual(): bool
+    {
+        return $this->user_id === null;
     }
 }

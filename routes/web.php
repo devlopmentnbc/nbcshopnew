@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\FeaturedProductController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Banner;
 use App\Http\Controllers\WishlistController;
@@ -108,6 +109,7 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::resource('attributes', AttributeController::class);
     Route::resource('products', ProductController::class);
     Route::resource('promotions', PromotionController::class)->except('show');
+    Route::resource('reviews', AdminReviewController::class)->except('show');
     Route::get('categories/{category}/sub-categories', [ProductController::class, 'getSubCategories'])->name('categories.sub-categories');
     Route::delete('product-images/{image}', [ProductController::class, 'destroyGalleryImage'])->name('products.gallery.destroy');
     Route::get('products/{product}/variants', [ProductController::class, 'manageVariants'])->name('products.variants.manage');
