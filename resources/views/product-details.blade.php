@@ -306,7 +306,7 @@
                         <h2 class="rbt-card-title mt--12">{{ isset($product) ? $product->name : 'Product Name' }}
                         </h2>
                         <p class="description-text b2 mt--16 nbc-summary-description">
-                            {{ isset($product) && $product->short_description ? $product->short_description : 'No description available.' }}
+                            {!! isset($product) && $product->short_description ? nl2br(e($product->short_description)) : 'No description available.' !!}
                         </p>
                         @php
                             $summaryDefaultVariant = isset($product) ? $product->defaultAttributeValue() : null;
@@ -1155,7 +1155,7 @@
                                 aria-labelledby="rbt-description-tab">
                                 <div class="rbt-product-single-description">
                                     <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
-                                        {!! filled($product?->description) ? $product->description : '<p>Description is not available for this product.</p>' !!}
+                                        {!! filled($product?->description) ? \App\Support\ProductText::format($product->description) : '<p>Description is not available for this product.</p>' !!}
                                     </div>
                                     <!-- <p class="rbt-block-desc b1 mb--0 mt--12">Quisque varius diam vel metus mattis, id aliquam diam rhoncus.
                         Proin vitae
@@ -1256,7 +1256,7 @@
                                 aria-labelledby="rbt-specification-tab">
                                 <div class="rbt-product-single-description">
                                     <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
-                                        {!! filled($product?->how_to_use) ? $product->how_to_use : '<p>Usage instructions are not available for this product.</p>' !!}
+                                        {!! filled($product?->how_to_use) ? \App\Support\ProductText::format($product->how_to_use) : '<p>Usage instructions are not available for this product.</p>' !!}
                                     </div>
                                 </div>
                                 <!-- <div class="rbt-prd-single-specification-info">
@@ -1331,7 +1331,7 @@
                                 <div class="rbt-product-single-reviews-area">
                                     <div class="rbt-product-single-description">
                                         <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
-                                            {!! filled($product?->ingredients) ? $product->ingredients : '<p>Ingredient information is not available for this product.</p>' !!}
+                                            {!! filled($product?->ingredients) ? \App\Support\ProductText::format($product->ingredients) : '<p>Ingredient information is not available for this product.</p>' !!}
                                         </div>
                                     </div>
                                     <!-- <div class="rbt-review-statistics-section">

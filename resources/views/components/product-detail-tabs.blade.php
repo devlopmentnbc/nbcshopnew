@@ -3,7 +3,7 @@
         aria-labelledby="rbt-description-tab">
         <div class="rbt-product-single-description">
             <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
-                {!! filled($product?->description) ? $product->description : '<p>Description is not available for this product.</p>' !!}
+                {!! filled($product?->description) ? \App\Support\ProductText::format($product->description) : '<p>Description is not available for this product.</p>' !!}
             </div>
         </div>
     </div>
@@ -12,7 +12,7 @@
         aria-labelledby="rbt-specification-tab">
         <div class="rbt-product-single-description">
             <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
-                {!! filled($product?->how_to_use) ? $product->how_to_use : '<p>Usage instructions are not available for this product.</p>' !!}
+                {!! filled($product?->how_to_use) ? \App\Support\ProductText::format($product->how_to_use) : '<p>Usage instructions are not available for this product.</p>' !!}
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
         aria-labelledby="rbt-reviews-tab">
         <div class="rbt-product-single-description">
             <div class="rbt-block-desc b1 mb--0 nbc-product-tab-content">
-                {!! filled($product?->ingredients) ? $product->ingredients : '<p>Ingredient information is not available for this product.</p>' !!}
+                {!! filled($product?->ingredients) ? \App\Support\ProductText::format($product->ingredients) : '<p>Ingredient information is not available for this product.</p>' !!}
             </div>
         </div>
     </div>
