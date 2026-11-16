@@ -4283,10 +4283,6 @@ body {
     order: 9;
 }
 
-.nbc-product-summary-column .rbt-quick-link-grp .rbt-quick-link:first-child {
-    display: none;
-}
-
 .nbc-product-summary-column .rbt-quick-link-grp .rbt-quick-link {
     margin-right: 24px;
 }

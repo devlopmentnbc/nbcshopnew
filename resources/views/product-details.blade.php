@@ -732,9 +732,9 @@
                                     </div>
                                 </div> --}}
                         </div>
-                        <!-- <hr class="rbt-separator rbt-separator-gray200 mt--24 mb--24">
     {{-- SEO: commented-out template demo with placeholder links; not rendered. --}}
     @if (false)
+                        <!-- <hr class="rbt-separator rbt-separator-gray200 mt--24 mb--24">
                             <div class="rbt-info-wrapper d-block mt--24">
                                 <div class="rbt-info-box rbt-bg-color-brand-50">
                                     <p class="text-bold rbt-info-title b1">Alternative For This Product</p>
@@ -936,8 +936,8 @@
                                 </div>
                             </div>
                         -->
-                    </div>
     @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -1929,9 +1929,9 @@
                 </div>
             </div>
             <div class="col-xl-4 mt--24 rbt-single-mobile-view-sidebar">
-              <!--  <div class="rbt-tab rbt-product-single-details-tab rbt-fshape-tab">
     {{-- SEO: commented-out template demo with placeholder links; not rendered. --}}
     @if (false)
+              <!--  <div class="rbt-tab rbt-product-single-details-tab rbt-fshape-tab">
                     <div class="rbt-tab-nav-wrapper">
                         <ul class="nav nav-tabs" id="rbt-product-recomTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -2243,10 +2243,10 @@
                     </div>
                 </div> -->
                 <!-- <div class="rbt-block-banner-img mt--32">
-    @endif
                     <img src="{{ asset('assets/images/product-single/single-prd-banner/single-prd-banner-a-01.webp') }}"
                         alt="Ecommerce Product Banner">
                 </div> -->
+    @endif
             </div>
         </div>
     </div>
