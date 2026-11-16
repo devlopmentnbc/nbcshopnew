@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Redirecting to Payment Gateway... - Unimart')
+@section('title', "Redirecting to Payment Gateway... - Nature's Beauty Creations")
+@section('robots', 'noindex, nofollow')
 
 @section('content')
     <div class="rbt-section-gap">

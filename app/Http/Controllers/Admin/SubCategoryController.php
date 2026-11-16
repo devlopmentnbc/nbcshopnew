@@ -18,29 +18,46 @@ class SubCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $query = SubCategory::with('category');
-
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where('name', 'like', "%{$search}%")
-                ->orWhereHas('category', function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-                });
-        }
-
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->input('category_id'));
-        }
-
-        // Reordering works within one category, so show that category's full list in menu order.
-        $canReorder = $request->filled('category_id') && ! $request->filled('search');
-
-        $subCategories = $canReorder
-            ? $query->orderBy('sort_order')->orderBy('id')->get()
-            : $query->latest()->paginate(10)->withQueryString();
         $categories = Category::orderBy('name')->get();
 
-        return view('admin.sub_categories.index', compact('subCategories', 'categories', 'canReorder'));
+        // Without a search, show every sub-category grouped under its parent
+        // category (in menu order) so each group can be dragged into order.
+        $canReorder = ! $request->filled('search');
+
+        if ($canReorder) {
+            $groups = Category::query()
+                ->when($request->filled('category_id'), fn ($q) => $q->whereKey($request->input('category_id')))
+                ->with(['subCategories' => fn ($q) => $q->orderBy('sort_order')->orderBy('id')])
+                ->orderBy('sort_order')
+                ->orderBy('id')
+                ->get()
+                ->filter(fn ($category) => $category->subCategories->isNotEmpty() || $request->filled('category_id'));
+
+            return view('admin.sub_categories.index', [
+                'groups' => $groups,
+                'subCategories' => null,
+                'categories' => $categories,
+                'canReorder' => true,
+            ]);
+        }
+
+        $search = $request->input('search');
+        $subCategories = SubCategory::with('category')
+            ->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhereHas('category', fn ($c) => $c->where('name', 'like', "%{$search}%"));
+            })
+            ->when($request->filled('category_id'), fn ($q) => $q->where('category_id', $request->input('category_id')))
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.sub_categories.index', [
+            'groups' => null,
+            'subCategories' => $subCategories,
+            'categories' => $categories,
+            'canReorder' => false,
+        ]);
     }
 
     /**
@@ -62,6 +79,9 @@ class SubCategoryController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255|unique:sub_categories,name',
             'slug' => 'nullable|string|max:255|unique:sub_categories,slug',
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             // Image support is retained for future use.
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
@@ -88,6 +108,9 @@ class SubCategoryController extends Controller
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : true,
             'sort_order' => $this->nextSortOrder($request->category_id),  // Add new sub-category to the end of its category
@@ -115,6 +138,9 @@ class SubCategoryController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255|unique:sub_categories,name,'.$subCategory->id,
             'slug' => 'nullable|string|max:255|unique:sub_categories,slug,'.$subCategory->id,
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
@@ -149,6 +175,9 @@ class SubCategoryController extends Controller
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : false,
             'sort_order' => $sortOrder,

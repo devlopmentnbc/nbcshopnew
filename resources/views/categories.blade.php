@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="rbt-breadcrumb-inner text-center">
-                        <h2 class="title mb--6 h3">All Categories</h2>
+                        <h1 class="title mb--6 h3">All Categories</h1>
                         <ul class="rbt-breadcrumb-page-list justify-content-center mt--0">
                             <li class="rbt-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                             <li>
@@ -28,7 +28,7 @@
             <div class="row row--12 mt_dec--24">
                 @forelse ($categories as $index => $category)
                     @php
-                        $categoryUrl = route('shop', ['category' => $category->slug ?: $category->id]);
+                        $categoryUrl = $category->url();
                     @endphp
                     <div class="col-lg-3 col-md-4 col-6 mt--24">
                         <div class="rbt-cat-box rbt-cat-box-5 variation-one">
@@ -56,7 +56,7 @@
                                     @if ($category->subCategories->isNotEmpty())
                                         <div class="d-flex flex-wrap justify-content-center gap-1 mt-2">
                                             @foreach ($category->subCategories as $subCategory)
-                                                <a href="{{ route('shop', ['category' => $category->slug ?: $category->id, 'sub_category' => $subCategory->slug ?: $subCategory->id]) }}"
+                                                <a href="{{ $subCategory->url() }}"
                                                     class="badge rounded-pill bg-light text-dark text-decoration-none fw-normal">{{ $subCategory->name }}</a>
                                             @endforeach
                                         </div>

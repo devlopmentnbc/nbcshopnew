@@ -68,6 +68,15 @@
                         Main Product SKU will be generated automatically on save (e.g. PROD-0001).
                     </div>
 
+                    <!-- SEO Title -->
+                    @include('admin.partials.seo-title-field', ['value' => null])
+
+                    <!-- SEO Meta Description -->
+                    @include('admin.partials.seo-description-field', ['value' => null])
+
+                    <!-- SEO H1 Heading -->
+                    @include('admin.partials.seo-h1-field', ['value' => null])
+
                     <!-- Short Description -->
                     <div>
                         <label for="short_description" class="block text-[14px] font-semibold text-ink-900 mb-2">Short Description</label>
@@ -282,6 +291,11 @@
                     </div>
 
                     <input type="file" name="image" id="image" accept="image/*" class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
+                    <div>
+                        <label for="image_alt" class="block text-[13px] font-semibold text-ink-900 mb-1.5">Main Image Alt Text <span class="text-ink-400 font-normal">(Optional)</span></label>
+                        <input type="text" name="image_alt" id="image_alt" maxlength="150" value="{{ old('image_alt') }}" placeholder="e.g. Panda Baby Fairy's Touch cologne 100ml bottle" class="h-10 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        <p class="mt-1 text-[12px] text-ink-400">Describes the image for Google and screen readers. Blank = product name + brand.</p>
+                    </div>
                     <p class="text-[12px] text-ink-400">Main cover image for product cards & listing.</p>
                 </div>
 
@@ -289,7 +303,7 @@
                 <div class="rounded-card border border-surface-line bg-surface-card p-6 shadow-card space-y-4">
                     <h2 class="text-[18px] font-semibold text-ink-900 border-b border-surface-line pb-3">Product Gallery Images</h2>
 
-                    <div id="gallery-preview-container" class="hidden grid grid-cols-3 gap-2 p-2 rounded-base border border-surface-line bg-surface-body max-h-48 overflow-y-auto"></div>
+                    <div id="gallery-preview-container" class="hidden space-y-2 p-2 rounded-base border border-surface-line bg-surface-body max-h-96 overflow-y-auto"></div>
 
                     <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" multiple class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
                     <p class="text-[12px] text-ink-400">Select multiple images to show in the product details gallery carousel.</p>
@@ -352,29 +366,51 @@
         }
     });
 
+    // Pending gallery uploads: one row per file with its own alt text box.
+    // Rows are built synchronously so new_gallery_alt[] stays in the same order as the files.
+    const pendingGalleryAlts = [];
+
     function renderGalleryPreviews() {
         galleryPreviewContainer.innerHTML = '';
-        if (galleryDataTransfer.files.length > 0) {
-            galleryPreviewContainer.classList.remove('hidden');
-            Array.from(galleryDataTransfer.files).forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function(ex) {
-                    const imgDiv = document.createElement('div');
-                    imgDiv.className = 'relative group h-24 w-full overflow-hidden rounded-base border border-surface-line bg-white p-1';
-                    imgDiv.innerHTML = `
-                        <img src="${ex.target.result}" class="h-full w-full object-contain mx-auto">
-                        <button type="button" onclick="removePendingGalleryFile(${index})" class="absolute top-1 right-1 h-5 w-5 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors">
-                            <i data-lucide="x" class="h-3 w-3"></i>
-                        </button>
-                    `;
-                    galleryPreviewContainer.appendChild(imgDiv);
-                    if (window.lucide) lucide.createIcons();
-                }
-                reader.readAsDataURL(file);
-            });
-        } else {
+        const files = Array.from(galleryDataTransfer.files);
+        if (!files.length) {
             galleryPreviewContainer.classList.add('hidden');
+            return;
         }
+        galleryPreviewContainer.classList.remove('hidden');
+
+        files.forEach((file, index) => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center gap-3 rounded-base border border-surface-line bg-white p-2';
+
+            const img = document.createElement('img');
+            img.className = 'h-14 w-14 shrink-0 rounded object-contain';
+            img.alt = '';
+            const reader = new FileReader();
+            reader.onload = ex => { img.src = ex.target.result; };
+            reader.readAsDataURL(file);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'new_gallery_alt[]';
+            input.maxLength = 150;
+            input.placeholder = 'Alt text (optional) - describe this image';
+            input.value = pendingGalleryAlts[index] || '';
+            input.className = 'h-9 min-w-0 flex-1 rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none';
+            input.addEventListener('input', () => { pendingGalleryAlts[index] = input.value; });
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.setAttribute('aria-label', 'Remove image');
+            remove.className = 'h-7 w-7 shrink-0 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors';
+            remove.innerHTML = '<i data-lucide="x" class="h-3.5 w-3.5"></i>';
+            remove.addEventListener('click', () => removePendingGalleryFile(index));
+
+            row.append(img, input, remove);
+            galleryPreviewContainer.appendChild(row);
+        });
+
+        if (window.lucide) lucide.createIcons();
     }
 
     function removePendingGalleryFile(index) {
@@ -387,6 +423,7 @@
         galleryDataTransfer.items.clear();
         Array.from(newDT.files).forEach(file => galleryDataTransfer.items.add(file));
         galleryInput.files = galleryDataTransfer.files;
+        pendingGalleryAlts.splice(index, 1);
         renderGalleryPreviews();
     }
 

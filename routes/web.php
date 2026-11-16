@@ -167,3 +167,26 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::post('featured/on-sale/add', [FeaturedProductController::class, 'addOnSale'])->name('featured.on-sale.add');
     Route::delete('featured/on-sale/{product}', [FeaturedProductController::class, 'removeOnSale'])->name('featured.on-sale.remove');
 });
+
+/*
+|--------------------------------------------------------------------------
+| SEO: sitemap and clean catalog URLs
+|--------------------------------------------------------------------------
+| Keep these LAST. /{category} and /{category}/{subCategory} only receive
+| URLs no route above matched; unknown slugs are a 404 (or a 301 for an old
+| slug). Category slugs that clash with a route above are blocked in admin.
+*/
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+Route::get('/sitemap-pages.xml', [\App\Http\Controllers\SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/sitemap-categories.xml', [\App\Http\Controllers\SitemapController::class, 'categories'])->name('sitemap.categories');
+Route::get('/sitemap-products.xml', [\App\Http\Controllers\SitemapController::class, 'products'])->name('sitemap.products');
+Route::get('/robots.txt', [\App\Http\Controllers\RobotsController::class, 'index'])->name('robots');
+Route::get('/brands/{brand}', [ShopController::class, 'brand'])
+    ->where('brand', '[A-Za-z0-9_-]+')
+    ->name('brand.show');
+Route::get('/{category}/{subCategory}', [ShopController::class, 'subCategory'])
+    ->where(['category' => '[A-Za-z0-9_-]+', 'subCategory' => '[A-Za-z0-9_-]+'])
+    ->name('sub-category.show');
+Route::get('/{category}', [ShopController::class, 'category'])
+    ->where('category', '[A-Za-z0-9_-]+')
+    ->name('category.show');

@@ -42,6 +42,15 @@
                 @enderror
             </div>
 
+            <!-- SEO Title -->
+            @include('admin.partials.seo-title-field', ['value' => $category->meta_title])
+
+            <!-- SEO Meta Description -->
+            @include('admin.partials.seo-description-field', ['value' => $category->meta_description])
+
+            <!-- SEO H1 Heading -->
+            @include('admin.partials.seo-h1-field', ['value' => $category->h1_heading])
+
             <!-- Category Image -->
             <div>
                 <label for="image" class="block text-[14px] font-semibold text-ink-900 mb-2">Category Image</label>

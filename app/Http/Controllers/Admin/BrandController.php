@@ -43,6 +43,9 @@ class BrandController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:brands,name',
             'slug' => 'nullable|string|max:255|unique:brands,slug',
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
@@ -67,6 +70,9 @@ class BrandController extends Controller
         Brand::create([
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : true,
         ]);
@@ -90,6 +96,9 @@ class BrandController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:brands,name,' . $brand->id,
             'slug' => 'nullable|string|max:255|unique:brands,slug,' . $brand->id,
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
@@ -119,6 +128,9 @@ class BrandController extends Controller
         $brand->update([
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : false,
         ]);

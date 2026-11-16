@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Customer Sign In - Unimart')
+@section('title', "Customer Sign In - Nature's Beauty Creations")
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 
@@ -46,7 +47,7 @@
                     <div class="content">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart Logo Images">
+                                <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations logo">
                             </a>
                         </div>
                         <div class="rbt-btn-close">
@@ -123,7 +124,7 @@
                             <div class="rbt-categories-sidebar-top-content mb--24">
                                 <div class="logo">
                                     <a href="{{ route('home') }}">
-                                        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Unimart Logo">
+                                        <img src="{{ asset('assets/images/nbc/logo-nbc2.png') }}" alt="Nature's Beauty Creations logo">
                                     </a>
                                 </div>
                                 <button class="rbt-sidebar-close-btn">
@@ -228,7 +229,7 @@
 
                 <div class="rbt-login-system-switch rbt-link-hover">
                     Don't have an account?
-                    <a class="rbt-switch-btn" href="signup.html"><span>Create an account</span></a>
+                    <a class="rbt-switch-btn" href="#signupModal" data-bs-toggle="modal" data-bs-target="#signupModal"><span>Create an account</span></a>
                 </div>
             </div>
         </div>

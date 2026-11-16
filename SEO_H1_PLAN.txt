@@ -1,0 +1,364 @@
+SEO H1 HEADINGS - PLAN
+Site: https://testshop.nbccloud.lk
+Prepared: 2026-11-10
+Source: "Recommended H1" column of the audit sheet.
+
+STATUS: IMPLEMENTED (2026-11-10) - home H1 option (a): visually hidden.
+  On the server, after uploading the code:
+    php artisan seo:titles          (dry run: titles, descriptions, H1s)
+    php artisan migrate --force     (adds the fields and fills everything)
+    php artisan seo:titles          (should now say "0 to set" for all three)
+  Anything listed as "not matched" can be typed into the item's
+  "H1 Heading" field in admin.
+
+Total rows: 163
+  2   site pages (home, shop)
+  7   categories
+  7   brands
+  33  sub-categories
+  113 products
+  1   /product-details with no slug -> already returns 404 (done in the
+      URL fixes), nothing more to do.
+Same pages and order as the title / description plans.
+
+=====================================================================
+CURRENT STATE (why the audit says "Missing")
+=====================================================================
+  - Home: the hero is image-only, there is no H1 at all.
+  - Product pages: the product name is an <h2>, there is no H1.
+  - Shop / category / sub-category / brand pages: these were crawled
+    BEFORE the URL fixes. They now have an H1, but it shows the plain
+    name (e.g. "Fragrance"), not the recommended text ("Perfumes & Body
+    Sprays").
+
+=====================================================================
+HOW IT WILL WORK
+=====================================================================
+  1. New optional field "H1 Heading" (h1_heading, max 120 chars) on
+     products, categories, sub-categories and brands, in the admin add/edit
+     forms next to SEO Title / Meta Description.
+  2. Exactly ONE <h1> per page:
+       - Product page: the product name heading becomes an <h1> (same look),
+         text = H1 Heading if set, otherwise the product name.
+       - Category / sub-category / brand pages: the existing <h1> shows the
+         H1 Heading if set, otherwise the name (as now). A brand inside a
+         category (e.g. /hair-care?brand=misumi) keeps "Misumi Hair Care".
+       - /shop: "All Products" (search pages keep "Shop Our Products").
+       - Home: add an <h1> "Herbal Beauty & Personal Care, Made in Sri
+         Lanka" in the hero. The hero is a full-width image slider, so the
+         heading is placed for search engines / screen readers without
+         covering the banner (visually hidden). See NOTE 1.
+  3. Breadcrumbs keep the short names; only the <h1> text changes.
+  4. One migration fills the H1s into EMPTY fields only, matching products
+     exactly like the titles (slug start + name). php artisan seo:titles
+     reports H1s too. Values edited in admin are never overwritten.
+
+=====================================================================
+SITE PAGES
+=====================================================================
+/shop                   : All Products
+/                       : Herbal Beauty & Personal Care, Made in Sri Lanka
+
+=====================================================================
+CATEGORIES (slug : H1)
+=====================================================================
+fragrance               : Perfumes & Body Sprays
+gift-sets               : Gift Sets & Bundles
+skin-care               : Skin Care Products
+baby-care               : Baby Care Products
+bath-body               : Bath & Body
+hair-care               : Hair Care Products
+skin-types              : Shop by Skin Type
+
+=====================================================================
+BRANDS (slug : H1)
+=====================================================================
+panda-baby              : Panda Baby
+natures-secrets         : Nature's Secrets
+champion                : Champion
+iris                    : Iris
+chandi-panda            : Chandi Panda
+selfie                  : Selfie
+sucses                  : Sucses
+
+=====================================================================
+SUB-CATEGORIES (slug : H1)
+=====================================================================
+soap                    : Germ Fighting Soaps
+sun-protection          : Sun Protection
+serum                   : Face Serums
+hair-oils-tonics        : Hair Oils & Tonics
+eye-care                : Eye Care
+body-scrub              : Body Scrubs
+hair-gels               : Hair Gels
+facial-scrubs           : Facial Scrubs
+shaving                 : Shaving
+creams-lotions          : Baby Creams & Lotions
+soaps-cleansers         : Baby Soaps, Washes & Shampoos
+body-cleansers          : Body Washes & Shower Oils
+body-oils               : Body Oils
+for-her                 : Perfumes for Women
+hand-foot-care          : Hand & Foot Care
+conditioner             : Conditioners
+facial-cleansers-toners : Face Washes, Cleansers & Toners
+body-lotions-creams     : Body Lotions & Creams
+body-butters            : Body Butters
+for-him                 : Perfumes for Men
+baby-oil                : Baby Oil
+facial-creams-gels      : Face Creams & Gels
+shampoo                 : Shampoos
+colognes                : Baby Colognes
+baby-gifts              : Baby Gifts
+talc                    : Baby Talc
+nappy-wash              : Nappy Wash
+mature                  : Skin Care for Mature Skin
+cotton-buds             : Cotton Buds
+acne-prone              : Products for Acne-Prone Skin
+dry                     : Skin Care for Dry Skin
+oily                    : Skin Care for Oily Skin
+normal                  : Skin Care for Normal Skin
+
+=====================================================================
+PRODUCTS (# matches SEO_TITLE_TAGS_PLAN.txt)
+Format:  # slug start | current product name | NEW H1
+=====================================================================
+  1. niacinamide-ultra-     | Niacinamide Ultra Glow Serum
+     H1: Niacinamide Ultra Glow Serum
+  2. vitamin-c-skin-        | Vitamin C Skin Radiance Serum With Ascorbyl
+     H1: Vitamin C Skin Radiance Serum
+  3. retinol-age-           | Retinol Age Perfecting Advanced Serum
+     H1: Retinol Age Perfecting Advanced Serum
+  4. anti-wrinkle-night-    | Anti-Wrinkle Night Cream
+     H1: Anti-Wrinkle Night Cream
+  5. perfume-hair-          | Perfume Hair Conditioner
+     H1: Perfume Hair Conditioner
+  6. baby-cologne           | Baby Cologne
+     H1: Panda Baby Cologne
+  7. pomegranate-           | Pomegranate Moisturizing Body Wash
+     H1: Pomegranate Moisturising Body Wash
+  8. natures-secrets-       | Nature's Secrets Calming Coconut Shampoo
+     H1: Calming Coconut Shampoo
+  9. sucses-sapphire        | SUCSES SAPPHIRE
+     H1: Sucses Sapphire
+ 10. me-you-perfumed-       | Me & You- (Perfumed Body Spray)
+     H1: Selfie Me & You Perfumed Body Spray
+ 11. anti-dandruff-         | Anti-Dandruff Godapara Shampoo
+     H1: Anti-Dandruff Godapara Shampoo
+ 12. gotukola-under-eye-    | Gotukola Under Eye Cream
+     H1: Gotukola Under Eye Cream
+ 13. aloe-96-skin-          | Aloe 96% Skin Soothing Gel
+     H1: Aloe 96% Skin Soothing Gel
+ 14. baby-cologne-fairys-   | Baby Cologne – Fairy's Touch
+     H1: Panda Baby Cologne – Fairy's Touch
+ 15. panda-baby-cotton-     | Panda Baby Cotton Buds - Sticks
+     H1: Panda Baby Cotton Buds – Paper Sticks
+ 16. papaya-soft-facial-    | Papaya Soft Facial Wash
+     H1: Papaya Soft Facial Wash
+ 17. baby-talc              | Baby Talc
+     H1: Panda Baby Talc
+ 18. brightening-care-      | Brightening Care Body Lotion - Papaya
+     H1: Brightening Care Body Lotion – Papaya
+ 19. sucses-ruby            | SUCSES RUBY
+     H1: Sucses Ruby
+ 20. natures-secrets-       | Men's Facial Wash with Mint & Aloe
+     H1: Men's Facial Wash with Mint & Aloe
+ 21. panda-baby-lotion-     | Panda Baby Lotion with Honey & Almond
+     H1: Panda Baby Lotion with Honey & Almond
+ 22. vitamin-e-skin-cream   | Vitamin E Skin Cream
+     H1: Vitamin E Skin Cream
+ 23. acne-clear-skin-       | Acne Clear & Skin Brightening Double Action Gel
+     H1: Acne Clear & Skin Brightening Double Action Gel
+ 24. body-massage-oil-      | Body Massage Oil Island Spice
+     H1: Body Massage Oil – Island Spice
+ 25. miracle-foot-care-     | Miracle Foot Care Cream - Aloe
+     H1: Miracle Foot Care Cream – Aloe
+ 26. hair-oil-herbal        | Hair Oil – Herbal
+     H1: Herbal Hair Oil
+ 27. soothing-care-body-    | Soothing Care Body Lotion - Aloe
+     H1: Soothing Care Body Lotion – Aloe
+ 28. carrot-soft-facial-    | Carrot Soft Facial Wash
+     H1: Carrot Soft Facial Wash
+ 29. baby-wash-gotukola-    | Baby Wash – Gotukola Extract
+     H1: Panda Baby Wash – Gotukola Extract
+ 30. lotus-brightening-     | Lotus Brightening Facial Wash
+     H1: Lotus Brightening Facial Wash
+ 31. skin-toner-cucumber    | Skin Toner - Cucumber
+     H1: Skin Toner – Cucumber
+ 32. herbal-heritage-face-  | Herbal Heritage Face Wash - Lotus
+     H1: Herbal Heritage Face Wash – Lotus
+ 33. deep-cleansing-milk-   | Deep Cleansing Milk – Aloe Vera
+     H1: Deep Cleansing Milk – Aloe Vera
+ 34. baby-soap-kohomba-     | Baby Soap - Kohomba Kaha
+     H1: Panda Baby Soap – Kohomba Kaha
+ 35. panda-baby-            | Panda Baby Shampoo–Bees Honey
+     H1: Panda Baby Shampoo – Bees Honey
+ 36. nappy-wash             | Nappy Wash
+     H1: Panda Baby Nappy Wash
+ 37. chandi-panda-germ-     | Chandi Panda Germ Fighting Herbal Soap
+     H1: Chandi Panda Germ Fighting Herbal Soap
+ 38. protecting-care-body-  | Protecting Care - Body Lotion - Avocado
+     H1: Protecting Care Body Lotion – Avocado
+ 39. champion-germ-         | Champion Germ Fighting Soap - Herbal Fresh
+     H1: Champion Germ Fighting Soap – Herbal Fresh
+ 40. aloera-moisturising-   | Aloera Moisturising Cream
+     H1: Aloera Moisturising Cream
+ 41. cucumber-facial-       | Cucumber Facial Wash
+     H1: Cucumber Facial Wash
+ 42. panda-baby-fairys-     | Panda Baby Fairy's Touch Cologne Spray
+     H1: Panda Baby Cologne Spray – Fairy's Touch
+ 43. panda-baby-natural-    | Panda Baby Natural Baby Oil
+     H1: Panda Baby Natural Baby Oil
+ 44. panda-baby-gift-       | Panda Baby Gift Pack
+     H1: Panda Baby Gift Pack
+ 45. intensive-care-body-   | Intensive Care Body Lotion - Vitamin E
+     H1: Intensive Care Body Lotion – Vitamin E
+ 46. hair-gel-aloe          | Hair Gel – Aloe
+     H1: Hair Gel – Aloe
+ 47. panda-baby-sweet-      | Panda Baby Sweet Floral Cologne Spray
+     H1: Panda Baby Cologne Spray – Sweet Floral
+ 48. panda-baby-lotion-     | Panda Baby Lotion with Pomegranate & Olive
+     H1: Panda Baby Lotion with Pomegranate & Olive
+ 49. panda-baby-wash-       | Panda Baby Wash with Sandalwood and Jasmine
+     H1: Panda Baby Wash with Sandalwood & Jasmine
+ 50. herbal-heritage-body-  | Herbal Heritage Body Butter – Avocado & Sesame
+     H1: Herbal Heritage Body Butter – Avocado & Sesame Oil
+ 51. nail-polish-remover    | Nail Polish Remover
+     H1: Nail Polish Remover – Acetone Free
+ 52. sun-fun-sunscreen-     | Sun & Fun Sunscreen Lotion - SPF 25
+     H1: Sun & Fun Sunscreen Lotion – SPF 25
+ 53. champion-hand-         | Champion Hand Wash - Delum Red
+     H1: Champion Hand Wash – Delum Red
+ 54. peptide-cica-glow-     | Peptide Cica Glow Under Eye Serum
+     H1: Peptide Cica Glow Under Eye Serum
+ 55. peppermint-facial-     | Peppermint Facial Wash
+     H1: Peppermint Facial Wash
+ 56. baby-soap-rathmal      | Baby Soap – Rathmal
+     H1: Panda Baby Soap – Rathmal
+ 57. body-wash-aloe-vera    | Body Wash – Aloe Vera
+     H1: Body Wash – Aloe Vera
+ 58. natures-secrets-       | Calming Coconut Body Wash
+     H1: Calming Coconut Body Wash
+ 59. shower-oil-petal-      | Shower Oil – Petal Touch with Lotus & Jasmine
+     H1: Shower Oil – Petal Touch with Lotus & Jasmine
+ 60. nourishing-care-       | Nourishing Care Body Lotion - Carrot
+     H1: Nourishing Care Body Lotion – Carrot
+ 61. herbal-heritage-body-  | Herbal Heritage Body Butter – Coconut With Lime
+     H1: Herbal Heritage Body Butter – Coconut with Lime
+ 62. natures-secrets-       | Lemongrass Beeswax Sugar Scrub
+     H1: Lemongrass Beeswax Sugar Scrub
+ 63. sleep-pillow-spray     | Sleep Pillow Spray
+     H1: Sleep Pillow Spray
+ 64. sun-fun-daily-         | Sun & Fun Daily Protection Lotion – SPF 15
+     H1: Sun & Fun Daily Protection Lotion – SPF 15
+ 65. glow-revival-set       | Glow Revival Set
+     H1: Glow Revival Set
+ 66. multivitamin-face-     | Multivitamin Face Cream
+     H1: Multivitamin Face Cream
+ 67. turmeric-golden-       | Turmeric Golden Cream
+     H1: Turmeric Golden Cream
+ 68. kohomba-kaha-          | Kohomba-Kaha Brightening Facial Wash
+     H1: Kohomba-Kaha Brightening Facial Wash
+ 69. skin-toner-spray-      | Skin Toner Spray - Cucumber
+     H1: Skin Toner Spray – Cucumber
+ 70. baby-cologne-floral    | Baby Cologne – Floral
+     H1: Panda Baby Cologne – Floral
+ 71. baby-cologne-          | Baby Cologne – Mother's Love
+     H1: Panda Baby Cologne – Mother's Love
+ 72. baby-cologne-sweet-    | Baby Cologne – Sweet Floral
+     H1: Panda Baby Cologne – Sweet Floral
+ 73. panda-baby-cologne-    | Panda Baby Cologne Happy Smiles
+     H1: Panda Baby Cologne – Happy Smiles
+ 74. panda-baby-herbal-     | Panda Baby Herbal Cologne
+     H1: Panda Baby Herbal Cologne
+ 75. baby-cream-with-       | Baby Cream With Olive Oil
+     H1: Panda Baby Cream with Olive Oil
+ 76. baby-cream-with-       | Baby Cream With Rathmal & Venivel
+     H1: Panda Baby Cream with Rathmal & Venivel
+ 77. panda-baby-cream-      | Panda Baby Cream - Aloe Vera
+     H1: Panda Baby Cream – Aloe Vera
+ 78. baby-soap-almond-      | Baby Soap - Almond Milk & Olive
+     H1: Panda Baby Soap – Almond Milk & Olive
+ 79. baby-soap-bees-        | Baby Soap - Bee's Honey & Almond
+     H1: Panda Baby Soap – Bee's Honey & Almond
+ 80. baby-soap-delum        | Baby Soap – Delum
+     H1: Panda Baby Soap – Delum
+ 81. panda-baby-            | Panda Baby Shampoo with Nelli And Neem
+     H1: Panda Baby Shampoo with Nelli & Neem
+ 82. citrus-moisturising-   | Citrus Moisturising Body Wash
+     H1: Citrus Moisturising Body Wash
+ 83. shower-oil-sweet-      | Shower Oil – Sweet Coconut Comfort (sulfate-free)
+     H1: Shower Oil – Sweet Coconut Comfort
+ 84. sweet-tangerine-       | Sweet Tangerine Body Butter
+     H1: Sweet Tangerine Body Butter
+ 85. coconut-body-          | Coconut Body Beauty Oil With Lemongrass Oil-Pure
+     H1: Coconut Body Beauty Oil with Lemongrass – Pure Calm
+ 86. coconut-body-          | Coconut Body Beauty Oil With Turmeric Island
+     H1: Coconut Body Beauty Oil with Turmeric – Island Indulgence
+ 87. forest-touch-hand-     | Forest Touch Hand Cream Collection
+     H1: Forest Touch Hand Cream Collection
+ 88. hand-cream-forest-     | Hand Cream - Forest After Rain with Calumba
+     H1: Hand Cream – Forest After Rain with Calumba Wood
+ 89. hand-cream-forest-     | Hand Cream - Forest Calm with Pine Bark
+     H1: Hand Cream – Forest Calm with Pine Bark
+ 90. hand-cream-night-      | Hand Cream - Night Blooming Jasmine
+     H1: Hand Cream – Night Blooming Jasmine
+ 91. hand-cream-queen-      | Hand Cream - Queen of the Night (Kadupul)
+     H1: Hand Cream – Queen of the Night (Kadupul)
+ 92. champion-germ-         | Champion Germ Fighting Soap – Cool Mint
+     H1: Champion Germ Fighting Soap – Cool Mint
+ 93. champion-germ-         | Champion Germ Fighting Soap – Red Energy
+     H1: Champion Germ Fighting Soap – Red Energy
+ 94. champion-hand-         | Champion Hand Wash - Mint Fresh
+     H1: Champion Hand Wash – Mint Fresh
+ 95. iris-adore             | IRIS ADORE
+     H1: Iris Adore
+ 96. sweet-blossoms-        | Sweet Blossoms- (Perfumed Body Spray)
+     H1: Selfie Sweet Blossoms Perfumed Body Spray
+ 97. teenage-crush-         | Teenage Crush- (Perfumed Body Spray)
+     H1: Selfie Teenage Crush Perfumed Body Spray
+ 98. sucses-emerald         | SUCSES EMERALD
+     H1: Sucses Emerald
+ 99. glow-repair-duo        | Glow & Repair Duo
+     H1: Glow & Repair Duo
+100. skin-perfecting-trio   | Skin Perfecting Trio
+     H1: Skin Perfecting Trio
+101. ultimate-glow-combo    | Ultimate Glow Combo
+     H1: Ultimate Glow Combo
+102. majestic-locks-hair-   | Majestic Locks Hair Care Gift Set
+     H1: Majestic Locks Hair Care Gift Set
+103. paradise-beauty-       | Paradise Beauty- Bath Collection
+     H1: Paradise Beauty Bath Collection
+104. vitamin-c-glow-offer-  | Vitamin C Glow Offer: Buy 2 Serums & Get a Free
+     H1: Vitamin C Glow Offer: Buy 2 Serums, Get a Free Face Wash
+105. perfume-shampoo        | Perfume Shampoo
+     H1: Perfume Shampoo
+106. natures-secrets-       | Nature's Secrets Calming Coconut Conditioner
+     H1: Calming Coconut Conditioner
+107. nourishing-hair-oil-   | Nourishing Hair Oil With Ceylon Green Tea
+     H1: Nourishing Hair Oil with Ceylon Green Tea – Lustrous Care
+108. herbal-body-hair-oil-  | Herbal Body & Hair Oil Satin Touch
+     H1: Herbal Body & Hair Oil – Satin Touch
+109. platinum-face-lifting- | Platinum Face Lifting Cream With Licorice
+     H1: Platinum Face Lifting Cream with Licorice
+110. aloe-vera-             | Aloe Vera Moisturising Shaving Cream
+     H1: Aloe Vera Moisturising Shaving Cream
+111. deep-cleansing-milk-   | Deep Cleansing Milk – Cucumber
+     H1: Deep Cleansing Milk – Cucumber
+112. deep-cleansing-milk-   | Deep Cleansing Milk – Papaya
+     H1: Deep Cleansing Milk – Papaya
+113. scrub-sandun-jar       | Scrub Sandun - Jar
+     H1: Scrub Sandun – Sandalwood Face Scrub
+
+=====================================================================
+NOTES / CHECK BEFORE EXECUTING
+=====================================================================
+  1. HOME H1: the home page has no text area above the fold. Options:
+       a) visually hidden H1 in the hero (default - no design change), or
+       b) a visible heading line, e.g. above "Shop by Category".
+     Tell me if you prefer (b).
+  2. Product H1s are usually the product name, sometimes reworded
+     (e.g. "Baby Cologne" -> "Panda Baby Cologne"). The <title> tag and
+     H1 are intentionally different, as in the audit.
+  3. "bundles" now lives at /gift-sets; its H1 is applied there.
+
+Reply "execute" (with any changes) and I will implement it.

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'My Account & Orders - Nature\'s Beauty Creations')
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 <div class="rbt-breadcrumb-default ptb--30 bg-color-white border-bottom">

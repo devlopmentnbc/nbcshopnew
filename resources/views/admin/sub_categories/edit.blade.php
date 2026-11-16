@@ -56,6 +56,15 @@
                 @enderror
             </div>
 
+            <!-- SEO Title -->
+            @include('admin.partials.seo-title-field', ['value' => $subCategory->meta_title])
+
+            <!-- SEO Meta Description -->
+            @include('admin.partials.seo-description-field', ['value' => $subCategory->meta_description])
+
+            <!-- SEO H1 Heading -->
+            @include('admin.partials.seo-h1-field', ['value' => $subCategory->h1_heading])
+
             {{-- Image support is retained for future use. Change this condition to true to restore the field. --}}
             @if (false)
             <!-- Sub Category Image -->

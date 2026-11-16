@@ -70,6 +70,15 @@
                         <p class="mt-1.5 text-[12px] text-ink-400">Auto-generated on creation and cannot be edited.</p>
                     </div>
 
+                    <!-- SEO Title -->
+                    @include('admin.partials.seo-title-field', ['value' => $product->meta_title])
+
+                    <!-- SEO Meta Description -->
+                    @include('admin.partials.seo-description-field', ['value' => $product->meta_description])
+
+                    <!-- SEO H1 Heading -->
+                    @include('admin.partials.seo-h1-field', ['value' => $product->h1_heading])
+
                     <!-- Short Description -->
                     <div>
                         <label for="short_description" class="block text-[14px] font-semibold text-ink-900 mb-2">Short Description</label>
@@ -297,6 +306,11 @@
                     </div>
 
                     <input type="file" name="image" id="image" accept="image/*" class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
+                    <div>
+                        <label for="image_alt" class="block text-[13px] font-semibold text-ink-900 mb-1.5">Main Image Alt Text <span class="text-ink-400 font-normal">(Optional)</span></label>
+                        <input type="text" name="image_alt" id="image_alt" maxlength="150" value="{{ old('image_alt', $product->image_alt) }}" placeholder="e.g. Panda Baby Fairy's Touch cologne 100ml bottle" class="h-10 w-full rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none">
+                        <p class="mt-1 text-[12px] text-ink-400">Describes the image for Google and screen readers. Blank = product name + brand.</p>
+                    </div>
                     <p class="text-[12px] text-ink-400">Leave blank to keep existing main image.</p>
                 </div>
 
@@ -307,20 +321,27 @@
                     @if ($product->images->count() > 0)
                         <div class="space-y-2">
                             <p class="text-[13px] font-semibold text-ink-700">Existing Gallery Images:</p>
-                            <div class="grid grid-cols-3 gap-3">
+                            <div class="grid grid-cols-2 gap-3">
                                 @foreach ($product->images as $gImg)
-                                    <div class="relative group h-24 w-full overflow-hidden rounded-base border border-surface-line bg-surface-body p-1">
-                                        <img src="{{ asset($gImg->image_path) }}" alt="Gallery image" class="h-full w-full object-contain mx-auto">
-                                        <button type="button" onclick="if(confirm('Delete this gallery image?')) document.getElementById('delete-gimg-{{ $gImg->id }}').submit();" class="absolute top-1 right-1 h-6 w-6 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors">
-                                            <i data-lucide="x" class="h-3.5 w-3.5"></i>
-                                        </button>
+                                    <div class="space-y-1.5">
+                                        <div class="relative group h-24 w-full overflow-hidden rounded-base border border-surface-line bg-surface-body p-1">
+                                            <img src="{{ asset($gImg->image_path) }}" alt="{{ $gImg->alt($loop->iteration + 1) }}" class="h-full w-full object-contain mx-auto">
+                                            <button type="button" onclick="if(confirm('Delete this gallery image?')) document.getElementById('delete-gimg-{{ $gImg->id }}').submit();" class="absolute top-1 right-1 h-6 w-6 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors">
+                                                <i data-lucide="x" class="h-3.5 w-3.5"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" name="gallery_alt[{{ $gImg->id }}]" maxlength="150"
+                                            value="{{ old('gallery_alt.' . $gImg->id, $gImg->alt_text) }}"
+                                            placeholder="Alt text (optional)" aria-label="Alt text for gallery image {{ $loop->iteration }}"
+                                            class="h-8 w-full rounded-base border border-surface-line bg-surface-body px-2 text-[12px] text-ink-900 focus:border-brand-600 focus:outline-none">
                                     </div>
                                 @endforeach
                             </div>
+                            <p class="text-[12px] text-ink-400">Blank alt text = automatic ("product name - image 2", ...).</p>
                         </div>
                     @endif
 
-                    <div id="gallery-preview-container" class="hidden grid grid-cols-3 gap-2 p-2 rounded-base border border-surface-line bg-surface-body max-h-48 overflow-y-auto"></div>
+                    <div id="gallery-preview-container" class="hidden space-y-2 p-2 rounded-base border border-surface-line bg-surface-body max-h-96 overflow-y-auto"></div>
 
                     <label class="block text-[14px] font-semibold text-ink-900">Add More Gallery Images</label>
                     <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" multiple class="block w-full text-[14px] text-ink-500 file:mr-4 file:py-2 file:px-4 file:rounded-base file:border-0 file:text-[14px] file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
@@ -393,29 +414,51 @@
         }
     });
 
+    // Pending gallery uploads: one row per file with its own alt text box.
+    // Rows are built synchronously so new_gallery_alt[] stays in the same order as the files.
+    const pendingGalleryAlts = [];
+
     function renderGalleryPreviews() {
         galleryPreviewContainer.innerHTML = '';
-        if (galleryDataTransfer.files.length > 0) {
-            galleryPreviewContainer.classList.remove('hidden');
-            Array.from(galleryDataTransfer.files).forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function(ex) {
-                    const imgDiv = document.createElement('div');
-                    imgDiv.className = 'relative group h-24 w-full overflow-hidden rounded-base border border-surface-line bg-white p-1';
-                    imgDiv.innerHTML = `
-                        <img src="${ex.target.result}" class="h-full w-full object-contain mx-auto">
-                        <button type="button" onclick="removePendingGalleryFile(${index})" class="absolute top-1 right-1 h-5 w-5 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors">
-                            <i data-lucide="x" class="h-3 w-3"></i>
-                        </button>
-                    `;
-                    galleryPreviewContainer.appendChild(imgDiv);
-                    if (window.lucide) lucide.createIcons();
-                }
-                reader.readAsDataURL(file);
-            });
-        } else {
+        const files = Array.from(galleryDataTransfer.files);
+        if (!files.length) {
             galleryPreviewContainer.classList.add('hidden');
+            return;
         }
+        galleryPreviewContainer.classList.remove('hidden');
+
+        files.forEach((file, index) => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center gap-3 rounded-base border border-surface-line bg-white p-2';
+
+            const img = document.createElement('img');
+            img.className = 'h-14 w-14 shrink-0 rounded object-contain';
+            img.alt = '';
+            const reader = new FileReader();
+            reader.onload = ex => { img.src = ex.target.result; };
+            reader.readAsDataURL(file);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'new_gallery_alt[]';
+            input.maxLength = 150;
+            input.placeholder = 'Alt text (optional) - describe this image';
+            input.value = pendingGalleryAlts[index] || '';
+            input.className = 'h-9 min-w-0 flex-1 rounded-base border border-surface-line bg-surface-body px-3 text-[13px] text-ink-900 focus:border-brand-600 focus:outline-none';
+            input.addEventListener('input', () => { pendingGalleryAlts[index] = input.value; });
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.setAttribute('aria-label', 'Remove image');
+            remove.className = 'h-7 w-7 shrink-0 rounded-full bg-danger-500 text-white flex items-center justify-center shadow hover:bg-danger-600 transition-colors';
+            remove.innerHTML = '<i data-lucide="x" class="h-3.5 w-3.5"></i>';
+            remove.addEventListener('click', () => removePendingGalleryFile(index));
+
+            row.append(img, input, remove);
+            galleryPreviewContainer.appendChild(row);
+        });
+
+        if (window.lucide) lucide.createIcons();
     }
 
     function removePendingGalleryFile(index) {
@@ -428,6 +471,7 @@
         galleryDataTransfer.items.clear();
         Array.from(newDT.files).forEach(file => galleryDataTransfer.items.add(file));
         galleryInput.files = galleryDataTransfer.files;
+        pendingGalleryAlts.splice(index, 1);
         renderGalleryPreviews();
     }
 

@@ -8,7 +8,7 @@
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-[24px] font-semibold text-ink-900">Sub Categories</h1>
-            <p class="mt-1 text-[14px] text-ink-500">Manage sub-categories and drag them into the storefront menu order.</p>
+            <p class="mt-1 text-[14px] text-ink-500">Manage sub-categories and drag them into the storefront menu order under each parent category.</p>
         </div>
         <div>
             <a href="{{ route('admin.sub-categories.create') }}" class="inline-flex h-11 items-center gap-2 rounded-base bg-brand-600 px-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-700">
@@ -48,172 +48,160 @@
             </form>
             <p id="sub-category-order-status" class="text-[13px] text-ink-500" aria-live="polite">
                 @if ($canReorder)
-                    Drag the handle to change the display order.
+                    Drag the handle to reorder sub-categories within their parent category. Changes save automatically.
                 @else
-                    Select a category (without a search) to change its sub-category order.
+                    Clear the search to reorder sub-categories.
                 @endif
             </p>
         </div>
 
-        <!-- Table -->
-        <div class="overflow-x-auto">
-            <table class="w-full min-w-[650px] text-left text-[14px]">
-                <thead>
-                    <tr class="border-b border-surface-line text-[13px] uppercase text-ink-400">
-                        {{-- Image support is retained for future use. Change this condition to true to restore the column. --}}
-                        @if ($canReorder)
-                            <th class="pb-3 pr-4 font-semibold">Order</th>
-                        @endif
-                        @if (false)
-                            <th class="pb-3 pr-4 font-semibold">Image</th>
-                        @endif
-                        <th class="pb-3 pr-4 font-semibold">Sub Category</th>
-                        <th class="pb-3 pr-4 font-semibold">Parent Category</th>
-                        <th class="pb-3 pr-4 font-semibold">Slug</th>
-                        <th class="pb-3 pr-4 font-semibold">Status</th>
-                        <th class="pb-3 pr-4 font-semibold text-right">Actions</th>
-                    </tr>
-                </thead>
-                {{-- Drag rows to reorder sub-categories within the selected category. --}}
-                <tbody id="sub-category-sortable" class="divide-y divide-surface-line"
-                    @if ($canReorder)
-                        data-reorder-url="{{ route('admin.sub-categories.reorder') }}"
-                        data-category-id="{{ request('category_id') }}"
-                        data-csrf-token="{{ csrf_token() }}"
-                    @endif>
-                    @forelse ($subCategories as $subCategory)
-                        <tr class="hover:bg-surface-body/70 transition-colors" data-sub-category-id="{{ $subCategory->id }}">
-                            @if ($canReorder)
-                                <td class="py-4 pr-4">
-                                    <button type="button" draggable="true" data-drag-handle
-                                        class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-400 hover:bg-surface-muted hover:text-ink-700"
-                                        style="cursor: grab" aria-label="Drag {{ $subCategory->name }} to reorder"
-                                        title="Drag to reorder">
-                                        <i data-lucide="grip-vertical" class="h-4 w-4 pointer-events-none"></i>
-                                    </button>
-                                </td>
-                            @endif
-                            @if (false)
-                                <td class="py-4 pr-4">
-                                    <img src="{{ asset($subCategory->image) }}" alt="{{ $subCategory->name }}" class="h-12 w-12 rounded-base bg-surface-body object-cover border border-surface-line">
-                                </td>
-                            @endif
-                            <td class="py-4 pr-4">
-                                <span class="font-semibold text-ink-900 block">{{ $subCategory->name }}</span>
-                            </td>
-                            <td class="py-4 pr-4">
-                                @if ($subCategory->category)
-                                    <span class="inline-flex items-center gap-1.5 font-medium text-brand-600">
-                                        <i data-lucide="folder" class="h-3.5 w-3.5"></i>
-                                        {{ $subCategory->category->name }}
-                                    </span>
-                                @else
-                                    <span class="text-ink-400 font-italic">N/A</span>
-                                @endif
-                            </td>
-                            <td class="py-4 pr-4 text-ink-500 font-mono text-[13px]">
-                                {{ $subCategory->slug }}
-                            </td>
-                            <td class="py-4 pr-4">
-                                @if ($subCategory->status)
-                                    <span class="inline-flex items-center rounded-full bg-success-50 px-2.5 py-0.5 text-[12px] font-semibold text-success-600">Active</span>
-                                @else
-                                    <span class="inline-flex items-center rounded-full bg-danger-50 px-2.5 py-0.5 text-[12px] font-semibold text-danger-500">Inactive</span>
-                                @endif
-                            </td>
-                            <td class="py-4 pr-4 text-right">
-                                <div class="inline-flex items-center gap-2">
-                                    <a href="{{ route('admin.sub-categories.edit', $subCategory->id) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-500 hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors" title="Edit Sub Category">
-                                        <i data-lucide="pencil" class="h-4 w-4"></i>
-                                    </a>
-                                    <form action="{{ route('admin.sub-categories.destroy', $subCategory->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this sub-category?');" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="inline-flex h-8 w-8 items-center justify-center rounded-base border border-surface-line text-ink-500 hover:bg-danger-50 hover:text-danger-500 hover:border-danger-200 transition-colors" title="Delete Sub Category">
-                                            <i data-lucide="trash-2" class="h-4 w-4"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
+        @if ($canReorder)
+            {{-- Grouped by parent category, in menu order. Each group is sorted independently. --}}
+            <div class="space-y-6" id="sub-category-groups"
+                data-reorder-url="{{ route('admin.sub-categories.reorder') }}"
+                data-csrf-token="{{ csrf_token() }}">
+                @forelse ($groups as $category)
+                    <section class="rounded-base border border-surface-line">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-surface-line bg-surface-body px-4 py-3">
+                            <h2 class="inline-flex items-center gap-2 text-[15px] font-semibold text-ink-900">
+                                <i data-lucide="folder" class="h-4 w-4 text-brand-600"></i>
+                                {{ $category->name }}
+                                @unless ($category->status)
+                                    <span class="rounded-full bg-danger-50 px-2 py-0.5 text-[11px] font-semibold text-danger-500">Inactive</span>
+                                @endunless
+                            </h2>
+                            <span class="text-[13px] text-ink-400">{{ $category->subCategories->count() }} {{ $category->subCategories->count() === 1 ? 'sub-category' : 'sub-categories' }}</span>
+                        </div>
+                        <div class="overflow-x-auto px-4">
+                            <table class="w-full min-w-[600px] text-left text-[14px]">
+                                <thead>
+                                    <tr class="border-b border-surface-line text-[12px] uppercase text-ink-400">
+                                        <th class="py-2.5 pr-4 font-semibold">Order</th>
+                                        <th class="py-2.5 pr-4 font-semibold">Sub Category</th>
+                                        <th class="py-2.5 pr-4 font-semibold">Slug</th>
+                                        <th class="py-2.5 pr-4 font-semibold">Status</th>
+                                        <th class="py-2.5 pr-4 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-surface-line" data-sortable-group data-category-id="{{ $category->id }}">
+                                    @forelse ($category->subCategories as $subCategory)
+                                        @include('admin.sub_categories._row', ['subCategory' => $subCategory, 'sortable' => true])
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="py-6 text-center text-ink-400">No sub categories in this category yet.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                @empty
+                    <div class="py-8 text-center text-ink-400">
+                        <i data-lucide="folder-open" class="mx-auto h-8 w-8 mb-2"></i>
+                        No sub categories found.
+                    </div>
+                @endforelse
+            </div>
+        @else
+            <!-- Search results -->
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[650px] text-left text-[14px]">
+                    <thead>
+                        <tr class="border-b border-surface-line text-[13px] uppercase text-ink-400">
+                            <th class="pb-3 pr-4 font-semibold">Sub Category</th>
+                            <th class="pb-3 pr-4 font-semibold">Parent Category</th>
+                            <th class="pb-3 pr-4 font-semibold">Slug</th>
+                            <th class="pb-3 pr-4 font-semibold">Status</th>
+                            <th class="pb-3 pr-4 font-semibold text-right">Actions</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="{{ $canReorder ? 6 : 5 }}" class="py-8 text-center text-ink-400">
-                                <i data-lucide="folder-open" class="mx-auto h-8 w-8 mb-2"></i>
-                                No sub categories found.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody class="divide-y divide-surface-line">
+                        @forelse ($subCategories as $subCategory)
+                            @include('admin.sub_categories._row', ['subCategory' => $subCategory, 'sortable' => false])
+                        @empty
+                            <tr>
+                                <td colspan="5" class="py-8 text-center text-ink-400">
+                                    <i data-lucide="folder-open" class="mx-auto h-8 w-8 mb-2"></i>
+                                    No sub categories found.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
-        @unless ($canReorder)
             <div class="mt-6">
                 {{ $subCategories->links() }}
             </div>
-        @endunless
+        @endif
     </div>
 </main>
 
 @if ($canReorder)
-    {{-- Save the new sub-category order --}}
+    {{-- Drag to reorder within a parent category, then save that category's order --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tbody = document.getElementById('sub-category-sortable');
+            const container = document.getElementById('sub-category-groups');
             const status = document.getElementById('sub-category-order-status');
+            if (!container) return;
+
             let draggedRow = null;
-            let originalOrder = [];
+            let activeGroup = null;
+            let originalOrder = '';
 
-            if (!tbody) return;
-
-            const currentOrder = () => Array.from(tbody.querySelectorAll('[data-sub-category-id]'))
+            const orderOf = group => Array.from(group.querySelectorAll('[data-sub-category-id]'))
                 .map(row => Number(row.dataset.subCategoryId));
 
-            tbody.addEventListener('dragstart', function(event) {
+            container.addEventListener('dragstart', function(event) {
                 const handle = event.target.closest('[data-drag-handle]');
                 if (!handle) return;
 
                 draggedRow = handle.closest('[data-sub-category-id]');
-                originalOrder = currentOrder();
+                activeGroup = draggedRow.closest('[data-sortable-group]');
+                originalOrder = orderOf(activeGroup).join(',');
                 draggedRow.style.opacity = '0.45';
                 event.dataTransfer.effectAllowed = 'move';
                 event.dataTransfer.setData('text/plain', draggedRow.dataset.subCategoryId);
             });
 
-            tbody.addEventListener('dragover', function(event) {
+            container.addEventListener('dragover', function(event) {
                 if (!draggedRow) return;
 
-                event.preventDefault();
                 const targetRow = event.target.closest('[data-sub-category-id]');
-                if (!targetRow || targetRow === draggedRow) return;
+                // Only allow moves inside the same parent category.
+                if (!targetRow || targetRow.closest('[data-sortable-group]') !== activeGroup) return;
+
+                event.preventDefault();
+                if (targetRow === draggedRow) return;
 
                 const bounds = targetRow.getBoundingClientRect();
                 const insertAfter = event.clientY > bounds.top + bounds.height / 2;
-                tbody.insertBefore(draggedRow, insertAfter ? targetRow.nextSibling : targetRow);
+                activeGroup.insertBefore(draggedRow, insertAfter ? targetRow.nextSibling : targetRow);
             });
 
-            tbody.addEventListener('dragend', async function() {
+            container.addEventListener('dragend', async function() {
                 if (!draggedRow) return;
 
+                const group = activeGroup;
                 draggedRow.style.opacity = '';
                 draggedRow = null;
-                const updatedOrder = currentOrder();
+                activeGroup = null;
 
-                if (updatedOrder.join(',') === originalOrder.join(',')) return;
+                const updatedOrder = orderOf(group);
+                if (updatedOrder.join(',') === originalOrder) return;
 
                 status.textContent = 'Saving sub-category order...';
 
                 try {
-                    const response = await fetch(tbody.dataset.reorderUrl, {
+                    const response = await fetch(container.dataset.reorderUrl, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': tbody.dataset.csrfToken,
+                            'X-CSRF-TOKEN': container.dataset.csrfToken,
                         },
                         body: JSON.stringify({
-                            category_id: Number(tbody.dataset.categoryId),
+                            category_id: Number(group.dataset.categoryId),
                             sub_categories: updatedOrder,
                         }),
                     });

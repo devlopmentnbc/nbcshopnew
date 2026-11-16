@@ -6,18 +6,21 @@
         $name = $product->name;
         $slug = $product->slug ?? \Illuminate\Support\Str::slug($name);
         $image = $product->image ? asset($product->image) : asset('admin-assets/images/nbcimages/Brand Pics 2/Anti Dandruff.png');
-        $brandName = $product->brand?->name ?? "Nature's Secret";
-        $brandSlug = $product->brand?->slug ?? "natures-secret";
+        $imageAlt = $product->imageAlt();
+        $brandName = $product->brand?->name;
+        // Only link real, active brands (an invented fallback slug created a dead brand URL).
+        $brandUrl = $product->brand?->status ? $product->brand->url() : null;
         $priceFormatted = $product->formattedPrice();
-        $detailUrl = route('product.details', ['slug' => $slug]);
+        $detailUrl = $product->url();
         $defaultAttributeValueId = $product->relationLoaded('attributeValues') ? $product->defaultAttributeValue()?->id : null;
     } else {
         $id = $product['id'] ?? 1;
         $name = $product['name'] ?? 'Product';
         $slug = \Illuminate\Support\Str::slug($name);
         $image = asset($product['image'] ?? 'admin-assets/images/nbcimages/Brand Pics 2/Anti Dandruff.png');
-        $brandName = $product['brand'] ?? "Nature's Secret";
-        $brandSlug = $product['brand_slug'] ?? 'natures-secret';
+        $imageAlt = $product['image_alt'] ?? $name;
+        $brandName = $product['brand'] ?? null;
+        $brandUrl = !empty($product['brand_slug']) ? route('brand.show', $product['brand_slug']) : null;
         $priceFormatted = $product['sale_price'] ?? ($product['original_price'] ?? 'LKR 0.00');
         $detailUrl = route('product.details', ['slug' => $slug]);
         $defaultAttributeValueId = null;
@@ -29,7 +32,7 @@
         <div class="rbt-card-img top-rounded-md">
             <a href="{{ $detailUrl }}">
                 <img class="rbt-scroll-trigger fade_in animation-order-{{ $animationOrder }} rbt-prd-img"
-                    src="{{ $image }}" alt="{{ $name }}">
+                    src="{{ $image }}" alt="{{ $imageAlt }}">
             </a>
             <button class="rbt-wishlisted-btn rbt-round-btn bg-light-one rbt-top-right--position tooltips nbc-wishlist-toggle"
                 type="button" data-product-id="{{ $id }}"
@@ -41,19 +44,16 @@
 
         <div class="rbt-card-body rbt-bg-color-white">
             <div class="rbt-card-top-content">
-                <a href="{{ route('shop', ['brand' => $brandSlug]) }}"
-                    class="rbt-card-subtitle rbt-card-catagories-text">{{ $brandName }}</a>
+                @if ($brandUrl)
+                    <a href="{{ $brandUrl }}"
+                        class="rbt-card-subtitle rbt-card-catagories-text">{{ $brandName }}</a>
+                @elseif ($brandName)
+                    <span class="rbt-card-subtitle rbt-card-catagories-text">{{ $brandName }}</span>
+                @endif
                 <h2 class="rbt-card-title">
                     <a href="{{ $detailUrl }}">{{ $name }}</a>
                 </h2>
-                <div class="rbt-card-rating">
-                    <ul class="rbt-rating-icon-list" aria-label="5 out of 5 stars">
-                        @for ($star = 0; $star < 5; $star++)
-                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                        @endfor
-                    </ul>
-                    <p class="rating-digit">(5.0)</p>
-                </div>
+                @include('partials.product-rating', ['product' => $product])
                 <div class="pricing-part">
                     <span class="price-text">{{ $priceFormatted }}</span>
                 </div>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Order Confirmed - NBC')
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 

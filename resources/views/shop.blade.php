@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Shop All Products - Nature\'s Beauty Creations')
+@section('title', $page['title'])
+@section('canonical', $page['canonical'])
+@section('robots', $page['robots'])
+@section('meta_description', $page['description'])
 
 @push('page-styles')
     <link rel="stylesheet"
@@ -13,13 +16,21 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="rbt-breadcrumb-inner text-center">
-                        <h2 class="title mb--6 h3">Shop Our Products</h2>
+                        <h1 class="title mb--6 h3">{{ $page['heading'] }}</h1>
                         <ul class="rbt-breadcrumb-page-list justify-content-center mt--0">
                             <li class="rbt-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            @if ($page['current'])
+                                @foreach ($page['crumbs'] as $crumb)
+                                    <li>
+                                        <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
+                                    </li>
+                                    <li class="rbt-breadcrumb-item"><a href="{{ $crumb['url'] }}">{{ $crumb['label'] }}</a></li>
+                                @endforeach
+                            @endif
                             <li>
                                 <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item active">Shop</li>
+                            <li class="rbt-breadcrumb-item active">{{ $page['current'] ?? 'Shop' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -35,7 +46,11 @@
                 <!-- Sidebar Filters -->
                 <div class="col-lg-3 col-md-4">
                     <div class="card border-0 shadow-sm rounded-16 p-4 bg-white sticky-top" style="top: 100px; z-index: 7;">
-                        <form method="GET" action="{{ route('shop') }}" id="shop-filter-form">
+                        {{-- Search within the current category / brand page --}}
+                        <form method="GET" action="{{ url()->current() }}" id="shop-filter-form">
+                            @if (!empty($filters['brand']) && ($activeCategory || $subCategory))
+                                <input type="hidden" name="brand" value="{{ $filters['brand'] }}">
+                            @endif
 
                             <!-- Search Box -->
                             <div class="mb-4">
@@ -56,24 +71,26 @@
                                 <button type="button"
                                     class="btn p-0 w-100 d-flex align-items-center justify-content-between text-dark text-decoration-none shadow-none border-0 bg-transparent mb-1"
                                     data-bs-toggle="collapse" data-bs-target="#categoriesFilterCollapse"
-                                    aria-expanded="{{ request('category') ? 'true' : 'false' }}"
+                                    aria-expanded="{{ $activeCategory ? 'true' : 'false' }}"
                                     aria-controls="categoriesFilterCollapse">
                                     <h6 class="fw-bold text-dark mb-0 d-flex align-items-center">
                                         <i class="fa-regular fa-layer-group me-2 text-success"></i> Categories
                                     </h6>
                                     <i class="fa-solid fa-chevron-down filter-collapse-icon text-muted small"></i>
                                 </button>
-                                <div class="collapse {{ request('category') ? 'show' : '' }}" id="categoriesFilterCollapse">
+                                <div class="collapse {{ $activeCategory ? 'show' : '' }}" id="categoriesFilterCollapse">
                                     <div class="d-flex flex-column gap-2 pt-2">
-                                        <a href="{{ route('shop', array_merge(request()->except(['category', 'page']))) }}"
-                                            class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('category') ? 'fw-bold text-success' : 'text-dark' }}">
+                                        <a href="{{ \App\Support\Catalog::listingUrl(\Illuminate\Support\Arr::except($filters, ['category', 'sub_category'])) }}"
+                                            class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !$activeCategory ? 'fw-bold text-success' : 'text-dark' }}">
                                             <span>All Categories</span>
-                                            <span
-                                                class="badge bg-light text-dark rounded-pill">{{ $products->total() }}</span>
+                                            @unless ($activeCategory)
+                                                <span
+                                                    class="badge bg-light text-dark rounded-pill">{{ $products->total() }}</span>
+                                            @endunless
                                         </a>
                                         @foreach ($categories as $cat)
-                                            <a href="{{ route('shop', array_merge(request()->all(), ['category' => $cat->slug, 'page' => 1])) }}"
-                                                class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('category') == $cat->slug ? 'fw-bold text-success' : 'text-dark' }}">
+                                            <a href="{{ \App\Support\Catalog::listingUrl(array_merge(\Illuminate\Support\Arr::except($filters, ['sub_category']), ['category' => $cat->slug])) }}"
+                                                class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ $activeCategory?->is($cat) ? 'fw-bold text-success' : 'text-dark' }}">
                                                 <span>{{ $cat->name }}</span>
                                                 <span
                                                     class="badge bg-light text-dark rounded-pill">{{ $cat->products_count }}</span>
@@ -88,22 +105,22 @@
                                 <button type="button"
                                     class="btn p-0 w-100 d-flex align-items-center justify-content-between text-dark text-decoration-none shadow-none border-0 bg-transparent mb-1"
                                     data-bs-toggle="collapse" data-bs-target="#brandsFilterCollapse"
-                                    aria-expanded="{{ request('brand') ? 'true' : 'false' }}"
+                                    aria-expanded="{{ $brand ? 'true' : 'false' }}"
                                     aria-controls="brandsFilterCollapse">
                                     <h6 class="fw-bold text-dark mb-0 d-flex align-items-center">
                                         <i class="fa-regular fa-tags me-2 text-success"></i> Brands
                                     </h6>
                                     <i class="fa-solid fa-chevron-down filter-collapse-icon text-muted small"></i>
                                 </button>
-                                <div class="collapse {{ request('brand') ? 'show' : '' }}" id="brandsFilterCollapse">
+                                <div class="collapse {{ $brand ? 'show' : '' }}" id="brandsFilterCollapse">
                                     <div class="d-flex flex-column gap-2 pt-2">
-                                        <a href="{{ route('shop', array_merge(request()->except(['brand', 'page']))) }}"
-                                            class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !request('brand') ? 'fw-bold text-success' : 'text-dark' }}">
+                                        <a href="{{ \App\Support\Catalog::listingUrl(\Illuminate\Support\Arr::except($filters, ['brand'])) }}"
+                                            class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !$brand ? 'fw-bold text-success' : 'text-dark' }}">
                                             <span>All Brands</span>
                                         </a>
                                         @foreach ($brands as $b)
-                                            <a href="{{ route('shop', array_merge(request()->all(), ['brand' => $b->slug, 'page' => 1])) }}"
-                                                class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ request('brand') == $b->slug ? 'fw-bold text-success' : 'text-dark' }}">
+                                            <a href="{{ \App\Support\Catalog::listingUrl(array_merge($filters, ['brand' => $b->slug])) }}"
+                                                class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ $brand?->is($b) ? 'fw-bold text-success' : 'text-dark' }}">
                                                 <span>{{ $b->name }}</span>
                                                 <span
                                                     class="badge bg-light text-dark rounded-pill">{{ $b->products_count }}</span>
@@ -113,7 +130,7 @@
                                 </div>
                             </div>
 
-                            @if (request('category') || request('brand') || request('search') || request('sort'))
+                            @if ($filters)
                                 <div class="pt-2">
                                     <a href="{{ route('shop') }}" class="btn btn-outline-danger btn-sm w-100 rounded-12">
                                         <i class="fa-regular fa-xmark me-1"></i> Clear All Filters
@@ -138,7 +155,7 @@
 
                             <div class="d-flex align-items-center gap-2">
                                 <label class="fw-bold text-dark mb-0 me-1" style="font-size: 12px;">Sort By:</label>
-                                <form method="GET" action="{{ route('shop') }}" class="m-0" id="sort-form">
+                                <form method="GET" action="{{ url()->current() }}" class="m-0" id="sort-form">
                                     @foreach (request()->except(['sort', 'page']) as $k => $v)
                                         <input type="hidden" name="{{ $k }}" value="{{ $v }}">
                                     @endforeach

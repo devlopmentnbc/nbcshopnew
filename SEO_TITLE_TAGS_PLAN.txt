@@ -1,0 +1,245 @@
+SEO TITLE TAGS - PLAN
+Site: https://testshop.nbccloud.lk
+Prepared: 2026-11-10
+Source: "Optimized Title Tag" column of the audit spreadsheet (screenshot).
+
+STATUS: IMPLEMENTED (2026-11-10)
+  On the server, after uploading the code:
+    php artisan seo:titles          (dry run: shows what will be set / not matched)
+    php artisan migrate --force     (adds the SEO Title field and fills the titles)
+    php artisan seo:titles          (should now say "0 to set"; lists anything not matched)
+  Anything listed as "not matched" can be typed into the item's
+  "SEO Title" field in admin.
+
+Total rows: 162
+  2   site pages (home, shop)
+  7   categories
+  7   brands
+  33  sub-categories
+  113 products
+
+The title is used EXACTLY as written below (no "- NBC Shop" added).
+The old ?category= / ?brand= / ?sub_category= addresses in the sheet are
+now 301 redirects, so each title is applied to the new clean URL.
+
+=====================================================================
+HOW IT WILL WORK
+=====================================================================
+  1. New optional field "SEO Title" (meta_title, max 70 chars) on
+     products, categories, sub-categories and brands, editable in the
+     admin edit forms with a live character counter (aim 50-60).
+  2. Page <title>: uses the SEO Title when filled; otherwise the current
+     automatic title (so new items still get a sensible title).
+  3. Home + /shop titles: set in the page templates (below).
+  4. One migration fills in all titles from this list:
+       - categories / sub-categories / brands: matched by exact slug.
+       - products: the sheet cuts product URLs short (e.g.
+         "niacinamide-ultra-"), so each product is matched by its slug
+         START plus its product NAME. Rows that match 0 or 2+ products are
+         skipped and printed in the migration output so you can set them
+         by hand in admin. Nothing else is changed.
+     Re-running is safe; it only sets titles, never slugs or names.
+  5. Titles you later edit in admin are never overwritten by the migration.
+
+=====================================================================
+SITE PAGES
+=====================================================================
+/        Nature's Secrets & Panda Baby Online Shop Sri Lanka | NBC
+/shop    Herbal Cosmetics Sri Lanka – Shop All Products | NBC Shop
+
+=====================================================================
+CATEGORIES  (old URL -> new URL : title)
+=====================================================================
+?category=fragrance  -> /fragrance  : Perfume Sri Lanka – Men's & Women's Fragrances | NBC Shop
+?category=bundles    -> /gift-sets  : Gift Packs Sri Lanka – Skincare & Bath Gift Sets | NBC Shop
+?category=skin-care  -> /skin-care  : Skin Care Products Sri Lanka – Serums & Face Wash | NBC Shop
+?category=baby-care  -> /baby-care  : Baby Products Sri Lanka – Panda Baby Care Range | NBC Shop
+?category=bath-body  -> /bath-body  : Bath & Body Products Sri Lanka – Lotions & Body Wash | NBC
+?category=hair-care  -> /hair-care  : Hair Care Products Sri Lanka – Herbal Hair Oil & Shampoo
+?category=skin-types -> /skin-types : Skin Care by Skin Type Sri Lanka – Dry, Oily & Normal | NBC
+
+=====================================================================
+BRANDS  (-> /brands/{slug})
+=====================================================================
+panda-baby      : Panda Baby Products Sri Lanka – Official Online Store | NBC
+natures-secrets : Nature's Secrets Products Sri Lanka – Official Store | NBC
+champion        : Champion Soap & Hand Wash Sri Lanka – Germ Fighting | NBC
+iris            : Iris Perfume Sri Lanka – Women's Fragrances | NBC Shop
+chandi-panda    : Chandi Panda Herbal Soap for Kids Sri Lanka – Germ Defence
+selfie          : Selfie Body Spray Sri Lanka – Perfumed Sprays for Her | NBC
+sucses          : Sucses Perfume for Men Sri Lanka – Emerald, Ruby & Sapphire
+
+=====================================================================
+SUB-CATEGORIES  (-> /{parent}/{slug})
+=====================================================================
+soap                    : Germ Fighting Soap Sri Lanka – Champion Herbal Soaps | NBC
+sun-protection          : Sunscreen Sri Lanka – SPF 15 & SPF 25 Lotions | NBC Shop
+serum                   : Face Serum Sri Lanka – Niacinamide, Vitamin C & More | NBC
+hair-oils-tonics        : Hair Oil Sri Lanka – Herbal Hair Oils | Nature's Secrets
+eye-care                : Eye Cream Sri Lanka – Under Eye Care | Nature's Secrets
+body-scrub              : Body Scrub Sri Lanka – Sugar Scrubs | Nature's Secrets
+hair-gels               : Hair Gel Sri Lanka – Aloe Vera Hair Gel | Nature's Secrets
+facial-scrubs           : Face Scrub Sri Lanka – Sandalwood Facial Scrub | NBC Shop
+shaving                 : Shaving Cream Sri Lanka – Aloe Vera | Nature's Secrets
+creams-lotions          : Baby Cream & Baby Lotion Sri Lanka – Panda Baby | NBC Shop
+soaps-cleansers         : Baby Soap, Baby Wash & Shampoo Sri Lanka – Panda Baby | NBC
+body-cleansers          : Body Wash Sri Lanka – Shower Gels & Oils | Nature's Secrets
+body-oils               : Body Oil Sri Lanka – Coconut Body & Massage Oils | NBC Shop
+for-her                 : Perfume for Women Sri Lanka – Iris & Selfie Fragrances | NBC
+hand-foot-care          : Hand Cream Sri Lanka – Hand & Foot Care | Nature's Secrets
+conditioner             : Hair Conditioner Sri Lanka – Coconut | Nature's Secrets
+facial-cleansers-toners : Face Wash Sri Lanka – Facial Cleansers & Toners | NBC Shop
+body-lotions-creams     : Body Lotion Sri Lanka – Herbal Lotions | Nature's Secrets
+body-butters            : Body Butter Sri Lanka – Rich Herbal Body Butters | NBC Shop
+for-him                 : Perfume for Men Sri Lanka – Sucses Men's Fragrances | NBC
+baby-oil                : Baby Oil Sri Lanka – Natural Panda Baby Oil | NBC Shop
+facial-creams-gels      : Face Cream Sri Lanka – Creams & Gels | Nature's Secrets
+shampoo                 : Herbal Shampoo Sri Lanka – Anti Dandruff & More | NBC Shop
+colognes                : Baby Cologne Sri Lanka – Panda Baby Colognes & Sprays | NBC
+baby-gifts              : Baby Gift Pack Sri Lanka – Newborn Gift Sets | Panda Baby
+talc                    : Baby Talc Sri Lanka – Panda Baby Talc Powder | NBC Shop
+nappy-wash              : Nappy Wash Sri Lanka – Baby Clothes Detergent | Panda Baby
+mature                  : Anti Aging Skin Care Sri Lanka – Retinol & More | NBC Shop
+cotton-buds             : Cotton Buds Sri Lanka – Biodegradable Sticks | NBC Shop
+acne-prone              : Acne Prone Skin Care Sri Lanka – Face Wash & Gels | NBC Shop
+dry                     : Skin Care for Dry Skin Sri Lanka – Creams & Cleansers | NBC
+oily                    : Skin Care for Oily Skin Sri Lanka – Face Wash & Toner | NBC
+normal                  : Skin Care for Normal Skin Sri Lanka – Daily Care | NBC
+
+=====================================================================
+PRODUCTS  (/product-details/...)
+Format:  slug start | current product name (as in sheet) | NEW TITLE
+(slug start ends in "-" where the sheet cut the URL short)
+=====================================================================
+  1. niacinamide-ultra-     | Niacinamide Ultra Glow Serum | Niacinamide Serum Sri Lanka – Ultra Glow | Nature's Secrets
+  2. vitamin-c-skin-        | Vitamin C Skin Radiance Serum With Ascorbyl... | Vitamin C Serum Sri Lanka – Skin Radiance | Nature's Secrets
+  3. retinol-age-           | Retinol Age Perfecting Advanced Serum | Retinol Serum Sri Lanka – Age Perfecting | Nature's Secrets
+  4. anti-wrinkle-night-    | Anti-Wrinkle Night Cream | Anti Wrinkle Night Cream Sri Lanka | Nature's Secrets
+  5. perfume-hair-          | Perfume Hair Conditioner | Perfume Conditioner Sri Lanka – 100ml | Nature's Secrets
+  6. baby-cologne           | Baby Cologne | Baby Cologne Sri Lanka – Original Fragrance | Panda Baby
+  7. pomegranate-           | Pomegranate Moisturizing Body Wash | Pomegranate Shower Gel Sri Lanka – 380ml | Nature's Secrets
+  8. natures-secrets-       | Nature's Secrets Calming Coconut Shampoo | Sulfate Free Shampoo Sri Lanka – Coconut | Nature's Secrets
+  9. sucses-sapphire        | SUCSES SAPPHIRE | Sucses Sapphire Perfume for Men Sri Lanka – Marine 55ml
+ 10. me-you-perfumed-       | Me & You- (Perfumed Body Spray) | Me & You Perfumed Body Spray Sri Lanka – 80ml | Selfie
+ 11. anti-dandruff-         | Anti-Dandruff Godapara Shampoo | Anti Dandruff Shampoo Sri Lanka | Nature's Secrets
+ 12. gotukola-under-eye-    | Gotukola Under Eye Cream | Under Eye Cream Sri Lanka – Gotukola 20ml | Nature's Secrets
+ 13. aloe-96-skin-          | Aloe 96% Skin Soothing Gel | Aloe Vera Gel Sri Lanka – 96% Pure Aloe | Nature's Secrets
+ 14. baby-cologne-fairys-   | Baby Cologne – Fairy's Touch | Panda Baby Cologne Fairy's Touch – Baby Cologne Sri Lanka
+ 15. panda-baby-cotton-     | Panda Baby Cotton Buds - Sticks | Cotton Buds Sri Lanka – Biodegradable Sticks | Panda Baby
+ 16. papaya-soft-facial-    | Papaya Soft Facial Wash | Papaya Face Wash Sri Lanka – All in One | Nature's Secrets
+ 17. baby-talc              | Baby Talc | Baby Powder Sri Lanka – Panda Baby Talc 100g | Panda Baby
+ 18. brightening-care-      | Brightening Care Body Lotion - Papaya | Papaya Body Lotion Sri Lanka – Brighten | Nature's Secrets
+ 19. sucses-ruby            | SUCSES RUBY | Sucses Ruby Men's Perfume Sri Lanka – Spicy Citrus 55ml
+ 20. natures-secrets-       | Men's Facial Wash with Mint & Aloe | Face Wash for Men Sri Lanka – Mint & Aloe | Nature's Secrets
+ 21. panda-baby-lotion-     | Panda Baby Lotion with Honey & Almond | Baby Lotion Honey & Almond Sri Lanka – Soft | Panda Baby
+ 22. vitamin-e-skin-cream   | Vitamin E Skin Cream | Vitamin E Cream Sri Lanka – Non-Greasy | Nature's Secrets
+ 23. acne-clear-skin-       | Acne Clear & Skin Brightening Double Action Gel | Acne Gel Sri Lanka – Clear & Brighten | Nature's Secrets
+ 24. body-massage-oil-      | Body Massage Oil Island Spice | Massage Oil Sri Lanka – Island Spice | Nature's Secrets
+ 25. miracle-foot-care-     | Miracle Foot Care Cream - Aloe | Foot Crack Cream Sri Lanka – Miracle Aloe | Nature's Secrets
+ 26. hair-oil-herbal        | Hair Oil – Herbal | Herbal Hair Oil Sri Lanka – 8 Herbs 100ml | Nature's Secrets
+ 27. soothing-care-body-    | Soothing Care Body Lotion - Aloe | Aloe Vera Body Lotion Sri Lanka – Calm | Nature's Secrets
+ 28. carrot-soft-facial-    | Carrot Soft Facial Wash | Carrot Face Wash Sri Lanka – Gentle | Nature's Secrets
+ 29. baby-wash-gotukola-    | Baby Wash – Gotukola Extract | Baby Wash with Gotukola Sri Lanka – Soap Free | Panda Baby
+ 30. lotus-brightening-     | Lotus Brightening Facial Wash | Lotus Brightening Face Wash Sri Lanka | Nature's Secrets
+ 31. skin-toner-cucumber    | Skin Toner - Cucumber | Cucumber Skin Toner Sri Lanka – 100ml | Nature's Secrets
+ 32. herbal-heritage-face-  | Herbal Heritage Face Wash - Lotus | Lotus Face Wash Sri Lanka – Heritage | Nature's Secrets
+ 33. deep-cleansing-milk-   | Deep Cleansing Milk – Aloe Vera | Aloe Vera Cleansing Milk Sri Lanka | Nature's Secrets
+ 34. baby-soap-kohomba-     | Baby Soap - Kohomba Kaha | Kohomba Soap for Babies Sri Lanka – Neem & Turmeric
+ 35. panda-baby-            | Panda Baby Shampoo–Bees Honey | Panda Baby Shampoo Bees Honey Sri Lanka – Tear-Gentle
+ 36. nappy-wash             | Nappy Wash | Panda Baby Nappy Wash Sri Lanka – Baby Clothes Detergent
+ 37. chandi-panda-germ-     | Chandi Panda Germ Fighting Herbal Soap | Germ Fighting Herbal Soap for Kids Sri Lanka | Chandi Panda
+ 38. protecting-care-body-  | Protecting Care - Body Lotion - Avocado | Avocado Body Lotion Sri Lanka – UV | Nature's Secrets
+ 39. champion-germ-         | Champion Germ Fighting Soap - Herbal Fresh | Antibacterial Soap Sri Lanka – Herbal Fresh | Champion
+ 40. aloera-moisturising-   | Aloera Moisturising Cream | Moisturising Cream Sri Lanka – Aloe Vera | Nature's Secrets
+ 41. cucumber-facial-       | Cucumber Facial Wash | Cucumber Face Wash Sri Lanka – Oily Skin | Nature's Secrets
+ 42. panda-baby-fairys-     | Panda Baby Fairy's Touch Cologne Spray | Panda Baby Cologne Spray Fairy's Touch – 80ml Sri Lanka
+ 43. panda-baby-natural-    | Panda Baby Natural Baby Oil | Panda Baby Oil Sri Lanka – Natural Coconut & Almond Oil
+ 44. panda-baby-gift-       | Panda Baby Gift Pack | Panda Baby Gift Pack Sri Lanka – Newborn Baby Gift Set
+ 45. intensive-care-body-   | Intensive Care Body Lotion - Vitamin E | Vitamin E Body Lotion Sri Lanka | Nature's Secrets
+ 46. hair-gel-aloe          | Hair Gel – Aloe | Aloe Vera Hair Gel Sri Lanka – 50ml | Nature's Secrets
+ 47. panda-baby-sweet-      | Panda Baby Sweet Floral Cologne Spray | Baby Cologne Spray Sweet Floral Sri Lanka | Panda Baby
+ 48. panda-baby-lotion-     | Panda Baby Lotion with Pomegranate & Olive | Panda Baby Lotion Pomegranate & Olive – Sri Lanka 200ml
+ 49. panda-baby-wash-       | Panda Baby Wash with Sandalwood and Jasmine | Panda Baby Wash Sandalwood & Jasmine – Sri Lanka 200ml
+ 50. herbal-heritage-body-  | Herbal Heritage Body Butter – Avocado & Sesame | Avocado Body Butter Sri Lanka – 200ml | Nature's Secrets
+ 51. nail-polish-remover    | Nail Polish Remover | Nail Polish Remover Sri Lanka – 125ml | Nature's Secrets
+ 52. sun-fun-sunscreen-     | Sun & Fun Sunscreen Lotion - SPF 25 | Sunscreen Lotion SPF 25 Sri Lanka – 80ml | Nature's Secrets
+ 53. champion-hand-         | Champion Hand Wash - Delum Red | Hand Wash Sri Lanka – Delum Red Pomegranate | Champion
+ 54. peptide-cica-glow-     | Peptide Cica Glow Under Eye Serum | Under Eye Serum Sri Lanka – Peptide Cica | Nature's Secrets
+ 55. peppermint-facial-     | Peppermint Facial Wash | Peppermint Face Wash for Acne Sri Lanka | Nature's Secrets
+ 56. baby-soap-rathmal      | Baby Soap – Rathmal | Panda Baby Rathmal Soap Sri Lanka – Gentle Herbal Care
+ 57. body-wash-aloe-vera    | Body Wash – Aloe Vera | Aloe Vera Body Wash Sri Lanka – 380ml | Nature's Secrets
+ 58. natures-secrets-       | Calming Coconut Body Wash | Coconut Body Wash Sri Lanka – Calming | Nature's Secrets
+ 59. shower-oil-petal-      | Shower Oil – Petal Touch with Lotus & Jasmine | Lotus & Jasmine Shower Oil Sri Lanka | Nature's Secrets
+ 60. nourishing-care-       | Nourishing Care Body Lotion - Carrot | Carrot Body Lotion Sri Lanka – Nourishing | Nature's Secrets
+ 61. herbal-heritage-body-  | Herbal Heritage Body Butter – Coconut With Lime | Coconut Body Butter with Lime Sri Lanka | Nature's Secrets
+ 62. natures-secrets-       | Lemongrass Beeswax Sugar Scrub | Lemongrass Sugar Scrub Sri Lanka – 175g | Nature's Secrets
+ 63. sleep-pillow-spray     | Sleep Pillow Spray | Sleep Pillow Spray Sri Lanka – Lavender | Nature's Secrets
+ 64. sun-fun-daily-         | Sun & Fun Daily Protection Lotion – SPF 15 | SPF 15 Sunscreen Sri Lanka – Daily Lotion | Nature's Secrets
+ 65. glow-revival-set       | Glow Revival Set | Glow Revival Skincare Set Sri Lanka | Nature's Secrets
+ 66. multivitamin-face-     | Multivitamin Face Cream | Multivitamin Face Cream Sri Lanka – 50ml | Nature's Secrets
+ 67. turmeric-golden-       | Turmeric Golden Cream | Turmeric Cream Sri Lanka – Golden Glow | Nature's Secrets
+ 68. kohomba-kaha-          | Kohomba-Kaha Brightening Facial Wash | Kohomba Face Wash Sri Lanka – Neem & Kaha | Nature's Secrets
+ 69. skin-toner-spray-      | Skin Toner Spray - Cucumber | Cucumber Toner Spray Sri Lanka – 100ml | Nature's Secrets
+ 70. baby-cologne-floral    | Baby Cologne – Floral | Floral Baby Cologne Sri Lanka – Fresh Flowers | Panda Baby
+ 71. baby-cologne-          | Baby Cologne – Mother's Love | Baby Cologne Mother's Love Sri Lanka – Gentle | Panda Baby
+ 72. baby-cologne-sweet-    | Baby Cologne – Sweet Floral | Sweet Floral Baby Cologne Sri Lanka – 50ml | Panda Baby
+ 73. panda-baby-cologne-    | Panda Baby Cologne Happy Smiles | Panda Baby Cologne Happy Smiles – Baby Cologne Sri Lanka
+ 74. panda-baby-herbal-     | Panda Baby Herbal Cologne | Herbal Baby Cologne Sri Lanka – Neem & Turmeric | Panda Baby
+ 75. baby-cream-with-       | Baby Cream With Olive Oil | Baby Cream with Olive Oil Sri Lanka – Mild | Panda Baby
+ 76. baby-cream-with-       | Baby Cream With Rathmal & Venivel | Baby Cream with Rathmal & Venivel Sri Lanka | Panda Baby
+ 77. panda-baby-cream-      | Panda Baby Cream - Aloe Vera | Aloe Vera Baby Cream Sri Lanka – Soothing Care | Panda Baby
+ 78. baby-soap-almond-      | Baby Soap - Almond Milk & Olive | Baby Soap Almond Milk & Olive Sri Lanka – 75g | Panda Baby
+ 79. baby-soap-bees-        | Baby Soap - Bee's Honey & Almond | Baby Soap Bee's Honey & Almond Sri Lanka | Panda Baby
+ 80. baby-soap-delum        | Baby Soap – Delum | Panda Baby Delum Soap Sri Lanka – Pomegranate Care
+ 81. panda-baby-            | Panda Baby Shampoo with Nelli And Neem | Herbal Baby Shampoo Nelli & Neem Sri Lanka | Panda Baby
+ 82. citrus-moisturising-   | Citrus Moisturising Body Wash | Citrus Body Wash Sri Lanka – Moisturising | Nature's Secrets
+ 83. shower-oil-sweet-      | Shower Oil – Sweet Coconut Comfort (sulfate-free) | Coconut Shower Oil Sri Lanka – 143ml | Nature's Secrets
+ 84. sweet-tangerine-       | Sweet Tangerine Body Butter | Tangerine Body Butter Sri Lanka – 200ml | Nature's Secrets
+ 85. coconut-body-          | Coconut Body Beauty Oil With Lemongrass Oil-Pure... | Lemongrass Body Oil Sri Lanka – Pure Calm | Nature's Secrets
+ 86. coconut-body-          | Coconut Body Beauty Oil With Turmeric Island | Turmeric Body Oil Sri Lanka – Coconut | Nature's Secrets
+ 87. forest-touch-hand-     | Forest Touch Hand Cream Collection | Hand Cream Gift Set Sri Lanka – Forest | Nature's Secrets
+ 88. hand-cream-forest-     | Hand Cream - Forest After Rain with Calumba | Calumba Wood Hand Cream Sri Lanka – 50ml | Nature's Secrets
+ 89. hand-cream-forest-     | Hand Cream - Forest Calm with Pine Bark | Pine Bark Hand Cream Sri Lanka – 50ml | Nature's Secrets
+ 90. hand-cream-night-      | Hand Cream - Night Blooming Jasmine | Jasmine Hand Cream Sri Lanka – 50ml | Nature's Secrets
+ 91. hand-cream-queen-      | Hand Cream - Queen of the Night (Kadupul) | Kadupul Hand Cream Sri Lanka – 50ml | Nature's Secrets
+ 92. champion-germ-         | Champion Germ Fighting Soap – Cool Mint | Champion Soap Cool Mint Sri Lanka – Germ Fighting 90g
+ 93. champion-germ-         | Champion Germ Fighting Soap – Red Energy | Germ Protection Soap Red Energy Sri Lanka | Champion
+ 94. champion-hand-         | Champion Hand Wash - Mint Fresh | Mint Hand Wash Sri Lanka – Germ Killing 200ml | Champion
+ 95. iris-adore             | IRIS ADORE | Iris Adore Perfume for Women Sri Lanka – 50ml Bottle | Iris
+ 96. sweet-blossoms-        | Sweet Blossoms- (Perfumed Body Spray) | Sweet Blossoms Body Spray Sri Lanka – For Her 80ml | Selfie
+ 97. teenage-crush-         | Teenage Crush- (Perfumed Body Spray) | Teenage Crush Body Spray Sri Lanka – For Her 80ml | Selfie
+ 98. sucses-emerald         | SUCSES EMERALD | Sucses Emerald Perfume for Men Sri Lanka – Citrus 55ml
+ 99. glow-repair-duo        | Glow & Repair Duo | Glow & Repair Skincare Duo Sri Lanka | Nature's Secrets
+100. skin-perfecting-trio   | Skin Perfecting Trio | Skin Perfecting Trio Gift Set Sri Lanka | Nature's Secrets
+101. ultimate-glow-combo    | Ultimate Glow Combo | Ultimate Glow Skincare Combo Sri Lanka | Nature's Secrets
+102. majestic-locks-hair-   | Majestic Locks Hair Care Gift Set | Hair Care Gift Set Sri Lanka – Majestic | Nature's Secrets
+103. paradise-beauty-       | Paradise Beauty- Bath Collection | Bath Gift Set Sri Lanka – Paradise Beauty | Nature's Secrets
+104. vitamin-c-glow-offer-  | Vitamin C Glow Offer: Buy 2 Serums & Get a Free... | Vitamin C Serum Offer Sri Lanka – Buy 2, Free Face Wash
+105. perfume-shampoo        | Perfume Shampoo | Perfume Shampoo Sri Lanka – Fragrant Hair | Nature's Secrets
+106. natures-secrets-       | Nature's Secrets Calming Coconut Conditioner | Coconut Hair Conditioner Sri Lanka | Nature's Secrets
+107. nourishing-hair-oil-   | Nourishing Hair Oil With Ceylon Green Tea | Green Tea Hair Oil Sri Lanka – Lustrous | Nature's Secrets
+108. herbal-body-hair-oil-  | Herbal Body & Hair Oil Satin Touch | Herbal Body & Hair Oil Sri Lanka – Satin | Nature's Secrets
+109. platinum-face-lifting- | Platinum Face Lifting Cream With Licorice | Face Lifting Cream Sri Lanka – Licorice | Nature's Secrets
+110. aloe-vera-             | Aloe Vera Moisturising Shaving Cream | Aloe Vera Shaving Cream Sri Lanka – 100ml | Nature's Secrets
+111. deep-cleansing-milk-   | Deep Cleansing Milk – Cucumber | Cucumber Cleansing Milk Sri Lanka – 100ml | Nature's Secrets
+112. deep-cleansing-milk-   | Deep Cleansing Milk – Papaya | Papaya Cleansing Milk Sri Lanka – 100ml | Nature's Secrets
+113. scrub-sandun-jar       | Scrub Sandun - Jar | Sandalwood Face Scrub Sri Lanka – Sandun | Nature's Secrets
+
+(Count check: 113 product rows above. See NOTE 1.)
+
+=====================================================================
+NOTES / CHECK BEFORE EXECUTING
+=====================================================================
+ 1. The screenshot has 162 rows (113 products). If your sheet has more
+    rows than the screenshot shows, send the rest (or the .xlsx / .csv
+    file itself - that would also give the full, uncut product URLs).
+ 2. Several product URLs are cut off in the sheet and share a start
+    (e.g. 5 x "natures-secrets-", 3 x "champion-germ-", 2 x
+    "panda-baby-lotion-"), so these are matched by product NAME.
+ 3. A few titles have no brand / site suffix (e.g. Hair Care category,
+    Chandi Panda brand, Sucses products) - kept exactly as in the sheet.
+ 4. "bundles" now lives at /gift-sets (previous SEO fix); its title is
+    applied to that category.
+ 5. Titles are 53-60 characters as per the sheet's "New Length" column.
+
+Reply "execute" (with any changes) and I will implement it.

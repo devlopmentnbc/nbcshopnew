@@ -22,6 +22,15 @@ class DetectCountryCurrency
             }
         }
 
+        // Search engines and SEO crawlers always get the store's home currency (LKR),
+        // so indexed prices match what Sri Lankan shoppers see - wherever the crawler runs.
+        if (self::isCrawler($request)) {
+            Session::put('country_code', 'LK');
+            Session::put('currency', 'LKR');
+
+            return $next($request);
+        }
+
         if (!Session::has('country_code') || !Session::has('currency')) {
             $country = $request->header('CF-IPCountry');
 
@@ -49,5 +58,21 @@ class DetectCountryCurrency
         }
 
         return $next($request);
+    }
+
+    /**
+     * Known search engine / SEO / social preview crawlers (by User-Agent).
+     */
+    public static function isCrawler(Request $request): bool
+    {
+        $agent = (string) $request->userAgent();
+
+        return $agent !== '' && preg_match(
+            '/googlebot|google-inspectiontool|adsbot-google|mediapartners-google|bingbot|bingpreview|'
+            . 'slurp|duckduckbot|baiduspider|yandex|applebot|petalbot|seznambot|'
+            . 'ahrefsbot|semrushbot|mj12bot|dotbot|screaming frog|sitebulb|rogerbot|'
+            . 'facebookexternalhit|facebot|twitterbot|linkedinbot|whatsapp|telegrambot|pinterest/i',
+            $agent
+        ) === 1;
     }
 }

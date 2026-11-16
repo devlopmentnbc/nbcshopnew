@@ -479,12 +479,6 @@
       <span class="nav-text flex-1">Tax</span>
     </a>
 
-    <!-- Product Review -->
-    <a data-nav="product-reviews" href="product-reviews.html" title="Product Reviews" class="sidebar-link flex items-center gap-3 rounded-base px-2 py-2 text-[14px] text-ink-700 transition-colors hover:bg-surface-muted">
-      <i data-lucide="star" class="h-[18px] w-[18px] shrink-0 text-ink-500"></i>
-      <span class="nav-text flex-1">Product Reviews</span>
-    </a>
-
     <!-- Support Ticket -->
   
 

@@ -6,9 +6,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title', "Nature's Beauty Creations")</title>
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="{{ config('seo.noindex') ? 'noindex, nofollow' : trim($__env->yieldContent('robots', 'index, follow')) }}">
+    @php
+        $canonicalUrl = trim($__env->yieldContent('canonical', \App\Support\Seo::canonical()));
+    @endphp
+    @if ($canonicalUrl !== '')
+        <link rel="canonical" href="{!! $canonicalUrl !!}">
+    @endif
     <meta name="description"
-        content="Shop authentic herbal beauty and personal care products from Nature's Beauty Creations.">
+        content="@yield('meta_description', \App\Support\Seo::DEFAULT_DESCRIPTION)">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1243,10 +1249,6 @@
         })();
     </script>
 
-    <script type="module" src="beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
-        integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="
-        data-cf-beacon='{"version":"2024.11.0","token":"4a64ee10db7a4427ba649e901229556e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
-        crossorigin="anonymous"></script>
 </body>
 
 

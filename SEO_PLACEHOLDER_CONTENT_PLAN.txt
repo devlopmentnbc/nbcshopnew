@@ -1,0 +1,128 @@
+SEO THEME PLACEHOLDER CONTENT - PLAN
+Site: https://testshop.nbccloud.lk
+Prepared: 2026-11-13
+Source: "Theme placeholder content" sheet of the audit (31 rows).
+
+STATUS: IMPLEMENTED (2026-11-13) - B1, B2, B3, B4 option a), and C.
+  Also fixed on the product page (found while doing B3): the fake
+  "(46)" 5-star rating and "90+ Sold Recently" under the product title
+  now show the real rating, or nothing when there are no reviews.
+  No migration needed; after deploying run: php artisan optimize:clear
+
+How this was checked: every placeholder text from the sheet was searched for
+in the RENDERED HTML of the current code (home, shop, category, categories,
+product, login and checkout pages on a local server), not only in the
+template files. The audit was crawled from an older version of the site,
+before the menus, footer and layout were rebuilt, so most rows are already
+gone.
+
+=====================================================================
+A. ALREADY FIXED IN THE CURRENT CODE (24 rows) - nothing to do
+=====================================================================
+None of these texts appear in any rendered page any more. The old theme
+header mega menus, mobile off-canvas menu, category side panel, theme
+showcase popup, second (theme) footer and theme modals were replaced by
+the NBC menus (<x-nbc-main-menu>, <x-nbc-category-menu>) and NBC footer.
+
+   1. All For Garden (H2)                      - header mega menu
+   2. Apple 16 Pro (H2)                        - header mega menu
+   3. Straps of Colors (H2)                    - header mega menu
+   4. New Aurora Watch (H2)                    - header mega menu
+   5. Send your idea, appear Unimart. (x4)     - mega menu banners
+   6. Ready to fall in love with Autumn...     - mega menu (Skin Care tab)
+   7. Electronics One, Fashion One... (H2 x10) - "Brands" mega menu
+   8. VIEW ALL DEMOS (81+) New drops...        - "Brands" mega menu
+   9. Shop Pages / Custom Pages / ...          - mega menu links (279 theme pages)
+  10. Documentation / Video Tutorials / ...    - "More" menu (theme vendor links)
+  11. Home & Garden, Smart Phones, Gadgets...  - "Shop by Categories" menu
+  12. Buy One and Get 50% Off ... Rs.          - mobile menu
+  13. Up to 40% Off On All Brands (x3)         - category side panel
+  14. Action Camera, Camera lenses... (H2 x37) - category side panel
+  15. Camera & Photo / All Watches / TVs...    - mobile menu
+  16. Boston, 44 Main street, +1(917)...       - mobile menu
+  17. Quick Links: About us / Reviews / ...     - mobile menu (theme pages)
+  18. "Went above & beyond" - Ralph Edwards    - mega menu testimonial
+  19. Adidas Ultraboost Cream / Pink Shoe ...  - mega menu product cards
+  20. Free Express Shipping on orders Rs. 200! - mega menu / top bar
+  21. Estimate shipping rates: New York...     - cart modal
+  22. "The shirt fits great..." - Szilagyi     - login/register modal testimonial
+  23. Best-In-Class Designs... (H2+H3 x60)     - theme showcase popup
+  24. Let Us Help You / Sell on Unimart /
+      Our Stores: New York, London... /
+      Download App 15% discount /
+      Copyright 2025 (c) Unimart HTML Template - second (theme) footer
+      (5 sheet rows, counted here as one block)
+
+  Note: "Our Social Links" - the footer now links only to NBC's real
+  profiles (Facebook, Instagram, TikTok, LinkedIn). No theme / Pinterest
+  links are rendered.
+
+=====================================================================
+B. STILL PRESENT - TO FIX
+=====================================================================
+
+B1. Expired 2023 demo coupon + other demo text in HTML comments
+    (sheet: "UP TO 30% OFF - For orders over Rs. 9.90", coupon 12/18/2023)
+    Where: product page only (resources/views/product-details.blade.php).
+    Why still found: these blocks are commented out with <!-- -->, so
+    shoppers do not see them, but the text is still sent in the page
+    source, which crawlers read. ~30 KB of demo text per product page:
+      - "Additional Offers / UP TO 30% OFF / 12/18/2023 14:00 ~ 12/25/2023"
+      - "34 products sold in last 10 hours. 20 people are viewing this"
+      - "Special Offer: 87 Days 23 Hours ... Remains until the end"
+      - "Only 20 pc left", "All Europe Delivery / Verified / Brand" icons
+      - "There's more in the complete bundle ... G244F 23.8 inch FHD..."
+      - "Beats Brand is now on Unimart Platform"
+    FIX: change these HTML comments (<!-- -->) to Blade comments
+         ({{-- --}}) so they are never sent to the browser. No visible
+         change on the page.
+
+B2. "Unimart" name still on the login and payment pages
+    - Login page <title>: "Customer Sign In - Unimart"
+    - Login logo alt text: "Unimart Logo", "Unimart Logo Images"
+    - Payment redirect <title>: "Redirecting to Payment Gateway... - Unimart"
+    FIX: replace with "Nature's Beauty Creations" (e.g. "Customer Sign In -
+         Nature's Beauty Creations", alt "Nature's Beauty Creations logo").
+
+B3. Fake "(5.0)" 5-star rating on every product card
+    (sheet: "Identical 5.0 ratings on all products look generated")
+    Where: product cards on shop / category / brand pages
+    (components/nbc-product-card.blade.php) and the home page best sellers
+    + new arrivals (home.blade.php, x2). Every product shows 5 filled stars
+    and "(5.0)" regardless of reviews.
+    FIX: show the product's REAL average rating and review count from the
+         reviews table (customer + admin manual reviews), e.g.
+         "★★★★☆ (4.3) 12 reviews". Products with no reviews show no stars
+         at all. Counts are loaded in one query per page (no slowdown).
+
+B4. "$" prices on listing pages
+    (sheet: "Listing cards show $ while the cart shows LKR")
+    Cause: this is the site's country-based currency feature, not
+    placeholder text. Visitors from outside Sri Lanka (detected by IP)
+    get USD prices everywhere - listings, cart and checkout use the same
+    session currency. The audit crawler ran from outside Sri Lanka, so it
+    saw "$". For a Sri Lankan visitor all prices are LKR.
+    OPTIONS (your decision - see questions below):
+      a) Keep as is (overseas customers see USD), but always show LKR to
+         search engine crawlers (Googlebot etc.), so Google indexes LKR
+         prices. (recommended)
+      b) Show LKR to everyone and remove the USD feature.
+      c) Leave unchanged.
+
+=====================================================================
+C. FOUND DURING THE CHECK (not on the sheet) - optional
+=====================================================================
+  - Product page "Compare Product" and "Share" buttons open popups that
+    no longer exist, so clicking them does nothing; "Buy Now" links to "#".
+    FIX: remove Compare; make Share open the phone's share menu / copy
+    the link; make Buy Now add to cart and go to checkout.
+
+=====================================================================
+QUESTIONS BEFORE EXECUTING
+=====================================================================
+  1. Prices (B4): option a), b) or c)?
+  2. Ratings (B3): OK to show real ratings and hide stars on products
+     with no reviews?
+  3. Extra product-page buttons (C): fix them too, or leave for later?
+
+Reply "execute" with your answers and I will implement it.

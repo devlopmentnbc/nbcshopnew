@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RecordsSlugRedirects;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsSlugRedirects;
+
+    public const SLUG_REDIRECT_TYPE = 'product';
 
     protected $fillable = [
         'brand_id',
@@ -19,6 +22,9 @@ class Product extends Model
         'sub_category_id',
         'name',
         'slug',
+        'meta_title',
+        'meta_description',
+        'h1_heading',
         'sku',
         'usd_offer_price',
         'weight_grams',
@@ -27,6 +33,7 @@ class Product extends Model
         'how_to_use',
         'ingredients',
         'image',
+        'image_alt',
         'status',
         'is_best_seller',
         'is_new_arrival',
@@ -234,5 +241,50 @@ class Product extends Model
             'regular_formatted' => $symbol . number_format($regular, 2),
             'price_formatted' => $symbol . number_format($hasSale ? $sale : $regular, 2),
         ];
+    }
+
+    /**
+     * Canonical storefront URL: /product-details/{slug}
+     */
+    public function url(): string
+    {
+        return route('product.details', $this->slug ?: $this->id);
+    }
+
+    /**
+     * Alt text for the main product image: the admin's text, else
+     * "<product name> by <brand>" (or just the name when there is no brand).
+     */
+    public function imageAlt(): string
+    {
+        if (filled($this->image_alt)) {
+            return $this->image_alt;
+        }
+
+        $brand = $this->brand?->name;
+
+        return $brand && ! str_contains(mb_strtolower($this->name), mb_strtolower($brand))
+            ? "{$this->name} by {$brand}"
+            : (string) $this->name;
+    }
+
+    /**
+     * Real rating from reviews: ['average' => 4.3, 'count' => 12], or null when
+     * there are no reviews. Uses withAvg/withCount values when loaded.
+     */
+    public function ratingSummary(): ?array
+    {
+        if (array_key_exists('reviews_count', $this->attributes)) {
+            $count = (int) $this->reviews_count;
+            $average = (float) ($this->attributes['reviews_avg_rating'] ?? 0);
+        } elseif ($this->relationLoaded('reviews')) {
+            $count = $this->reviews->count();
+            $average = (float) $this->reviews->avg('rating');
+        } else {
+            $count = $this->reviews()->count();
+            $average = $count ? (float) $this->reviews()->avg('rating') : 0.0;
+        }
+
+        return $count > 0 ? ['average' => round($average, 1), 'count' => $count] : null;
     }
 }

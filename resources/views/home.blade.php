@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
-@section('title', "Nature's Beauty Creations | Official Online Shop")
+@section('title', "Nature's Secrets & Panda Baby Online Shop Sri Lanka | NBC")
+@section('meta_description', \App\Support\SeoDescriptionSeed::HOME)
 
 @section('content')
     <div class="nbc-home-sections">
         <!-- Start Component Area -->
         <div class="rbt-component-area rbt-products-banner-area rbt-bg-color-white nbc-home-hero">
             <div class="wrapper nbc-hero-wrapper">
+                {{-- Page H1 for search engines / screen readers; the hero itself is an image slider. --}}
+                <h1 class="nbc-visually-hidden">{{ \App\Support\SeoH1Seed::HOME }}</h1>
                 @php
                     $displayBanners = isset($banners) && $banners->count() > 0 ? $banners : null;
                     $defaultHeroBanners = [
@@ -186,7 +189,7 @@
                                     <div
                                         class="rbt-brand text-center style-three rbt-scroll-trigger fade_in animation-order-{{ $animOrder }}">
                                         <div class="inner">
-                                            <a href="{{ route('shop', ['brand' => $brand->slug]) }}"
+                                            <a href="{{ $brand->url() }}"
                                                 class="brand-image d-block rbt-scroll-trigger zoom_in animation-order-{{ $animOrder }}"
                                                 title="View {{ $brand->name }} Products">
                                                 <img src="{{ $logoSrc }}" alt="{{ $brand->name }}">
@@ -309,10 +312,10 @@
                                         <div
                                             class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
                                             <div class="rbt-card-img top-rounded-md">
-                                                <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
+                                                <a href="{{ $product->url() }}">
                                                     <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
                                                         src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Misumi/Momo Perfume.png') }}"
-                                                        alt="{{ $product->name }}">
+                                                        alt="{{ $product->imageAlt() }}">
                                                 </a>
                                                 <div class="rbt-badge-wrapper rbt-content-top-left">
                                                     <div class="rbt-product-badge rbt-product-badge-bg-primary">NEW</div>
@@ -331,18 +334,9 @@
                                                     </a>
                                                     <h2 class="rbt-card-title">
                                                         <a
-                                                            href="{{ route('product.details', $product->slug ?: $product->id) }}">{{ $product->name }}</a>
+                                                            href="{{ $product->url() }}">{{ $product->name }}</a>
                                                     </h2>
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(5.0)</p>
-                                                    </div>
+                                                    @include('partials.product-rating', ['product' => $product])
                                                     @php $newArrivalPricing = $product->pricingSummary(); @endphp
                                                     <div class="pricing-part">
                                                         @if ($newArrivalPricing['has_sale'])
@@ -545,10 +539,10 @@
                                         <div
                                             class="rbt-card rbt-product-card rbt-product-card-style-2 rounded--12 rbt-scroll-trigger fade_in animation-order-1">
                                             <div class="rbt-card-img top-rounded-md">
-                                                <a href="{{ route('product.details', $product->slug ?: $product->id) }}">
+                                                <a href="{{ $product->url() }}">
                                                     <img class="rbt-scroll-trigger fade_in animation-order-1 rbt-prd-img"
                                                         src="{{ $product->image ? asset($product->image) : asset('assets/images/nbc/Nature\'s Secret/herbel-hair-oil1.png') }}"
-                                                        alt="{{ $product->name }}">
+                                                        alt="{{ $product->imageAlt() }}">
                                                 </a>
                                                 <div class="rbt-badge-wrapper rbt-content-top-left">
                                                     <div class="rbt-product-badge rbt-product-badge-bg-secondary">BEST
@@ -568,18 +562,9 @@
                                                     </a>
                                                     <h2 class="rbt-card-title">
                                                         <a
-                                                            href="{{ route('product.details', $product->slug ?: $product->id) }}">{{ $product->name }}</a>
+                                                            href="{{ $product->url() }}">{{ $product->name }}</a>
                                                     </h2>
-                                                    <div class="rbt-card-rating">
-                                                        <ul class="rbt-rating-icon-list">
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                            <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                                        </ul>
-                                                        <p class="rating-digit">(5.0)</p>
-                                                    </div>
+                                                    @include('partials.product-rating', ['product' => $product])
                                                     @php $bestSellerPricing = $product->pricingSummary(); @endphp
                                                     <div class="pricing-part">
                                                         @if ($bestSellerPricing['has_sale'])
@@ -748,14 +733,14 @@
                                 class="rbt-cat-box rbt-cat-box-5 variation-one rbt-scroll-trigger fade_in animation-order-{{ ($index % 5) + 1 }}">
                                 <div class="inner">
                                     <div class="rbt-image-portion position-relative overflow-hidden">
-                                        <a href="{{ route('shop', ['category' => $category->slug ?: $category->id]) }}">
+                                        <a href="{{ $category->url() }}">
                                             <img class="rbt-scroll-trigger zoom_in animation-order-{{ ($index % 5) + 1 }}"
                                                 src="{{ $category->image ? asset($category->image) : asset('assets/images/nbc/Nature\'s Secret/herbel-hair-oil1.png') }}"
                                                 alt="{{ $category->name }}">
                                         </a>
                                         <div class="rbt-right-corner-portion bottom--position">
                                             <div class="rbt-corner-portion-wrapper">
-                                                <a href="{{ route('shop', ['category' => $category->slug ?: $category->id]) }}"
+                                                <a href="{{ $category->url() }}"
                                                     class="rbt-card-link-btn"><i
                                                         class="fa-solid fa-arrow-up-right"></i></a>
                                             </div>
@@ -764,7 +749,7 @@
                                     <div class="content text-center">
                                         <p class="title">
                                             <a
-                                                href="{{ route('shop', ['category' => $category->slug ?: $category->id]) }}">{{ $category->name }}</a>
+                                                href="{{ $category->url() }}">{{ $category->name }}</a>
                                         </p>
                                     </div>
                                 </div>

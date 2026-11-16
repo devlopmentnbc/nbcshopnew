@@ -77,6 +77,9 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:products,slug',
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'usd_offer_price' => 'nullable|numeric|min:0',
             'weight_grams' => 'nullable|numeric|min:0',
             'brand_id' => 'nullable|exists:brands,id',
@@ -92,6 +95,11 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
             'gallery_images' => 'nullable|array',
             'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'image_alt' => 'nullable|string|max:150',
+            'gallery_alt' => 'nullable|array',
+            'gallery_alt.*' => 'nullable|string|max:150',
+            'new_gallery_alt' => 'nullable|array',
+            'new_gallery_alt.*' => 'nullable|string|max:150',
             'status' => 'nullable|boolean',
             'variants' => 'nullable|array',
         ]);
@@ -119,6 +127,9 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'sku' => Product::generateSku(),
             'usd_offer_price' => $request->usd_offer_price ?: null,
             'weight_grams' => $request->filled('weight_grams') ? (int) $request->weight_grams : 500,
@@ -127,6 +138,7 @@ class ProductController extends Controller
             'how_to_use' => $request->how_to_use,
             'ingredients' => $request->ingredients,
             'image' => $imagePath,
+            'image_alt' => $request->filled('image_alt') ? trim($request->input('image_alt')) : null,
             'status' => $request->has('status') ? (bool) $request->status : true,
         ]);
 
@@ -143,6 +155,7 @@ class ProductController extends Controller
                     $product->images()->create([
                         'image_path' => 'uploads/products/gallery/' . $gFilename,
                         'sort_order' => $index,
+                        'alt_text' => $this->cleanAlt($request->input("new_gallery_alt.$index")),
                     ]);
                 }
             }
@@ -193,6 +206,9 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:products,slug,' . $product->id,
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'usd_offer_price' => 'nullable|numeric|min:0',
             'weight_grams' => 'nullable|numeric|min:0',
             'brand_id' => 'nullable|exists:brands,id',
@@ -208,6 +224,11 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
             'gallery_images' => 'nullable|array',
             'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'image_alt' => 'nullable|string|max:150',
+            'gallery_alt' => 'nullable|array',
+            'gallery_alt.*' => 'nullable|string|max:150',
+            'new_gallery_alt' => 'nullable|array',
+            'new_gallery_alt.*' => 'nullable|string|max:150',
             'status' => 'nullable|boolean',
             'variants' => 'nullable|array',
         ]);
@@ -239,6 +260,9 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'usd_offer_price' => $request->usd_offer_price ?: null,
             'weight_grams' => $request->filled('weight_grams') ? (int) $request->weight_grams : ($product->weight_grams ?: 500),
             'short_description' => $request->short_description,
@@ -246,8 +270,14 @@ class ProductController extends Controller
             'how_to_use' => $request->how_to_use,
             'ingredients' => $request->ingredients,
             'image' => $imagePath,
+            'image_alt' => $request->filled('image_alt') ? trim($request->input('image_alt')) : null,
             'status' => $request->has('status') ? (bool) $request->status : false,
         ]);
+
+        // Alt text of existing gallery images (only this product's images)
+        foreach ((array) $request->input('gallery_alt', []) as $imageId => $alt) {
+            $product->images()->whereKey((int) $imageId)->update(['alt_text' => $this->cleanAlt($alt)]);
+        }
 
         // Upload New Gallery Images
         if ($request->hasFile('gallery_images')) {
@@ -263,6 +293,7 @@ class ProductController extends Controller
                     $product->images()->create([
                         'image_path' => 'uploads/products/gallery/' . $gFilename,
                         'sort_order' => $existingCount + $index,
+                        'alt_text' => $this->cleanAlt($request->input("new_gallery_alt.$index")),
                     ]);
                 }
             }
@@ -460,5 +491,12 @@ class ProductController extends Controller
         }
 
         return $slug;
+    }
+
+    private function cleanAlt($alt): ?string
+    {
+        $alt = trim(preg_replace('/\s+/', ' ', (string) $alt));
+
+        return $alt === '' ? null : mb_substr($alt, 0, 150);
     }
 }

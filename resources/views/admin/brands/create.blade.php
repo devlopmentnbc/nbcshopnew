@@ -41,6 +41,15 @@
                 @enderror
             </div>
 
+            <!-- SEO Title -->
+            @include('admin.partials.seo-title-field', ['value' => null])
+
+            <!-- SEO Meta Description -->
+            @include('admin.partials.seo-description-field', ['value' => null])
+
+            <!-- SEO H1 Heading -->
+            @include('admin.partials.seo-h1-field', ['value' => null])
+
             <!-- Brand Image (Optional) -->
             <div>
                 <label for="image" class="block text-[14px] font-semibold text-ink-900 mb-2">Brand Image / Logo <span class="text-ink-400 font-normal">(Optional)</span></label>

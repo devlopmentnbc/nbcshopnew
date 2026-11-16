@@ -48,9 +48,15 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name',
             'slug' => 'nullable|string|max:255|unique:categories,slug',
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
+
+        $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
+        $this->ensureSlugIsNotReserved($slug);
 
         $uploadDir = public_path('uploads/categories');
 
@@ -63,11 +69,12 @@ class CategoryController extends Controller
         $file->move($uploadDir, $filename);
         $imagePath = 'uploads/categories/'.$filename;
 
-        $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
-
         Category::create([
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : true,
             'sort_order' => ((int) Category::max('sort_order')) + 1,  // Add New Category to the end of the list
@@ -97,9 +104,15 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,'.$category->id,
             'slug' => 'nullable|string|max:255|unique:categories,slug,'.$category->id,
+            'meta_title' => 'nullable|string|max:70',
+            'meta_description' => 'nullable|string|max:160',
+            'h1_heading' => 'nullable|string|max:120',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'status' => 'nullable|boolean',
         ]);
+
+        $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
+        $this->ensureSlugIsNotReserved($slug);
 
         $imagePath = $category->image;
 
@@ -120,11 +133,12 @@ class CategoryController extends Controller
             $imagePath = 'uploads/categories/'.$filename;
         }
 
-        $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
-
         $category->update([
             'name' => $request->name,
             'slug' => $slug,
+            'meta_title' => $request->filled('meta_title') ? trim($request->input('meta_title')) : null,
+            'meta_description' => $request->filled('meta_description') ? trim(preg_replace('/\s+/', ' ', $request->input('meta_description'))) : null,
+            'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : false,
         ]);
@@ -171,5 +185,18 @@ class CategoryController extends Controller
         });
 
         return response()->json(['message' => 'Category order updated.']);
+    }
+
+    /**
+     * Categories live at /{slug}, so a slug must not clash with an existing
+     * page such as /shop or /checkout (that page would win and hide the category).
+     */
+    private function ensureSlugIsNotReserved(string $slug): void
+    {
+        if ($slug === '' || in_array(strtolower($slug), \App\Support\Catalog::reservedSlugs(), true)) {
+            throw ValidationException::withMessages([
+                'slug' => "The URL \"/{$slug}\" is already used by another page. Please choose a different slug.",
+            ]);
+        }
     }
 }

@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
-@section('title', isset($product) ? $product->name . ' - NBC Shop' : 'Product Details - NBC Shop')
+@section('title', isset($product) ? ($product->meta_title ?: $product->name . ' - NBC Shop') : 'Product Details - NBC Shop')
+@section('meta_description', isset($product)
+    ? ($product->meta_description
+        ?: \App\Support\Seo::description($product->short_description)
+        ?: \App\Support\Seo::description($product->description)
+        ?: \App\Support\Seo::DEFAULT_DESCRIPTION)
+    : \App\Support\Seo::DEFAULT_DESCRIPTION)
+@if (isset($product) && $product->slug)
+    @section('canonical', \App\Support\Seo::canonical('product-details/' . $product->slug))
+@endif
 
 @section('content')
     </div>
@@ -101,9 +110,9 @@
                             <li>
                                 <div class="icon-right"><i class="fa-solid fa-chevron-right"></i></div>
                             </li>
-                            @if ($product?->category)
+                            @if ($product?->category?->status)
                                 <li class="rbt-breadcrumb-item">
-                                    <a href="{{ route('shop', ['category' => $product->category->slug ?: $product->category->id]) }}">
+                                    <a href="{{ $product->category->url() }}">
                                         {{ $product->category->name }}
                                     </a>
                                 </li>
@@ -150,14 +159,14 @@
                                 <i class="fa-regular fa-arrows-maximize"></i>
                             </a>
 
-                           <!-- <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--prev"
+                           {{-- <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--prev"
                                 type="button" data-gallery-prev aria-label="Previous product image">
                                 <i class="fa-regular fa-arrow-left"></i>
-                            </button> -->
+                            </button> --}}
 
                             <img class="nbc-fresh-product-gallery__main" data-gallery-main
                                 src="{{ isset($product) && $product->image ? asset($product->image) : (isset($product) && $product->images?->first() ? asset($product->images->first()->image_path) : asset('assets/images/product-single/earphone/earphone-05.webp')) }}"
-                                alt="{{ isset($product) ? $product->name : 'Product image' }}">
+                                alt="{{ isset($product) ? ($product->image || !$product->images?->first() ? $product->imageAlt() : $product->images->first()->alt(1, $product->imageAlt())) : 'Product image' }}">
 
                             <!-- <button class="nbc-fresh-product-gallery__arrow nbc-fresh-product-gallery__arrow--next"
                                 type="button" data-gallery-next aria-label="Next product image">
@@ -170,7 +179,7 @@
                                 <button class="nbc-fresh-product-gallery__thumb is-active" type="button"
                                     data-gallery-thumb data-image="{{ asset($product->image) }}"
                                     aria-label="View main image" aria-pressed="true">
-                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->imageAlt() }}">
                                 </button>
                             @endif
 
@@ -183,7 +192,7 @@
                                         aria-label="View product image {{ $index + 1 }}"
                                         aria-pressed="{{ !$product->image && $loop->first ? 'true' : 'false' }}">
                                         <img src="{{ asset($galleryImage->image_path) }}"
-                                            alt="{{ $product->name }}">
+                                            alt="{{ $galleryImage->alt($loop->iteration + ($product->image ? 1 : 0), $product->imageAlt()) }}">
                                     </button>
                                 @endforeach
                             @endif
@@ -239,6 +248,8 @@
 
                                 mainImage.classList.add('is-changing');
                                 mainImage.src = imageUrl;
+                                const selectedThumbImage = selected.querySelector('img');
+                                if (selectedThumbImage) mainImage.alt = selectedThumbImage.alt;
                                 enlargeLink.href = imageUrl;
                                 thumbnails.forEach(function(thumbnail, thumbnailIndex) {
                                     const active = thumbnailIndex === activeIndex;
@@ -301,10 +312,10 @@
                                 <span class="nbc-product-badge nbc-product-badge--sale">Sale</span>
                             @endif
                         </div>
-                        <a href="{{ route('shop') }}"
+                        <a href="{{ $product->category?->status ? $product->category->url() : route('shop') }}"
                             class="rbt-card-subtitle rbt-card-catagories-text mt--16">{{ isset($product) && $product->category ? $product->category->name : 'Category' }}</a>
-                        <h2 class="rbt-card-title mt--12">{{ isset($product) ? $product->name : 'Product Name' }}
-                        </h2>
+                        <h1 class="rbt-card-title mt--12">{{ isset($product) ? ($product->h1_heading ?: $product->name) : 'Product Name' }}
+                        </h1>
                         <p class="description-text b2 mt--16 nbc-summary-description">
                             {!! isset($product) && $product->short_description ? nl2br(e($product->short_description)) : 'No description available.' !!}
                         </p>
@@ -344,48 +355,21 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="rbt-info-wrapper d-flex mt--24 nbc-summary-rating">
-                            <div class="rbt-card-rating mt--0">
-                                <ul class="rbt-rating-icon-list">
-                                    <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                    <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                    <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                    <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                    <li><i class="fa-solid fa-star rbt-rated-icon"></i></li>
-                                </ul>
-                                <p class="rating-digit">(46)</p>
-                                <div class="prd-info-section has-left-separator">
-                                    <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="rbt-text-group"> <span class="icon mr--4"><i
-                                                            class="fa-solid fa-bag-shopping"></i></span>
-                                                    90+ Sold Recently
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="rbt-text-group"> <span class="icon mr--4"><i
-                                                            class="fa-solid fa-truck"></i></span>
-                                                    Free shipping
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="rbt-text-group"> <span class="icon mr--4"><i
-                                                            class="fa-solid fa-rotate-left"></i></span>
-                                                    7 Days Return Plicy
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="rbt-verticle-arrow rbt-arrow-prev">
-                                            <i class="fa-regular fa-chevron-up"></i>
-                                        </div>
-                                        <div class="rbt-verticle-arrow rbt-arrow-next">
-                                            <i class="fa-regular fa-chevron-down"></i>
-                                        </div>
-                                    </div>
+                        {{-- Real rating from reviews (hidden when the product has none). --}}
+                        @if (isset($product) && ($summaryRating = $product->ratingSummary()))
+                            <div class="rbt-info-wrapper d-flex mt--24 nbc-summary-rating">
+                                <div class="rbt-card-rating mt--0">
+                                    <ul class="rbt-rating-icon-list" aria-label="{{ $summaryRating['average'] }} out of 5 stars">
+                                        @for ($star = 1; $star <= 5; $star++)
+                                            <li><i class="fa-solid fa-star {{ $star <= round($summaryRating['average']) ? 'rbt-rated-icon' : '' }}"></i></li>
+                                        @endfor
+                                    </ul>
+                                    <p class="rating-digit">
+                                        <a href="#rbt-question">({{ number_format($summaryRating['average'], 1) }}) · {{ $summaryRating['count'] }} {{ $summaryRating['count'] === 1 ? 'review' : 'reviews' }}</a>
+                                    </p>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="nbc-product-benefits">
                             <span><i class="fa-solid fa-truck"></i> Free islandwide shipping</span>
                             <span><i class="fa-solid fa-shield-check"></i> Authentic NBC product</span>
@@ -394,7 +378,7 @@
 
                             <div class="prd-info-section has-left-separator">
                                 <br>
-                                <!-- <div class="prd-id-text">
+                                {{-- <div class="prd-id-text">
                                         <p class="text-bold">All Europe</p>
                                         <a href="#" class="rbt-brand-img tooltips" data-tooltip="All Europe Delivary" data-tooltip-position="top"><img src="{{ asset('assets/images/icons/small-brand/sm-brand-b-02.webp') }}" alt="Small icon Brand"></a>
                                     </div>
@@ -410,9 +394,9 @@
                                         <p class="text-bold">Brand:</p>
                                         <a href="#" class="rbt-brand-img tooltips" data-tooltip="Product Brand" data-tooltip-position="top"><img src="{{ asset('assets/images/icons/small-brand/sm-brand-b-01.webp') }}" alt="Small icon Brand"></a>
                                     </div>
-                                </div> -->
+                                </div> --}}
                             </div>
-                            <!-- <div class="rbt-info-wrapper d-flex mt--24 rbt-gap--12 flex-wrap">
+                            {{-- <div class="rbt-info-wrapper d-flex mt--24 rbt-gap--12 flex-wrap">
                                 <div class="prd-info-section">
                                     <a class="rbt-quick-info-tag d-flex align-items-center rbt-gap--8 rbt-flash-animation" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none">
@@ -437,7 +421,7 @@
                                         <p><strong>20 people are viewing this</strong></p>
                                     </a>
                                 </div>
-                            </div> -->
+                            </div> --}}
 
                             <!-- Dynamic Attributes Section -->
                             @if (isset($product) && $product->attributeValues && $product->attributeValues->count() > 0)
@@ -539,7 +523,7 @@
                                     })();
                                 </script>
                             @endif
-                            <!-- <div class="rbt-countdown-banner rbt-countdown-banner-sm rbt-countdown-banner-has-bg-01">
+                            {{-- <div class="rbt-countdown-banner rbt-countdown-banner-sm rbt-countdown-banner-has-bg-01">
                                     <span class="b3 rbt-title">Special Offer :</span>
                                     <div class="rbt-countdown-section">
                                         <div class="rbt-countdown-one bg-variation-white cd-border-style">
@@ -564,17 +548,17 @@
                                         </div>
                                     </div>
                                     <span class="rbt-desc b4">Remains until the end of the offer.</span>
-                                </div> -->
+                                </div> --}}
                         </div>
 
-                        <!-- <div class="rbt-info-wrapper d-block mt--24">
+                        {{-- <div class="rbt-info-wrapper d-block mt--24">
                                 <div class="rbt-prd-qty-area">
                                     <p class="prd-qty-txt"><strong>Only {{ isset($product) ? $product->totalStock() : 0 }} pc left</strong></p>
                                     <div class="progress" role="progressbar" aria-label="Shipping-progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar w-50"></div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div> --}}
 
                         <div class="product-btn-grp">
                             <div class="rbt-qty-area">
@@ -589,21 +573,86 @@
                                     class="fa-regular fa-cart-shopping"></i> Add To Cart</a>
                         </div>
                         <div class="prd-btn-grp">
-                            <a class="rbt-btn d-block text-center" href="#">Buy Now</a>
+                            <a class="rbt-btn d-block text-center js-nbc-buy-now" href="{{ route('checkout') }}"
+                                data-product-id="{{ isset($product) ? $product->id : '' }}">Buy Now</a>
                         </div>
                         <div class="rbt-quick-link-grp">
-                            <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#compareviewModal"
-                                type="button"><i class="fa-sharp fa-regular fa-copy"></i>Compare Product</button>
                             <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#wishlistModal"
                                 type="button"><i class="fa-sharp fa-regular fa-heart"></i>Add To Wishlist</button>
-                            <button class="rbt-quick-link" data-bs-toggle="modal" data-bs-target="#socialShareModal"
-                                type="button"><i class="fa-sharp fa-regular fa-share-nodes"></i>Share</button>
+                            <button class="rbt-quick-link js-nbc-share" type="button"
+                                data-share-url="{{ isset($product) ? $product->url() : url()->current() }}"
+                                data-share-title="{{ isset($product) ? $product->name : '' }}"><i
+                                    class="fa-sharp fa-regular fa-share-nodes"></i><span>Share</span></button>
                         </div>
+                        <script>
+                            (function() {
+                                var buyNow = document.querySelector('.js-nbc-buy-now');
+                                if (buyNow) {
+                                    buyNow.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        var summary = buyNow.closest('.nbc-product-summary-column') || document;
+                                        var addBtn = summary.querySelector('.js-nbc-add-to-cart');
+                                        var qtyInput = summary.querySelector('.product-btn-grp .items-qty-input');
+                                        var token = document.querySelector('meta[name="csrf-token"]');
+                                        buyNow.classList.add('disabled');
+                                        fetch('{{ route('cart.add') }}', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'Accept': 'application/json',
+                                                'X-Requested-With': 'XMLHttpRequest',
+                                                'X-CSRF-TOKEN': token ? token.content : ''
+                                            },
+                                            body: JSON.stringify({
+                                                product_id: buyNow.dataset.productId,
+                                                quantity: Math.max(1, parseInt(qtyInput && qtyInput.value, 10) || 1),
+                                                attributes: {},
+                                                attribute_value_id: (addBtn && addBtn.dataset.attributeValueId) || null
+                                            })
+                                        })
+                                        .then(function(r) { return r.json(); })
+                                        .then(function(data) {
+                                            if (data.status === 'success') {
+                                                window.location.href = buyNow.href;
+                                            } else {
+                                                buyNow.classList.remove('disabled');
+                                                alert(data.message || 'Could not add this product to your cart.');
+                                            }
+                                        })
+                                        .catch(function() {
+                                            buyNow.classList.remove('disabled');
+                                            alert('Could not add this product to your cart. Please try again.');
+                                        });
+                                    });
+                                }
+
+                                var share = document.querySelector('.js-nbc-share');
+                                if (share) {
+                                    share.addEventListener('click', function() {
+                                        var url = share.dataset.shareUrl, title = share.dataset.shareTitle;
+                                        if (navigator.share) {
+                                            navigator.share({ title: title, url: url }).catch(function() {});
+                                            return;
+                                        }
+                                        var label = share.querySelector('span');
+                                        var done = function() {
+                                            label.textContent = 'Link copied';
+                                            setTimeout(function() { label.textContent = 'Share'; }, 2000);
+                                        };
+                                        if (navigator.clipboard) {
+                                            navigator.clipboard.writeText(url).then(done, function() { window.prompt('Copy this link:', url); });
+                                        } else {
+                                            window.prompt('Copy this link:', url);
+                                        }
+                                    });
+                                }
+                            })();
+                        </script>
 
 
 
                         <div class="rbt-info-wrapper d-block mt--24">
-                            <!-- <div class="rbt-info-box rbt-bg-color-brand-50">
+                            {{-- <div class="rbt-info-box rbt-bg-color-brand-50">
                                     <p class="text-bold rbt-info-title b1">Additional Offers</p>
                                     <div class="rbt-coupon-container">
                                         <div class="swiper rbt-couponSwiper rbt-swiper-scrollbar-bottom">
@@ -681,9 +730,11 @@
                                             <div class="rbt-swiper-scrollbar swiper-scrollbar"></div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div> --}}
                         </div>
                         <!-- <hr class="rbt-separator rbt-separator-gray200 mt--24 mb--24">
+    {{-- SEO: commented-out template demo with placeholder links; not rendered. --}}
+    @if (false)
                             <div class="rbt-info-wrapper d-block mt--24">
                                 <div class="rbt-info-box rbt-bg-color-brand-50">
                                     <p class="text-bold rbt-info-title b1">Alternative For This Product</p>
@@ -886,6 +937,7 @@
                             </div>
                         -->
                     </div>
+    @endif
                 </div>
             </div>
         </div>
@@ -894,7 +946,7 @@
 
     <!-- Start Combo Product Area -->
     <!-- <div class="rbt-component-area rbt-section-gap rbt-bg-color-gray-light"> -->
-    <!-- <div class="container">
+    {{-- <div class="container">
                 <div class="rbt-combo-prd-box rbt-bg-color-white">
                     <div class="row justify-content-between">
                         <div class="col-lg-2">
@@ -1018,7 +1070,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div> --}}
     <!-- End Combo Product Area -->
 
     <!-- Start Single Product Tab Area -->
@@ -1878,6 +1930,8 @@
             </div>
             <div class="col-xl-4 mt--24 rbt-single-mobile-view-sidebar">
               <!--  <div class="rbt-tab rbt-product-single-details-tab rbt-fshape-tab">
+    {{-- SEO: commented-out template demo with placeholder links; not rendered. --}}
+    @if (false)
                     <div class="rbt-tab-nav-wrapper">
                         <ul class="nav nav-tabs" id="rbt-product-recomTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -2189,6 +2243,7 @@
                     </div>
                 </div> -->
                 <!-- <div class="rbt-block-banner-img mt--32">
+    @endif
                     <img src="{{ asset('assets/images/product-single/single-prd-banner/single-prd-banner-a-01.webp') }}"
                         alt="Ecommerce Product Banner">
                 </div> -->
@@ -2791,6 +2846,8 @@
     <!-- End Component Area -->
 
     <!-- Start Component Area -->
+    {{-- SEO: hidden template "Frequently Bought Together" demo with placeholder links; not rendered. --}}
+    @if (false)
     <div class="rbt-component-area rbt-section-gap rbt-bg-color-white nbc-hidden-frequently-bought">
         <div class="container">
 
@@ -3365,7 +3422,10 @@
     </div>
     <!-- End Component Area -->
 
+    @endif
     <!-- Start Quick View Modal Area  -->
+    {{-- SEO: unused template quick-view modal with placeholder links; not rendered. --}}
+    @if (false)
     <div class="rbt-default-modal modal fade has-rbt-top-folder-shape" id="quickviewModal" tabindex="-1"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -4256,7 +4316,10 @@
         </div>
     </div>
     <!-- End Quick View Modal Area  -->
+    {{-- SEO: unused theme demo modals (popup cart / edit cart) with relative demo links; not rendered. --}}
+    @if (false)
     <!-- Start Popup Cart Modal Area  -->
+    @endif
     <div class="rbt-default-modal has-rbt-top-folder-shape modal fade" id="popup-cartModal" tabindex="-1"
         role="dialog" aria-modal="true" aria-labelledby="popup-cartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered xxs-size">
@@ -4719,6 +4782,7 @@
         </div>
     </div>
     <!-- End Quick View Modal Area  -->
+    @endif
         <!-- Start Coupon Collection Modal Area  -->
     <div class="rbt-default-modal modal fade" id="findstoreModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered xl-size">

@@ -20,7 +20,7 @@ class HomeController extends Controller
             ->latest()
             ->get();
 
-        $bestSellers = Product::with(['brand', 'category', 'attributeValues'])
+        $bestSellers = Product::with(['brand', 'category', 'attributeValues'])->withAvg('reviews', 'rating')->withCount('reviews')
             ->where('status', true)
             ->where('is_best_seller', true)
             ->latest()
@@ -28,14 +28,14 @@ class HomeController extends Controller
             ->get();
 
         if ($bestSellers->isEmpty()) {
-            $bestSellers = Product::with(['brand', 'category', 'attributeValues'])
+            $bestSellers = Product::with(['brand', 'category', 'attributeValues'])->withAvg('reviews', 'rating')->withCount('reviews')
                 ->where('status', true)
                 ->latest()
                 ->take(12)
                 ->get();
         }
 
-        $newArrivals = Product::with(['brand', 'category', 'attributeValues'])
+        $newArrivals = Product::with(['brand', 'category', 'attributeValues'])->withAvg('reviews', 'rating')->withCount('reviews')
             ->where('status', true)
             ->where('is_new_arrival', true)
             ->latest()
@@ -43,7 +43,7 @@ class HomeController extends Controller
             ->get();
 
         if ($newArrivals->isEmpty()) {
-            $newArrivals = Product::with(['brand', 'category', 'attributeValues'])
+            $newArrivals = Product::with(['brand', 'category', 'attributeValues'])->withAvg('reviews', 'rating')->withCount('reviews')
                 ->where('status', true)
                 ->latest()
                 ->take(12)
@@ -51,7 +51,7 @@ class HomeController extends Controller
         }
 
         // Selected in Admin > Featured > On Sale (max 4).
-        $saleProducts = Product::with(['brand', 'category', 'attributeValues'])
+        $saleProducts = Product::with(['brand', 'category', 'attributeValues'])->withAvg('reviews', 'rating')->withCount('reviews')
             ->where('status', true)
             ->where('is_on_sale', true)
             ->latest()
@@ -67,14 +67,14 @@ class HomeController extends Controller
                 ->first();
         }
 
-        $brands = Brand::where('status', true)
-            ->withCount('products')
-            ->orderByDesc('products_count')
-            ->get();
+        // Only brands / categories with active products (empty ones are hidden until stocked).
+        $brands = \App\Support\Catalog::brands()
+            ->each(fn ($brand) => $brand->products_count = \App\Support\Catalog::productCount($brand))
+            ->filter(fn ($brand) => $brand->products_count > 0)
+            ->sortByDesc('products_count')
+            ->values();
 
-        $categories = Category::where('status', true)
-            ->orderBy('sort_order')
-            ->get();
+        $categories = \App\Support\Catalog::menu()['categories'];
 
         return view('home', [
             'storySections' => HomeStorySections::forHome(),
@@ -95,20 +95,23 @@ class HomeController extends Controller
 
     private function promotionUrl(Promotion $promotion): string
     {
-        return match ($promotion->target_type) {
-            'product' => route('product.details', [
-                'slug' => $promotion->productTarget?->slug ?? $promotion->target_id,
-            ]),
-            'brand' => route('shop', [
-                'brand' => $promotion->brandTarget?->slug ?? $promotion->target_id,
-            ]),
-            'category' => route('shop', [
-                'category' => $promotion->categoryTarget?->slug ?? $promotion->target_id,
-            ]),
-            'sub_category' => route('shop', [
-                'sub_category' => $promotion->subCategoryTarget?->slug ?? $promotion->target_id,
-            ]),
-            default => route('shop'),
+        // Link straight to the clean URL; fall back to /shop if the target is gone or inactive.
+        $target = match ($promotion->target_type) {
+            'product' => $promotion->productTarget,
+            'brand' => $promotion->brandTarget,
+            'category' => $promotion->categoryTarget,
+            'sub_category' => $promotion->subCategoryTarget,
+            default => null,
         };
+
+        if (! $target || ! $target->status) {
+            return route('shop');
+        }
+
+        if ($target instanceof \App\Models\SubCategory && ! $target->category?->status) {
+            return route('shop');
+        }
+
+        return $target->url();
     }
 }

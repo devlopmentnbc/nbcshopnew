@@ -41,6 +41,15 @@
                 @enderror
             </div>
 
+            <!-- SEO Title -->
+            @include('admin.partials.seo-title-field', ['value' => null])
+
+            <!-- SEO Meta Description -->
+            @include('admin.partials.seo-description-field', ['value' => null])
+
+            <!-- SEO H1 Heading -->
+            @include('admin.partials.seo-h1-field', ['value' => null])
+
             <!-- Category Image (Required) -->
             <div>
                 <label for="image" class="block text-[14px] font-semibold text-ink-900 mb-2">Category Image <span class="text-danger-500">*</span></label>
