@@ -4521,3 +4521,287 @@ body {
     white-space: nowrap !important;
     border: 0 !important;
 }
+
+/* ------------------------------------------------------------------
+   Top banner (Admin > Settings > Top Banner): admin-chosen 2-colour
+   gradient and text colour on the theme's vertical text slider.
+------------------------------------------------------------------- */
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner {
+    background: linear-gradient(90deg, var(--nbc-tb-start), var(--nbc-tb-end)) !important;
+}
+
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner,
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner p,
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner a,
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner button,
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner .rbt-verticle-arrow {
+    color: var(--nbc-tb-text) !important;
+}
+
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner a {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.rbt-header .nbc-shop-header .rbt-header-campaign.nbc-top-banner a:hover {
+    opacity: 0.8;
+}
+
+/* Alignment: keep the message centred on every screen size (the theme switches
+   .inner to display:block on mobile, which left-aligns it) and keep it clear of
+   the close button. */
+.nbc-top-banner {
+    position: relative;
+}
+
+.nbc-top-banner .rbt-corner-portion-wrapper > .container {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.nbc-top-banner .inner {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.nbc-top-banner .rbt-text-swiper-container {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding-right: 0 !important;
+}
+
+.nbc-top-banner .rbt-text-swiper-container .swiper-slide {
+    justify-content: center;
+}
+
+.nbc-top-banner .rbt-fancy-item {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.nbc-top-banner .rbt-fancy-item p.rbt-fancy-text {
+    justify-content: center;
+    max-width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.nbc-top-banner .nbc-top-banner__text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nbc-top-banner .rbt-fancy-item p.rbt-fancy-text a {
+    flex-shrink: 0;
+}
+
+/* Hover arrows sit on top of the centred text; the close button is enough. */
+.nbc-top-banner .rbt-verticle-arrow {
+    display: none !important;
+}
+
+.rbt-header-campaign.nbc-top-banner .icon-close.position-right {
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+}
+
+@media (max-width: 575px) {
+    .nbc-top-banner .rbt-corner-portion-wrapper > .container {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .nbc-top-banner .rbt-fancy-item p.rbt-fancy-text {
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .rbt-header-campaign.nbc-top-banner .icon-close.position-right {
+        right: 6px;
+    }
+}
+
+/* ------------------------------------------------------------------
+   Home page promo popup (Admin > Settings > Home Popup).
+   Image on the left, message + button on the right; stacks on phones.
+------------------------------------------------------------------- */
+.nbc-home-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+.nbc-home-popup.is-open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.nbc-home-popup-lock,
+.nbc-home-popup-lock body {
+    overflow: hidden !important;
+}
+
+.nbc-home-popup__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 10, 0.6);
+    cursor: pointer;
+}
+
+.nbc-home-popup__dialog {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1000px;
+    max-height: calc(100vh - 32px);
+    overflow: hidden;
+    border-radius: 14px;
+    background: #f8f8f5;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    transform: translateY(20px) scale(.97);
+    transition: transform .35s ease;
+}
+
+.nbc-home-popup.is-open .nbc-home-popup__dialog {
+    transform: none;
+}
+
+.nbc-home-popup__dialog.is-text-only {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+}
+
+.nbc-home-popup__media {
+    display: block;
+    min-height: 100%;
+    background: #0c302c;
+}
+
+.nbc-home-popup__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 32px);
+    object-fit: cover;
+}
+
+.nbc-home-popup__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 56px 48px 56px 64px;
+    overflow-y: auto;
+}
+
+.nbc-home-popup__title {
+    margin: 0;
+    color: #6a9a12;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.nbc-home-popup__message {
+    margin: 0;
+    color: #1d2a1d;
+    font-size: 18px;
+    line-height: 1.55;
+}
+
+.nbc-home-popup__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: #213a10;
+    color: #fff !important;
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background-color .2s ease, transform .2s ease;
+}
+
+.nbc-home-popup__btn i {
+    font-size: 22px;
+}
+
+.nbc-home-popup__btn:hover {
+    background: #4f9b04;
+    transform: translateY(-1px);
+}
+
+.nbc-home-popup__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: #213a10;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+.nbc-home-popup__close:hover {
+    background: #4f9b04;
+}
+
+@media (max-width: 767px) {
+    .nbc-home-popup__dialog {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        overflow-y: auto;
+    }
+
+    .nbc-home-popup__media img {
+        max-height: 45vh;
+    }
+
+    .nbc-home-popup__body {
+        padding: 24px 22px 28px;
+        gap: 14px;
+        overflow: visible;
+    }
+
+    .nbc-home-popup__message {
+        font-size: 15px;
+    }
+
+    .nbc-home-popup__btn {
+        font-size: 15px;
+        padding: 12px 18px;
+    }
+
+    .nbc-home-popup__close {
+        width: 34px;
+        height: 34px;
+        top: 8px;
+        right: 8px;
+    }
+}

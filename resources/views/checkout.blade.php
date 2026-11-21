@@ -217,6 +217,31 @@
                                     placeholder="Notes about your order, e.g. delivery instructions">{{ old('notes') }}</textarea>
                             </div>
                         </div>
+
+                        {{-- Gift option: details are entered in the #giftModal below (fields belong to this form via form="checkoutForm"). --}}
+                        @php $giftOn = (bool) old('is_gift'); @endphp
+                        <input type="hidden" name="is_gift" id="is_gift" value="{{ $giftOn ? 1 : 0 }}">
+                        <div class="checkout-card checkout-gift-card mb--30 {{ $giftOn ? 'is-active' : '' }}" id="giftCard">
+                            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="checkout-gift-icon"><i class="fa-solid fa-gift"></i></span>
+                                    <div>
+                                        <h6 class="mb-1" style="font-size: 16px;">Send as a special gift</h6>
+                                        <p class="mb-0 text-muted" id="giftSummary" style="font-size: 13px;">
+                                            Add a personal gift note and choose to leave the bill out of the package.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button type="button" class="rbt-btn btn-border btn-sm" data-bs-toggle="modal" data-bs-target="#giftModal" id="giftOpenBtn">
+                                        {{ $giftOn ? 'Edit gift' : 'Add gift' }}
+                                    </button>
+                                    <button type="button" class="btn btn-link text-danger p-0" id="giftRemoveBtn" style="font-size: 13px; {{ $giftOn ? '' : 'display:none' }}">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-lg-5">
@@ -366,10 +391,64 @@
                     </div>
                 </div>
             </form>
+
+            <!-- Gift Modal (outside the form; its fields submit with it via form="checkoutForm") -->
+            <div class="modal fade" id="giftModal" tabindex="-1" aria-labelledby="giftModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="border-radius: 12px;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="giftModalLabel"><i class="fa-solid fa-gift me-2" style="color: #4f9b04;"></i>Gift Options</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="rbt-input-field-grp mb--20">
+                                <label class="rbt-field-label" for="gift_note">Gift Note (optional)</label>
+                                <textarea class="rbt-input-field" id="gift_note" name="gift_note" form="checkoutForm" rows="4" maxlength="500"
+                                    placeholder="e.g. Happy Birthday! With love, ...">{{ old('gift_note') }}</textarea>
+                                <small class="text-muted d-block mt-1" style="font-size: 12px;"><span id="giftNoteCount">0</span>/500 · We'll include this note with the package.</small>
+                            </div>
+                            <div class="rbt-checkbox-wrapper">
+                                <input class="rbt-check-box-input" type="checkbox" name="gift_hide_bill" id="gift_hide_bill" value="1" form="checkoutForm"
+                                    {{ old('gift_hide_bill') ? 'checked' : '' }}>
+                                <label class="rbt-check-box-label" for="gift_hide_bill">
+                                    Don't attach the bill / price details to the package
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="rbt-btn btn-border btn-sm" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="rbt-btn btn-gradient btn-sm" id="giftSaveBtn">Save Gift</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <style>
+        .checkout-gift-card {
+            border-style: dashed;
+            transition: border-color .2s, background-color .2s;
+        }
+
+        .checkout-gift-card.is-active {
+            border: 1px solid #4f9b04;
+            background-color: #f5fbef;
+        }
+
+        .checkout-gift-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #eef7e4;
+            color: #4f9b04;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
         .checkout-card {
             background: #fff;
             border: 1px solid #eceef2;
@@ -627,6 +706,79 @@
             if (billingCountryEl) billingCountryEl.addEventListener('change', updateShipping);
             if (deliveryCountryEl) deliveryCountryEl.addEventListener('change', updateShipping);
             if (sameAsBillingCheckbox) sameAsBillingCheckbox.addEventListener('change', updateShipping);
+        })();
+    </script>
+
+    <script>
+        // Gift option: the modal edits a draft; "Save Gift" commits it, Cancel/close restores the last saved state.
+        (function() {
+            var modalEl = document.getElementById('giftModal');
+            var isGiftInput = document.getElementById('is_gift');
+            var noteEl = document.getElementById('gift_note');
+            var hideBillEl = document.getElementById('gift_hide_bill');
+            var card = document.getElementById('giftCard');
+            var summary = document.getElementById('giftSummary');
+            var openBtn = document.getElementById('giftOpenBtn');
+            var removeBtn = document.getElementById('giftRemoveBtn');
+            var countEl = document.getElementById('giftNoteCount');
+            if (!modalEl || !isGiftInput) return;
+
+            // Bootstrap's modal must sit directly under <body> so the theme's sticky header doesn't cover it.
+            document.body.appendChild(modalEl);
+
+            var defaultSummary = summary.textContent.trim();
+            var saved = { note: noteEl.value, hideBill: hideBillEl.checked };
+
+            function updateCount() { countEl.textContent = noteEl.value.length; }
+
+            function render() {
+                var on = isGiftInput.value === '1';
+                card.classList.toggle('is-active', on);
+                openBtn.textContent = on ? 'Edit gift' : 'Add gift';
+                removeBtn.style.display = on ? '' : 'none';
+                if (!on) { summary.textContent = defaultSummary; return; }
+
+                var parts = [];
+                var note = noteEl.value.trim();
+                parts.push(note ? 'Note: "' + (note.length > 60 ? note.slice(0, 60) + '…' : note) + '"' : 'No gift note');
+                if (hideBillEl.checked) parts.push('Bill will not be attached');
+                summary.textContent = 'This order is a gift · ' + parts.join(' · ');
+            }
+
+            function hideModal() {
+                if (window.bootstrap && bootstrap.Modal) {
+                    bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+                } else {
+                    modalEl.querySelector('[data-bs-dismiss="modal"]').click();
+                }
+            }
+
+            document.getElementById('giftSaveBtn').addEventListener('click', function() {
+                isGiftInput.value = '1';
+                saved = { note: noteEl.value, hideBill: hideBillEl.checked };
+                render();
+                hideModal();
+            });
+
+            // Closing without saving discards the draft edits.
+            modalEl.addEventListener('hidden.bs.modal', function() {
+                noteEl.value = saved.note;
+                hideBillEl.checked = saved.hideBill;
+                updateCount();
+            });
+
+            removeBtn.addEventListener('click', function() {
+                isGiftInput.value = '0';
+                noteEl.value = '';
+                hideBillEl.checked = false;
+                saved = { note: '', hideBill: false };
+                updateCount();
+                render();
+            });
+
+            noteEl.addEventListener('input', updateCount);
+            updateCount();
+            render();
         })();
     </script>
 

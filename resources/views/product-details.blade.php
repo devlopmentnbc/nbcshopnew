@@ -370,10 +370,14 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="nbc-product-benefits">
-                            <span><i class="fa-solid fa-truck"></i> Free islandwide shipping</span>
-                            <span><i class="fa-solid fa-shield-check"></i> Authentic NBC product</span>
-                        </div>
+                        @php $productBenefits = \App\Support\ProductBenefits::active(); @endphp
+                        @if (count($productBenefits))
+                            <div class="nbc-product-benefits">
+                                @foreach ($productBenefits as $benefit)
+                                    <span><i class="fa-solid {{ $benefit['icon'] }}"></i> {{ $benefit['text'] }}</span>
+                                @endforeach
+                            </div>
+                        @endif
                         <div class="rbt-info-wrapper d-flex mt--12 nbc-summary-sku">
 
                             <div class="prd-info-section has-left-separator">

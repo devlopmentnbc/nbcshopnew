@@ -155,6 +155,28 @@
                 </div>
             @endif
 
+            <!-- Gift Options -->
+            @if ($order->is_gift)
+                <div class="rounded-card border border-brand-600/30 bg-brand-50 p-6 shadow-card">
+                    <h3 class="text-[16px] font-semibold text-ink-900 mb-3 flex items-center gap-2">
+                        <i data-lucide="gift" class="h-5 w-5 text-brand-600"></i>
+                        This order is a gift
+                    </h3>
+                    @if ($order->gift_hide_bill)
+                        <p class="mb-3 inline-flex items-center gap-2 rounded-base bg-danger-50 px-3 py-1.5 text-[13px] font-bold text-danger-600 border border-danger-500/20">
+                            <i data-lucide="file-x" class="h-4 w-4"></i>
+                            Do NOT attach the bill / prices to the package
+                        </p>
+                    @endif
+                    <p class="text-[13px] font-semibold text-ink-700 mb-1">Gift note</p>
+                    @if ($order->gift_note)
+                        <p class="text-[14px] text-ink-700 bg-surface-card p-4 rounded-base border border-surface-line whitespace-pre-line">{{ $order->gift_note }}</p>
+                    @else
+                        <p class="text-[14px] text-ink-400 italic">No gift note.</p>
+                    @endif
+                </div>
+            @endif
+
             <!-- Addresses Card -->
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <!-- Billing Address -->

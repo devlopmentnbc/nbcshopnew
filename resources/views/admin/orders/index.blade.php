@@ -141,6 +141,11 @@
                                 <span class="text-[12px] text-ink-400">
                                     {{ $order->items->count() }} {{ Str::plural('item', $order->items->count()) }}
                                 </span>
+                                @if ($order->is_gift)
+                                    <span class="mt-1 inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-bold text-brand-600" title="{{ $order->gift_hide_bill ? 'Gift - do not attach bill' : 'Gift order' }}">
+                                        <i data-lucide="gift" class="h-3 w-3"></i> Gift{{ $order->gift_hide_bill ? ' · No bill' : '' }}
+                                    </span>
+                                @endif
                             </td>
 
                             <!-- Order Type Badge -->

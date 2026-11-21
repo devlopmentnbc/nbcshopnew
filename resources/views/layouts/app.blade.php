@@ -84,62 +84,7 @@
 
         <div
             class="rbt-header-wrapper rbt-header-sticky-activation rbt-header-wrapper-three rbt-header-wrapper-one header-space-between header-not-transparent header-sticky plr--0 nbc-shop-header">
-            <div
-                class="rbt-header-campaign rbt-header-campaign-1 rbt-header-top-news rbt-topbar-bg-img rbt-topbar-bg-one">
-                <div class="rbt-corner-portion-wrapper">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-12">
-                                <div class="inner justify-content-center">
-                                    <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                                        <div class="swiper-wrapper w-100">
-                                            <div class="swiper-slide">
-                                                <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                                    <p class="rbt-fancy-text rbt-text-color-white">Authentic NBC
-                                                        products delivered islandwide.
-                                                        <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop
-                                                            Now</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                                    <p class="rbt-fancy-text rbt-text-color-white">Herbal beauty
-                                                        inspired by nature since 1984.
-                                                        <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop
-                                                            Now</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="rbt-fancy-item fancy-menu-text fancy-menu-start">
-                                                    <p class="rbt-fancy-text rbt-text-color-white">Discover special
-                                                        online offers from NBC.
-                                                        <a class="rbt-text-color-white" href="{{ route('shop') }}">Shop
-                                                            Now</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="rbt-verticle-arrow rbt-text-color-white rbt-arrow-prev">
-                                            <i class="fa-regular fa-chevron-up"></i>
-                                        </div>
-                                        <div class="rbt-verticle-arrow rbt-text-color-white rbt-arrow-next">
-                                            <i class="fa-regular fa-chevron-down"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="icon-close position-right">
-                    <button class="rbt-round-btn btn-white-off bgsection-activation" aria-label="Close Button">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
+            @include('partials.top-banner')
             <div class="rbt-wrapper-middle rbt-header-middle-one @@has-bg-transparent">
                 <div class="rbt-fullwidth-wrapper">
                     <div class="mainbar-row @@navigationEnd align-items-center">
@@ -334,65 +279,7 @@
         <a href="javascript:void(0);" class="close_search_dropdown"></a>
         <div
             class="rbt-header-common-sticky-activation rbt-header-wrapper-common justify-content-between nbc-shop-header">
-            <div
-                class="rbt-header-campaign rbt-header-campaign-1 rbt-header-top-news rbt-topbar-bg-img rbt-topbar-bg-one w-100">
-                <div class="rbt-corner-portion-wrapper">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="inner justify-content-center">
-                                    <div class="rbt-text-swiper-container rbt-arrow-vertical">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
-                                                    <p class="rbt-fancy-text rbt-text-color-white">Top products.
-                                                        Better prices
-                                                        -under Rs. 100.
-                                                        <a class="rbt-text-color-white"
-                                                            href="{{ route('shop') }}">Shop Now</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
-                                                    <p class="rbt-fancy-text rbt-text-color-white">Top products.
-                                                        Better prices
-                                                        -under Rs. 100.
-                                                        <a class="rbt-text-color-white"
-                                                            href="{{ route('shop') }}">Shop Now</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="rbt-fancy-item fancy-menu-text fancy-menu-center">
-                                                    <p class="rbt-fancy-text rbt-text-color-white">Top products.
-                                                        Better prices
-                                                        -under Rs. 100.
-                                                        <a class="rbt-text-color-white"
-                                                            href="{{ route('shop') }}">Shop Now</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="rbt-verticle-arrow rbt-text-color-white rbt-arrow-prev">
-                                            <i class="fa-regular fa-chevron-up"></i>
-                                        </div>
-                                        <div class="rbt-verticle-arrow rbt-text-color-white rbt-arrow-next">
-                                            <i class="fa-regular fa-chevron-down"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="icon-close position-right">
-                    <button class="rbt-round-btn btn-white-off bgsection-activation" aria-label="Close Button">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
+            @include('partials.top-banner')
             <div class="rbt-fullwidth-wrapper">
                 <div class="mainbar-row rbt-mainbar-row-md-height @@navigationEnd align-items-center">
                     <div class="header-left">

@@ -273,6 +273,9 @@ class CheckoutController extends Controller
 
             'payment_method' => ['required', 'string', 'in:' . implode(',', $allowedMethods)],
             'notes' => ['nullable', 'string', 'max:1000'],
+            'is_gift' => ['nullable', 'boolean'],
+            'gift_note' => ['nullable', 'string', 'max:500'],
+            'gift_hide_bill' => ['nullable', 'boolean'],
             'payment_slip' => ['nullable', 'file', 'mimes:jpeg,png,jpg,webp,pdf', 'max:4096'],
         ]);
 
@@ -306,6 +309,12 @@ class CheckoutController extends Controller
             $slipPath = 'uploads/slips/' . $filename;
         }
 
+        // Gift options only apply when the customer marked the order as a gift.
+        $isGift = $request->boolean('is_gift');
+        $validated['is_gift'] = $isGift;
+        $validated['gift_note'] = $isGift ? (trim((string) ($validated['gift_note'] ?? '')) ?: null) : null;
+        $validated['gift_hide_bill'] = $isGift && $request->boolean('gift_hide_bill');
+
         $order = DB::transaction(function () use ($validated, $sameAsBilling, $cart, $subtotal, $shippingFee, $slipPath) {
             $order = Order::create([
                 'order_number' => $this->generateOrderNumber(),
@@ -331,6 +340,9 @@ class CheckoutController extends Controller
                 'delivery_country' => $sameAsBilling ? $validated['billing_country'] : $validated['delivery_country'],
 
                 'notes' => $validated['notes'] ?? null,
+                'is_gift' => $validated['is_gift'],
+                'gift_note' => $validated['gift_note'],
+                'gift_hide_bill' => $validated['gift_hide_bill'],
                 'payment_method' => $validated['payment_method'],
                 'payment_status' => 'pending',
                 'payment_slip' => $slipPath,

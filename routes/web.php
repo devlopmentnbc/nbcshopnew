@@ -86,6 +86,9 @@ Route::post('/admin/logout', [AdminAuthController::class, 'adminLogout'])->name(
 use App\Http\Controllers\Admin\ShippingSettingController;
 use App\Http\Controllers\Admin\HomeStorySettingController;
 use App\Http\Controllers\Admin\HomeBrandsSettingController;
+use App\Http\Controllers\Admin\TopBannerSettingController;
+use App\Http\Controllers\Admin\ProductBenefitsSettingController;
+use App\Http\Controllers\Admin\HomePopupSettingController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\ReportController;
@@ -153,6 +156,18 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     // Home page "Our trusted Brands" section background image
     Route::get('settings/home-brands', [HomeBrandsSettingController::class, 'index'])->name('settings.home-brands.index');
     Route::post('settings/home-brands', [HomeBrandsSettingController::class, 'update'])->name('settings.home-brands.update');
+
+    // Scrolling announcement banner at the top of every storefront page
+    Route::get('settings/top-banner', [TopBannerSettingController::class, 'index'])->name('settings.top-banner.index');
+    Route::post('settings/top-banner', [TopBannerSettingController::class, 'update'])->name('settings.top-banner.update');
+
+    // Benefit badges under the price on the product details page
+    Route::get('settings/product-benefits', [ProductBenefitsSettingController::class, 'index'])->name('settings.product-benefits.index');
+    Route::post('settings/product-benefits', [ProductBenefitsSettingController::class, 'update'])->name('settings.product-benefits.update');
+
+    // Promo popup shown when visitors open the home page
+    Route::get('settings/home-popup', [HomePopupSettingController::class, 'index'])->name('settings.home-popup.index');
+    Route::post('settings/home-popup', [HomePopupSettingController::class, 'update'])->name('settings.home-popup.update');
 
     // Featured Products (Best Sellers & New Arrivals)
     Route::get('featured/best-sellers', [FeaturedProductController::class, 'bestSellers'])->name('featured.best-sellers');

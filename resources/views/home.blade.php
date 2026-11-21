@@ -892,4 +892,5 @@
 
     <!-- Start Footer aera -->
 
+    @include('partials.home-popup')
 @endsection

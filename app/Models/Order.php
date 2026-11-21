@@ -32,6 +32,9 @@ class Order extends Model
         'delivery_postal_code',
         'delivery_country',
         'notes',
+        'is_gift',
+        'gift_note',
+        'gift_hide_bill',
         'payment_method',
         'payment_status',
         'payment_slip',
@@ -50,6 +53,8 @@ class Order extends Model
 
     protected $casts = [
         'delivery_same_as_billing' => 'boolean',
+        'is_gift' => 'boolean',
+        'gift_hide_bill' => 'boolean',
         'subtotal_lkr' => 'decimal:2',
         'shipping_fee_lkr' => 'decimal:2',
         'total_lkr' => 'decimal:2',
