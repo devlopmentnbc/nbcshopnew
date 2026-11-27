@@ -4805,3 +4805,40 @@ body {
         right: 8px;
     }
 }
+
+/* Mobile hero: show the whole banner image at full screen width (no cropping).
+   The active slide sits in normal flow so its image sets the banner height;
+   the other slides stay stacked on top of it for the fade. */
+@media (max-width: 767px) {
+    .nbc-home-hero .rbt-product-banner.nbc-hero-banner {
+        background-image: none !important;
+        min-height: 0 !important;
+    }
+    .nbc-home-hero .nbc-hero-banner .rbt-banner-inner {
+        display: none;
+    }
+    .nbc-home-hero .nbc-hero-slides {
+        position: relative;
+        inset: auto;
+    }
+    .nbc-home-hero .nbc-hero-slide {
+        height: 100% !important;
+        inset: 0 !important;
+        position: absolute !important;
+    }
+    .nbc-home-hero .nbc-hero-slide.is-active {
+        height: auto !important;
+        position: relative !important;
+    }
+    .nbc-home-hero .nbc-hero-slide picture,
+    .nbc-home-hero .nbc-hero-slide img,
+    .nbc-home-hero img.nbc-hero-slide {
+        height: auto !important;
+        width: 100% !important;
+    }
+    .nbc-home-hero .nbc-hero-slide img,
+    .nbc-home-hero img.nbc-hero-slide {
+        display: block;
+        object-fit: contain !important;
+    }
+}

@@ -71,7 +71,7 @@ class HomeController extends Controller
         $brands = \App\Support\Catalog::brands()
             ->each(fn ($brand) => $brand->products_count = \App\Support\Catalog::productCount($brand))
             ->filter(fn ($brand) => $brand->products_count > 0)
-            ->sortByDesc('products_count')
+            ->sortBy([['sort_order', 'asc'], ['id', 'asc']])  // Admin-defined brand order
             ->values();
 
         $categories = \App\Support\Catalog::menu()['categories'];

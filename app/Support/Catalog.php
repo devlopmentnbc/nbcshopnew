@@ -129,7 +129,7 @@ class Catalog
 
             $brands = self::brands()
                 ->filter(fn ($b) => self::productCount($b) > 0)
-                ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)
+                ->sortBy([['sort_order', 'asc'], ['id', 'asc']])
                 ->values();
 
             return compact('brands', 'categories');

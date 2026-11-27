@@ -21,12 +21,14 @@ class Brand extends Model
         'h1_heading',
         'image',
         'status',
+        'sort_order',
     ];
 
     protected function casts(): array
     {
         return [
             'status' => 'boolean',
+            'sort_order' => 'integer',
         ];
     }
 

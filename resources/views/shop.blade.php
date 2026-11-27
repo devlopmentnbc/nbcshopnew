@@ -83,17 +83,11 @@
                                         <a href="{{ \App\Support\Catalog::listingUrl(\Illuminate\Support\Arr::except($filters, ['category', 'sub_category'])) }}"
                                             class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ !$activeCategory ? 'fw-bold text-success' : 'text-dark' }}">
                                             <span>All Categories</span>
-                                            @unless ($activeCategory)
-                                                <span
-                                                    class="badge bg-light text-dark rounded-pill">{{ $products->total() }}</span>
-                                            @endunless
                                         </a>
                                         @foreach ($categories as $cat)
                                             <a href="{{ \App\Support\Catalog::listingUrl(array_merge(\Illuminate\Support\Arr::except($filters, ['sub_category']), ['category' => $cat->slug])) }}"
                                                 class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ $activeCategory?->is($cat) ? 'fw-bold text-success' : 'text-dark' }}">
                                                 <span>{{ $cat->name }}</span>
-                                                <span
-                                                    class="badge bg-light text-dark rounded-pill">{{ $cat->products_count }}</span>
                                             </a>
                                         @endforeach
                                     </div>
@@ -122,8 +116,6 @@
                                             <a href="{{ \App\Support\Catalog::listingUrl(array_merge($filters, ['brand' => $b->slug])) }}"
                                                 class="d-flex justify-content-between align-items-center text-decoration-none py-1 small {{ $brand?->is($b) ? 'fw-bold text-success' : 'text-dark' }}">
                                                 <span>{{ $b->name }}</span>
-                                                <span
-                                                    class="badge bg-light text-dark rounded-pill">{{ $b->products_count }}</span>
                                             </a>
                                         @endforeach
                                     </div>

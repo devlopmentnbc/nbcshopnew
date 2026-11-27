@@ -103,6 +103,7 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->gr
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::post('brands/reorder', [BrandController::class, 'reorder'])->name('brands.reorder');
     Route::resource('brands', BrandController::class);
     Route::resource('banners', BannerController::class);
     Route::post('categories/reorder', [CategoryController::class, 'reorder'])->name('categories.reorder');

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\ValidationException;
 
 class BrandController extends Controller
 {
@@ -22,7 +24,10 @@ class BrandController extends Controller
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $brands = $query->latest()->paginate(10)->withQueryString();
+        $brands = $query
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get();
 
         return view('admin.brands.index', compact('brands'));
     }
@@ -75,6 +80,7 @@ class BrandController extends Controller
             'h1_heading' => $request->filled('h1_heading') ? trim($request->input('h1_heading')) : null,
             'image' => $imagePath,
             'status' => $request->has('status') ? (bool) $request->status : true,
+            'sort_order' => ((int) Brand::max('sort_order')) + 1,  // New brands go to the end of the list
         ]);
 
         return redirect()->route('admin.brands.index')->with('success', 'Brand created successfully.');
@@ -150,5 +156,32 @@ class BrandController extends Controller
         $brand->delete();
 
         return redirect()->route('admin.brands.index')->with('success', 'Brand deleted successfully.');
+    }
+
+    /**
+     * Update brand order after dragging.
+     */
+    public function reorder(Request $request)
+    {
+        $validated = $request->validate([
+            'brands' => ['required', 'array'],
+            'brands.*' => ['required', 'integer', 'distinct', 'exists:brands,id'],
+        ]);
+
+        $brandIds = Brand::orderBy('sort_order')->orderBy('id')->pluck('id');
+        $submittedIds = collect($validated['brands'])->map(fn ($id) => (int) $id);
+
+        if ($submittedIds->sort()->values()->all() !== $brandIds->sort()->values()->all()) {
+            throw ValidationException::withMessages([
+                'brands' => 'The complete brand list is required to save its order.',
+            ]);
+        }
+
+        DB::transaction(function () use ($submittedIds) {
+            $submittedIds->each(fn ($id, $index) => Brand::whereKey($id)
+                ->update(['sort_order' => $index + 1]));
+        });
+
+        return response()->json(['message' => 'Brand order updated.']);
     }
 }

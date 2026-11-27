@@ -112,7 +112,7 @@ class ShopController extends Controller
         $brands = Catalog::brands()
             ->each(fn ($b) => $b->products_count = Catalog::productCount($b))
             ->filter(fn ($b) => $b->products_count > 0 || $b->is($brand))
-            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)
+            ->sortBy([['sort_order', 'asc'], ['id', 'asc']])
             ->values();
 
         $categories = Catalog::categories()
